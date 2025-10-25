@@ -110,7 +110,7 @@ def password_change_action(request):
 # -----------------------------
 def password_reset_page(request):
  
-    return render(request, 'accounts/password_reset.html')
+    return render(request, 'password_reset.html')
 
 def password_reset_action(request):
    
