@@ -4,4 +4,4 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def dashboard(request):
-    return HttpResponse("Accounts app is working!")
+    return HttpResponse("Checkout app is working!")

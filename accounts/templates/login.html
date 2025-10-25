@@ -1,5 +1,5 @@
 <h2>Login</h2>
-<form method="POST">
+<form method="POST" action="{% url 'login_action' %}">
   {% csrf_token %}
   <label>Username:</label><br>
   <input type="text" name="username" required><br><br>
@@ -14,4 +14,4 @@
   <p>{{ message }}</p>
 {% endfor %}
 
-<p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+<p><a href=" ">Forgot password?</a></p>
