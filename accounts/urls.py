@@ -24,4 +24,11 @@ urlpatterns = [
     # PASSWORD RESET CONFIRM
     path('reset/<str:token>/', views.password_reset_confirm_page, name='password_reset_confirm_page'),
     path('reset/<str:token>/action/', views.password_reset_confirm_action, name='password_reset_confirm_action'),
+
+
+ 
+ 
+  
+ 
+
 ]

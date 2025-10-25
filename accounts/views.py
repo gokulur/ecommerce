@@ -163,3 +163,5 @@ def password_reset_confirm_action(request, token):
         del password_reset_tokens[token]
         messages.success(request, "Password reset successful! Please login.")
         return redirect('login_page')
+
+ 

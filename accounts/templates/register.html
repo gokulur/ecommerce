@@ -1,24 +1,186 @@
-<h2>Register</h2>
-<form method="POST" action="{% url 'register_action' %}">
-  {% csrf_token %}
-  <label>Username:</label><br>
-  <input type="text" name="username" required><br><br>
+{% extends 'base.html' %}
 
-  <label>Email:</label><br>
-  <input type="email" name="email" required><br><br>
+{% block title %}Register{% endblock %}
 
-    <label>phone:</label><br>
-  <input type="number" name="phone" required><br><br>
+{% block content %}
 
-  <label>Password:</label><br>
-  <input type="password" name="password" required><br><br>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
 
-  <label>Confirm Password:</label><br>
-  <input type="password" name="confirm_password" required><br><br>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-  <button type="submit">Register</button>
-</form>
+  body {
+    background-color: #f5f5f5; /* light gray background */
+    font-family: "Open Sans", sans-serif;
+    color: #111; /* dark text */
+  }
 
+  img {
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    display: block;
+  }
+
+  a {
+    margin-left: 30px;
+    color: #111;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #444;
+  }
+
+  .modernForm {
+    max-width: 1200px;
+    display: flex;
+    margin: 30px auto;
+    background-color: #fff; /* white form background */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .imageSection {
+    flex-basis: 50%;
+    position: relative;
+    color: white;
+ 
+  }
+
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* dark overlay */
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    z-index: 0;
+  }
+
+  .textInside {
+    position: absolute;
+    bottom: 200px;
+    right: 50px;
+    color: #fff;
+  }
+
+  .textInside h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .textInside .tagLine {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .contactForm {
+    flex-basis: 45%;
+    margin: auto;
+    color: #111;
+    padding: 40px 30px;
+  }
+
+  .contactForm h1 {
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  input[type="email"],
+  input[type="text"],
+  input[type="password"],
+  input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  input[type="submit"] {
+    background-color: #111; /* black button */
+    font-size: 1rem;
+    border: none;
+    color: white;
+    padding: 12px 50px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #444; /* dark gray hover */
+  }
+
+  @media only screen and (max-width: 768px) {
+    .modernForm {
+      flex-wrap: wrap;
+    }
+
+    .imageSection,
+    .contactForm {
+      flex-basis: 100%;
+    }
+
+    .overlay,
+    img {
+      border-radius: 10px 10px 0 0;
+    }
+
+    .contactForm {
+      padding: 30px;
+    }
+  }
+</style>
+
+<div class="modernForm">
+  <div class="imageSection">
+    <div class="image">
+      <div class="overlay"></div>
+      <img src="https://images.pexels.com/photos/1895015/pexels-photo-1895015.jpeg" alt="pexels-yuri-manei-2272854">
+    </div>
+    <div class="textInside">
+      <h1>Bring Your Music Along</h1>
+      <p class="tagLine">try Unlimited</p>
+    </div>
+  </div>
+
+  <div class="contactForm">
+    <h1>Registration</h1>
+    <form method="POST" action="{% url 'register_action' %}">
+      {% csrf_token %}
+      <label for="username">username:</label>
+      <input type="text" name="username" id="username" placeholder="Ex: Lindsey" required />
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" placeholder="you@example.com" required />
+
+      <label for="number">Phone Number:</label>
+      <input type="number" name="phone" id="number" placeholder="1234567890" required />
+
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required />
+
+      <label for="confirm_password">Confirm Password:</label>
+      <input type="password" name="confirm_password" id="confirm_password" required />
+
+      <input type="submit" value="Register">
+    </form>
+  </div>
+</div>
+
+{% endblock %}
 {% for message in messages %}
-  <p>{{ message }}</p>
+<p>{{ message }}</p>
 {% endfor %}
