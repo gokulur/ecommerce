@@ -27,7 +27,7 @@
   }
 
   a {
-    margin-left: 30px;
+     
     color: #111;
     font-weight: 600;
     text-decoration: none;
@@ -164,7 +164,7 @@
       <input type="text" name="username" id="username" placeholder="Ex: Lindsey" required />
       <label for="password">Password:</label>
       <input type="password" name="password" id="password" required />
-
+      <a href="">dont have an account? Register here</a> <br><br>
       <input type="submit" value="Login">
     </form>
   </div>
@@ -175,21 +175,3 @@
 <p>{{ message }}</p>
 {% endfor %}
 
-
-<!-- <h2>Login</h2>
-<form method="POST" action="{% url 'login_action' %}">
-  {% csrf_token %}
-  <label>Username:</label><br>
-  <input type="text" name="username" required><br><br>
-
-  <label>Password:</label><br>
-  <input type="password" name="password" required><br><br>
-
-  <button type="submit">Login</button>
-</form> -->
-
-{% for message in messages %}
-  <p>{{ message }}</p>
-{% endfor %}
-
-<p><a href=" ">Forgot password?</a></p>
