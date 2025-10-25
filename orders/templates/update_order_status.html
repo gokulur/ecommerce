@@ -1,0 +1,11 @@
+<h2>Update Order #{{ order.id }} Status</h2>
+<form method="POST" action="{% url 'update_order_status_action' order.id %}">
+  {% csrf_token %}
+  <select name="status">
+    {% for key, value in order.ORDER_STATUS %}
+      <option value="{{ key }}" {% if order.status == key %}selected{% endif %}>{{ value }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Update</button>
+</form>
+<a href="{% url 'order_detail_page' order.id %}">Back to Order</a>
