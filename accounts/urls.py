@@ -26,8 +26,10 @@ urlpatterns = [
     path('reset/<str:token>/action/', views.password_reset_confirm_action, name='password_reset_confirm_action'),
 
 
- 
- 
+    # OTP VERIFICATION
+    path('verify-otp/', views.verify_otp_page, name='verify_otp_page'),
+    path('verify-otp/action/', views.verify_otp_action, name='verify_otp_action'),
+
   
  
 

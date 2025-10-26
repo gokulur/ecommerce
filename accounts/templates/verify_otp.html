@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Password Change{% endblock %}
+{% block title %}Email Verification{% endblock %}
 
 {% block content %}
 
@@ -157,25 +157,19 @@
   </div>
 
   <div class="contactForm">
-    <h1>Change Password</h1>
-    <form method="POST" action="{% url 'password_change' %}">
+    <h1>Email Verification</h1>
+    <form method="POST" action="{% url 'verify_otp_action' %}">
       {% csrf_token %}
-      <label for="old_password">Old Password:</label>
-      <input type="password" name="old_password" id="old_password" required />
-
-      <label for="new_password">New Password:</label>
-      <input type="password" name="new_password" id="new_password" required />
-
-      <label for="confirm_password">Confirm New Password:</label>
-      <input type="password" name="confirm_password" id="confirm_password" required />
-
-      <input type="submit" value="Change Password">
+      <label for="otp">Enter OTP sent to your email:</label>
+      <input type="text" name="otp" id="otp" placeholder="Ex: 123456" required />
+      <input type="submit" value="Verify">
     </form>
   </div>
 </div>
 
 {% endblock %}
-
 {% for message in messages %}
-  <p>{{ message }}</p>
+<p>{{ message }}</p>
 {% endfor %}
+
+ 

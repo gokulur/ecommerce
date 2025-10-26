@@ -4,9 +4,16 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 import secrets
-
+import random
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import EmailOTP
+ 
+ 
+ 
 # Temporary storage for password reset tokens
 password_reset_tokens = {}
+
 
 # -----------------------------
 # REGISTER
@@ -16,7 +23,6 @@ def register_page(request):
     return render(request, 'register.html')
 
 def register_action(request):
-  
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -36,13 +42,59 @@ def register_action(request):
             messages.error(request, "Email already exists!")
             return redirect('register_page')
 
+       
         user = User.objects.create_user(username=username, email=email, password=password)
+        user.is_active = False
+        user.save()
+
+      
         if hasattr(user, 'profile'):
             user.profile.phone = phone
             user.profile.save()
 
-        messages.success(request, "Account created successfully! Please login.")
-        return redirect('login_page')
+ 
+        otp = str(random.randint(100000, 999999))
+
+        EmailOTP.objects.update_or_create(user=user, defaults={'otp': otp})
+
+        subject = "Your Account Verification OTP"
+        message = f"Hello {username},\n\nYour OTP for account verification is: {otp}\n\nDo not share this code with anyone.\n\nThank you!"
+        send_mail(subject, message, settings.EMAIL_HOST_USER, [email])
+
+        request.session['pending_user'] = username
+        messages.info(request, "OTP sent to your email. Please verify to activate your account.")
+        return redirect('verify_otp_page')
+    
+# -----------------------------
+# verify otp
+# -----------------------------
+
+
+def verify_otp_page(request):
+    return render(request, 'verify_otp.html')
+
+def verify_otp_action(request):
+    if request.method == 'POST':
+        otp_entered = request.POST.get('otp')
+        username = request.session.get('pending_user')
+
+        if not username:
+            messages.error(request, "Session expired. Please register again.")
+            return redirect('register_page')
+
+        user = User.objects.get(username=username)
+        saved_otp = EmailOTP.objects.get(user=user).otp
+
+        if otp_entered == saved_otp:
+            user.is_active = True
+            user.save()
+            EmailOTP.objects.filter(user=user).delete()
+            del request.session['pending_user']
+            messages.success(request, "Account verified successfully! Please login.")
+            return redirect('login_page')
+        else:
+            messages.error(request, "Invalid OTP. Try again.")
+            return redirect('verify_otp_page')
 
 # -----------------------------
 # LOGIN
