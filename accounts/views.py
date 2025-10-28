@@ -8,11 +8,13 @@ import random
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import EmailOTP
- 
- 
+from django.utils import timezone
+from datetime import timedelta 
+from django.contrib.auth.decorators import login_required, user_passes_test
  
 # Temporary storage for password reset tokens
 password_reset_tokens = {}
+print(password_reset_tokens)
 
 
 # -----------------------------
@@ -104,19 +106,27 @@ def login_page(request):
     return render(request,'login.html')
 
 def login_action(request):
-   
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        
         user = authenticate(request, username=username, password=password)
 
         if user:
             login(request, user)
             messages.success(request, f"Welcome {username}!")
-            return redirect('/')
+
+    
+            if user.is_superuser or user.is_staff:
+                return redirect('admin_dashboard')   
+            else:
+                return redirect('home')  
+
         else:
             messages.error(request, "Invalid username or password!")
             return redirect('login_page')
+
+    return redirect('login_page')
 
 # -----------------------------
 # LOGOUT
@@ -132,7 +142,7 @@ def logout_action(request):
 @login_required
 def password_change_page(request):
     
-    return render(request, 'accounts/password_change.html')
+    return render(request, 'password_change.html')
 
 @login_required
 def password_change_action(request):
@@ -161,50 +171,72 @@ def password_change_action(request):
 # PASSWORD RESET
 # -----------------------------
 def password_reset_page(request):
- 
     return render(request, 'password_reset.html')
 
+
 def password_reset_action(request):
-   
     if request.method == 'POST':
         email = request.POST.get('email')
 
         try:
             user = User.objects.get(email=email)
             token = secrets.token_urlsafe(16)
-            password_reset_tokens[token] = user.username
+
+            # Store with expiry time
+            password_reset_tokens[token] = {
+                "username": user.username,
+                "expires_at": timezone.now() + timedelta(minutes=15)   
+            }
 
             reset_link = f"http://127.0.0.1:8000/accounts/reset/{token}/"
-            print("Password reset link:", reset_link)  # demo only
 
-            messages.success(request, "Password reset link sent! (Check console)")
+            # Send email
+            subject = "Password Reset Request"
+            message = f"Hello {user.username},\n\nWe received a request to reset your password.\nClick the link below to set a new password:\n\n{reset_link}\n\nIf you didn’t request this, please ignore this email.\n\nThis link will expire in 15 minutes."
+            send_mail(subject, message, settings.EMAIL_HOST_USER, [email])
+
+            messages.success(request, "Password reset link sent to your email!")
             return redirect('password_reset_page')
+
         except User.DoesNotExist:
             messages.error(request, "No account found with that email!")
             return redirect('password_reset_page')
+
 
 # -----------------------------
 # PASSWORD RESET CONFIRM
 # -----------------------------
 def password_reset_confirm_page(request, token):
-   
+    """Show reset password form if token valid"""
     if token not in password_reset_tokens:
         messages.error(request, "Invalid or expired token!")
         return redirect('password_reset_page')
-    return render(request, 'accounts/password_reset_confirm.html', {'token': token})
+
+    return render(request, 'password_reset_confirm.html', {'token': token})
+
 
 def password_reset_confirm_action(request, token):
-    """POST: process reset"""
+    """POST: handle new password form submission"""
     if token not in password_reset_tokens:
         messages.error(request, "Invalid or expired token!")
         return redirect('password_reset_page')
 
     username = password_reset_tokens[token]
-    user = User.objects.get(username=username)
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        messages.error(request, "User not found!")
+        del password_reset_tokens[token]
+        return redirect('password_reset_page')
 
     if request.method == 'POST':
         new_password = request.POST.get('new_password')
         confirm_password = request.POST.get('confirm_password')
+
+        if not new_password or not confirm_password:
+            messages.error(request, "All fields are required!")
+            return redirect('password_reset_confirm_page', token=token)
 
         if new_password != confirm_password:
             messages.error(request, "Passwords do not match!")
@@ -212,8 +244,24 @@ def password_reset_confirm_action(request, token):
 
         user.set_password(new_password)
         user.save()
+
+        # delete used token
         del password_reset_tokens[token]
-        messages.success(request, "Password reset successful! Please login.")
+
+        messages.success(request, "Password reset successful! Please log in.")
         return redirect('login_page')
 
+    return redirect('password_reset_confirm_page', token=token)
+
+
+
  
+ #-----------------------------
+# ADMIN DASHBOARD
+# -----------------------------
+
+
+@login_required
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def admin_dashboard(request):
+    return render(request, 'admin_dashboard.html')

@@ -30,7 +30,8 @@ urlpatterns = [
     path('verify-otp/', views.verify_otp_page, name='verify_otp_page'),
     path('verify-otp/action/', views.verify_otp_action, name='verify_otp_action'),
 
-  
+    # ADMIN DASHBOARD
+    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
  
 
 ]

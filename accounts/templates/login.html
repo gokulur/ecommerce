@@ -164,7 +164,8 @@
       <input type="text" name="username" id="username" placeholder="Ex: Lindsey" required />
       <label for="password">Password:</label>
       <input type="password" name="password" id="password" required />
-      <a href="">dont have an account? Register here</a> <br><br>
+      <a href="">dont have an account? Register here</a> <br> 
+      <a href="{% url 'password_reset_page' %}">Forgot Password?</a> <br><br>
       <input type="submit" value="Login">
     </form>
   </div>
