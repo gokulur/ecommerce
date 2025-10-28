@@ -11,8 +11,7 @@ from .models import EmailOTP
 from django.utils import timezone
 from datetime import timedelta 
 from django.contrib.auth.decorators import login_required, user_passes_test
- 
-# Temporary storage for password reset tokens
+from django.urls import reverse
 password_reset_tokens = {}
 print(password_reset_tokens)
 
@@ -118,7 +117,7 @@ def login_action(request):
 
     
             if user.is_superuser or user.is_staff:
-                return redirect('admin_dashboard')   
+                 return redirect(reverse('admin_dashboard'))
             else:
                 return redirect('home')  
 
@@ -256,12 +255,4 @@ def password_reset_confirm_action(request, token):
 
 
  
- #-----------------------------
-# ADMIN DASHBOARD
-# -----------------------------
 
-
-@login_required
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def admin_dashboard(request):
-    return render(request, 'admin_dashboard.html')

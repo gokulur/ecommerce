@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Products</h2>
+<a href="{% url 'admin_product_add' %}">+ Add Product</a>
+<table border="1">
+<tr><th>ID</th><th>Name</th><th>Price</th><th>Actions</th></tr>
+{% for p in products %}
+<tr>
+  <td>{{ p.id }}</td>
+  <td>{{ p.name }}</td>
+  <td>{{ p.price }}</td>
+  <td>
+    <a href="{% url 'admin_product_edit' p.id %}">Edit</a> |
+    <a href="{% url 'admin_product_delete' p.id %}">Delete</a>
+  </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
