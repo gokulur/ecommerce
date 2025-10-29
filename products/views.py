@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Product
 
-# Create your views here.
-from django.http import HttpResponse
+def product_list(request):
+    products = Product.objects.filter(available=True).order_by('-created_at')
+    return render(request, 'product_list.html', {'products': products})
 
-def dashboard(request):
-    return HttpResponse("Products app is working!")
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug, available=True)
+    return render(request, 'product_detail.html', {'product': product})

@@ -86,7 +86,7 @@ def product_delete(request, pk):
 @user_passes_test(admin_only)
 def order_list(request):
     orders = Order.objects.all().select_related('user')
-    return render(request, 'adminpanel/order_list.html', {'orders': orders})
+    return render(request, 'order_list.html', {'orders': orders})
 
 
 @login_required
