@@ -1,5 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product
+from .models import Product, Collection
+
+def collection_list(request):
+    collections = Collection.objects.all()
+    return render(request, 'collection_list.html', {'collections': collections})
+
+
 
 def product_list(request):
     products = Product.objects.filter(available=True).order_by('-created_at')
