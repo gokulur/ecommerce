@@ -3,34 +3,46 @@
 {% block content %}
 <div class="main-panel  ">
     <div class="content-wrapper">
-    
+
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Default form</h4>
-                        <p class="card-description"> Basic form layout </p>
-                        <form class="forms-sample">
+                        <h4 class="card-title">{% if product %}Edit Product{% else %}Add Product{% endif %}</h4>
+                        <!-- <p class="card-description"> Basic form layout </p> -->
+                        <form class="forms-sample"
+                            action="{% if product %}{% url 'admin_product_edit' product.id %}{% else %}{% url 'admin_product_add' %}{% endif %}"
+                            method="POST" enctype="multipart/form-data">
+
+                            {% csrf_token %}
                             <div class="form-group mb-4">
-                                <label for="exampleInputUsername1">Username</label>
-                                <input type="text" class="form-control" id="exampleInputUsername1"
-                                    placeholder="Username">
+                                <label for="exampleInputUsername1">Name:</label>
+                                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Name"
+                                    name="name" value="{{ product.name|default:'' }}">
                             </div>
-                            <div class="form-group mb-4">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                            <div class="form-group">
+                                <label for="exampleTextarea1">Description:</label>
+                                <textarea placeholder="Description" class="form-control" id="exampleTextarea1" rows="4"
+                                    name="description">{{ product.description|default:'' }}</textarea>
                             </div>
                             <div class="form-group mb-4 ">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1"
-                                    placeholder="Password">
+                                <label for="exampleInputPassword1">Price</label>
+                                <input type="text" name="price" value="{{ product.price|default:'' }}"
+                                    class="form-control" id="exampleInputPassword1" placeholder="Price">
                             </div>
-                            <div class="form-group mb-4">
-                                <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                                <input type="password" class="form-control" id="exampleInputConfirmPassword1"
-                                    placeholder="Password">
+                            <div class="form-group mb-4 ">
+                                <label>Image</label>
+                                <input type="file" name="image" class="file-upload-default" style="display:none;">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled
+                                        placeholder="Upload Image">
+                                    <span class="input-group-append">
+                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                    </span>
+                                </div>
                             </div>
-                          
+
+
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                             <button class="btn btn-dark">Cancel</button>
                         </form>
@@ -40,5 +52,21 @@
         </div>
     </div>
 </div>
- 
+<script>
+    document.querySelectorAll('.file-upload-browse').forEach(button => {
+        button.addEventListener('click', function () {
+            const fileInput = this.closest('.form-group').querySelector('.file-upload-default');
+            fileInput.click();
+        });
+    });
+
+    document.querySelectorAll('.file-upload-default').forEach(input => {
+        input.addEventListener('change', function () {
+            const fileName = this.value.split('\\').pop();
+            this.closest('.form-group').querySelector('.file-upload-info').value = fileName;
+        });
+    });
+</script>
+
+
 {% endblock %}

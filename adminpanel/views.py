@@ -35,7 +35,7 @@ def admin_dashboard(request):
 @user_passes_test(admin_only)
 def product_list(request):
     products = Product.objects.all()
-    return render(request, 'adminpanel/product_list.html', {'products': products})
+    return render(request, 'product_list.html', {'products': products})
 
 
 @login_required
@@ -69,7 +69,7 @@ def product_edit(request, pk):
         messages.success(request, "Product updated successfully!")
         return redirect('admin_product_list')
 
-    return render(request, 'adminpanel/product_form.html', {'product': product})
+    return render(request, 'product_form.html', {'product': product})
 
 
 @login_required
