@@ -1,0 +1,71 @@
+{% extends 'admin_dashboard.html' %}
+{% block content %}
+<div class="main-panel">
+  <div class="content-wrapper">
+
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">All Collections</h4>
+          <!-- <p class="card-description"> Add class <code>.table-striped</code> -->
+          </p>
+          <div class="table-responsive">
+            <table class="table  table-hover">
+              <thead>
+                <tr>
+                  <th> Image </th>
+                  <th> Name </th>
+                  <th> Description </th>
+                  <th> Price </th>
+                  <th> Created At </th>
+                  <th> Actions </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for c in collections %}
+                <tr>
+                  <td class="py-1">
+                    {% if c.image %}
+                    <img src="{{ c.image.url }}" alt="{{ c.name }}" class="rounded"
+                      style="width: 50px; height: 50px; object-fit: cover;">
+                    {% else %}
+                    <span class="text-muted">No image</span>
+                    {% endif %}
+                  </td>
+
+                  <td>{{ c.name }}</td>
+                  <td class="text-truncate" style="max-width: 200px;">{{ c.description }}</td>
+                  <td><strong>${{ c.price }}</strong></td>
+                  <td>{{ c.created_at|date:"M d, Y" }}</td>
+
+                  <td  >
+                     
+                      <!-- Edit Button -->
+                      <a href="{% url 'collection_edit' c.id %}" class="btn btn-sm btn-outline-success"
+                        data-toggle="tooltip" data-placement="top" title="Edit Collection">
+                        <i class="mdi mdi-pencil"></i>
+                      </a>
+
+                      <!-- Delete Button -->
+                      <a href="{% url 'collection_delete' c.id %}" class="btn btn-sm btn-outline-danger"
+                        onclick="return confirm('Are you sure you want to delete {{ c.name }}?')" data-toggle="tooltip"
+                        data-placement="top" title="Delete Collection">
+                        <i class="mdi mdi-delete"></i>
+                      </a>
+           
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+

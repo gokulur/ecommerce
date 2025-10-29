@@ -1,0 +1,83 @@
+{% extends 'admin_dashboard.html' %}
+{% block content %}
+
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Customers</h4>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th> ID </th>
+                  <th> Username </th>
+                  <th> Email </th>
+                  <th> Date Joined </th>
+                  <th> Last Login </th>
+                  <th> Status </th>
+                  <th> Actions </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for c in customers %}
+                <tr>
+                  <td>#{{ c.id }}</td>
+                  <td>{{ c.username }}</td>
+                  <td>{{ c.email }}</td>
+                  <td>{{ c.date_joined|date:"M d, Y" }}</td>
+                  <td>
+                    {% if c.last_login %}
+                      {{ c.last_login|date:"M d, Y H:i" }}
+                    {% else %}
+                      <span class="text-muted">Never</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if c.is_active %}
+                      <span class="badge badge-success">Active</span>
+                    {% else %}
+                      <span class="badge badge-danger">Inactive</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href=" " 
+                       class="btn btn-sm btn-outline-info" 
+                       data-toggle="tooltip" 
+                       title="View Customer Details">
+                      <i class="mdi mdi-eye"></i>
+                    </a>
+
+                    <a href=" " 
+                       class="btn btn-sm btn-outline-warning"
+                       onclick="return confirm('Toggle active status for {{ c.username }}?')"
+                       data-toggle="tooltip" 
+                       title="Activate/Deactivate">
+                      <i class="mdi mdi-account-switch"></i>
+                    </a>
+
+                    <a href=" " 
+                       class="btn btn-sm btn-outline-danger"
+                       onclick="return confirm('Are you sure you want to delete {{ c.username }}?')"
+                       data-toggle="tooltip"
+                       title="Delete Customer">
+                      <i class="mdi mdi-delete"></i>
+                    </a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="7" class="text-center text-muted">No customers found</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
