@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="no-js" dir="ltr" lang="en" xo-money-format="${{amount}}" xo-money-with-currency-format="${{amount}} USD">
+<html class="no-js" dir="ltr" lang="en" xo-money-format="₹{{amount}}" xo-money-with-currency-format="₹{{amount}} USD">
 
 <head>
   <meta charset="utf-8" />
@@ -8,17 +8,17 @@
   <meta content="width=device-width,initial-scale=1" name="viewport" />
   <meta content="" name="theme-color" />
   <link href="{% url 'home' %}" rel="canonical" />
-  
+
   <script>
     window.Xotiny = {
       version: '1.0.0',
       name: 'Engo',
     };
   </script>
-  
+
   <link href="{% static 'cdn/shop/files/favicon.png' %}" rel="icon" type="image/png" />
-  <title>ecommerce</title>
-  
+  <title>{% block title %}Home{% endblock %}</title>
+
   <meta content="ecommerce" property="og:site_name" />
   <meta content="ecommerce" property="og:title" />
   <meta content="website" property="og:type" />
@@ -27,19 +27,19 @@
   <meta content="summary_large_image" name="twitter:card" />
   <meta content="ecommerce" name="twitter:title" />
   <meta content="ecommerce" name="twitter:description" />
-  
+
   <script>
     window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.start');
   </script>
-  
+
   <meta content="noindex,nofollow" name="robots" />
-  
+
   <script async="async" src="{% static 'checkouts/internal/preloads.js' %}"></script>
-  
+
   <script id="shopify-features" type="application/json">
     {"accessToken":"afb23f91f8ed940e0353278be484ef77","betas":["rich-media-storefront-analytics"],"predictiveSearch":true,"locale":"en"}
   </script>
-  
+
   <script>
     var Shopify = Shopify || {};
     Shopify.shop = "borcen-store-newdemo.myshopify.com";
@@ -50,14 +50,15 @@
     Shopify.routes = Shopify.routes || {};
     Shopify.routes.root = "/";
   </script>
-  
+
   <script type="module">
-    !function(o) { (o.Shopify = o.Shopify || {}).modules = !0 }(window);
+    !function (o) { (o.Shopify = o.Shopify || {}).modules = !0 }(window);
   </script>
-  
+
   <script async="async" defer="defer" src="{% static 'cdn/shopifycloud/shop-js/client.js' %}"></script>
-  <script crossorigin="" defer="" id="hot-reload-client" src="{% static 'cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js' %}"></script>
-  
+  <script crossorigin="" defer="" id="hot-reload-client"
+    src="{% static 'cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js' %}"></script>
+
   <style data-shopify="">
     :root,
     .color-background-1 {
@@ -341,7 +342,7 @@
       --variant-pills-shadow-blur-radius: px;
     }
   </style>
-  
+
   <script>
     window.settings = {
       animate_duration: 500,
@@ -365,26 +366,26 @@ Scheme 2: Scheme 4`,
       cart_free_shipping_min_amount: 600,
     }
   </script>
-  
+
   <link href="{% static 'cdn/shop/t/6/assets/xo-webcomponents.min.css' %}" media="all" rel="stylesheet" type="text/css">
   <link href="{% static 'cdn/shop/t/6/assets/main.css' %}" media="all" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap" rel="stylesheet" />
-  
+
   <script>
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     if (Shopify.designMode) {
       document.documentElement.classList.add('shopify-design-mode');
     }
   </script>
-  
+
   <script defer src="{% static 'cdn/shop/t/6/assets/xo-webcomponents.min.js' %}"></script>
   <script defer src="{% static 'cdn/shop/t/6/assets/vendors.js' %}"></script>
   <script defer src="{% static 'cdn/shop/t/6/assets/main.js' %}"></script>
-  
+
   <!-- Judge.me Reviews Integration -->
   <script async src="https://cdn.judge.me/shopify_widget.js"></script>
-  
+
   <style>
     .jdgm-xx {
       left: 0
@@ -430,41 +431,23 @@ Scheme 2: Scheme 4`,
       -moz-osx-font-smoothing: grayscale
     }
   </style>
-  
-  <script async="async" id="scb4127" src="{% static 'cdn/shopifycloud/privacy-banner/storefront-banner.js' %}" type="text/javascript"></script>
-  <script defer="defer" src="{% static 'shopifycloud/preview-bar/preview-bar-modules.js' %}" type="text/javascript"></script>
-  
+
+  <script async="async" id="scb4127" src="{% static 'cdn/shopifycloud/privacy-banner/storefront-banner.js' %}"
+    type="text/javascript"></script>
+  <script defer="defer" src="{% static 'shopifycloud/preview-bar/preview-bar-modules.js' %}"
+    type="text/javascript"></script>
+
   <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "Organization",
-    "name": "Borcen - Perfume Store Shopify 2.0 Theme",
-    "sameAs": [],
-    "url": "{{ request.build_absolute_uri }}"
-  }
-  </script>
-  
-  <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Borcen - Perfume Store Shopify 2.0 Theme",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "{{ request.build_absolute_uri }}/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    },
-    "url": "{{ request.build_absolute_uri }}"
-  }
-  </script>
+
+
 </head>
 
-{% load static %}
+
 
 <body class="gradient">
   <div id="xo-root">
-    <a class="xo-btn xo-btn--light xo-btn--secondary xo-btn--xo-skip-to-content xo-visually-hidden xo-btn--slide-up xo-skip-to-content xo-visually-hidden" href="#xo-main-content">
+    <a class="xo-btn xo-btn--light xo-btn--secondary xo-btn--xo-skip-to-content xo-visually-hidden xo-btn--slide-up xo-skip-to-content xo-visually-hidden"
+      href="#xo-main-content">
       <span class="xo-btn__content">
         <span class="xo-btn__text" data-text="Skip to content">Skip to content</span>
       </span>
@@ -474,73 +457,88 @@ Scheme 2: Scheme 4`,
         </div>
       </span>
     </a>
-    
+
     <!-- Header Section -->
     <div class="shopify-section shopify-section-group-header-group section-header">
       <header class="header-v24">
         <xo-sticky style="z-index: 10000; height: unset" xo-direction="down">
-          <xo-animate class="xo-header header-v24__sticky color-background-1" style="--bg-color: #ffffff;--margin: 0;" xo-type="fade-up">
+          <xo-animate class="xo-header header-v24__sticky color-background-1" style="--bg-color: #ffffff;--margin: 0;"
+            xo-type="fade-up">
             <xo-animate class="header-bg" xo-disabled="" xo-duration="1000">
               <xo-parallax class="header-bg-image__item" xo-lerp-ease="0.4">
-                <xo-parallax-scroll class="header-bg-image__url xo-background-lazyload" xo-keyframes="{'0%': { backgroundPositionY: '200px' },'100%': { backgroundPositionY: '-200px' }}"></xo-parallax-scroll>
+                <xo-parallax-scroll class="header-bg-image__url xo-background-lazyload"
+                  xo-keyframes="{'0%': { backgroundPositionY: '200px' },'100%': { backgroundPositionY: '-200px' }}"></xo-parallax-scroll>
               </xo-parallax>
             </xo-animate>
-            
+
             <xo-container class="xo-container--box">
               <xo-grid>
                 <div class="header-v24__logo" style="--xs: 4; --xl: 2;">
                   <a class="header-v24__logo-desktop" href="{% url 'home' %}">
-                    <img alt="Borcen - Perfume Store" height="auto" src="{% static 'cdn/shop/files/logo.png' %}" style="width: 150px; height: 48.89502762430939px" width="auto" />
+                    <img alt="Riha Zain" height="auto" src="{% static 'cdn/shop/files/riha-zain.png' %}"
+                      style="width: 150px; height: 48.89502762430939px" width="auto" />
                   </a>
                   <a class="header-v24__logo-mobile" href="{% url 'home' %}">
-                    <img alt="Borcen - Perfume Store" height="auto" src="{% static 'cdn/shop/files/logo.png' %}" style="width: 100px; height: 32.59668508287293px" width="auto" />
+                    <img alt="Riha Zain" height="auto" src="{% static 'cdn/shop/files/riha-zain.png' %}"
+                      style="width: 100px; height: 32.59668508287293px" width="auto" />
                   </a>
                 </div>
-                
+
                 <nav class="header-v24__navigation" style="--xs: 4; --order-xs: -1; --xl: 6; --order-xl: 0">
                   <!-- Desktop Navigation -->
                   <div class="header-v24__navigation-desktop">
                     <ul class="xo-menu-horizontal list-unstyled xo-menu-horizontal--hover" role="list">
                       <li class="xo-menu-horizontal__item xo-menu-horizontal__item--hover" style="--padding:3rem">
-                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="0" xo-name="header-mega-menu"></xo-mega-menu>
+                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="0"
+                          xo-name="header-mega-menu"></xo-mega-menu>
                         <a class="xo-menu-horizontal__link" href="{% url 'home' %}" title="Home">
                           <span class="xo-menu-horizontal__label">Home</span>
                         </a>
                       </li>
                       <li class="xo-menu-horizontal__item xo-menu-horizontal__item--hover" style="--padding:3rem">
-                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="1" xo-name="header-mega-menu"></xo-mega-menu>
+                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="1"
+                          xo-name="header-mega-menu"></xo-mega-menu>
                         <a class="xo-menu-horizontal__link" href=" " title="Shops">
                           <span class="xo-menu-horizontal__label">Shops</span>
                         </a>
                       </li>
                       <li class="xo-menu-horizontal__item xo-menu-horizontal__item--hover" style="--padding:3rem">
-                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="2" xo-name="header-mega-menu"></xo-mega-menu>
+                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="2"
+                          xo-name="header-mega-menu"></xo-mega-menu>
                         <a class="xo-menu-horizontal__link" href=" " title="Products">
                           <span class="xo-menu-horizontal__label">Products</span>
                         </a>
                       </li>
                       <li class="xo-menu-horizontal__item xo-menu-horizontal__item--hover" style="--padding:3rem">
-                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="3" xo-name="header-mega-menu"></xo-mega-menu>
+                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="3"
+                          xo-name="header-mega-menu"></xo-mega-menu>
                         <a class="xo-menu-horizontal__link" href=" " title="Blog">
                           <span class="xo-menu-horizontal__label">Blog</span>
                         </a>
                       </li>
                       <li class="xo-menu-horizontal__item xo-menu-horizontal__item--hover" style="--padding:3rem">
-                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="4" xo-name="header-mega-menu"></xo-mega-menu>
+                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="4"
+                          xo-name="header-mega-menu"></xo-mega-menu>
                         <a class="xo-menu-horizontal__link" href="#" title="Pages">
                           <span class="xo-menu-horizontal__label">Pages</span>
                         </a>
-                        <ul class="xo-menu-horizontal__sub-menu list-unstyled color-background-1" role="list" style="--submenu-bg-color: #ffffff; --submenu-bg-gradient: ;">
-                          <li class="xo-menu-horizontal__item xo-menu-horizontal__item--child xo-menu-horizontal__item--hover">
+                        <ul class="xo-menu-horizontal__sub-menu list-unstyled color-background-1" role="list"
+                          style="--submenu-bg-color: #ffffff; --submenu-bg-gradient: ;">
+                          <li
+                            class="xo-menu-horizontal__item xo-menu-horizontal__item--child xo-menu-horizontal__item--hover">
                             <a class="xo-menu-horizontal__link" href="#">
                               <span class="xo-menu-horizontal__child-label">About</span>
                               <span class="xo-menu-horizontal__child-arrow">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1.5rem" xmlns="http://www.w3.org/2000/svg">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="2" viewBox="0 0 24 24" width="1.5rem"
+                                  xmlns="http://www.w3.org/2000/svg">
                                   <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
                               </span>
                             </a>
-                            <ul class="xo-menu-horizontal__sub-menu xo-menu-horizontal__sub-menu--grandchild list-unstyled" role="list" style="--submenu-bg-color: #ffffff; --submenu-bg-gradient: ;">
+                            <ul
+                              class="xo-menu-horizontal__sub-menu xo-menu-horizontal__sub-menu--grandchild list-unstyled"
+                              role="list" style="--submenu-bg-color: #ffffff; --submenu-bg-gradient: ;">
                               <li class="xo-menu-horizontal__item xo-menu-horizontal__item--grandchild">
                                 <a class="xo-menu-horizontal__link" href=" ">
                                   <span class="xo-menu-horizontal__grandchild-label">About Us #1</span>
@@ -563,16 +561,21 @@ Scheme 2: Scheme 4`,
                               </li>
                             </ul>
                           </li>
-                          <li class="xo-menu-horizontal__item xo-menu-horizontal__item--child xo-menu-horizontal__item--hover">
+                          <li
+                            class="xo-menu-horizontal__item xo-menu-horizontal__item--child xo-menu-horizontal__item--hover">
                             <a class="xo-menu-horizontal__link" href="#">
                               <span class="xo-menu-horizontal__child-label">Contact</span>
                               <span class="xo-menu-horizontal__child-arrow">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1.5rem" xmlns="http://www.w3.org/2000/svg">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="2" viewBox="0 0 24 24" width="1.5rem"
+                                  xmlns="http://www.w3.org/2000/svg">
                                   <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
                               </span>
                             </a>
-                            <ul class="xo-menu-horizontal__sub-menu xo-menu-horizontal__sub-menu--grandchild list-unstyled" role="list" style="--submenu-bg-color: #ffffff; --submenu-bg-gradient: ;">
+                            <ul
+                              class="xo-menu-horizontal__sub-menu xo-menu-horizontal__sub-menu--grandchild list-unstyled"
+                              role="list" style="--submenu-bg-color: #ffffff; --submenu-bg-gradient: ;">
                               <li class="xo-menu-horizontal__item xo-menu-horizontal__item--grandchild">
                                 <a class="xo-menu-horizontal__link" href=" ">
                                   <span class="xo-menu-horizontal__grandchild-label">Contact Us #1</span>
@@ -590,7 +593,8 @@ Scheme 2: Scheme 4`,
                               </li>
                             </ul>
                           </li>
-                          <li class="xo-menu-horizontal__item xo-menu-horizontal__item--child xo-menu-horizontal__item--hover">
+                          <li
+                            class="xo-menu-horizontal__item xo-menu-horizontal__item--child xo-menu-horizontal__item--hover">
                             <a class="xo-menu-horizontal__link" href=" ">
                               <span class="xo-menu-horizontal__child-label">Faqs</span>
                             </a>
@@ -599,31 +603,43 @@ Scheme 2: Scheme 4`,
                       </li>
                     </ul>
                   </div>
-                  
+
                   <!-- Mobile Navigation -->
                   <div class="header-v24__navigation-mobile">
                     <!-- Desktop Hamburger Menu -->
-                    <xo-modal-trigger class="xo-menu-hamburger__trigger xo-menu-hamburger__trigger--desktop" xo-name="xo-menu-hamburger">
+                    <xo-modal-trigger class="xo-menu-hamburger__trigger xo-menu-hamburger__trigger--desktop"
+                      xo-name="xo-menu-hamburger">
                       <div class="xo-menu-hamburger__icon"></div>
                     </xo-modal-trigger>
-                    
-                    <xo-modal class="menu-hamburger-drawer-desktop" style="--top:" xo-animate="slide-right" xo-backdrop-color="rgba(0, 0, 0, 0.2)" xo-duration="1000" xo-name="xo-menu-hamburger" xo-placement="top-left" xo-portal="">
-                      <div class="menu-hamburger-drawer-desktop__content color-background-1" style="--drawer-bg-color: #ffffff; --drawer-bg-gradient: ;">
+
+                    <xo-modal class="menu-hamburger-drawer-desktop" style="--top:" xo-animate="slide-right"
+                      xo-backdrop-color="rgba(0, 0, 0, 0.2)" xo-duration="1000" xo-name="xo-menu-hamburger"
+                      xo-placement="top-left" xo-portal="">
+                      <div class="menu-hamburger-drawer-desktop__content color-background-1"
+                        style="--drawer-bg-color: #ffffff; --drawer-bg-gradient: ;">
                         <div>
-                          <xo-modal-trigger class="xo-menu-hamburger__trigger xo-menu-hamburger__trigger--close" xo-name="xo-menu-hamburger">
+                          <xo-modal-trigger class="xo-menu-hamburger__trigger xo-menu-hamburger__trigger--close"
+                            xo-name="xo-menu-hamburger">
                             <div aria-label="Close" class="xo-menu-hamburger__icon"></div>
                           </xo-modal-trigger>
                           <a class="menu-hamburger-drawer-desktop__logo" href="{% url 'home' %}">
-                            <img alt="Borcen - Perfume Store" height="auto" src="{% static 'cdn/shop/files/logo.png' %}" style="width: 150px; height: 48.89502762430939px" width="auto" />
+                            <img alt="Borcen - Perfume Store" height="auto" src="{% static 'cdn/shop/files/logo.png' %}"
+                              style="width: 150px; height: 48.89502762430939px" width="auto" />
                           </a>
-                          
-                          <ul class="menu-hamburger-drawer-desktop__list list-unstyled menu-hamburger-drawer-desktop--hover" role="list">
+
+                          <ul
+                            class="menu-hamburger-drawer-desktop__list list-unstyled menu-hamburger-drawer-desktop--hover"
+                            role="list">
                             <li class="menu-hamburger-drawer-desktop__item menu-hamburger-drawer-desktop__item--hover">
-                              <xo-mega-menu class="menu-hamburger-drawer-desktop__mega-menu" xo-index="0" xo-name="header-mega-menu"></xo-mega-menu>
+                              <xo-mega-menu class="menu-hamburger-drawer-desktop__mega-menu" xo-index="0"
+                                xo-name="header-mega-menu"></xo-mega-menu>
                               <a class="menu-hamburger-drawer-desktop__link" href="{% url 'home' %}" title="Home">
                                 <span class="menu-hamburger-drawer-desktop__label">Home</span>
-                                <span class="menu-hamburger-drawer-desktop__arrow menu-hamburger-drawer-desktop__arrow--mega-menu">
-                                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1.5rem" xmlns="http://www.w3.org/2000/svg">
+                                <span
+                                  class="menu-hamburger-drawer-desktop__arrow menu-hamburger-drawer-desktop__arrow--mega-menu">
+                                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" viewBox="0 0 24 24" width="1.5rem"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                   </svg>
                                 </span>
@@ -632,7 +648,7 @@ Scheme 2: Scheme 4`,
                             <!-- Similar structure for Shops, Products, Blog, Pages with Django URLs -->
                           </ul>
                         </div>
-                        
+
                         <!-- Desktop Drawer Search -->
                         <div class="menu-hamburger-drawer-desktop__search">
                           <form action=" " method="get" role="search">
@@ -645,7 +661,9 @@ Scheme 2: Scheme 4`,
                                 <svg viewBox="0 0 400 400" width="24" xmlns="http://www.w3.org/2000/svg">
                                   <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
                                     <g transform="scale(0.1)">
-                                      <path d="m 1312.7,795.5 c -472.7,0 -857.204,384.3 -857.204,856.7 0,472.7 384.504,857.2 857.204,857.2 472.7,0 857.3,-384.5 857.3,-857.2 0,-472.4 -384.6,-856.7 -857.3,-856.7 z M 2783.9,352.699 2172.7,963.898 c 155.8,194.702 241.5,438.602 241.5,688.302 0,607.3 -494.1,1101.4 -1101.5,1101.4 -607.302,0 -1101.399,-494.1 -1101.399,-1101.4 0,-607.4 494.097,-1101.501 1101.399,-1101.501 249.8,0 493.5,85.5 687.7,241 L 2611.7,181 c 23,-23 53.6,-35.699 86.1,-35.699 32.4,0 63,12.699 86,35.699 23.1,22.801 35.8,53.301 35.8,85.898 0,32.602 -12.7,63 -35.7,85.801" fill="rgba(var(--color-foreground))"></path>
+                                      <path
+                                        d="m 1312.7,795.5 c -472.7,0 -857.204,384.3 -857.204,856.7 0,472.7 384.504,857.2 857.204,857.2 472.7,0 857.3,-384.5 857.3,-857.2 0,-472.4 -384.6,-856.7 -857.3,-856.7 z M 2783.9,352.699 2172.7,963.898 c 155.8,194.702 241.5,438.602 241.5,688.302 0,607.3 -494.1,1101.4 -1101.5,1101.4 -607.302,0 -1101.399,-494.1 -1101.399,-1101.4 0,-607.4 494.097,-1101.501 1101.399,-1101.501 249.8,0 493.5,85.5 687.7,241 L 2611.7,181 c 23,-23 53.6,-35.699 86.1,-35.699 32.4,0 63,12.699 86,35.699 23.1,22.801 35.8,53.301 35.8,85.898 0,32.602 -12.7,63 -35.7,85.801"
+                                        fill="rgba(var(--color-foreground))"></path>
                                     </g>
                                   </g>
                                 </svg>
@@ -655,24 +673,33 @@ Scheme 2: Scheme 4`,
                         </div>
                       </div>
                     </xo-modal>
-                    
+
                     <!-- Mobile Hamburger Menu Trigger -->
-                    <xo-modal-trigger class="xo-menu-hamburger__trigger xo-menu-hamburger__trigger--mobile" xo-name="xo-menu-hamburger-mobile">
+                    <xo-modal-trigger class="xo-menu-hamburger__trigger xo-menu-hamburger__trigger--mobile"
+                      xo-name="xo-menu-hamburger-mobile">
                       <div class="xo-menu-hamburger__icon"></div>
                     </xo-modal-trigger>
-                    
+
                     <!-- Mobile Drawer -->
-                    <xo-modal class="menu-hamburger-drawer-mobile" style="--top:5rem" xo-animate="slide-right" xo-backdrop-color="rgba(0, 0, 0, 0.2)" xo-duration="1000" xo-name="xo-menu-hamburger-mobile" xo-placement="top-left" xo-portal="">
-                      <div class="menu-hamburger-drawer-mobile__content color-background-1" style="--drawer-bg-color: #ffffff; --drawer-bg-gradient: ;">
+                    <xo-modal class="menu-hamburger-drawer-mobile" style="--top:5rem" xo-animate="slide-right"
+                      xo-backdrop-color="rgba(0, 0, 0, 0.2)" xo-duration="1000" xo-name="xo-menu-hamburger-mobile"
+                      xo-placement="top-left" xo-portal="">
+                      <div class="menu-hamburger-drawer-mobile__content color-background-1"
+                        style="--drawer-bg-color: #ffffff; --drawer-bg-gradient: ;">
                         <!-- Mobile menu utilities -->
                         <div>
                           <div class="menu-hamburger-drawer-mobile__utilities">
                             <a class="menu-hamburger-drawer-mobile__utility" href=" ">
-                              <svg fill="currentColor" height="18" viewBox="0 0 400 400" width="18" xmlns="http://www.w3.org/2000/svg">
+                              <svg fill="currentColor" height="18" viewBox="0 0 400 400" width="18"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
                                   <g transform="scale(0.1)">
-                                    <path d="m 1506.87,2587.11 c -225.04,0 -408.14,-183.08 -408.14,-408.11 0,-225.06 183.1,-408.13 408.14,-408.13 225.02,0 408.13,183.07 408.13,408.13 0,225.03 -183.11,408.11 -408.13,408.11 z m 0,-1038.56 c -347.64,0 -630.432,282.79 -630.432,630.45 0,347.63 282.792,630.43 630.432,630.43 347.63,0 630.42,-282.8 630.42,-630.43 0,-347.66 -282.79,-630.45 -630.42,-630.45 v 0" fill="currentColor"></path>
-                                    <path d="M 399.648,361.789 H 2614.07 c -25.06,261.531 -139.49,503.461 -327.47,689.831 -124.25,123.14 -300.78,193.96 -483.86,193.96 h -591.76 c -183.61,0 -359.601,-70.82 -483.863,-193.96 C 539.148,865.25 424.719,623.32 399.648,361.789 Z M 2730.69,139.461 H 283.035 c -61.558,0 -111.16,49.59 -111.16,111.16 0,363.438 141.68,704 398.32,959.019 165.657,164.55 399.414,258.82 640.785,258.82 h 591.76 c 241.94,0 475.14,-94.27 640.8,-258.82 256.63,-255.019 398.31,-595.581 398.31,-959.019 0,-61.57 -49.59,-111.16 -111.16,-111.16 v 0" fill="currentColor"></path>
+                                    <path
+                                      d="m 1506.87,2587.11 c -225.04,0 -408.14,-183.08 -408.14,-408.11 0,-225.06 183.1,-408.13 408.14,-408.13 225.02,0 408.13,183.07 408.13,408.13 0,225.03 -183.11,408.11 -408.13,408.11 z m 0,-1038.56 c -347.64,0 -630.432,282.79 -630.432,630.45 0,347.63 282.792,630.43 630.432,630.43 347.63,0 630.42,-282.8 630.42,-630.43 0,-347.66 -282.79,-630.45 -630.42,-630.45 v 0"
+                                      fill="currentColor"></path>
+                                    <path
+                                      d="M 399.648,361.789 H 2614.07 c -25.06,261.531 -139.49,503.461 -327.47,689.831 -124.25,123.14 -300.78,193.96 -483.86,193.96 h -591.76 c -183.61,0 -359.601,-70.82 -483.863,-193.96 C 539.148,865.25 424.719,623.32 399.648,361.789 Z M 2730.69,139.461 H 283.035 c -61.558,0 -111.16,49.59 -111.16,111.16 0,363.438 141.68,704 398.32,959.019 165.657,164.55 399.414,258.82 640.785,258.82 h 591.76 c 241.94,0 475.14,-94.27 640.8,-258.82 256.63,-255.019 398.31,-595.581 398.31,-959.019 0,-61.57 -49.59,-111.16 -111.16,-111.16 v 0"
+                                      fill="currentColor"></path>
                                   </g>
                                 </g>
                               </svg>
@@ -682,28 +709,32 @@ Scheme 2: Scheme 4`,
                               <svg version="1.1" viewBox="0 0 400 400" width="18" xmlns="http://www.w3.org/2000/svg">
                                 <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
                                   <g transform="scale(0.1)">
-                                    <path d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6" fill="currentColor"></path>
+                                    <path
+                                      d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6"
+                                      fill="currentColor"></path>
                                   </g>
                                 </g>
                               </svg>
                               <span style="padding-top:0.3rem">Wishlist</span>
                             </a>
                           </div>
-                          
+
                           <!-- Language & Currency Selectors -->
                           <div class="menu-hamburger-drawer-mobile__selects">
                             <xo-language-select class="xo-language-select">
-                              <form accept-charset="UTF-8" action=" " class="xo-language-select__form" enctype="multipart/form-data" method="post">
+                              <form accept-charset="UTF-8" action=" " class="xo-language-select__form"
+                                enctype="multipart/form-data" method="post">
                                 {% csrf_token %}
                                 <input name="form_type" type="hidden" value="localization">
                                 <input name="return_to" type="hidden" value="{% url 'home' %}">
                                 <!-- Language selector content -->
                               </form>
                             </xo-language-select>
-                            
+
                             <div class="menu-hamburger-drawer-mobile__select-item">
                               <span class="menu-hamburger-drawer-mobile__flag">
-                                <img alt="United States" height="15" src="{% static 'images/flags/us.svg' %}" width="20" />
+                                <img alt="United States" height="15" src="{% static 'images/flags/us.svg' %}"
+                                  width="20" />
                               </span>
                               <!-- Currency selector -->
                             </div>
@@ -713,199 +744,214 @@ Scheme 2: Scheme 4`,
                     </xo-modal>
                   </div>
                 </nav>
-              
-<div class="header-v24__utilities-wrap" style="--xs: 4">
-  <div class="header-v24__selector">
-    <!-- Language Selector -->
-    <div class="header-v24__language">
-      <xo-language-select class="xo-language-select">
-        <form accept-charset="UTF-8" action=" " class="xo-language-select__form" enctype="multipart/form-data" method="post">
-          {% csrf_token %}
-          <input name="form_type" type="hidden" value="localization">
-          <input name="return_to" type="hidden" value="{% url 'home' %}" />
-          <xo-popover-trigger class="xo-language-select__trigger" xo-name="localization_form_16">
-            <span>English</span>
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 22" width="15" xmlns="http://www.w3.org/2000/svg">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </xo-popover-trigger>
-          <xo-popover class="xo-language-select__content" xo-name="localization_form_16" xo-placement="bottom-center">
-            <label class="xo-language-select__item">
-              <input checked="" class="xo-language-select__input" name="locale_code" type="radio" value="en" />
-              <span class="xo-language-select__name">English</span>
-            </label>
-            <label class="xo-language-select__item">
-              <input class="xo-language-select__input" name="locale_code" type="radio" value="zh-CN" />
-              <span class="xo-language-select__name">简体中文</span>
-            </label>
-            <label class="xo-language-select__item">
-              <input class="xo-language-select__input" name="locale_code" type="radio" value="fr" />
-              <span class="xo-language-select__name">français</span>
-            </label>
-            <label class="xo-language-select__item">
-              <input class="xo-language-select__input" name="locale_code" type="radio" value="ja" />
-              <span class="xo-language-select__name">日本語</span>
-            </label>
-          </xo-popover>
-        </form>
-      </xo-language-select>
-    </div>
-    
-    <!-- Currency Selector -->
-    <div class="header-v24__currency">
-      <xo-currency-select class="xo-currency-select">
-        <form accept-charset="UTF-8" action=" " class="xo-currency-select__form" enctype="multipart/form-data" method="post">
-          {% csrf_token %}
-          <input name="form_type" type="hidden" value="localization">
-          <input name="return_to" type="hidden" value="{% url 'home' %}">
-          <xo-popover-trigger class="xo-currency-select__trigger" xo-name="localization_form_15">
-            <span>USD</span>
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 22" width="15" xmlns="http://www.w3.org/2000/svg">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </xo-popover-trigger>
-          <xo-popover class="xo-currency-select__content" xo-name="localization_form_15" xo-placement="bottom-center">
-            <label class="xo-currency-select__item">
-              <input class="xo-currency-select__input" name="country_code" type="radio" value="FR" />
-              <span class="xo-currency-select__name">EUR</span>
-            </label>
-            <label class="xo-currency-select__item">
-              <input class="xo-currency-select__input" name="country_code" type="radio" value="JP" />
-              <span class="xo-currency-select__name">JPY</span>
-            </label>
-            <label class="xo-currency-select__item">
-              <input checked="" class="xo-currency-select__input" name="country_code" type="radio" value="US" />
-              <span class="xo-currency-select__name">USD</span>
-            </label>
-          </xo-popover>
-        </form>
-      </xo-currency-select>
-    </div>
-  </div>
-  
-  <!-- Header Utilities -->
-  <div class="header-v24__utilities">
-    <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="Login">
-      <a href=" ">Login</a>
-    </xo-tooltip>
-    
-    <xo-tooltip class="header-v24__icon-wrap" xo-placement="bottom-center" xo-title="Search">
-      <xo-modal-trigger class="header-v24__icon header-v24__icon--search" xo-name="search">
-        <svg viewBox="0 0 400 400" width="24" xmlns="http://www.w3.org/2000/svg">
-          <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-            <g transform="scale(0.1)">
-              <path d="m 1312.7,795.5 c -472.7,0 -857.204,384.3 -857.204,856.7 0,472.7 384.504,857.2 857.204,857.2 472.7,0 857.3,-384.5 857.3,-857.2 0,-472.4 -384.6,-856.7 -857.3,-856.7 z M 2783.9,352.699 2172.7,963.898 c 155.8,194.702 241.5,438.602 241.5,688.302 0,607.3 -494.1,1101.4 -1101.5,1101.4 -607.302,0 -1101.399,-494.1 -1101.399,-1101.4 0,-607.4 494.097,-1101.501 1101.399,-1101.501 249.8,0 493.5,85.5 687.7,241 L 2611.7,181 c 23,-23 53.6,-35.699 86.1,-35.699 32.4,0 63,12.699 86,35.699 23.1,22.801 35.8,53.301 35.8,85.898 0,32.602 -12.7,63 -35.7,85.801" fill="rgba(var(--color-foreground))"></path>
-            </g>
-          </g>
-        </svg>
-      </xo-modal-trigger>
-    </xo-tooltip>
-    
-    <xo-tooltip class="header-v24__icon-wrap header-v24__icon-wrap--desktop" xo-placement="bottom-center" xo-title="Wishlist">
-      <a aria-label="Wishlist" class="header-v24__icon" href=" " title="Wishlist">
-        <svg version="1.1" viewBox="0 0 400 400" width="24" xmlns="http://www.w3.org/2000/svg">
-          <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-            <g transform="scale(0.1)">
-              <path d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6" fill="rgb(var(--color-foreground))"></path>
-            </g>
-          </g>
-        </svg>
-        <xo-products-fetcher-size class="header-v24__wishlist-count" xo-type="wishlist"></xo-products-fetcher-size>
-      </a>
-    </xo-tooltip>
-    
-    <xo-tooltip class="header-v24__icon-wrap" xo-placement="bottom-center" xo-title="Cart">
-      <xo-modal-trigger class="header-v24__icon" xo-name="cart">
-        <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12,0C9.1,0,6.7,2.4,6.7,5.3v1h10.5v-1C17.2,2.4,14.9,0,12,0z M12,1.8c1.6,0,3,1.1,3.4,2.7H8.6C9,2.9,10.4,1.8,12,1.8" fill="rgba(var(--color-foreground))"></path>
-          <g>
-            <path d="M17.6,6.2c0.9,0,1.6,0.7,1.6,1.6v12.9c0,0.9-0.7,1.6-1.6,1.6H6.4c-0.9,0-1.6-0.7-1.6-1.6V7.8c0-0.9,0.7-1.6,1.6-1.6H17.6 M17.6,4.5H6.4C4.5,4.5,3,6,3,7.8v12.9C3,22.5,4.5,24,6.4,24h11.3c1.8,0,3.3-1.5,3.3-3.3V7.8C21,6,19.5,4.5,17.6,4.5L17.6,4.5z" fill="rgba(var(--color-foreground))"></path>
-          </g>
-          <path d="M14.8,8.8H9.2c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h5.7c0.4,0,0.7,0.3,0.7,0.7v0C15.5,8.5,15.2,8.8,14.8,8.8z" fill="rgba(var(--color-foreground))"></path>
-        </svg>
-        <span class="header-v24__cart-count">
-          <xo-cart-size>0</xo-cart-size>
-        </span>
-      </xo-modal-trigger>
-    </xo-tooltip>
-  </div>
-</div>
 
-<!-- Search Modal -->
-<xo-modal class="search" xo-animate="slide-down" xo-autofocus="" xo-name="search" xo-placement="top-left" xo-scroll-disabled="">
-  <div class="xo-modal-content" style="--width: 50rem; --height: 80vh; --header-height: 7rem; --footer-height: 7rem">
-    <div class="xo-modal-content__inner xo-modal-content__inner--full-width">
-      <xo-modal-trigger aria-label="Close" class="xo-modal-content__close xo-modal-content__close--abs">
-        <svg class="m-svg-icon--large" fill="currentColor" stroke="currentColor" viewBox="0 0 320 512" width="15" xmlns="http://www.w3.org/2000/svg">
-          <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-        </svg>
-      </xo-modal-trigger>
-      <div class="xo-modal-content__body">
-        <div class="xo-modal-content__content" style="padding: 0">
-          <div class="xo-section color-background-1" style="--margin: 0;--pt: 40;--pb: 40;">
-            <xo-container class="xo-container--box">
-              <form action=" " method="get" role="search">
-                <div class="xo-predictive-search" data-locales='{"pages": "Pages", "collections": "Collections", "products": "Products", "articles": "Articles"}'>
-                  <xo-animate class="xo-predictive-search__input" xo-cascade="">
-                    <xo-grid class="xo-predictive-search__box">
-                      <div class="xo-predictive-search__left" style="--lg:3">
-                        <a href="{% url 'home' %}">
-                          <img alt="Borcen - Perfume Store" height="auto" src="{% static 'cdn/shop/files/logo.png' %}" style="width: 120px; height: 39.11602209944752px" width="auto" />
-                        </a>
-                      </div>
-                      <div class="xo-predictive-search__center" style="--xs:12 ; --lg: 6">
-                        <label class="xo-field-input">
-                          <input class="xo-field-input__input" data-predictive-search-input="header" id="predictive-search" name="q" placeholder="" type="text" value="" />
-                          <span class="xo-field-input__placeholder">Search</span>
-                        </label>
-                      </div>
-                      <div class="xo-predictive-search__right" style="--lg:3">
-                        <xo-tooltip class="xo-predictive-search__icon-wrap" xo-placement="bottom-center" xo-title="Login">
-                          <a class="xo-predictive-search__search-icon" href=" ">
-                            <!-- SVG icon -->
-                          </a>
-                        </xo-tooltip>
-                        <xo-tooltip class="xo-predictive-search__icon-wrap" xo-placement="bottom-center" xo-title="Wishlist">
-                          <a aria-label="Wishlist" class="xo-predictive-search__search-icon" href=" " title="Wishlist">
-                            <!-- SVG icon -->
-                          </a>
-                        </xo-tooltip>
-                        <xo-tooltip class="xo-predictive-search__icon-wrap" xo-placement="bottom-center" xo-title="Cart">
-                          <xo-modal-trigger class="xo-predictive-search__search-icon" xo-name="cart">
-                            <!-- SVG icon -->
-                          </xo-modal-trigger>
-                        </xo-tooltip>
-                      </div>
-                    </xo-grid>
-                  </xo-animate>
+                <div class="header-v24__utilities-wrap" style="--xs: 4">
+                  <div class="header-v24__selector">
+                    <!-- Language Selector -->
+                    <div class="header-v24__language">
+                      <xo-language-select class="xo-language-select">
+                        <form accept-charset="UTF-8" action=" " class="xo-language-select__form"
+                          enctype="multipart/form-data" method="post">
+                          {% csrf_token %}
+                          <input name="form_type" type="hidden" value="localization">
+                          <input name="return_to" type="hidden" value="{% url 'home' %}" />
+                          <xo-popover-trigger class="xo-language-select__trigger" xo-name="localization_form_16">
+                            <span>English</span>
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="2" viewBox="0 0 24 22" width="15" xmlns="http://www.w3.org/2000/svg">
+                              <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                          </xo-popover-trigger>
+                          <xo-popover class="xo-language-select__content" xo-name="localization_form_16"
+                            xo-placement="bottom-center">
+                            <label class="xo-language-select__item">
+                              <input checked="" class="xo-language-select__input" name="locale_code" type="radio"
+                                value="en" />
+                              <span class="xo-language-select__name">English</span>
+                            </label>
+                            <label class="xo-language-select__item">
+                              <input class="xo-language-select__input" name="locale_code" type="radio" value="zh-CN" />
+                              <span class="xo-language-select__name">简体中文</span>
+                            </label>
+                            <label class="xo-language-select__item">
+                              <input class="xo-language-select__input" name="locale_code" type="radio" value="fr" />
+                              <span class="xo-language-select__name">français</span>
+                            </label>
+                            <label class="xo-language-select__item">
+                              <input class="xo-language-select__input" name="locale_code" type="radio" value="ja" />
+                              <span class="xo-language-select__name">日本語</span>
+                            </label>
+                          </xo-popover>
+                        </form>
+                      </xo-language-select>
+                    </div>
+
+                    <!-- Currency Selector -->
+                    <div class="header-v24__currency">
+                      <xo-currency-select class="xo-currency-select">
+                        <form accept-charset="UTF-8" action=" " class="xo-currency-select__form"
+                          enctype="multipart/form-data" method="post">
+                          {% csrf_token %}
+                          <input name="form_type" type="hidden" value="localization">
+                          <input name="return_to" type="hidden" value="{% url 'home' %}">
+                          <xo-popover-trigger class="xo-currency-select__trigger" xo-name="localization_form_15">
+                            <span>USD</span>
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="2" viewBox="0 0 24 22" width="15" xmlns="http://www.w3.org/2000/svg">
+                              <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                          </xo-popover-trigger>
+                          <xo-popover class="xo-currency-select__content" xo-name="localization_form_15"
+                            xo-placement="bottom-center">
+                            <label class="xo-currency-select__item">
+                              <input class="xo-currency-select__input" name="country_code" type="radio" value="FR" />
+                              <span class="xo-currency-select__name">EUR</span>
+                            </label>
+                            <label class="xo-currency-select__item">
+                              <input class="xo-currency-select__input" name="country_code" type="radio" value="JP" />
+                              <span class="xo-currency-select__name">JPY</span>
+                            </label>
+                            <label class="xo-currency-select__item">
+                              <input checked="" class="xo-currency-select__input" name="country_code" type="radio"
+                                value="US" />
+                              <span class="xo-currency-select__name">USD</span>
+                            </label>
+                          </xo-popover>
+                        </form>
+                      </xo-currency-select>
+                    </div>
+                  </div>
+
+                  <!-- Header Utilities -->
+                  <div class="header-v24__utilities">
+                    <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="Login">
+                      <a href=" ">Login</a>
+                    </xo-tooltip>
+
+                    <xo-tooltip class="header-v24__icon-wrap" xo-placement="bottom-center" xo-title="Search">
+                      <xo-modal-trigger class="header-v24__icon header-v24__icon--search" xo-name="search">
+                        <svg viewBox="0 0 400 400" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                            <g transform="scale(0.1)">
+                              <path
+                                d="m 1312.7,795.5 c -472.7,0 -857.204,384.3 -857.204,856.7 0,472.7 384.504,857.2 857.204,857.2 472.7,0 857.3,-384.5 857.3,-857.2 0,-472.4 -384.6,-856.7 -857.3,-856.7 z M 2783.9,352.699 2172.7,963.898 c 155.8,194.702 241.5,438.602 241.5,688.302 0,607.3 -494.1,1101.4 -1101.5,1101.4 -607.302,0 -1101.399,-494.1 -1101.399,-1101.4 0,-607.4 494.097,-1101.501 1101.399,-1101.501 249.8,0 493.5,85.5 687.7,241 L 2611.7,181 c 23,-23 53.6,-35.699 86.1,-35.699 32.4,0 63,12.699 86,35.699 23.1,22.801 35.8,53.301 35.8,85.898 0,32.602 -12.7,63 -35.7,85.801"
+                                fill="rgba(var(--color-foreground))"></path>
+                            </g>
+                          </g>
+                        </svg>
+                      </xo-modal-trigger>
+                    </xo-tooltip>
+
+                    <xo-tooltip class="header-v24__icon-wrap header-v24__icon-wrap--desktop"
+                      xo-placement="bottom-center" xo-title="Wishlist">
+                      <a aria-label="Wishlist" class="header-v24__icon" href=" " title="Wishlist">
+                        <svg version="1.1" viewBox="0 0 400 400" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                            <g transform="scale(0.1)">
+                              <path
+                                d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6"
+                                fill="rgb(var(--color-foreground))"></path>
+                            </g>
+                          </g>
+                        </svg>
+                        <xo-products-fetcher-size class="header-v24__wishlist-count"
+                          xo-type="wishlist"></xo-products-fetcher-size>
+                      </a>
+                    </xo-tooltip>
+
+                    <xo-tooltip class="header-v24__icon-wrap" xo-placement="bottom-center" xo-title="Cart">
+                      <xo-modal-trigger class="header-v24__icon" xo-name="cart">
+                        <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12,0C9.1,0,6.7,2.4,6.7,5.3v1h10.5v-1C17.2,2.4,14.9,0,12,0z M12,1.8c1.6,0,3,1.1,3.4,2.7H8.6C9,2.9,10.4,1.8,12,1.8"
+                            fill="rgba(var(--color-foreground))"></path>
+                          <g>
+                            <path
+                              d="M17.6,6.2c0.9,0,1.6,0.7,1.6,1.6v12.9c0,0.9-0.7,1.6-1.6,1.6H6.4c-0.9,0-1.6-0.7-1.6-1.6V7.8c0-0.9,0.7-1.6,1.6-1.6H17.6 M17.6,4.5H6.4C4.5,4.5,3,6,3,7.8v12.9C3,22.5,4.5,24,6.4,24h11.3c1.8,0,3.3-1.5,3.3-3.3V7.8C21,6,19.5,4.5,17.6,4.5L17.6,4.5z"
+                              fill="rgba(var(--color-foreground))"></path>
+                          </g>
+                          <path
+                            d="M14.8,8.8H9.2c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h5.7c0.4,0,0.7,0.3,0.7,0.7v0C15.5,8.5,15.2,8.8,14.8,8.8z"
+                            fill="rgba(var(--color-foreground))"></path>
+                        </svg>
+                        <span class="header-v24__cart-count">
+                          <xo-cart-size>0</xo-cart-size>
+                        </span>
+                      </xo-modal-trigger>
+                    </xo-tooltip>
+                  </div>
                 </div>
-              </form>
-            </xo-container>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</xo-modal>
 
-<!-- Mega Menu Templates (Home, Shops, Products) -->
-<template xo-mega-menu-index="0" xo-mega-menu-name="header-mega-menu">
-  <div class="xo-section color-background-1" style="--bg-color: #ffffff;--margin: 0;--pt: 50;--pb: 50;">
-    <xo-container class="xo-container--box">
-      <xo-grid class="mega-menu-v2__grid xo-scrollbar" style="--col-width: 24rem">
-        <div class="mega-menu-v2__item">
-          <a class="mega-menu-v2__img" href=" ">
-            <div class="xo-image" style="--xo-ratio-percent: 0.38921548753294144;">
-              <img alt="Home 1" is="xo-lazyload" loading="lazy" src="{% static 'cdn/shop/files/home1.jpg' %}" width="1920" />
-            </div>
-          </a>
-          <h4><a class="mega-menu-v2__link" href=" ">Home 1</a></h4>
-        </div>
-        <!-- Repeat for other home variations -->
-      </xo-grid>
-    </xo-container>
-  </div>
-</template>
+                <!-- Search Modal -->
+                <xo-modal class="search" xo-animate="slide-down" xo-autofocus="" xo-name="search"
+                  xo-placement="top-left" xo-scroll-disabled="">
+                  <div class="xo-modal-content"
+                    style="--width: 50rem; --height: 80vh; --header-height: 7rem; --footer-height: 7rem">
+                    <div class="xo-modal-content__inner xo-modal-content__inner--full-width">
+                      <xo-modal-trigger aria-label="Close" class="xo-modal-content__close xo-modal-content__close--abs">
+                        <svg class="m-svg-icon--large" fill="currentColor" stroke="currentColor" viewBox="0 0 320 512"
+                          width="15" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                          </path>
+                        </svg>
+                      </xo-modal-trigger>
+                      <div class="xo-modal-content__body">
+                        <div class="xo-modal-content__content" style="padding: 0">
+                          <div class="xo-section color-background-1" style="--margin: 0;--pt: 40;--pb: 40;">
+                            <xo-container class="xo-container--box">
+                              <form action=" " method="get" role="search">
+                                <div class="xo-predictive-search"
+                                  data-locales='{"pages": "Pages", "collections": "Collections", "products": "Products", "articles": "Articles"}'>
+                                  <xo-animate class="xo-predictive-search__input" xo-cascade="">
+                                    <xo-grid class="xo-predictive-search__box">
+                                      <div class="xo-predictive-search__left" style="--lg:3">
+                                        <a href="{% url 'home' %}">
+                                          <img alt="Borcen - Perfume Store" height="auto"
+                                            src="{% static 'cdn/shop/files/logo.png' %}"
+                                            style="width: 120px; height: 39.11602209944752px" width="auto" />
+                                        </a>
+                                      </div>
+                                      <div class="xo-predictive-search__center" style="--xs:12 ; --lg: 6">
+                                        <label class="xo-field-input">
+                                          <input class="xo-field-input__input" data-predictive-search-input="header"
+                                            id="predictive-search" name="q" placeholder="" type="text" value="" />
+                                          <span class="xo-field-input__placeholder">Search</span>
+                                        </label>
+                                      </div>
+                                      <div class="xo-predictive-search__right" style="--lg:3">
+                                        <xo-tooltip class="xo-predictive-search__icon-wrap" xo-placement="bottom-center"
+                                          xo-title="Login">
+                                          <a class="xo-predictive-search__search-icon" href=" ">
+                                            <!-- SVG icon -->
+                                          </a>
+                                        </xo-tooltip>
+                                        <xo-tooltip class="xo-predictive-search__icon-wrap" xo-placement="bottom-center"
+                                          xo-title="Wishlist">
+                                          <a aria-label="Wishlist" class="xo-predictive-search__search-icon" href=" "
+                                            title="Wishlist">
+                                            <!-- SVG icon -->
+                                          </a>
+                                        </xo-tooltip>
+                                        <xo-tooltip class="xo-predictive-search__icon-wrap" xo-placement="bottom-center"
+                                          xo-title="Cart">
+                                          <xo-modal-trigger class="xo-predictive-search__search-icon" xo-name="cart">
+                                            <!-- SVG icon -->
+                                          </xo-modal-trigger>
+                                        </xo-tooltip>
+                                      </div>
+                                    </xo-grid>
+                                  </xo-animate>
+                                </div>
+                              </form>
+                            </xo-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </xo-modal>
+ 
 
     </div>
     <div class="shopify-section shopify-section-group-header-group section-mega-menu"
@@ -1126,72 +1172,79 @@ Scheme 2: Scheme 4`,
       </template>
     </div>
     <!-- END sections: header-group -->
+    {% block content %}
     <main class="content-for-layout focus-none" id="xo-main-content" role="main" tabindex="-1">
       <section id="shopify-section-template--19284046119102__slideshow-v3" class="shopify-section section">
 
-<section class="xo-section--template--19284046119102__slideshow-v3">
-  <xo-carousel xo-render-bullet="&lt;span&gt;&lt;/span&gt;" xo-type="nature" xo-speed="400" xo-loop="" xo-hover-pause="" style="--xo-per-view: 1; --xo-gap: 0px; --xo-speed: 400ms; --xo-pagination-progress: 0%; --xo-mask: url('https://raw.githubusercontent.com/long-hp/storage/main/nature-sprite.png');" xo-mask-initialized="" xo-initialized="">
-    <xo-carousel-inner style="overflow: hidden; height: 900px; transition: height 400ms;">
-      <xo-carousel-list role="list" aria-label="Slider" style="touch-action: none; outline: none;">
-        
-          <xo-carousel-slide aria-roledescription="Slide" aria-label="1 / 2" xo-carousel-slide="" role="tabpanel" xo-active="" xo-center="" xo-visible="">
-            <div class="xo-slideshow  color-inverse" style="--margin: 0;
+        <section class="xo-section--template--19284046119102__slideshow-v3">
+          <xo-carousel xo-render-bullet="&lt;span&gt;&lt;/span&gt;" xo-type="nature" xo-speed="400" xo-loop=""
+            xo-hover-pause=""
+            style="--xo-per-view: 1; --xo-gap: 0px; --xo-speed: 400ms; --xo-pagination-progress: 0%; --xo-mask: url('https://raw.githubusercontent.com/long-hp/storage/main/nature-sprite.png');"
+            xo-mask-initialized="" xo-initialized="">
+            <xo-carousel-inner style="overflow: hidden; height: 900px; transition: height 400ms;">
+              <xo-carousel-list role="list" aria-label="Slider" style="touch-action: none; outline: none;">
+
+                <xo-carousel-slide aria-roledescription="Slide" aria-label="1 / 2" xo-carousel-slide="" role="tabpanel"
+                  xo-active="" xo-center="" xo-visible="">
+                  <div class="xo-slideshow  color-inverse" style="--margin: 0;
 ">
-              
 
 
 
 
 
 
-<xo-animate class="slideshow-bg" xo-disabled="" xo-duration="1000" style="
+
+                    <xo-animate class="slideshow-bg" xo-disabled="" xo-duration="1000" style="
       --img-desktop: url(&quot;//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/s56-1.jpg?v=1757039722&amp;width=100&quot;);
       --img-mobile: url(&quot;//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/s56-1.jpg?v=1757039722&amp;width=100&quot;);
 ">
-  
-        <div class="slideshow-bg-image__item"><div class="slideshow-bg-image__url xo-background-lazyload" style="background-image: url(&quot;https://feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/s56-1.jpg?v=1757039722&amp;width=1920&quot;);"></div></div>
-      
 
-</xo-animate>
+                      <div class="slideshow-bg-image__item">
+                        <div class="slideshow-bg-image__url xo-background-lazyload"
+                          style="background-image: url(&quot;https://feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/s56-1.jpg?v=1757039722&amp;width=1920&quot;);">
+                        </div>
+                      </div>
 
 
-              <xo-container class="xo-container--box">
-                <xo-grid style="
+                    </xo-animate>
+
+
+                    <xo-container class="xo-container--box">
+                      <xo-grid style="
                     --height-desktop: 900;
                     --height-mobile: 500;
                     --pt: 0;
                     --pb: 0;
                   " class="slideshow-v56__content">
-                  
-
-                  
-
-                  <div style="--xs: 12;--md: 6; --start-md:7; --align-items: center; --text-align: center;" class="slideshow-v56__text">
-
-
-
-<xo-animate xo-type="fade-up" xo-duration="700" xo-order="3">
-  <h2 class="slideshow-v56__title" style="--fontsize:6; --fontweight:500">
-                          Whispers Of Perfume
-                        </h2>
-</xo-animate>
 
 
 
 
-<xo-animate xo-type="fade-up" xo-duration="700" xo-order="5">
-  <p class="slideshow-v56__description" style="--fontsize:1.6; --fontweight:400">
-                          The perfect harmony between passion, elegance, and desire
-                        </p>
-</xo-animate>
+                        <div style="--xs: 12;--md: 6; --start-md:7; --align-items: center; --text-align: center;"
+                          class="slideshow-v56__text">
+
+
+
+                          <xo-animate xo-type="fade-up" xo-duration="700" xo-order="3">
+                            <h2 class="slideshow-v56__title" style="--fontsize:6; --fontweight:500">
+                              Whispers Of Perfume
+                            </h2>
+                          </xo-animate>
 
 
 
 
-<xo-animate xo-type="fade-up" xo-duration="700" xo-order="7" xo-strength="3">
-  
+                          <xo-animate xo-type="fade-up" xo-duration="700" xo-order="5">
+                            <p class="slideshow-v56__description" style="--fontsize:1.6; --fontweight:400">
+                              The perfect harmony between passion, elegance, and desire
+                            </p>
+                          </xo-animate>
 
 
+
+
+                          <xo-animate xo-type="fade-up" xo-duration="700" xo-order="7" xo-strength="3">
 
 
 
@@ -1200,164 +1253,184 @@ Scheme 2: Scheme 4`,
 
 
 
-  
-    <a class="xo-btn xo-btn--light xo-btn--tertiary
- xo-btn--sm xo-btn--slide-up" style="border-radius: 0rem;padding-left: 1.4rem; padding-right: 1.4rem;" href="/collections/all">
-      
-  <span class="xo-btn__content">
-     
-    
-    
-      <span class="xo-btn__text" data-text="shop now">
-        shop now
-      </span>
-    
-    
-  </span>
-  <span class="xo-btn__loading">
-    
-
-<div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-  <div></div>
-</div>
-
-  </span>
-
-    </a>
-  
 
 
 
-</xo-animate>
-</div>
 
-<div class="carousel-pagination-style3 slideshow-v56__pagination ">
-  <div class="carousel-pagination-style3__pagination-wrap">
-    <xo-carousel-pagination class="carousel-pagination-style3__pagination">
-        <xo-carousel-bullet xo-index="0" xo-page="1" role="button" tabindex="0" aria-label="Bullet 1" xo-active="">
-          <span></span>
-        </xo-carousel-bullet>
-      
-        <xo-carousel-bullet xo-index="1" xo-page="2" role="button" tabindex="0" aria-label="Bullet 2">
-          <span></span>
-        </xo-carousel-bullet>
-      </xo-carousel-pagination>
-    <xo-carousel-pagination-bullet-active xo-carousel-bullet-selector=".carousel-pagination-style3__pagination xo-carousel-bullet" xo-duration="100" style="--xo-duration: 100ms; opacity: 1; height: 8px; left: 0px; width: 8px;"></xo-carousel-pagination-bullet-active>
-  </div>
-</div>
+                            <a class="xo-btn xo-btn--light xo-btn--tertiary
+ xo-btn--sm xo-btn--slide-up" style="border-radius: 0rem;padding-left: 1.4rem; padding-right: 1.4rem;"
+                              href="/collections/all">
 
-</xo-grid>
-              </xo-container>
-              
-                <div class="slideshow-v56__arrows">
-                  
+                              <span class="xo-btn__content">
 
 
 
-<xo-carousel-prev class="carousel-navigation-style3" aria-label="Slide left">
-  <div class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--left">
-    
-
-<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="15 18 9 12 15 6"></polyline>
-</svg>
+                                <span class="xo-btn__text" data-text="shop now">
+                                  shop now
+                                </span>
 
 
-  </div>
-  <div class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--left">
-    
-
-<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="15 18 9 12 15 6"></polyline>
-</svg>
+                              </span>
+                              <span class="xo-btn__loading">
 
 
-  </div>
-</xo-carousel-prev>
-<xo-carousel-next class="carousel-navigation-style3" aria-label="Slide right">
-  <div class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--right">
-    
+                                <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
+                                  <div></div>
+                                </div>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="9 18 15 12 9 6"></polyline>
-</svg>
+                              </span>
+
+                            </a>
 
 
-  </div>
-  <div class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--right">
-    
-
-<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="9 18 15 12 9 6"></polyline>
-</svg>
 
 
-  </div>
-</xo-carousel-next>
+                          </xo-animate>
+                        </div>
 
-                </div>
-              
-            </div>
-          </xo-carousel-slide>
-        
-          <xo-carousel-slide aria-roledescription="Slide" aria-label="2 / 2" xo-carousel-slide="" role="tabpanel" xo-next="">
-            <div class="xo-slideshow  color-inverse" style="--margin: 0;
+                        <div class="carousel-pagination-style3 slideshow-v56__pagination ">
+                          <div class="carousel-pagination-style3__pagination-wrap">
+                            <xo-carousel-pagination class="carousel-pagination-style3__pagination">
+                              <xo-carousel-bullet xo-index="0" xo-page="1" role="button" tabindex="0"
+                                aria-label="Bullet 1" xo-active="">
+                                <span></span>
+                              </xo-carousel-bullet>
+
+                              <xo-carousel-bullet xo-index="1" xo-page="2" role="button" tabindex="0"
+                                aria-label="Bullet 2">
+                                <span></span>
+                              </xo-carousel-bullet>
+                            </xo-carousel-pagination>
+                            <xo-carousel-pagination-bullet-active
+                              xo-carousel-bullet-selector=".carousel-pagination-style3__pagination xo-carousel-bullet"
+                              xo-duration="100"
+                              style="--xo-duration: 100ms; opacity: 1; height: 8px; left: 0px; width: 8px;"></xo-carousel-pagination-bullet-active>
+                          </div>
+                        </div>
+
+                      </xo-grid>
+                    </xo-container>
+
+                    <div class="slideshow-v56__arrows">
+
+
+
+
+                      <xo-carousel-prev class="carousel-navigation-style3" aria-label="Slide left">
+                        <div
+                          class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--left">
+
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                          </svg>
+
+
+                        </div>
+                        <div
+                          class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--left">
+
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                          </svg>
+
+
+                        </div>
+                      </xo-carousel-prev>
+                      <xo-carousel-next class="carousel-navigation-style3" aria-label="Slide right">
+                        <div
+                          class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--right">
+
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                          </svg>
+
+
+                        </div>
+                        <div
+                          class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--right">
+
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                          </svg>
+
+
+                        </div>
+                      </xo-carousel-next>
+
+                    </div>
+
+                  </div>
+                </xo-carousel-slide>
+
+                <xo-carousel-slide aria-roledescription="Slide" aria-label="2 / 2" xo-carousel-slide="" role="tabpanel"
+                  xo-next="">
+                  <div class="xo-slideshow  color-inverse" style="--margin: 0;
 ">
-              
 
 
 
 
 
 
-<xo-animate class="slideshow-bg" xo-disabled="" xo-duration="1000" style="
+
+                    <xo-animate class="slideshow-bg" xo-disabled="" xo-duration="1000" style="
       --img-desktop: url(&quot;//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/s56-2.jpg?v=1757039722&amp;width=100&quot;);
       --img-mobile: url(&quot;//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/s56-2.jpg?v=1757039722&amp;width=100&quot;);
 ">
-  
-        <div class="slideshow-bg-image__item"><div class="slideshow-bg-image__url xo-background-lazyload" style="background-image: url(&quot;https://feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/s56-2.jpg?v=1757039722&amp;width=1920&quot;);"></div></div>
-      
 
-</xo-animate>
+                      <div class="slideshow-bg-image__item">
+                        <div class="slideshow-bg-image__url xo-background-lazyload"
+                          style="background-image: url(&quot;https://feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/s56-2.jpg?v=1757039722&amp;width=1920&quot;);">
+                        </div>
+                      </div>
 
 
-              <xo-container class="xo-container--box">
-                <xo-grid style="
+                    </xo-animate>
+
+
+                    <xo-container class="xo-container--box">
+                      <xo-grid style="
                     --height-desktop: 900;
                     --height-mobile: 500;
                     --pt: 0;
                     --pb: 0;
                   " class="slideshow-v56__content">
-                  
-
-                  
-
-                  <div style="--xs: 12;--md: 6; --start-md:7; --align-items: center; --text-align: center;" class="slideshow-v56__text">
-
-
-
-<xo-animate xo-type="fade-up" xo-duration="700" xo-order="3">
-  <h2 class="slideshow-v56__title" style="--fontsize:6; --fontweight:500">
-                          Fragrance Beyond Time
-                        </h2>
-</xo-animate>
 
 
 
 
-<xo-animate xo-type="fade-up" xo-duration="700" xo-order="5">
-  <p class="slideshow-v56__description" style="--fontsize:1.6; --fontweight:400">
-                          The perfect harmony between passion, elegance, and desire
-                        </p>
-</xo-animate>
+                        <div style="--xs: 12;--md: 6; --start-md:7; --align-items: center; --text-align: center;"
+                          class="slideshow-v56__text">
+
+
+
+                          <xo-animate xo-type="fade-up" xo-duration="700" xo-order="3">
+                            <h2 class="slideshow-v56__title" style="--fontsize:6; --fontweight:500">
+                              Fragrance Beyond Time
+                            </h2>
+                          </xo-animate>
 
 
 
 
-<xo-animate xo-type="fade-up" xo-duration="700" xo-order="7" xo-strength="3">
-  
+                          <xo-animate xo-type="fade-up" xo-duration="700" xo-order="5">
+                            <p class="slideshow-v56__description" style="--fontsize:1.6; --fontweight:400">
+                              The perfect harmony between passion, elegance, and desire
+                            </p>
+                          </xo-animate>
 
 
+
+
+                          <xo-animate xo-type="fade-up" xo-duration="700" xo-order="7" xo-strength="3">
 
 
 
@@ -1366,113 +1439,130 @@ Scheme 2: Scheme 4`,
 
 
 
-  
-    <a class="xo-btn xo-btn--light xo-btn--tertiary
- xo-btn--sm xo-btn--slide-up" style="border-radius: 0rem;padding-left: 1.4rem; padding-right: 1.4rem;" href="/collections/all">
-      
-  <span class="xo-btn__content">
-     
-    
-    
-      <span class="xo-btn__text" data-text="shop now">
-        shop now
-      </span>
-    
-    
-  </span>
-  <span class="xo-btn__loading">
-    
-
-<div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-  <div></div>
-</div>
-
-  </span>
-
-    </a>
-  
 
 
 
-</xo-animate>
-</div>
 
-<div class="carousel-pagination-style3 slideshow-v56__pagination ">
-  <div class="carousel-pagination-style3__pagination-wrap">
-    <xo-carousel-pagination class="carousel-pagination-style3__pagination">
-        <xo-carousel-bullet xo-index="0" xo-page="1" role="button" tabindex="0" aria-label="Bullet 1" xo-active="">
-          <span></span>
-        </xo-carousel-bullet>
-      
-        <xo-carousel-bullet xo-index="1" xo-page="2" role="button" tabindex="0" aria-label="Bullet 2">
-          <span></span>
-        </xo-carousel-bullet>
-      </xo-carousel-pagination>
-    <xo-carousel-pagination-bullet-active xo-carousel-bullet-selector=".carousel-pagination-style3__pagination xo-carousel-bullet" xo-duration="100" style="--xo-duration: 100ms; opacity: 1; height: 8px; left: 0px; width: 8px;"></xo-carousel-pagination-bullet-active>
-  </div>
-</div>
+                            <a class="xo-btn xo-btn--light xo-btn--tertiary
+ xo-btn--sm xo-btn--slide-up" style="border-radius: 0rem;padding-left: 1.4rem; padding-right: 1.4rem;"
+                              href="/collections/all">
 
-</xo-grid>
-              </xo-container>
-              
-                <div class="slideshow-v56__arrows">
-                  
+                              <span class="xo-btn__content">
 
 
 
-<xo-carousel-prev class="carousel-navigation-style3" aria-label="Slide left">
-  <div class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--left">
-    
-
-<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="15 18 9 12 15 6"></polyline>
-</svg>
+                                <span class="xo-btn__text" data-text="shop now">
+                                  shop now
+                                </span>
 
 
-  </div>
-  <div class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--left">
-    
-
-<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="15 18 9 12 15 6"></polyline>
-</svg>
+                              </span>
+                              <span class="xo-btn__loading">
 
 
-  </div>
-</xo-carousel-prev>
-<xo-carousel-next class="carousel-navigation-style3" aria-label="Slide right">
-  <div class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--right">
-    
+                                <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
+                                  <div></div>
+                                </div>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="9 18 15 12 9 6"></polyline>
-</svg>
+                              </span>
+
+                            </a>
 
 
-  </div>
-  <div class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--right">
-    
-
-<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="9 18 15 12 9 6"></polyline>
-</svg>
 
 
-  </div>
-</xo-carousel-next>
+                          </xo-animate>
+                        </div>
 
-                </div>
-              
-            </div>
-          </xo-carousel-slide>
-        
-      </xo-carousel-list>
-    </xo-carousel-inner>
-  </xo-carousel>
-</section>
+                        <div class="carousel-pagination-style3 slideshow-v56__pagination ">
+                          <div class="carousel-pagination-style3__pagination-wrap">
+                            <xo-carousel-pagination class="carousel-pagination-style3__pagination">
+                              <xo-carousel-bullet xo-index="0" xo-page="1" role="button" tabindex="0"
+                                aria-label="Bullet 1" xo-active="">
+                                <span></span>
+                              </xo-carousel-bullet>
+
+                              <xo-carousel-bullet xo-index="1" xo-page="2" role="button" tabindex="0"
+                                aria-label="Bullet 2">
+                                <span></span>
+                              </xo-carousel-bullet>
+                            </xo-carousel-pagination>
+                            <xo-carousel-pagination-bullet-active
+                              xo-carousel-bullet-selector=".carousel-pagination-style3__pagination xo-carousel-bullet"
+                              xo-duration="100"
+                              style="--xo-duration: 100ms; opacity: 1; height: 8px; left: 0px; width: 8px;"></xo-carousel-pagination-bullet-active>
+                          </div>
+                        </div>
+
+                      </xo-grid>
+                    </xo-container>
+
+                    <div class="slideshow-v56__arrows">
 
 
-</section>
+
+
+                      <xo-carousel-prev class="carousel-navigation-style3" aria-label="Slide left">
+                        <div
+                          class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--left">
+
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                          </svg>
+
+
+                        </div>
+                        <div
+                          class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--left">
+
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                          </svg>
+
+
+                        </div>
+                      </xo-carousel-prev>
+                      <xo-carousel-next class="carousel-navigation-style3" aria-label="Slide right">
+                        <div
+                          class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--right">
+
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                          </svg>
+
+
+                        </div>
+                        <div
+                          class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--right">
+
+
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                          </svg>
+
+
+                        </div>
+                      </xo-carousel-next>
+
+                    </div>
+
+                  </div>
+                </xo-carousel-slide>
+
+              </xo-carousel-list>
+            </xo-carousel-inner>
+          </xo-carousel>
+        </section>
+
+
+      </section>
       <section class="shopify-section section" id="shopify-section-template--19284046119102__collection-v1">
         <section class="xo-section xo-section--template--19284046119102__collection-v1 color-background-1" style="--margin: 0;--pt: 50;--pb: 50;
 ">
@@ -1516,8 +1606,9 @@ Scheme 2: Scheme 4`,
                       <a class="hover-style--scale-up" href="collections/floral.html">
                         <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                             alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Floral.jpg' %}" srcset="{% static 'cdn/shop/files/Floral.jpg' %} 100w" width="400"
-                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
+                            src="{% static 'cdn/shop/files/Floral.jpg' %}"
+                            srcset="{% static 'cdn/shop/files/Floral.jpg' %} 100w" width="400" xo-intrinsic-height="400"
+                            xo-intrinsic-width="400" />
                           <div class="xo-image__overlay xo-lazyload-overlay">
                             <div class="xo-image__loading">
                               <div class="xo-loader-3"
@@ -1540,7 +1631,8 @@ Scheme 2: Scheme 4`,
                       <a class="hover-style--scale-up" href="collections/vanilla.html">
                         <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                             alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Vanilla.jpg' %}" srcset="{% static 'cdn/shop/files/Vanilla.jpg' %} 100w" width="400"
+                            src="{% static 'cdn/shop/files/Vanilla.jpg' %}"
+                            srcset="{% static 'cdn/shop/files/Vanilla.jpg' %} 100w" width="400"
                             xo-intrinsic-height="400" xo-intrinsic-width="400" />
                           <div class="xo-image__overlay xo-lazyload-overlay">
                             <div class="xo-image__loading">
@@ -1564,8 +1656,9 @@ Scheme 2: Scheme 4`,
                       <a class="hover-style--scale-up" href="collections/warm-spicy.html">
                         <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                             alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Warm-_-Spicy.jpg' %}" srcset="{% static 'cdn/shop/files/Warm-_-Spicy.jpg' %} 100w"
-                            width="400" xo-intrinsic-height="400" xo-intrinsic-width="400" />
+                            src="{% static 'cdn/shop/files/Warm-_-Spicy.jpg' %}"
+                            srcset="{% static 'cdn/shop/files/Warm-_-Spicy.jpg' %} 100w" width="400"
+                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
                           <div class="xo-image__overlay xo-lazyload-overlay">
                             <div class="xo-image__loading">
                               <div class="xo-loader-3"
@@ -1588,8 +1681,9 @@ Scheme 2: Scheme 4`,
                       <a class="hover-style--scale-up" href="collections/woody-earthy.html">
                         <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                             alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Woody-_-Earthy.jpg' %}" srcset="{% static 'cdn/shop/files/Woody-_-Earthy.jpg' %} 100w"
-                            width="400" xo-intrinsic-height="400" xo-intrinsic-width="400" />
+                            src="{% static 'cdn/shop/files/Woody-_-Earthy.jpg' %}"
+                            srcset="{% static 'cdn/shop/files/Woody-_-Earthy.jpg' %} 100w" width="400"
+                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
                           <div class="xo-image__overlay xo-lazyload-overlay">
                             <div class="xo-image__loading">
                               <div class="xo-loader-3"
@@ -1612,7 +1706,8 @@ Scheme 2: Scheme 4`,
                       <a class="hover-style--scale-up" href="collections/lavender.html">
                         <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                             alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Lavender.jpg' %}" srcset="{% static 'cdn/shop/files/Lavender.jpg' %} 100w" width="400"
+                            src="{% static 'cdn/shop/files/Lavender.jpg' %}"
+                            srcset="{% static 'cdn/shop/files/Lavender.jpg' %} 100w" width="400"
                             xo-intrinsic-height="400" xo-intrinsic-width="400" />
                           <div class="xo-image__overlay xo-lazyload-overlay">
                             <div class="xo-image__loading">
@@ -1636,8 +1731,9 @@ Scheme 2: Scheme 4`,
                       <a class="hover-style--scale-up" href="collections/fresh.html">
                         <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                             alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Fresh.jpg' %}" srcset="{% static 'cdn/shop/files/Fresh.jpg' %} 100w" width="400"
-                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
+                            src="{% static 'cdn/shop/files/Fresh.jpg' %}"
+                            srcset="{% static 'cdn/shop/files/Fresh.jpg' %} 100w" width="400" xo-intrinsic-height="400"
+                            xo-intrinsic-width="400" />
                           <div class="xo-image__overlay xo-lazyload-overlay">
                             <div class="xo-image__loading">
                               <div class="xo-loader-3"
@@ -1724,8 +1820,9 @@ Scheme 2: Scheme 4`,
                     <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
                       <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                           alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy" sizes="100vw"
-                          src="cdn/shop/files/b9-1.jpg" srcset="cdn/shop/files/b9-1.jpg 100w" width="700"
-                          xo-intrinsic-height="520" xo-intrinsic-width="700" />
+                          src="{% static 'cdn/shop/files/b9-1.jpg' %}"
+                          srcset="{% static 'cdn/shop/files/b9-1.jpg' %} 100w" width="700" xo-intrinsic-height="520"
+                          xo-intrinsic-width="700" />
                         <div class="xo-image__overlay xo-lazyload-overlay">
                           <div class="xo-image__loading">
                             <div class="xo-loader-3"
@@ -1742,8 +1839,9 @@ Scheme 2: Scheme 4`,
                     <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
                       <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                           alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy" sizes="100vw"
-                          src="cdn/shop/files/b9-3.jpg" srcset="cdn/shop/files/b9-3.jpg 100w" width="700"
-                          xo-intrinsic-height="520" xo-intrinsic-width="700" />
+                          src="{% static 'cdn/shop/files/b9-3.jpg' %}"
+                          srcset="{% static 'cdn/shop/files/b9-3.jpg' %} 100w" width="700" xo-intrinsic-height="520"
+                          xo-intrinsic-width="700" />
                         <div class="xo-image__overlay xo-lazyload-overlay">
                           <div class="xo-image__loading">
                             <div class="xo-loader-3"
@@ -1760,7 +1858,7 @@ Scheme 2: Scheme 4`,
                     <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
                       <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                           alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy" sizes="100vw"
-                          src="cdn/shop/files/b9-2.jpg" srcset="cdn/shop/files/b9-2.jpg 100w" width="700"
+                          src="{% static 'cdn/shop/files/b9-2.jpg' %}" srcset="{% static 'cdn/shop/files/b9-2.jpg' %} 100w" width="700"
                           xo-intrinsic-height="520" xo-intrinsic-width="700" />
                         <div class="xo-image__overlay xo-lazyload-overlay">
                           <div class="xo-image__loading">
@@ -1815,9 +1913,10 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Kivra Solen" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="cdn/shop/files/3_55212c90-dbf9-4ee3-be79-7a0808f650bd.jpg"
-                              srcset="cdn/shop/files/3_55212c90-dbf9-4ee3-be79-7a0808f650bd.jpg 100w" width="1000"
-                              xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                              sizes="100vw"
+                              src="{% static 'cdn/shop/files/3_55212c90-dbf9-4ee3-be79-7a0808f650bd.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/3_55212c90-dbf9-4ee3-be79-7a0808f650bd.jpg' %} 100w"
+                              width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -1995,12 +2094,12 @@ z-index:98">
                             <div class="xo-price__sale xo-price__sale--column">
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                               <span class="xo-price__item xo-price__item--accent">
-                                $70.00
+                                ₹70.00
                               </span>
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                               <span class="xo-price__item xo-price__item--del">
 
-                                $80.00
+                                ₹80.00
 
                               </span>
                             </div>
@@ -2050,12 +2149,12 @@ z-index:98">
             
           '
         >
-          $70.00
+          ₹70.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $80.00
+
+              ₹80.00
             
           </span></div>
     
@@ -2113,8 +2212,8 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Zorvi Mivon" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg"
-                              srcset="cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg 100w" width="1000"
+                              sizes="100vw" src="{% static 'cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg' %} 100w" width="1000"
                               xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
@@ -2293,12 +2392,12 @@ z-index:98">
                             <div class="xo-price__sale xo-price__sale--column">
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                               <span class="xo-price__item xo-price__item--accent">
-                                $70.00
+                                ₹70.00
                               </span>
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                               <span class="xo-price__item xo-price__item--del">
 
-                                $80.00
+                                ₹80.00
 
                               </span>
                             </div>
@@ -2348,12 +2447,12 @@ z-index:98">
             
           '
         >
-          $70.00
+          ₹70.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $80.00
+
+              ₹80.00
             
           </span></div>
     
@@ -2411,8 +2510,8 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Kivra Solen" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="cdn/shop/files/4_732ccc5e-228c-4dae-a696-e3111e4b9a28.jpg"
-                              srcset="cdn/shop/files/4_732ccc5e-228c-4dae-a696-e3111e4b9a28.jpg 100w" width="1000"
+                              sizes="100vw" src="{% static 'cdn/shop/files/4_732ccc5e-228c-4dae-a696-e3111e4b9a28.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/4_732ccc5e-228c-4dae-a696-e3111e4b9a28.jpg' %} 100w" width="1000"
                               xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
@@ -2591,12 +2690,12 @@ z-index:98">
                             <div class="xo-price__sale xo-price__sale--column">
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                               <span class="xo-price__item xo-price__item--accent">
-                                $80.00
+                                ₹80.00
                               </span>
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                               <span class="xo-price__item xo-price__item--del">
 
-                                $90.00
+                                ₹90.00
 
                               </span>
                             </div>
@@ -2646,12 +2745,12 @@ z-index:98">
             
           '
         >
-          $80.00
+          ₹80.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $90.00
+
+              ₹90.00
             
           </span></div>
     
@@ -2709,8 +2808,8 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Zorvi Mivon" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="cdn/shop/files/19_cf616bef-0a00-4a09-9eb7-1cdb5d3b5958.jpg"
-                              srcset="cdn/shop/files/19_cf616bef-0a00-4a09-9eb7-1cdb5d3b5958.jpg 100w" width="1000"
+                              sizes="100vw" src="{% static 'cdn/shop/files/19_cf616bef-0a00-4a09-9eb7-1cdb5d3b5958.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/19_cf616bef-0a00-4a09-9eb7-1cdb5d3b5958.jpg' %} 100w" width="1000"
                               xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
@@ -3023,12 +3122,12 @@ z-index:98">
                             <div class="xo-price__sale xo-price__sale--column">
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                               <span class="xo-price__item xo-price__item--accent">
-                                $70.00
+                                ₹70.00
                               </span>
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                               <span class="xo-price__item xo-price__item--del">
 
-                                $80.00
+                                ₹80.00
 
                               </span>
                             </div>
@@ -3078,12 +3177,12 @@ z-index:98">
             
           '
         >
-          $70.00
+          ₹70.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $80.00
+
+              ₹80.00
             
           </span></div>
     
@@ -3144,7 +3243,7 @@ z-index:98">
       <div class='xo-price__regular'>
         <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
         <span class='xo-price__item'>
-          $80.00
+          ₹80.00
         </span>
       </div>
     
@@ -3205,7 +3304,7 @@ z-index:98">
       <div class='xo-price__regular'>
         <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
         <span class='xo-price__item'>
-          $90.00
+          ₹90.00
         </span>
       </div>
     
@@ -3273,8 +3372,8 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Luvor Elyra" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="cdn/shop/files/8_56771e61-bb4f-4b0a-b259-1e880f28c440.jpg"
-                              srcset="cdn/shop/files/8_56771e61-bb4f-4b0a-b259-1e880f28c440.jpg 100w" width="1000"
+                              sizes="100vw" src="{% static 'cdn/shop/files/8_56771e61-bb4f-4b0a-b259-1e880f28c440.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/8_56771e61-bb4f-4b0a-b259-1e880f28c440.jpg' %} 100w" width="1000"
                               xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
@@ -3453,12 +3552,12 @@ z-index:98">
                             <div class="xo-price__sale xo-price__sale--column">
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                               <span class="xo-price__item xo-price__item--accent">
-                                $80.00
+                                ₹80.00
                               </span>
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                               <span class="xo-price__item xo-price__item--del">
 
-                                $90.00
+                                ₹90.00
 
                               </span>
                             </div>
@@ -3508,12 +3607,12 @@ z-index:98">
             
           '
         >
-          $80.00
+          ₹80.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $90.00
+
+              ₹90.00
             
           </span></div>
     
@@ -3571,8 +3670,8 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Fynel Joryn" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="cdn/shop/files/9_14257c1b-560e-4012-82cf-00d8c21dad0b.jpg"
-                              srcset="cdn/shop/files/9_14257c1b-560e-4012-82cf-00d8c21dad0b.jpg 100w" width="1000"
+                              sizes="100vw" src="{% static 'cdn/shop/files/9_14257c1b-560e-4012-82cf-00d8c21dad0b.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/9_14257c1b-560e-4012-82cf-00d8c21dad0b.jpg' %} 100w" width="1000"
                               xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
@@ -3751,12 +3850,12 @@ z-index:98">
                             <div class="xo-price__sale xo-price__sale--column">
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                               <span class="xo-price__item xo-price__item--accent">
-                                $70.00
+                                ₹70.00
                               </span>
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                               <span class="xo-price__item xo-price__item--del">
 
-                                $80.00
+                                ₹80.00
 
                               </span>
                             </div>
@@ -3806,12 +3905,12 @@ z-index:98">
             
           '
         >
-          $70.00
+          ₹70.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $80.00
+
+              ₹80.00
             
           </span></div>
     
@@ -3869,8 +3968,8 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Fynel Joryn" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="cdn/shop/files/13_8f70f9cd-6132-4912-8212-e499705e0c85.jpg"
-                              srcset="cdn/shop/files/13_8f70f9cd-6132-4912-8212-e499705e0c85.jpg 100w" width="1000"
+                              sizes="100vw" src="{% static 'cdn/shop/files/13_8f70f9cd-6132-4912-8212-e499705e0c85.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/13_8f70f9cd-6132-4912-8212-e499705e0c85.jpg' %} 100w" width="1000"
                               xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
@@ -4183,12 +4282,12 @@ z-index:98">
                             <div class="xo-price__sale xo-price__sale--column">
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                               <span class="xo-price__item xo-price__item--accent">
-                                $60.00
+                                ₹60.00
                               </span>
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                               <span class="xo-price__item xo-price__item--del">
 
-                                $70.00
+                                ₹70.00
 
                               </span>
                             </div>
@@ -4238,12 +4337,12 @@ z-index:98">
             
           '
         >
-          $60.00
+          ₹60.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $70.00
+
+              ₹70.00
             
           </span></div>
     
@@ -4310,12 +4409,12 @@ z-index:98">
             
           '
         >
-          $50.00
+          ₹50.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $70.00
+
+              ₹70.00
             
           </span></div>
     
@@ -4376,7 +4475,7 @@ z-index:98">
       <div class='xo-price__regular'>
         <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
         <span class='xo-price__item'>
-          $100.00
+          ₹100.00
         </span>
       </div>
     
@@ -4444,7 +4543,7 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Norix Velra" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="cdn/shop/files/11.jpg" srcset="cdn/shop/files/11.jpg 100w" width="1000"
+                              sizes="100vw" src="{% static 'cdn/shop/files/11.jpg' %}" srcset="{% static 'cdn/shop/files/11.jpg' %} 100w" width="1000"
                               xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
@@ -4623,12 +4722,12 @@ z-index:98">
                             <div class="xo-price__sale xo-price__sale--column">
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                               <span class="xo-price__item xo-price__item--accent">
-                                $80.00
+                                ₹80.00
                               </span>
                               <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                               <span class="xo-price__item xo-price__item--del">
 
-                                $90.00
+                                ₹90.00
 
                               </span>
                             </div>
@@ -4678,12 +4777,12 @@ z-index:98">
             
           '
         >
-          $80.00
+          ₹80.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $90.00
+
+              ₹90.00
             
           </span></div>
     
@@ -4756,8 +4855,9 @@ z-index:98">
                 <a class="banner-v124__img hover-style--scale-up" href="collections/all.html">
                   <div class="xo-image" style="--xo-ratio-percent: 1.0; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                       alt="image" fetchpriority="auto" height="1080" is="xo-lazyload" loading="lazy" sizes="100vw"
-                      src="cdn/shop/files/b124-1.jpg" srcset="cdn/shop/files/b124-1.jpg 100w" width="1080"
-                      xo-intrinsic-height="1080" xo-intrinsic-width="1080" />
+                      src="{% static 'cdn/shop/files/b124-1.jpg' %}"
+                      srcset="{% static 'cdn/shop/files/b124-1.jpg' %} 100w" width="1080" xo-intrinsic-height="1080"
+                      xo-intrinsic-width="1080" />
                     <div class="xo-image__overlay xo-lazyload-overlay">
                       <div class="xo-image__loading">
                         <div class="xo-loader-3"
@@ -4791,8 +4891,9 @@ z-index:98">
                 <a class="banner-v124__img hover-style--scale-up" href="collections/all.html">
                   <div class="xo-image" style="--xo-ratio-percent: 1.0; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                       alt="image" fetchpriority="auto" height="1080" is="xo-lazyload" loading="lazy" sizes="100vw"
-                      src="cdn/shop/files/b124-2.jpg" srcset="cdn/shop/files/b124-2.jpg 100w" width="1080"
-                      xo-intrinsic-height="1080" xo-intrinsic-width="1080" />
+                      src="{% static 'cdn/shop/files/b124-2.jpg' %}"
+                      srcset="{% static 'cdn/shop/files/b124-2.jpg' %} 100w" width="1080" xo-intrinsic-height="1080"
+                      xo-intrinsic-width="1080" />
                     <div class="xo-image__overlay xo-lazyload-overlay">
                       <div class="xo-image__loading">
                         <div class="xo-loader-3"
@@ -4827,74 +4928,72 @@ z-index:98">
         </div>
       </section>
     </main>
+
+
+    {% endblock %}
+
+
     <!-- BEGIN sections: footer-group -->
     <div class="shopify-section shopify-section-group-footer-group section-footer"
       id="shopify-section-sections--19284031406270__footer">
       <xo-sticky-hidden xo-name="sticky-addcart"></xo-sticky-hidden>
       <footer class="xo-section xo-section--sections--19284031406270__footer color-background-1" style="--margin: 0;--pt: 0;--pb: 0;
 --pb-mobile: 53px">
-        <xo-animate class="xo-section-bg" style="
-      
-      
-" xo-disabled="" xo-duration="1000">
+        <xo-animate class="xo-section-bg" style="" xo-disabled="" xo-duration="1000">
           <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
             <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
-              {
-                '0%': { backgroundPositionY: '200px' },
-                '100%': { backgroundPositionY: '-200px' },
-              }
-            "></xo-parallax-scroll>
+          {
+            '0%': { backgroundPositionY: '200px' },
+            '100%': { backgroundPositionY: '-200px' },
+          }
+        "></xo-parallax-scroll>
           </xo-parallax>
         </xo-animate>
         <div class="footer-v26__top">
           <xo-container class="xo-container--box">
             <xo-grid>
-              <xo-animate class="footer-v26__left" style="--xs: 12; --lg: 6; --xxl: 3;" xo-cascade=""><a
-                  class="footer-v26__logo" href="index.html">
-                  <img alt="Borcen - Perfume Store Shopify 2.0 Theme" height="auto" src="cdn/shop/files/logo.png"
+              <xo-animate class="footer-v26__left" style="--xs: 12; --lg: 6; --xxl: 3;" xo-cascade="">
+                <a class="footer-v26__logo" href="{% url 'home' %}">
+                  <img alt="logo" height="auto" src="{% static 'images/logo_footer.png' %}"
                     style="width: 150px; height: 48.89502762430939px" width="auto" />
-                </a></xo-animate>
+                </a>
+              </xo-animate>
               <xo-animate class="footer-v26__center" style="--xs: 12; --order-xs: 2; --xxl: 6; --order-xxl: 1"
                 xo-cascade="">
                 <ul class="list-unstyled footer-v26__list" role="list">
                   <li class="footer-v26__list-item">
-                    <a href="index.html">
-                      About
-                    </a>
+                    <a href=" ">About</a>
                   </li>
                   <li class="footer-v26__list-item">
-                    <a href="index.html">
-                      Privacy Policy
-                    </a>
+                    <a href=" ">Privacy Policy</a>
                   </li>
                   <li class="footer-v26__list-item">
-                    <a href="index.html">
-                      Terms Of Services
-                    </a>
+                    <a href=" ">Terms Of Services</a>
                   </li>
                   <li class="footer-v26__list-item">
-                    <a href="index.html">
-                      Contact
-                    </a>
+                    <a href=" ">Contact</a>
                   </li>
                 </ul>
               </xo-animate>
-              <xo-animate class="footer-v26__right" style="--xs: 12; --order-xs: 1; --lg: 6; --xxl: 3; --order-xxl: 2"
-                xo-cascade="">
+              <xo-animate xo-cascade=""
+                style="--xs: 12; --order-xs: 1; --lg: 6; --xxl: 3; --order-xxl: 2; --xo-order: 2; animation: auto ease 0s 1 normal none running none; opacity: 1;"
+                class="footer-v26__right" xo-visible="">
                 <div class="footer-v26__payment">
+
+
+
+
+
                   <div class="xo-image" style="--xo-ratio-percent: 8.602150537634408; --x-pos: 50.0%; --y-pos: 50.0%;">
-                    <img alt="image" fetchpriority="high" height="93" is="xo-lazyload" loading="lazy" sizes="100vw"
-                      src="cdn/shop/files/payment_footer.png" srcset="cdn/shop/files/payment_footer.png 100w"
-                      width="800" xo-intrinsic-height="93" xo-intrinsic-width="800" />
-                    <div class="xo-image__overlay xo-lazyload-overlay">
-                      <div class="xo-image__loading">
-                        <div class="xo-loader-3"
-                          style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                          <div></div>
-                        </div>
-                      </div>
-                    </div>
+                    <img
+                      src="https://borcen-store-newdemo.myshopify.com/cdn/shop/files/payment_footer.png?v=1756436919&amp;width=480"
+                      alt="image"
+                      srcset="https://borcen-store-newdemo.myshopify.com/cdn/shop/files/payment_footer.png?v=1756436919&amp;width=480"
+                      width="800" height="93" loading="lazy" is="xo-lazyload" sizes="100vw" fetchpriority="high"
+                      xo-intrinsic-width="800" xo-intrinsic-height="93" xo-loaded="" style="">
                   </div>
+
+
                 </div>
               </xo-animate>
             </xo-grid>
@@ -4904,57 +5003,55 @@ z-index:98">
           <div class="footer-v26__bottom">
             <ul class="footer-v26__social list-unstyled" role="list">
               <li>
-                <a class="footer-v26__social-link" href="collections/all.html" target="_blank"><svg height="1em"
-                    id="Layer_1" style="enable-background:new 0 0 150 150;" version="1.1" viewbox="0 0 150 150" x="0px"
-                    xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    y="0px">
+                <a class="footer-v26__social-link" href=" " target="_blank">
+                  <!-- X (Twitter) SVG -->
+                  <svg height="1em" id="Layer_1" style="enable-background:new 0 0 150 150;" version="1.1"
+                    viewbox="0 0 150 150" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
                     <g>
-                      <path d="M131.95,12.84c-5.03,5.87-10.06,11.74-15.1,17.6c-9.93,11.54-19.88,23.07-29.81,34.6c-0.11,0.12-0.2,0.25-0.37,0.47
-     c16.38,23.8,32.77,47.61,49.27,71.57c-0.51,0.03-0.84,0.07-1.18,0.07c-11.35,0-22.7-0.01-34.06,0.02c-0.78,0-1.22-0.24-1.67-0.89
-     c-10.58-15.41-21.18-30.79-31.78-46.18c-0.25-0.36-0.51-0.71-0.82-1.14c-2.93,3.39-5.79,6.7-8.64,10.01
-     c-10.7,12.42-21.41,24.84-32.09,37.28c-0.59,0.68-1.18,0.94-2.07,0.92c-3.07-0.05-6.15-0.02-9.54-0.02
-     c15.95-18.51,31.74-36.82,47.57-55.19c-2.56-3.72-5.09-7.41-7.63-11.1C40.93,51.86,27.85,32.87,14.78,13.88
-     c-0.22-0.33-0.38-0.7-0.57-1.04c12.08,0,24.16,0,36.25,0c0.08,0.14,0.15,0.28,0.24,0.42c10.22,14.85,20.44,29.71,30.67,44.56
-     c0.13,0.19,0.29,0.36,0.5,0.6c0.35-0.38,0.66-0.68,0.94-1.01c11.76-13.64,23.51-27.27,35.26-40.92c1.02-1.18,1.96-2.43,2.94-3.64
-     C124.65,12.84,128.3,12.84,131.95,12.84z M121.13,129.4c-0.24-0.4-0.34-0.58-0.45-0.74C95.71,93.01,70.74,57.36,45.74,21.73
-     c-0.3-0.43-1.04-0.77-1.58-0.77c-4.78-0.06-9.57-0.04-14.35-0.03c-0.26,0-0.53,0.03-0.99,0.06c0.4,0.59,0.68,1.02,0.97,1.44
-     c8.98,12.82,17.97,25.65,26.95,38.47c15.78,22.53,31.57,45.06,47.33,67.61c0.48,0.68,0.97,0.93,1.78,0.92
-     c4.66-0.04,9.32-0.02,13.99-0.02C120.2,129.4,120.55,129.4,121.13,129.4"></path>
+                      <path
+                        d="M131.95,12.84c-5.03,5.87-10.06,11.74-15.1,17.6c-9.93,11.54-19.88,23.07-29.81,34.6c-0.11,0.12-0.2,0.25-0.37,0.47 c16.38,23.8,32.77,47.61,49.27,71.57c-0.51,0.03-0.84,0.07-1.18,0.07c-11.35,0-22.7-0.01-34.06,0.02c-0.78,0-1.22-0.24-1.67-0.89 c-10.58-15.41-21.18-30.79-31.78-46.18c-0.25-0.36-0.51-0.71-0.82-1.14c-2.93,3.39-5.79,6.7-8.64,10.01 c-10.7,12.42-21.41,24.84-32.09,37.28c-0.59,0.68-1.18,0.94-2.07,0.92c-3.07-0.05-6.15-0.02-9.54-0.02 c15.95-18.51,31.74-36.82,47.57-55.19c-2.56-3.72-5.09-7.41-7.63-11.1C40.93,51.86,27.85,32.87,14.78,13.88 c-0.22-0.33-0.38-0.7-0.57-1.04c12.08,0,24.16,0,36.25,0c0.08,0.14,0.15,0.28,0.24,0.42c10.22,14.85,20.44,29.71,30.67,44.56 c0.13,0.19,0.29,0.36,0.5,0.6c0.35-0.38,0.66-0.68,0.94-1.01c11.76-13.64,23.51-27.27,35.26-40.92c1.02-1.18,1.96-2.43,2.94-3.64 C124.65,12.84,128.3,12.84,131.95,12.84z M121.13,129.4c-0.24-0.4-0.34-0.58-0.45-0.74C95.71,93.01,70.74,57.36,45.74,21.73 c-0.3-0.43-1.04-0.77-1.58-0.77c-4.78-0.06-9.57-0.04-14.35-0.03c-0.26,0-0.53,0.03-0.99,0.06c0.4,0.59,0.68,1.02,0.97,1.44 c8.98,12.82,17.97,25.65,26.95,38.47c15.78,22.53,31.57,45.06,47.33,67.61c0.48,0.68,0.97,0.93,1.78,0.92 c4.66-0.04,9.32-0.02,13.99-0.02C120.2,129.4,120.55,129.4,121.13,129.4">
+                      </path>
                     </g>
-                  </svg></a>
+                  </svg>
+                </a>
               </li>
               <li>
-                <a class="footer-v26__social-link" href="collections/all.html" target="_blank"><svg height="1em"
-                    viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <a class="footer-v26__social-link" href=" " target="_blank">
+                  <!-- Dribbble SVG -->
+                  <svg height="1em" viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M256 8C119.252 8 8 119.252 8 256s111.252 248 248 248 248-111.252 248-248S392.748 8 256 8zm163.97 114.366c29.503 36.046 47.369 81.957 47.835 131.955-6.984-1.477-77.018-15.682-147.502-6.818-5.752-14.041-11.181-26.393-18.617-41.614 78.321-31.977 113.818-77.482 118.284-83.523zM396.421 97.87c-3.81 5.427-35.697 48.286-111.021 76.519-34.712-63.776-73.185-116.168-79.04-124.008 67.176-16.193 137.966 1.27 190.061 47.489zm-230.48-33.25c5.585 7.659 43.438 60.116 78.537 122.509-99.087 26.313-186.36 25.934-195.834 25.809C62.38 147.205 106.678 92.573 165.941 64.62zM44.17 256.323c0-2.166.043-4.322.108-6.473 9.268.19 111.92 1.513 217.706-30.146 6.064 11.868 11.857 23.915 17.174 35.949-76.599 21.575-146.194 83.527-180.531 142.306C64.794 360.405 44.17 310.73 44.17 256.323zm81.807 167.113c22.127-45.233 82.178-103.622 167.579-132.756 29.74 77.283 42.039 142.053 45.189 160.638-68.112 29.013-150.015 21.053-212.768-27.882zm248.38 8.489c-2.171-12.886-13.446-74.897-41.152-151.033 66.38-10.626 124.7 6.768 131.947 9.055-9.442 58.941-43.273 109.844-90.795 141.978z">
                     </path>
-                  </svg></a>
+                  </svg>
+                </a>
               </li>
               <li>
-                <a class="footer-v26__social-link" href="collections/all.html" target="_blank"><svg height="1em"
-                    viewbox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
+                <a class="footer-v26__social-link" href=" " target="_blank">
+                  <!-- Behance SVG -->
+                  <svg height="1em" viewbox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M232 237.2c31.8-15.2 48.4-38.2 48.4-74 0-70.6-52.6-87.8-113.3-87.8H0v354.4h171.8c64.4 0 124.9-30.9 124.9-102.9 0-44.5-21.1-77.4-64.7-89.7zM77.9 135.9H151c28.1 0 53.4 7.9 53.4 40.5 0 30.1-19.7 42.2-47.5 42.2h-79v-82.7zm83.3 233.7H77.9V272h84.9c34.3 0 56 14.3 56 50.6 0 35.8-25.9 47-57.6 47zm358.5-240.7H376V94h143.7v34.9zM576 305.2c0-75.9-44.4-139.2-124.9-139.2-78.2 0-131.3 58.8-131.3 135.8 0 79.9 50.3 134.7 131.3 134.7 61.3 0 101-27.6 120.1-86.3H509c-6.7 21.9-34.3 33.5-55.7 33.5-41.3 0-63-24.2-63-65.3h185.1c.3-4.2.6-8.7.6-13.2zM390.4 274c2.3-33.7 24.7-54.8 58.5-54.8 35.4 0 53.2 20.8 56.2 54.8H390.4z">
                     </path>
-                  </svg></a>
+                  </svg>
+                </a>
               </li>
               <li>
-                <a class="footer-v26__social-link" href="collections/all.html" target="_blank"><svg height="1em"
-                    viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                <a class="footer-v26__social-link" href=" " target="_blank">
+                  <!-- Instagram SVG -->
+                  <svg height="1em" viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
                     <path
-                      d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z ">
+                      d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
                     </path>
-                  </svg></a>
+                  </svg>
+                </a>
               </li>
             </ul>
             <div class="footer-v26__copyright">
-
-              © Copyright 2025 | <a class="footer-v26__theme-name" href="https://borcen-store-newdemo.myshopify.com/"
-                rel="nofollow" target="_blank">Borcen</a> By <a class="footer-v26__shop-name"
-                href="https://shopify.pxf.io/9gPaY0" rel="nofollow" target="_blank"> EngoTheme.</a><a
-                class="footer-v26__powered-shopify" href="https://shopify.pxf.io/9gPaY0" rel="nofollow" target="_blank">
-                Powered by Shopify.</a>
+              © Copyright {% now "Y" %} | <a class="footer-v26__theme-name" href="{% url 'home' %}" rel="nofollow"
+                target="_blank">{{ site_name|default:"Borcen" }}</a> By <a class="footer-v26__shop-name" href="#"
+                rel="nofollow" target="_blank"> EngoTheme.</a>
+              <a class="footer-v26__powered-shopify" href="#" rel="nofollow" target="_blank"> Powered by Django.</a>
             </div>
           </div>
         </xo-container>
@@ -5121,12 +5218,12 @@ z-index:98">
                                     <div class="xo-price__sale">
                                       <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                                       <span class="xo-price__item xo-price__item--accent">
-                                        $80.00
+                                        ₹80.00
                                       </span>
                                       <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                                       <span class="xo-price__item xo-price__item--del">
 
-                                        $90.00
+                                        ₹90.00
 
                                       </span>
                                     </div>
@@ -5179,12 +5276,12 @@ z-index:98">
             
           '
         >
-          $80.00
+          ₹80.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $90.00
+
+              ₹90.00
             
           </span></div>
     
@@ -5267,12 +5364,12 @@ z-index:98">
                                     <div class="xo-price__sale">
                                       <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                                       <span class="xo-price__item xo-price__item--accent">
-                                        $60.00
+                                        ₹60.00
                                       </span>
                                       <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                                       <span class="xo-price__item xo-price__item--del">
 
-                                        $70.00
+                                        ₹70.00
 
                                       </span>
                                     </div>
@@ -5325,12 +5422,12 @@ z-index:98">
             
           '
         >
-          $60.00
+          ₹60.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $70.00
+
+              ₹70.00
             
           </span></div>
     
@@ -5413,12 +5510,12 @@ z-index:98">
                                     <div class="xo-price__sale">
                                       <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                                       <span class="xo-price__item xo-price__item--accent">
-                                        $60.00
+                                        ₹60.00
                                       </span>
                                       <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                                       <span class="xo-price__item xo-price__item--del">
 
-                                        $70.00
+                                        ₹70.00
 
                                       </span>
                                     </div>
@@ -5471,12 +5568,12 @@ z-index:98">
             
           '
         >
-          $60.00
+          ₹60.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $70.00
+
+              ₹70.00
             
           </span></div>
     
@@ -5543,12 +5640,12 @@ z-index:98">
             
           '
         >
-          $60.00
+          ₹60.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $70.00
+
+              ₹70.00
             
           </span></div>
     
@@ -5615,12 +5712,12 @@ z-index:98">
             
           '
         >
-          $60.00
+          ₹60.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $70.00
+
+              ₹70.00
             
           </span></div>
     
@@ -5713,12 +5810,12 @@ z-index:98">
                                     <div class="xo-price__sale">
                                       <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
                                       <span class="xo-price__item xo-price__item--accent">
-                                        $70.00
+                                        ₹70.00
                                       </span>
                                       <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
                                       <span class="xo-price__item xo-price__item--del">
 
-                                        $80.00
+                                        ₹80.00
 
                                       </span>
                                     </div>
@@ -5771,12 +5868,12 @@ z-index:98">
             
           '
         >
-          $70.00
+          ₹70.00
         </span>
           <div class='xo-visually-hidden xo-visually-hidden--inline'>Regular price</div>
           <span class='xo-price__item xo-price__item--del'>
-            
-              $80.00
+
+              ₹80.00
             
           </span></div>
     
@@ -5873,395 +5970,8 @@ z-index:98">
         </xo-animate>
       </xo-modal>
     </div>
-    <!-- END sections: overlay-group -->
-    <!-- BEGIN sections: popup-group -->
-    <div class="shopify-section shopify-section-group-popup-group"
-      id="shopify-section-sections--19284033798334__popup-newsletter">
-      <xo-modal data-show="home" id="popup-newsletter__modal" style="z-index: 100000000000000;"
-        xo-backdrop-color="#2d2d32cc" xo-name="popup-newsletter">
-        <div class="popup-newsletter__container color-background-1" slot="popup-newsletter-inner" style="width: 51rem">
-          <div style="display: none !important;">
-            <div id="popup-newsletter-data__cooldown">5</div>
-          </div>
-          <div class="popup-newsletter-v5">
-            <div class="popup-newsletter-v5__wrap">
-              <div class="popup-newsletter-v5__box1">
-                <div class="popup-newsletter-v5__img">
-                  <div class="xo-image" style="--xo-ratio-percent: 1.3461538461538463; --x-pos: 50.0%; --y-pos: 50.0%;">
-                    <img alt="image" fetchpriority="high" height="520" is="xo-lazyload" loading="lazy" sizes="100vw"
-                      src="cdn/shop/files/b9-3.jpg" srcset="cdn/shop/files/b9-3.jpg 100w" width="700"
-                      xo-intrinsic-height="520" xo-intrinsic-width="700" />
-                    <div class="xo-image__overlay xo-lazyload-overlay">
-                      <div class="xo-image__loading">
-                        <div class="xo-loader-3"
-                          style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                          <div></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="popup-newsletter-v5__close">
-                  <xo-modal-trigger aria-label="Close" class="xo-modal-content-style1__close">
-                    <svg class="m-svg-icon--large" fill="currentColor" stroke="currentColor" viewbox="0 0 320 512"
-                      width="15" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
-                      </path>
-                    </svg>
-                  </xo-modal-trigger>
-                </div>
-              </div>
-              <div class="popup-newsletter-v5__box2">
-                <h1 class="popup-newsletter-v5__title">
-                  Get 20% discount shipped to your inbox
-                </h1>
-                <div class="popup-newsletter-v5__description">
-                  <p>Let's Subscribe to our newsletter and we will ship 20% discount code today</p>
-                </div>
-                <div class="popup-newsletter-v5__signup">
-                  <form accept-charset="UTF-8" action="/contact#ContactFooter" class="contact-form" id="ContactFooter"
-                    method="post"><input name="form_type" type="hidden" value="customer"><input name="utf8"
-                      type="hidden" value="✓"><input name="contact[tags]" type="hidden" value="newsletter" />
-                    <div class="popup-newsletter-v5__form">
-                      <label class="xo-field-input" for="">
-                        <input aria-required="true" autocorrect="off" class="xo-field-input__input" id=""
-                          name="contact[email]" placeholder="" required="" type="email" value="" />
-                        <span class="xo-field-input__placeholder">Enter your email...</span>
-                      </label>
-                      <button class="xo-btn xo-btn--dark xo-btn--secondary xo-btn--md xo-btn--slide-up"
-                        style="padding-left: 3rem; padding-right: 3rem;" type="submit">
-                        <span class="xo-btn__content">
-                          <span class="xo-btn__text" data-text="Subscribe">
-                            Subscribe
-                          </span>
-                        </span>
-                        <span class="xo-btn__loading">
-                          <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-                            <div></div>
-                          </div>
-                        </span>
-                      </button>
-                    </div>
-                    </input></input>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </xo-modal>
-    </div>
-    <div class="shopify-section shopify-section-group-popup-group"
-      id="shopify-section-sections--19284033798334__popup-promotion">
-      <xo-modal data-show="hidden" id="popup-promotion__modal" style="z-index: 100000000000000;"
-        xo-backdrop-color="#2d2d32cc" xo-name="popup-promotion">
-        <div class="popup-promotion__container color-background-1" slot="popup-promotion-inner" style="width: 100rem">
-          <div class="popup-promotion-data" style="display: none !important;">
-            <div id="popup-promotion-data__cooldown">5</div>
-          </div>
-          <div class="popup-promotion-v1 xo-scrollbar" style="--width: 0.4rem; color:  !important ">
-            <xo-grid class="popup-promotion-v1__grid" style="--xs: 1; --md: 2;  --xo-grid-col-gap: 0">
-              <div class="popup-promotion-v1__left">
-                <div class="popup-promotion-v1__recommend">Recommended Products</div>
-                <div class="popup-promotion-v1__empty-product">There's no product available! Please choose a product
-                  collection.</div>
-              </div>
-              <div class="popup-promotion-v1__right" style="color:  !important ">
-                <div class="popup-promotion-v1__close">
-                  <xo-modal-trigger aria-label="Close" class="xo-modal-content-style1__close">
-                    <svg class="m-svg-icon--large" fill="currentColor" stroke="currentColor" viewbox="0 0 320 512"
-                      width="15" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
-                      </path>
-                    </svg>
-                  </xo-modal-trigger>
-                </div>
-                <div class="popup-promotion-v1__background">
-                  <div class="xo-image" style="--xo-ratio-percent: ; --x-pos: %; --y-pos: %;">
-                    <div class="xo-image__placeholder" style="--xo-ratio-percent: ">
-                      <svg class="placeholder-svg" fill="none" height="700" preserveaspectratio="xMidYMid slice"
-                        viewbox="0 0 980 700" width="980" xmlns="http://www.w3.org/2000/svg">
-                        <clippath id="clip0_663_1534">
-                          <path d="M0 0h980v700H0z"></path>
-                        </clippath>
-                        <g clip-path="url(#clip0_663_1534)">
-                          <path d="M0 0h980v700H0z" fill="#e5e6e6"></path>
-                          <path
-                            d="M735.8 366.9c-1.5-1.5-4.7-4.5-4.7-4.5l-.5-.1L498.7 507c-8.3 5.2-18.9 5-27-.3-1.1-.7-2.2-1.6-3.1-2.5-26-24.5-52-49-77.9-73.5L256.4 303.8c-.5-.5-1-.9-1.5-1.4-1.9 1.8-3.8 3.6-5.6 5.3-7.3 6.9-7.3 18.5 0 25.4 71.8 67.8 143.7 135.6 215.6 203.5 8.3 7.8 20.8 9.1 30.4 3l53.3-33.3 37.3-23.3 47.6-29.8 46.9-29.3c17.8-11.1 35.5-22.2 53.2-33.3 8.4-5.3 9.5-17 2.2-23.7z"
-                            fill="#187f80"></path>
-                          <path
-                            d="M727.5 394.7h-.4c-15.5 9.7-31.1 19.5-46.7 29.2l-46.9 29.3-47.6 29.8-37.3 23.3-53.3 33.3c-9.6 6.1-22.1 4.8-30.4-3-71.2-67.3-142.4-134.4-213.6-201.6h-.1c-1.9 1.8-3.7 3.5-5.5 5.2-7.3 6.9-7.3 18.5 0 25.4l215.6 203.5c8.3 7.8 20.8 9.1 30.4 3l53.3-33.3 37.3-23.3 47.7-29.8 46.9-29.3c17.8-11.1 35.6-22.3 53.3-33.4 8.4-5.2 9.5-16.9 2.3-23.7z"
-                            fill="#1d5d67"></path>
-                          <path
-                            d="M739.8 334.8c-72.4-68.4-144.7-136.9-217.1-205.4-7.1-6.7-17.4-8.7-26.4-5.1l-40.8 16.2-26.9 12 7.7 7.3c30.4 28.7 26.2 69.9-9.4 92.1s-88.9 16.9-119.3-11.8l-7.7-7.3-46.8 42.5c-7.3 6.9-7.2 18.5 0 25.4L468.3 504c8.3 7.8 20.8 9 30.4 3l238.5-148.8c8.5-5 9.7-16.7 2.6-23.4z"
-                            fill="#59b1ab"></path>
-                          <path
-                            d="M418.3 159c-2.6 1.6-4.8 3.5-6.5 5.7l-7.3 9.2c-2.3 2.9-4.9 5.7-7.6 8.4-1.3 1.3-2.6 2.5-4 3.7l21 19.8c1.1 1.1 1 2.6-.3 3.4L375.4 233c-1.3.8-3.3.6-4.4-.4l-21-19.8c-1.8.8-3.7 1.5-5.5 2.2-4 1.5-8 2.9-12.2 4l-13.2 3.6c-3.1.9-6 2.1-8.6 3.7l-10.4 6.5 7.7 7.3c30.4 28.7 83.8 34 119.3 11.8s39.7-63.4 9.4-92.2l-7.7-7.3z"
-                            fill="#187f80"></path>
-                          <path
-                            d="M371 232.6c1.1 1.1 3.1 1.3 4.4.4l38.1-23.8c1.3-.8 1.5-2.3.4-3.4l-21-19.8c-4.3 3.8-9.2 7.5-14.4 10.7l-12 7.5c-5.1 3.2-10.8 6.1-16.6 8.6z"
-                            fill="#fff"></path>
-                          <path
-                            d="m630.6 308.4-12.8 18.2c-3.7 5.2-9.8 9-17.2 10.7l-25.9 5.8c-7.5 1.7-15.9-.4-21-5.2l-55.8-53c-2.6-2.5-2.2-6 .9-7.9l63.4-39.4c3.1-1.9 7.7-1.5 10.3 1l55.8 53c5.2 4.8 6.1 11.4 2.3 16.8z"
-                            fill="#3a9c97"></path>
-                          <path
-                            d="m562.3 237.5-63.4 39.4c-3.1 1.9-3.5 5.5-.9 7.9l14.1 13.4 74.6-46.3-14.1-13.4c-2.6-2.5-7.2-2.9-10.3-1z"
-                            fill="#187f80"></path>
-                          <path d="M0 298.1V700h424.3z" fill="#d2d6d3"></path>
-                          <path
-                            d="M478.4 576h110.7c9.4 0 18.7-2.7 26.6-7.7L837.3 429c13.9-8.7 15.7-28.2 3.8-39.4l-207.8-195c-7.1-6.6-17.4-8.6-26.4-5l-14.4 5.8L740 334.8c7.2 6.8 6 18.5-2.5 23.7l-6.4 3.9 5 4.5c7.4 6.7 6.3 18.6-2.2 23.9l-6.4 3.9 5.2 4.9c7.1 6.8 6 18.4-2.3 23.6l-238.6 149c-4.1 2.5-8.7 3.8-13.4 3.8z"
-                            fill="#901941" opacity=".03"></path>
-                          <path
-                            d="M431.7 145c-3.7 1.7-4.6 6.6-1.6 9.4l1.4 1.4c30.4 28.7 26.2 70-9.4 92.2s-88.9 16.9-119.3-11.8l-3.9-3.7c-2.1-2-5.4-2.1-7.7-.2l-12 10.3c-2.6 2.2-2.7 6.2-.2 8.5 41.6 39.3 114.8 46.5 163.5 16.1s54.4-86.9 12.8-126.3l-1.9-1.8c-1.7-1.6-4.2-2-6.3-1.1z"
-                            fill="#3f9e98"></path>
-                          <path
-                            d="m701.7 360.5-232 144.7c8.2 6.8 20 7.7 29.2 2l238.5-148.8c1.6-1 2.9-2.2 4-3.6 4.2-5.5 4.2-13.3-.4-18.8l-1.2-1.2c-.4-.4-145.7-137.8-217.1-205.4-6.8-6.4-16.6-8.5-25.4-5.4l208.3 197.1c12 11.3 10 30.7-3.9 39.4z"
-                            fill="#78c2bd"></path>
-                        </g>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="popup-promotion-v1__content">
-                  <div class="popup-promotion-v1__title">
-                    Wait! before you leave...
-                  </div>
-                  <div class="popup-promotion-v1__subtitle">
-                    Get 20% off for your first order
-                  </div>
-                  <div class="popup-promotion-v1__copy">
-                    <div class="xo-share-style2">
-                      <div class="xo-share-style2__title">Copy link</div>
-                      <div class="xo-share-style2__copy">
-                        <label class="xo-share-style2__label">
-                          <input class="xo-share-style2__input" readonly="" type="text" value="CODE20OFF" />
-                        </label>
-                        <xo-tooltip xo-placement="top-center" xo-title="Copy link">
-                          <xo-copy class="xo-share-style2__copy-button" xo-url="CODE20OFF">
-                            <svg aria-hidden="true" fill="none" focusable="false" viewbox="0 0 11 13" width="12"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path clip-rule="evenodd"
-                                d="M2 1a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1V1H2zM1 2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V3a1 1 0 00-1-1H1zm0 10V3h7v9H1z"
-                                fill="currentColor" fill-rule="evenodd"></path>
-                            </svg>
-                            <xo-toast xo-class-name="xo-toast xo-toast--success"
-                              xo-close-button-class-name="xo-toast__close" xo-close-button-placement="top-right"
-                              xo-name="share-copy" xo-placement="bottom-center">
-                              <div class="xo-toast__content">
-                                <svg aria-hidden="true" focusable="false" viewbox="0 0 13 13" width="20">
-                                  <path
-                                    d="M6.5 12.35C9.73087 12.35 12.35 9.73086 12.35 6.5C12.35 3.26913 9.73087 0.65 6.5 0.65C3.26913 0.65 0.65 3.26913 0.65 6.5C0.65 9.73086 3.26913 12.35 6.5 12.35Z"
-                                    fill="#316934"></path>
-                                  <path d="M5.53271 8.66357L9.25213 4.68197" stroke="white"></path>
-                                  <path d="M4.10645 6.7688L6.13766 8.62553" stroke="white">
-                                  </path>
-                                </svg>
-                                <div class="xo-toast__message">Link copied to clipboard</div>
-                              </div>
-                            </xo-toast>
-                            <div class="xo-visually-hidden">Copy</div>
-                          </xo-copy>
-                        </xo-tooltip>
-                      </div>
-                      <div class="xo-share-style2__social-title">Share</div>
-                      <div class="xo-share-style2__social">
-                        <xo-tooltip xo-placement="top-center" xo-title="Facebook">
-                          <a aria-label="Facebook" class="xo-share-style2__link"
-                            href="https://www.facebook.com/sharer/sharer.php?u=CODE20OFF" target="_blank">
-                            <svg id="Layer_1" style="enable-background:new 0 0 150 150;" version="1.1"
-                              viewbox="0 0 150 150" width="20" x="0px" xml:space="preserve"
-                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
-                              <g>
-                                <path d="M95.45,12.94c2.04,0.17,4.08,0.33,6.13,0.5c1.28,0.11,2.56,0.22,3.93,0.34c0,6.55,0,13.07,0,19.76c-0.4,0-0.82-0.01-1.25,0
-     c-4.19,0.07-8.39,0.05-12.57,0.22c-5.37,0.23-8.31,3.01-8.53,8.38c-0.22,5.32-0.05,10.66-0.05,16.15c7.22,0,14.41,0,21.75,0
-     c-0.96,7.48-1.9,14.78-2.86,22.2c-6.32,0-12.55,0-18.84,0c-0.03,0.44-0.08,0.75-0.08,1.06c0,18.34,0,36.68,0,55.03
-     c0,0.16,0.02,0.32,0.03,0.48c-7.58,0-15.16,0-22.75,0c-0.03-0.52-0.1-1.04-0.1-1.56c-0.01-17.77,0-35.55,0-53.32
-     c0-0.52,0-1.03,0-1.67c-6.37,0-12.61,0-18.92,0c0-7.41,0-14.7,0-22.15c6.25,0,12.51,0,18.92,0c0-0.63,0-1.1,0-1.58
-     c0.04-5.82-0.11-11.64,0.16-17.44c0.36-7.85,2.92-14.85,9.08-20.12c4.21-3.6,9.2-5.36,14.63-6.02c0.39-0.05,0.77-0.17,1.15-0.26
-     C88.67,12.94,92.06,12.94,95.45,12.94z" fill="currentColor"></path>
-                              </g>
-                            </svg>
-                          </a>
-                        </xo-tooltip>
-                        <xo-tooltip xo-placement="top-center" xo-title="Twitter">
-                          <a aria-label="Twitter" class="xo-share-style2__link"
-                            href="https://twitter.com/share?url=CODE20OFF" target="_blank">
-                            <svg id="Layer_1" style="enable-background:new 0 0 150 150;" version="1.1"
-                              viewbox="0 0 150 150" width="20" x="0px" xml:space="preserve"
-                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
-                              <g>
-                                <path d="M131.95,12.84c-5.03,5.87-10.06,11.74-15.1,17.6c-9.93,11.54-19.88,23.07-29.81,34.6c-0.11,0.12-0.2,0.25-0.37,0.47
-     c16.38,23.8,32.77,47.61,49.27,71.57c-0.51,0.03-0.84,0.07-1.18,0.07c-11.35,0-22.7-0.01-34.06,0.02c-0.78,0-1.22-0.24-1.67-0.89
-     c-10.58-15.41-21.18-30.79-31.78-46.18c-0.25-0.36-0.51-0.71-0.82-1.14c-2.93,3.39-5.79,6.7-8.64,10.01
-     c-10.7,12.42-21.41,24.84-32.09,37.28c-0.59,0.68-1.18,0.94-2.07,0.92c-3.07-0.05-6.15-0.02-9.54-0.02
-     c15.95-18.51,31.74-36.82,47.57-55.19c-2.56-3.72-5.09-7.41-7.63-11.1C40.93,51.86,27.85,32.87,14.78,13.88
-     c-0.22-0.33-0.38-0.7-0.57-1.04c12.08,0,24.16,0,36.25,0c0.08,0.14,0.15,0.28,0.24,0.42c10.22,14.85,20.44,29.71,30.67,44.56
-     c0.13,0.19,0.29,0.36,0.5,0.6c0.35-0.38,0.66-0.68,0.94-1.01c11.76-13.64,23.51-27.27,35.26-40.92c1.02-1.18,1.96-2.43,2.94-3.64
-     C124.65,12.84,128.3,12.84,131.95,12.84z M121.13,129.4c-0.24-0.4-0.34-0.58-0.45-0.74C95.71,93.01,70.74,57.36,45.74,21.73
-     c-0.3-0.43-1.04-0.77-1.58-0.77c-4.78-0.06-9.57-0.04-14.35-0.03c-0.26,0-0.53,0.03-0.99,0.06c0.4,0.59,0.68,1.02,0.97,1.44
-     c8.98,12.82,17.97,25.65,26.95,38.47c15.78,22.53,31.57,45.06,47.33,67.61c0.48,0.68,0.97,0.93,1.78,0.92
-     c4.66-0.04,9.32-0.02,13.99-0.02C120.2,129.4,120.55,129.4,121.13,129.4z" fill="currentColor"></path>
-                              </g>
-                            </svg>
-                          </a>
-                        </xo-tooltip>
-                        <xo-tooltip xo-placement="top-center" xo-title="Pinterest">
-                          <a aria-label="Pinterest" class="xo-share-style2__link"
-                            href="https://pinterest.com/pin/create/button/?url=CODE20OFF" target="_blank">
-                            <svg id="Layer_1" style="enable-background:new 0 0 150 150;" version="1.1"
-                              viewbox="0 0 150 150" width="20" x="0px" xml:space="preserve"
-                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
-                              <g>
-                                <path d="M80.07,12.84c2.31,0.33,4.64,0.57,6.94,0.99c7.25,1.32,13.98,3.97,19.99,8.25c9.78,6.96,16.07,16.25,17.72,28.23
-     c1.78,12.92-1.03,24.96-8.38,35.75c-5.7,8.36-13.53,13.95-23.46,16.25c-6.46,1.49-12.9,1.55-19.11-1.29
-     c-3.03-1.39-5.65-3.27-7.67-6.29c-0.82,2.96-1.54,5.7-2.33,8.42c-1.53,5.35-2.67,10.81-5.02,15.91
-     c-2.82,6.12-6.35,11.81-10.15,17.35c-0.24,0.35-0.74,0.51-1.13,0.76c-0.28-0.5-0.72-0.97-0.8-1.5c-1.7-10.94-2.2-21.79,0.92-32.68
-     c2.9-10.12,5.15-20.42,7.65-30.65c0.13-0.53,0.04-1.2-0.15-1.72c-2.51-6.83-2.92-13.64,0.28-20.37c1.51-3.19,3.78-5.77,7.07-7.23
-     c6.97-3.1,15.22,0.16,14.97,9.8c-0.11,4.39-1.57,8.47-2.82,12.6c-1.18,3.9-2.45,7.77-3.53,11.7c-1.76,6.45,1.72,12.28,8.27,13.67
-     c5.76,1.23,10.98-0.34,15.62-3.82c5.21-3.91,8.35-9.28,10.22-15.4c2.33-7.62,3.11-15.38,1.11-23.19
-     c-2.29-8.9-7.83-15.2-16.12-19.03c-7.11-3.29-14.61-3.87-22.29-2.75c-7.37,1.07-13.86,4-19.26,9.18
-     c-10.07,9.66-13.3,25.45-5.54,38.05c0.11,0.17,0.18,0.38,0.32,0.51c2.1,1.84,1.93,4.01,1.1,6.4c-0.61,1.75-0.94,3.59-1.42,5.38
-     c-0.53,2.01-1.26,2.32-3.17,1.41c-3.13-1.49-5.73-3.67-7.81-6.41c-6.44-8.5-8.92-18.04-7.48-28.63c0.82-6.01,2.68-11.62,5.81-16.81
-     c5.08-8.43,12.28-14.39,21.29-18.22c6.04-2.57,12.37-3.95,18.9-4.41c0.4-0.03,0.78-0.15,1.18-0.22
-     C74.56,12.84,77.32,12.84,80.07,12.84z" fill="currentColor"></path>
-                              </g>
-                            </svg>
-                          </a>
-                        </xo-tooltip>
-                        <xo-tooltip xo-placement="top-center" xo-title="Instagram">
-                          <a aria-label="Instagram" class="xo-share-style2__link"
-                            href="https://instagram.com/share?url=CODE20OFF" target="_blank">
-                            <svg id="Layer_1" style="enable-background:new 0 0 150 150;" version="1.1"
-                              viewbox="0 0 150 150" width="20" x="0px" xml:space="preserve"
-                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
-                              <g>
-                                <path d="M95.09,137.16c-13.3,0-26.6,0-39.9,0c-1.13-0.08-2.26-0.14-3.38-0.26c-3.86-0.39-7.8-0.46-11.57-1.28
-     c-13.77-3-22.41-11.47-25.79-25.16c-1.51-6.1-1.5-12.36-1.55-18.58c-0.1-11.21-0.11-22.42,0-33.64c0.06-6.42,0.11-12.87,1.67-19.17
-     c2.39-9.67,7.81-17.04,16.73-21.67c6.21-3.23,12.98-4.22,19.87-4.32c11.55-0.16,23.11-0.24,34.66-0.26
-     c7.62-0.01,15.25-0.1,22.79,1.21c15,2.59,25.46,13.05,27.8,28.72c0.3,1.99,0.5,3.99,0.75,5.99c0,17.16,0,34.33,0,51.49
-     c-0.25,2.2-0.44,4.41-0.75,6.6c-0.89,6.13-2.92,11.83-6.76,16.77c-6.7,8.63-15.9,12.24-26.47,13.04
-     C100.49,136.86,97.79,137,95.09,137.16z M75.08,126.16c0-0.07,0-0.14,0-0.22c4.54,0,9.08,0.09,13.62-0.02
-     c6.23-0.15,12.51,0.11,18.66-1.15c8.88-1.82,14.74-7.01,17.2-15.83c1.12-4.01,1.34-8.14,1.38-12.26
-     c0.12-12.55,0.21-25.09,0.09-37.64c-0.05-5.32-0.24-10.71-1.1-15.94c-1.52-9.14-6.98-15.06-16.08-17.44
-     c-5.23-1.36-10.6-1.35-15.94-1.41c-10.26-0.12-20.52-0.08-30.77-0.05c-6.2,0.02-12.42-0.1-18.55,1.01
-     c-9.48,1.71-15.84,7.09-17.95,16.59c-0.95,4.3-1.25,8.81-1.31,13.24c-0.16,13.35-0.13,26.71-0.01,40.07
-     c0.03,3.91,0.36,7.85,0.97,11.71c1.01,6.41,4.18,11.6,9.83,15.04c4.04,2.46,8.56,3.44,13.21,3.62
-     C57.25,125.81,66.17,125.95,75.08,126.16z" fill="currentColor"></path>
-                                <path d="M107.17,75.01c-0.02,17.59-14.43,31.97-32.03,31.98c-17.65,0-32.13-14.47-32.07-32.06c0.06-17.59,14.54-31.98,32.09-31.91
-     C92.83,43.09,107.18,57.44,107.17,75.01z M75.11,95.67c11.48,0.01,20.72-9.18,20.73-20.62c0.02-11.46-9.19-20.71-20.64-20.73
-     c-11.55-0.02-20.78,9.17-20.78,20.69C54.42,86.47,63.63,95.66,75.11,95.67z" fill="currentColor"></path>
-                                <path d="M108.42,49.24c-4.18,0.01-7.48-3.26-7.49-7.42c-0.01-4.16,3.29-7.49,7.43-7.5c4.12-0.02,7.49,3.32,7.51,7.45
-     C115.9,45.89,112.57,49.23,108.42,49.24z" fill="currentColor"></path>
-                              </g>
-                            </svg>
-                          </a>
-                        </xo-tooltip>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="popup-promotion-v1__description">
-                    <p>Use above code to get 15% 0FF for your first order when checkout</p>
-                  </div>
-                  <button class="xo-btn xo-btn--dark xo-btn--secondary xo-btn--md xo-btn--slide-up"
-                    style="padding-left: 3rem; padding-right: 3rem;">
-                    <span class="xo-btn__content">
-                      <span class="xo-btn__text" data-text="Grap the discount">
-                        Grap the discount
-                      </span>
-                    </span>
-                    <span class="xo-btn__loading">
-                      <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-                        <div></div>
-                      </div>
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </xo-grid>
-          </div>
-        </div>
-      </xo-modal>
-    </div>
-    <div class="shopify-section shopify-section-group-popup-group"
-      id="shopify-section-sections--19284033798334__popup-sale-notification">
-      <xo-popup-sale-notification xo-customer="Someone In California, USA just bought/
-Someone In Kyoto, Japan just bought/
-Someone In Paris, France just bought/
-Someone In Berlin, Germany just bought/
-Someone In Toronto, Canada just bought" xo-delay="3000" xo-duration="3000" xo-show="true">
-        <script class="xo-popup-sale-notification__product-list" type="application/json">
-    [
-      
-        {"id":8566085189822,"title":"Koryn Meval","handle":"trust-badge","description":"\u003cp style=\"padding-bottom: 30px;\" data-mce-style=\"padding-bottom: 30px;\"\u003eCheer on your favorite red and white team in eye-popping style with these red \u0026amp; white striped game bib overalls! Each pair is made of 100 percent cotton for a comfortable, breathable fit regardless of the weather and includes easily adjustable shoulder straps for fans with long torsos. Whether you’re on rickety bleachers on a Friday night or trying to get on television at the Sunday morning tailgate, our red \u0026amp; white striped game bibs will make you stand out in the crowd and leave an impression. These particular bib overalls are also great as casual Clauswear for any Saint Nicks who might be taking in a game during the holiday offseason!\u003c\/p\u003e\n\u003cdiv style=\"--xs: 12; --md: 6;\" data-mce-style=\"--xs: 12; --md: 6;\"\u003e\n\u003ch3\u003eBRAND\u003c\/h3\u003e\n\u003cp\u003eWith eye-catching artwork, step-by-step diagrams, and illustrations that break down complicated ideas into manageable concepts, The Science Book will have readers conversant in genetic engineering, black holes, and global warming in no time. Along the way are found mini-biographies of the most well-known scientists, and a glossary of helpful scientific terms. For students, and students of the world, there is no better way to explore the fascinating, strange, and mysterious world of science than in The Science Book.\u003c\/p\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003ePRODUCT DETAILS\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eYou show me what is deep as sea\u003c\/li\u003e\n\u003cli\u003eCrew neck\u003c\/li\u003e\n\u003cli\u003eShort sleeves\u003c\/li\u003e\n\u003cli\u003eLarge logo print to chest\u003c\/li\u003e\n\u003cli\u003eRegular fit\u003c\/li\u003e\n\u003cli\u003eTrue size\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eSIZE \u0026amp; FIT\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eModel’s height: 182.5cm\/6’0″\u003c\/li\u003e\n\u003cli\u003eModel is wearing: Size Medium\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eABOUT ME\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eSoft, breathable jersey\u003c\/li\u003e\n\u003cli\u003eT-shirt fabric\u003c\/li\u003e\n\u003cli\u003eMain: 95% Cotton, 5% Elastane\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e","published_at":"2025-08-29T00:46:48-04:00","created_at":"2025-08-29T00:46:48-04:00","vendor":"HorizonEdge","type":"","tags":["Hot"],"price":6000,"price_min":6000,"price_max":6000,"available":false,"price_varies":false,"compare_at_price":7000,"compare_at_price_min":7000,"compare_at_price_max":7000,"compare_at_price_varies":false,"variants":[{"id":45346073804990,"title":"Default Title","option1":"Default Title","option2":null,"option3":null,"sku":null,"requires_shipping":true,"taxable":true,"featured_image":null,"available":false,"name":"Koryn Meval","public_title":null,"options":["Default Title"],"price":6000,"weight":0,"compare_at_price":7000,"inventory_management":"shopify","barcode":null,"requires_selling_plan":false,"selling_plan_allocations":[],"quantity_rule":{"min":1,"max":null,"increment":1}}],"images":["\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/7_255d7d1e-fb90-40b9-b923-fe13b529f078.jpg?v=1756443971","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/8_3a77d626-5abe-4ddc-b879-6298414a1d3c.jpg?v=1756443971","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/9_9bf52714-952f-4ea3-874d-16f7187cb30f.jpg?v=1756443972","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/10_5c31fa09-d733-4d29-a42a-5c8ce2869e36.jpg?v=1756443971","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/6_5d5a688a-fd87-443e-857b-e0285f955bf1.jpg?v=1756443972"],"featured_image":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/7_255d7d1e-fb90-40b9-b923-fe13b529f078.jpg?v=1756443971","options":["Title"],"media":[{"alt":null,"id":30541812990142,"position":1,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/7_255d7d1e-fb90-40b9-b923-fe13b529f078.jpg?v=1756443971"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/7_255d7d1e-fb90-40b9-b923-fe13b529f078.jpg?v=1756443971","width":1000},{"alt":null,"id":30541813022910,"position":2,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/8_3a77d626-5abe-4ddc-b879-6298414a1d3c.jpg?v=1756443971"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/8_3a77d626-5abe-4ddc-b879-6298414a1d3c.jpg?v=1756443971","width":1000},{"alt":null,"id":30541813055678,"position":3,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/9_9bf52714-952f-4ea3-874d-16f7187cb30f.jpg?v=1756443972"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/9_9bf52714-952f-4ea3-874d-16f7187cb30f.jpg?v=1756443972","width":1000},{"alt":null,"id":30541813088446,"position":4,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/10_5c31fa09-d733-4d29-a42a-5c8ce2869e36.jpg?v=1756443971"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/10_5c31fa09-d733-4d29-a42a-5c8ce2869e36.jpg?v=1756443971","width":1000},{"alt":null,"id":30541813121214,"position":5,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/6_5d5a688a-fd87-443e-857b-e0285f955bf1.jpg?v=1756443972"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/6_5d5a688a-fd87-443e-857b-e0285f955bf1.jpg?v=1756443972","width":1000}],"requires_selling_plan":false,"selling_plan_groups":[],"content":"\u003cp style=\"padding-bottom: 30px;\" data-mce-style=\"padding-bottom: 30px;\"\u003eCheer on your favorite red and white team in eye-popping style with these red \u0026amp; white striped game bib overalls! Each pair is made of 100 percent cotton for a comfortable, breathable fit regardless of the weather and includes easily adjustable shoulder straps for fans with long torsos. Whether you’re on rickety bleachers on a Friday night or trying to get on television at the Sunday morning tailgate, our red \u0026amp; white striped game bibs will make you stand out in the crowd and leave an impression. These particular bib overalls are also great as casual Clauswear for any Saint Nicks who might be taking in a game during the holiday offseason!\u003c\/p\u003e\n\u003cdiv style=\"--xs: 12; --md: 6;\" data-mce-style=\"--xs: 12; --md: 6;\"\u003e\n\u003ch3\u003eBRAND\u003c\/h3\u003e\n\u003cp\u003eWith eye-catching artwork, step-by-step diagrams, and illustrations that break down complicated ideas into manageable concepts, The Science Book will have readers conversant in genetic engineering, black holes, and global warming in no time. Along the way are found mini-biographies of the most well-known scientists, and a glossary of helpful scientific terms. For students, and students of the world, there is no better way to explore the fascinating, strange, and mysterious world of science than in The Science Book.\u003c\/p\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003ePRODUCT DETAILS\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eYou show me what is deep as sea\u003c\/li\u003e\n\u003cli\u003eCrew neck\u003c\/li\u003e\n\u003cli\u003eShort sleeves\u003c\/li\u003e\n\u003cli\u003eLarge logo print to chest\u003c\/li\u003e\n\u003cli\u003eRegular fit\u003c\/li\u003e\n\u003cli\u003eTrue size\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eSIZE \u0026amp; FIT\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eModel’s height: 182.5cm\/6’0″\u003c\/li\u003e\n\u003cli\u003eModel is wearing: Size Medium\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eABOUT ME\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eSoft, breathable jersey\u003c\/li\u003e\n\u003cli\u003eT-shirt fabric\u003c\/li\u003e\n\u003cli\u003eMain: 95% Cotton, 5% Elastane\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e"},
-      
-        {"id":8566084599998,"title":"Mivon Tivon","handle":"grid-mix","description":"\u003cp style=\"padding-bottom: 30px;\" data-mce-style=\"padding-bottom: 30px;\"\u003eCheer on your favorite red and white team in eye-popping style with these red \u0026amp; white striped game bib overalls! Each pair is made of 100 percent cotton for a comfortable, breathable fit regardless of the weather and includes easily adjustable shoulder straps for fans with long torsos. Whether you’re on rickety bleachers on a Friday night or trying to get on television at the Sunday morning tailgate, our red \u0026amp; white striped game bibs will make you stand out in the crowd and leave an impression. These particular bib overalls are also great as casual Clauswear for any Saint Nicks who might be taking in a game during the holiday offseason!\u003c\/p\u003e\n\u003cdiv style=\"--xs: 12; --md: 6;\" data-mce-style=\"--xs: 12; --md: 6;\"\u003e\n\u003ch3\u003eBRAND\u003c\/h3\u003e\n\u003cp\u003eWith eye-catching artwork, step-by-step diagrams, and illustrations that break down complicated ideas into manageable concepts, The Science Book will have readers conversant in genetic engineering, black holes, and global warming in no time. Along the way are found mini-biographies of the most well-known scientists, and a glossary of helpful scientific terms. For students, and students of the world, there is no better way to explore the fascinating, strange, and mysterious world of science than in The Science Book.\u003c\/p\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003ePRODUCT DETAILS\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eYou show me what is deep as sea\u003c\/li\u003e\n\u003cli\u003eCrew neck\u003c\/li\u003e\n\u003cli\u003eShort sleeves\u003c\/li\u003e\n\u003cli\u003eLarge logo print to chest\u003c\/li\u003e\n\u003cli\u003eRegular fit\u003c\/li\u003e\n\u003cli\u003eTrue size\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eSIZE \u0026amp; FIT\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eModel’s height: 182.5cm\/6’0″\u003c\/li\u003e\n\u003cli\u003eModel is wearing: Size Medium\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eABOUT ME\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eSoft, breathable jersey\u003c\/li\u003e\n\u003cli\u003eT-shirt fabric\u003c\/li\u003e\n\u003cli\u003eMain: 95% Cotton, 5% Elastane\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e","published_at":"2025-08-29T00:46:48-04:00","created_at":"2025-08-29T00:46:48-04:00","vendor":"LuxeVibe","type":"","tags":["Quality"],"price":5000,"price_min":5000,"price_max":5000,"available":false,"price_varies":false,"compare_at_price":6000,"compare_at_price_min":6000,"compare_at_price_max":6000,"compare_at_price_varies":false,"variants":[{"id":45346072985790,"title":"Default Title","option1":"Default Title","option2":null,"option3":null,"sku":null,"requires_shipping":true,"taxable":true,"featured_image":null,"available":false,"name":"Mivon Tivon","public_title":null,"options":["Default Title"],"price":5000,"weight":0,"compare_at_price":6000,"inventory_management":"shopify","barcode":null,"requires_selling_plan":false,"selling_plan_allocations":[],"quantity_rule":{"min":1,"max":null,"increment":1}}],"images":["\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/4_e1f41199-39e5-441d-a165-ad52e56a3a80.jpg?v=1756444132","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/5_1836c2a4-1af3-4f80-a3e4-e0bff05635bd.jpg?v=1756444131","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/1_6bee9ab1-1d68-4c43-a05f-3156254eb333.jpg?v=1756444131","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/2_ec40bf64-7e9e-47c9-bd50-602b5b3031ac.jpg?v=1756444132","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/3_75ab479c-c886-49c8-8e4f-7768f65b0d17.jpg?v=1756444131"],"featured_image":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/4_e1f41199-39e5-441d-a165-ad52e56a3a80.jpg?v=1756444132","options":["Title"],"media":[{"alt":null,"id":30541816430782,"position":1,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/4_e1f41199-39e5-441d-a165-ad52e56a3a80.jpg?v=1756444132"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/4_e1f41199-39e5-441d-a165-ad52e56a3a80.jpg?v=1756444132","width":1000},{"alt":null,"id":30541816463550,"position":2,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/5_1836c2a4-1af3-4f80-a3e4-e0bff05635bd.jpg?v=1756444131"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/5_1836c2a4-1af3-4f80-a3e4-e0bff05635bd.jpg?v=1756444131","width":1000},{"alt":null,"id":30541816496318,"position":3,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/1_6bee9ab1-1d68-4c43-a05f-3156254eb333.jpg?v=1756444131"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/1_6bee9ab1-1d68-4c43-a05f-3156254eb333.jpg?v=1756444131","width":1000},{"alt":null,"id":30541816529086,"position":4,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/2_ec40bf64-7e9e-47c9-bd50-602b5b3031ac.jpg?v=1756444132"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/2_ec40bf64-7e9e-47c9-bd50-602b5b3031ac.jpg?v=1756444132","width":1000},{"alt":null,"id":30541816561854,"position":5,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/3_75ab479c-c886-49c8-8e4f-7768f65b0d17.jpg?v=1756444131"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/3_75ab479c-c886-49c8-8e4f-7768f65b0d17.jpg?v=1756444131","width":1000}],"requires_selling_plan":false,"selling_plan_groups":[],"content":"\u003cp style=\"padding-bottom: 30px;\" data-mce-style=\"padding-bottom: 30px;\"\u003eCheer on your favorite red and white team in eye-popping style with these red \u0026amp; white striped game bib overalls! Each pair is made of 100 percent cotton for a comfortable, breathable fit regardless of the weather and includes easily adjustable shoulder straps for fans with long torsos. Whether you’re on rickety bleachers on a Friday night or trying to get on television at the Sunday morning tailgate, our red \u0026amp; white striped game bibs will make you stand out in the crowd and leave an impression. These particular bib overalls are also great as casual Clauswear for any Saint Nicks who might be taking in a game during the holiday offseason!\u003c\/p\u003e\n\u003cdiv style=\"--xs: 12; --md: 6;\" data-mce-style=\"--xs: 12; --md: 6;\"\u003e\n\u003ch3\u003eBRAND\u003c\/h3\u003e\n\u003cp\u003eWith eye-catching artwork, step-by-step diagrams, and illustrations that break down complicated ideas into manageable concepts, The Science Book will have readers conversant in genetic engineering, black holes, and global warming in no time. Along the way are found mini-biographies of the most well-known scientists, and a glossary of helpful scientific terms. For students, and students of the world, there is no better way to explore the fascinating, strange, and mysterious world of science than in The Science Book.\u003c\/p\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003ePRODUCT DETAILS\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eYou show me what is deep as sea\u003c\/li\u003e\n\u003cli\u003eCrew neck\u003c\/li\u003e\n\u003cli\u003eShort sleeves\u003c\/li\u003e\n\u003cli\u003eLarge logo print to chest\u003c\/li\u003e\n\u003cli\u003eRegular fit\u003c\/li\u003e\n\u003cli\u003eTrue size\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eSIZE \u0026amp; FIT\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eModel’s height: 182.5cm\/6’0″\u003c\/li\u003e\n\u003cli\u003eModel is wearing: Size Medium\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eABOUT ME\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eSoft, breathable jersey\u003c\/li\u003e\n\u003cli\u003eT-shirt fabric\u003c\/li\u003e\n\u003cli\u003eMain: 95% Cotton, 5% Elastane\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e"},
-      
-        {"id":8566085419198,"title":"Trivon Qylen","handle":"product-recommendations","description":"\u003cp style=\"padding-bottom: 30px;\" data-mce-style=\"padding-bottom: 30px;\"\u003eCheer on your favorite red and white team in eye-popping style with these red \u0026amp; white striped game bib overalls! Each pair is made of 100 percent cotton for a comfortable, breathable fit regardless of the weather and includes easily adjustable shoulder straps for fans with long torsos. Whether you’re on rickety bleachers on a Friday night or trying to get on television at the Sunday morning tailgate, our red \u0026amp; white striped game bibs will make you stand out in the crowd and leave an impression. These particular bib overalls are also great as casual Clauswear for any Saint Nicks who might be taking in a game during the holiday offseason!\u003c\/p\u003e\n\u003cdiv style=\"--xs: 12; --md: 6;\" data-mce-style=\"--xs: 12; --md: 6;\"\u003e\n\u003ch3\u003eBRAND\u003c\/h3\u003e\n\u003cp\u003eWith eye-catching artwork, step-by-step diagrams, and illustrations that break down complicated ideas into manageable concepts, The Science Book will have readers conversant in genetic engineering, black holes, and global warming in no time. Along the way are found mini-biographies of the most well-known scientists, and a glossary of helpful scientific terms. For students, and students of the world, there is no better way to explore the fascinating, strange, and mysterious world of science than in The Science Book.\u003c\/p\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003ePRODUCT DETAILS\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eYou show me what is deep as sea\u003c\/li\u003e\n\u003cli\u003eCrew neck\u003c\/li\u003e\n\u003cli\u003eShort sleeves\u003c\/li\u003e\n\u003cli\u003eLarge logo print to chest\u003c\/li\u003e\n\u003cli\u003eRegular fit\u003c\/li\u003e\n\u003cli\u003eTrue size\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eSIZE \u0026amp; FIT\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eModel’s height: 182.5cm\/6’0″\u003c\/li\u003e\n\u003cli\u003eModel is wearing: Size Medium\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eABOUT ME\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eSoft, breathable jersey\u003c\/li\u003e\n\u003cli\u003eT-shirt fabric\u003c\/li\u003e\n\u003cli\u003eMain: 95% Cotton, 5% Elastane\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e","published_at":"2025-08-29T00:46:48-04:00","created_at":"2025-08-29T00:46:48-04:00","vendor":"VertexCore","type":"","tags":["Lifestyle"],"price":6000,"price_min":6000,"price_max":6000,"available":false,"price_varies":false,"compare_at_price":7000,"compare_at_price_min":7000,"compare_at_price_max":7000,"compare_at_price_varies":false,"variants":[{"id":45346073641150,"title":"Default Title","option1":"Default Title","option2":null,"option3":null,"sku":null,"requires_shipping":true,"taxable":true,"featured_image":null,"available":false,"name":"Trivon Qylen","public_title":null,"options":["Default Title"],"price":6000,"weight":0,"compare_at_price":7000,"inventory_management":"shopify","barcode":null,"requires_selling_plan":false,"selling_plan_allocations":[],"quantity_rule":{"min":1,"max":null,"increment":1}}],"images":["\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/2_927956fe-79b6-41b7-8fc8-9ca58fdcb1cb.jpg?v=1756443935","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/3_95263bd8-22dd-4f40-b72c-e837bc8d827f.jpg?v=1756443935","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/4_93dd7433-ac2a-4423-9d62-dbcf40bf3a46.jpg?v=1756443935","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/5_26fe03af-6b3b-47ea-b7db-472a5907abd9.jpg?v=1756443935","\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/1_13f4a731-7de4-4a01-80d8-546d54679a38.jpg?v=1756443935"],"featured_image":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/2_927956fe-79b6-41b7-8fc8-9ca58fdcb1cb.jpg?v=1756443935","options":["Title"],"media":[{"alt":null,"id":30541811777726,"position":1,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/2_927956fe-79b6-41b7-8fc8-9ca58fdcb1cb.jpg?v=1756443935"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/2_927956fe-79b6-41b7-8fc8-9ca58fdcb1cb.jpg?v=1756443935","width":1000},{"alt":null,"id":30541811810494,"position":2,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/3_95263bd8-22dd-4f40-b72c-e837bc8d827f.jpg?v=1756443935"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/3_95263bd8-22dd-4f40-b72c-e837bc8d827f.jpg?v=1756443935","width":1000},{"alt":null,"id":30541811843262,"position":3,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/4_93dd7433-ac2a-4423-9d62-dbcf40bf3a46.jpg?v=1756443935"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/4_93dd7433-ac2a-4423-9d62-dbcf40bf3a46.jpg?v=1756443935","width":1000},{"alt":null,"id":30541811876030,"position":4,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/5_26fe03af-6b3b-47ea-b7db-472a5907abd9.jpg?v=1756443935"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/5_26fe03af-6b3b-47ea-b7db-472a5907abd9.jpg?v=1756443935","width":1000},{"alt":null,"id":30541811908798,"position":5,"preview_image":{"aspect_ratio":1.0,"height":1000,"width":1000,"src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/1_13f4a731-7de4-4a01-80d8-546d54679a38.jpg?v=1756443935"},"aspect_ratio":1.0,"height":1000,"media_type":"image","src":"\/\/feewcx8vv0ntlyby-71784923326.shopifypreview.com\/cdn\/shop\/files\/1_13f4a731-7de4-4a01-80d8-546d54679a38.jpg?v=1756443935","width":1000}],"requires_selling_plan":false,"selling_plan_groups":[],"content":"\u003cp style=\"padding-bottom: 30px;\" data-mce-style=\"padding-bottom: 30px;\"\u003eCheer on your favorite red and white team in eye-popping style with these red \u0026amp; white striped game bib overalls! Each pair is made of 100 percent cotton for a comfortable, breathable fit regardless of the weather and includes easily adjustable shoulder straps for fans with long torsos. Whether you’re on rickety bleachers on a Friday night or trying to get on television at the Sunday morning tailgate, our red \u0026amp; white striped game bibs will make you stand out in the crowd and leave an impression. These particular bib overalls are also great as casual Clauswear for any Saint Nicks who might be taking in a game during the holiday offseason!\u003c\/p\u003e\n\u003cdiv style=\"--xs: 12; --md: 6;\" data-mce-style=\"--xs: 12; --md: 6;\"\u003e\n\u003ch3\u003eBRAND\u003c\/h3\u003e\n\u003cp\u003eWith eye-catching artwork, step-by-step diagrams, and illustrations that break down complicated ideas into manageable concepts, The Science Book will have readers conversant in genetic engineering, black holes, and global warming in no time. Along the way are found mini-biographies of the most well-known scientists, and a glossary of helpful scientific terms. For students, and students of the world, there is no better way to explore the fascinating, strange, and mysterious world of science than in The Science Book.\u003c\/p\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003ePRODUCT DETAILS\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eYou show me what is deep as sea\u003c\/li\u003e\n\u003cli\u003eCrew neck\u003c\/li\u003e\n\u003cli\u003eShort sleeves\u003c\/li\u003e\n\u003cli\u003eLarge logo print to chest\u003c\/li\u003e\n\u003cli\u003eRegular fit\u003c\/li\u003e\n\u003cli\u003eTrue size\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eSIZE \u0026amp; FIT\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eModel’s height: 182.5cm\/6’0″\u003c\/li\u003e\n\u003cli\u003eModel is wearing: Size Medium\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e\n\u003cdiv\u003e\n\u003ch3\u003eABOUT ME\u003c\/h3\u003e\n\u003cul\u003e\n\u003cli\u003eSoft, breathable jersey\u003c\/li\u003e\n\u003cli\u003eT-shirt fabric\u003c\/li\u003e\n\u003cli\u003eMain: 95% Cotton, 5% Elastane\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003c\/div\u003e"}
-      
-    ]
-  </script>
-        <xo-toast xo-class-name="xo-popup-sale-notification color-background-1"
-          xo-close-button-class-name="xo-popup-sale-notification__close" xo-delay="3000" xo-duration="800"
-          xo-name="xo-popup-sections--19284033798334__popup-sale-notification" xo-placement="bottom-left">
-          <div class="xo-popup-sale-notification__container">
-            <div class="xo-popup-sale-notification__image">
-              <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img alt="Koryn Meval"
-                  fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy" sizes="100vw"
-                  src="cdn/shop/files/7_255d7d1e-fb90-40b9-b923-fe13b529f078.jpg"
-                  srcset="cdn/shop/files/7_255d7d1e-fb90-40b9-b923-fe13b529f078.jpg 100w" width="1000"
-                  xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
-                <div class="xo-image__overlay xo-lazyload-overlay">
-                  <div class="xo-image__loading">
-                    <div class="xo-loader-3"
-                      style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                      <div></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="xo-popup-sale-notification__content">
-              <div class="xo-popup-sale-notification__heading-container">
-                <xo-animate xo-cascade="" xo-delay="300" xo-type="fade-up">
-                  <div class="xo-popup-sale-notification__customer-name">Someone In California, USA just bought</div>
-                </xo-animate>
-                <xo-animate xo-cascade="" xo-delay="300" xo-type="fade-up">
-                  <div class="xo-popup-sale-notification__product-title">Koryn Meval</div>
-                </xo-animate>
-              </div>
-              <div class="xo-popup-sale-notification__text">
-                <svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_7262_93011)" opacity="0.7">
-                    <path
-                      d="M8 0C3.58888 0 0 3.58888 0 8C0 12.4111 3.58888 16 8 16C12.4111 16 16 12.4111 16 8C16 3.58888 12.4111 0 8 0ZM8 15C4.14013 15 1 11.8599 1 8C1 4.14013 4.14013 1 8 1C11.8599 1 15 4.14013 15 8C15 11.8599 11.8599 15 8 15Z"
-                      fill="currentColor"></path>
-                    <path d="M8.5 3H7.5V8.20702L10.6465 11.3535L11.3535 10.6465L8.5 7.79295V3Z" fill="currentColor">
-                    </path>
-                  </g>
-                  <defs>
-                    <clippath id="clip0_7262_93011">
-                      <rect fill="white" height="16" width="16"></rect>
-                    </clippath>
-                  </defs>
-                </svg>
-                <div class="xo-popup-sale-notification__time-content">
-                  <div class="xo-popup-sale-notification__time"><span
-                      class="xo-popup-sale-notification__minute">3</span> mins ago</div>
-                  <svg fill="none" height="4" viewbox="0 0 4 4" width="4" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="2" cy="2" fill="currentColor" opacity="0.6" r="2"></circle>
-                  </svg>
-                  <span class="xo-popup-sale-notification__text-content">Verify</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="xo-popup-sale-notification__progress"></div>
-        </xo-toast>
-      </xo-popup-sale-notification>
-    </div>
-    <!-- END sections: popup-group -->
+
+
     <ul hidden="">
       <li id="a11y-refresh-page-message">Choosing a selection results in a full page refresh.</li>
       <li id="a11y-new-window-message">Opens in a new window.</li>
