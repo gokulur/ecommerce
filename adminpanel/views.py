@@ -210,24 +210,19 @@ def collection_delete(request, pk):
 # -------------------------------
 @login_required
 @user_passes_test(admin_only)
-def category_list(request):
-    categories = Category.objects.all().order_by('-created_at')
-    return render(request, 'category_list.html', {'categories': categories})
-
-
-@login_required
-@user_passes_test(admin_only)
 def category_add(request):
     if request.method == 'POST':
         name = request.POST.get('name')
+        image = request.FILES.get('image')
 
         if not name:
             messages.error(request, "Name is required.")
             return redirect('category_add')
 
-        Category.objects.create(
+        category = Category.objects.create(
             name=name,
             slug=slugify(name),
+            image=image
         )
         messages.success(request, f"Category '{name}' added successfully!")
         return redirect('category_list')
@@ -239,17 +234,14 @@ def category_add(request):
 @user_passes_test(admin_only)
 def category_edit(request, pk):
     category = get_object_or_404(Category, pk=pk)
-
     if request.method == 'POST':
         category.name = request.POST.get('name')
-        category.description = request.POST.get('description')
         if request.FILES.get('image'):
             category.image = request.FILES.get('image')
         category.slug = slugify(category.name)
         category.save()
         messages.success(request, f"Category '{category.name}' updated successfully!")
         return redirect('category_list')
-
     return render(request, 'category_add.html', {'category': category})
 
 
