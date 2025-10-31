@@ -12,7 +12,7 @@ def product_list(request):
     paginator = Paginator(products, 12)   
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'shop/product_list.html', {'page_obj': page_obj})
+    return render(request, 'product_list.html', {'page_obj': page_obj})
 
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug, available=True)

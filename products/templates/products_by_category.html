@@ -6,8 +6,8 @@
         <section class="xo-section xo-section--template--19284045103294__collection-title color-inverse" style="--bg-color: #f3f3f3;--margin: 0;--pt: 110;--pb: 110;
 --pt-mobile:50px; --pb-mobile:50px;">
             <xo-animate class="xo-section-bg" style="
-      --img-desktop: url(../cdn/shop/files/Breadcrumb.jpg);
-      --img-mobile: url(../cdn/shop/files/Breadcrumb.jpg);
+      --img-desktop: url({% static 'cdn/shop/files/eau-de-toilette-6399434.jpg' %});
+      --img-mobile: url({% static 'cdn/shop/files/eau-de-toilette-6399434.jpg' %});
 " xo-disabled="" xo-duration="1000">
                 <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
                     <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
@@ -20,7 +20,9 @@
             </xo-animate>
             <div class="collection-title">
                 <xo-animate xo-cascade="">
-                    <h2 class="collection-title__title">Midnight Glow</h2>
+                    {% for product in products %}
+                    <h2 class="collection-title__title">{{ product.category.name }}</h2>
+                    {% endfor %}
                 </xo-animate>
                 <xo-animate xo-cascade="">
                     <nav aria-label="breadcrumb" class="breadcrumb" role="navigation" style="--display-mobile:block">
@@ -36,8 +38,10 @@
                                 </span>
                             </li>
                             <li class="breadcrumb__item breadcrumb__item--current" style="--display:block">
+                                {% for product in products %}
                                 <a aria-current="page" class="breadcrumb__link breadcrumb--current breadcrumb--"
-                                    href="left-sidebar.html" style="--display:block">Midnight Glow</a>
+                                    href="left-sidebar.html" style="--display:block">{{ product.category.name }}</a>
+                                {% endfor %}
                             </li>
                         </ol>
                     </nav>
@@ -86,7 +90,9 @@
                                             </a>
                                         </div>
                                         <div class="collection-title-style2__nav-text">
+                                            
                                             <a href="left-sidebar.html">
+
                                                 Midnight Glow
                                             </a>
                                         </div>
