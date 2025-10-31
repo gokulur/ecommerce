@@ -1,57 +1,112 @@
 {% extends 'admin_dashboard.html' %}
 
 {% block content %}
-<div class="main-panel  ">
-    <div class="content-wrapper">
+ 
 
-        <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">{% if product %}Edit Product{% else %}Add Product{% endif %}</h4>
-                        <!-- <p class="card-description"> Basic form layout </p> -->
-                        <form class="forms-sample"
-                            action="{% if product %}{% url 'admin_product_edit' product.id %}{% else %}{% url 'admin_product_add' %}{% endif %}"
-                            method="POST" enctype="multipart/form-data">
+ 
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">
+              {% if product %} Edit Product {% else %} Add Product {% endif %}
+            </h4>
 
-                            {% csrf_token %}
-                            <div class="form-group mb-4">
-                                <label for="exampleInputUsername1">Name:</label>
-                                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Name"
-                                    name="name" value="{{ product.name|default:'' }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleTextarea1">Description:</label>
-                                <textarea placeholder="Description" class="form-control" id="exampleTextarea1" rows="4"
-                                    name="description">{{ product.description|default:'' }}</textarea>
-                            </div>
-                            <div class="form-group mb-4 ">
-                                <label for="exampleInputPassword1">Price</label>
-                                <input type="text" name="price" value="{{ product.price|default:'' }}"
-                                    class="form-control" id="exampleInputPassword1" placeholder="Price">
-                            </div>
-                            <div class="form-group mb-4 ">
-                                <label>Image</label>
-                                <input type="file" name="image" class="file-upload-default" style="display:none;">
-                                <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" disabled
-                                        placeholder="Upload Image">
-                                    <span class="input-group-append">
-                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                    </span>
-                                </div>
-                            </div>
+            <form class="forms-sample"
+              action="{% if product %}{% url 'admin_product_edit' product.id %}{% else %}{% url 'admin_product_add' %}{% endif %}"
+              method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
 
+              <!-- Name -->
+              <div class="form-group mb-3">
+                <label>Name:</label>
+                <input type="text" class="form-control" placeholder="Enter product name" name="name"
+                  value="{{ product.name|default:'' }}" required>
+              </div>
 
-                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                            <button class="btn btn-dark">Cancel</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+              <!-- Description -->
+              <div class="form-group mb-3">
+                <label>Description:</label>
+                <textarea class="form-control" rows="4" placeholder="Enter description"
+                  name="description">{{ product.description|default:'' }}</textarea>
+              </div>
+
+              <!-- Price -->
+              <div class="form-group mb-3">
+                <label>Price:</label>
+                <input type="number" step="0.01" class="form-control" name="price"
+                  value="{{ product.price|default:'' }}" placeholder="Enter price" required>
+              </div>
+
+              <!-- Stock -->
+              <div class="form-group mb-3">
+                <label>Stock Quantity:</label>
+                <input type="number" class="form-control" name="stock"
+                  value="{{ product.stock|default:'0' }}" placeholder="Enter stock count">
+              </div>
+
+              <!-- Category -->
+              <div class="form-group mb-3">
+                <label>Category:</label>
+                <select class="form-control" name="category" required>
+                  <option value="">-- Select Category --</option>
+                  {% for category in categories %}
+                    <option value="{{ category.id }}"
+                      {% if product and product.category.id == category.id %}selected{% endif %}>
+                      {{ category.name }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- Collection -->
+              <div class="form-group mb-3">
+                <label>Collection:</label>
+                <select class="form-control" name="collection">
+                  <option value="">-- Select Collection --</option>
+                  {% for collection in collections %}
+                    <option value="{{ collection.id }}"
+                      {% if product and product.collection.id == collection.id %}selected{% endif %}>
+                      {{ collection.name }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- Available -->
+              <div class="form-group mb-3">
+                <label>Available:</label>
+                <select name="available" class="form-control">
+                  <option value="True" {% if product.available %}selected{% endif %}>Yes</option>
+                  <option value="False" {% if not product.available %}selected{% endif %}>No</option>
+                </select>
+              </div>
+
+              <!-- Image Upload -->
+              <div class="form-group mb-4">
+                <label>Image:</label>
+                {% if product.image %}
+                  <div class="mb-2">
+                    <img src="{{ product.image.url }}" alt="Product Image" width="120" class="rounded">
+                  </div>
+                {% endif %}
+                <input type="file" name="image" class="form-control">
+              </div>
+
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              <a href="{% url 'admin_product_list' %}" class="btn btn-dark">Cancel</a>
+            </form>
+
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+ 
+
 <script>
     document.querySelectorAll('.file-upload-browse').forEach(button => {
         button.addEventListener('click', function () {

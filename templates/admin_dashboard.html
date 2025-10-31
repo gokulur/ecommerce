@@ -30,8 +30,8 @@
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href=" "><img src="{% static 'assets/images/logo.svg' %}" alt="logo" /></a>
-        <a class="sidebar-brand brand-logo-mini" href=" "><img src="{% static 'assets/images/logo-mini.svg' %}"
+        <a class="sidebar-brand brand-logo" href=" "><img src="{% static 'cdn/shop/files/rihazain.logo.png' %}" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo-mini" href=" "><img src="{% static 'cdn/shop/files/rihazain.logo.png' %}"
             alt="logo" /></a>
       </div>
       <ul class="nav">
@@ -97,6 +97,45 @@
           </a>
         </li>
 
+        <!-- Categories -->
+        <li class="nav-item menu-items">
+          <a class="nav-link" data-toggle="collapse" href="#category-menu" aria-expanded="false"
+            aria-controls="category-menu">
+            <span class="menu-icon">
+              <i class="mdi mdi-shape-outline"></i>
+            </span>
+            <span class="menu-title">Categories</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="category-menu">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"><a class="nav-link" href="{% url 'category_add' %}">
+                  <i class="mdi mdi-plus-box-outline"></i> Add Category</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'category_list' %}">
+                  <i class="mdi mdi-format-list-bulleted"></i> All Categories</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item menu-items">
+          <a class="nav-link" data-toggle="collapse" href="#collection-menu" aria-expanded="false"
+            aria-controls="collection-menu">
+            <span class="menu-icon">
+              <i class="mdi mdi-shape-outline"></i>
+            </span>
+            <span class="menu-title">Collections</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="collection-menu">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"><a class="nav-link" href="{% url 'collection_add' %}">
+                  <i class="mdi mdi-plus-box-outline"></i> Add Collection</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'collection_list' %}">
+                  <i class="mdi mdi-format-list-bulleted"></i> All Collections</a></li>
+            </ul>
+          </div>
+        </li>
+
         <!-- Products -->
         <li class="nav-item menu-items">
           <a class="nav-link" data-toggle="collapse" href="#products-menu" aria-expanded="false"
@@ -109,11 +148,13 @@
           </a>
           <div class="collapse" id="products-menu">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"><a class="nav-link" href="{% url 'admin_product_add' %}"><i class="mdi mdi-plus-box-outline"></i> Add Product</a>
+              <li class="nav-item"><a class="nav-link" href="{% url 'admin_product_add' %}"><i
+                    class="mdi mdi-plus-box-outline"></i> Add Product</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'admin_product_list' %}"><i class="mdi mdi-format-list-bulleted"></i> All
+              <li class="nav-item"><a class="nav-link" href="{% url 'admin_product_list' %}"><i
+                    class="mdi mdi-format-list-bulleted"></i> All
                   Products</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'collection_add' %}"><i class="mdi mdi-tag-multiple-outline"></i> Categories</a></li>
+
             </ul>
           </div>
         </li>
@@ -130,9 +171,11 @@
           </a>
           <div class="collapse" id="perfume-menu">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"><a class="nav-link" href="{% url 'collection_add' %}"><i class="mdi mdi-plus-circle-outline"></i> Add
+              <li class="nav-item"><a class="nav-link" href="{% url 'collection_add' %}"><i
+                    class="mdi mdi-plus-circle-outline"></i> Add
                   Collection</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'collection_list' %}"><i class="mdi mdi-eye-outline"></i> View Collections</a>
+              <li class="nav-item"><a class="nav-link" href="{% url 'collection_list' %}"><i
+                    class="mdi mdi-eye-outline"></i> View Collections</a>
               </li>
             </ul>
           </div>
@@ -150,7 +193,8 @@
           </a>
           <div class="collapse" id="orders-menu">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"><a class="nav-link" href="{% url 'admin_order_list' %}"><i class="mdi mdi-reorder-horizontal"></i> All
+              <li class="nav-item"><a class="nav-link" href="{% url 'admin_order_list' %}"><i
+                    class="mdi mdi-reorder-horizontal"></i> All
                   Orders</a></li>
               <li class="nav-item"><a class="nav-link" href=" "><i class="mdi mdi-truck-outline"></i> Shipped /
                   Delivered</a></li>
@@ -172,7 +216,8 @@
           </a>
           <div class="collapse" id="customers-menu">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"><a class="nav-link" href="{% url 'admin_customers' %}"><i class="mdi mdi-account-multiple-outline"></i> All
+              <li class="nav-item"><a class="nav-link" href="{% url 'admin_customers' %}"><i
+                    class="mdi mdi-account-multiple-outline"></i> All
                   Customers</a></li>
               <li class="nav-item"><a class="nav-link" href=" "><i class="mdi mdi-eye-outline"></i> View Customer
                   Details</a></li>
