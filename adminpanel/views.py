@@ -1,76 +1,107 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
-from products.models import Product
-from orders.models import Order
-from django.contrib.auth.models import User
-from products.models import Collection
 from django.utils.text import slugify
+from django.contrib.auth.models import User
+from products.models import Product, Collection, Category
+from orders.models import Order
 
-# Create your views here.
-@login_required
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def admin_dashboard(request):
-    return render(request, 'admin_dashboard.html')
-
+# -------------------------------
+# Access Control
+# -------------------------------
 def admin_only(user):
-    return user.is_superuser
+    return user.is_superuser or user.is_staff
 
+
+# -------------------------------
+# Dashboard
+# -------------------------------
 @login_required
 @user_passes_test(admin_only)
 def admin_dashboard(request):
     total_products = Product.objects.count()
     total_orders = Order.objects.count()
     total_users = User.objects.count()
-    return render(request, 'admin_dashboard.html', {
+    total_collections = Collection.objects.count()
+    total_categories = Category.objects.count()
+
+    context = {
         'total_products': total_products,
         'total_orders': total_orders,
-        'total_users': total_users
-    })
+        'total_users': total_users,
+        'total_collections': total_collections,
+        'total_categories': total_categories,
+    }
+    return render(request, 'admin_dashboard.html', context)
 
 
-# --- Product Management ---
+# -------------------------------
+# PRODUCT MANAGEMENT
+# -------------------------------
 @login_required
 @user_passes_test(admin_only)
 def product_list(request):
-    products = Product.objects.all()
+    products = Product.objects.select_related('collection', 'category').all()
     return render(request, 'product_list.html', {'products': products})
 
 
 @login_required
 @user_passes_test(admin_only)
 def product_add(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        description = request.POST['description']
-        price = request.POST['price']
-        image = request.FILES.get('image')
+    collections = Collection.objects.all()
+    categories = Category.objects.all()
 
-        Product.objects.create(name=name, description=description, price=price, image=image)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+        image = request.FILES.get('image')
+        collection_id = request.POST.get('collection')
+        category_id = request.POST.get('category')
+
+        collection = Collection.objects.get(id=collection_id) if collection_id else None
+        category = Category.objects.get(id=category_id) if category_id else None
+
+        Product.objects.create(
+            name=name,
+            slug=slugify(name),
+            description=description,
+            price=price,
+            image=image,
+            collection=collection,
+            category=category
+        )
         messages.success(request, "Product added successfully!")
         return redirect('admin_product_list')
 
-    return render(request, 'product_form.html')
+    return render(request, 'product_form.html', {'collections': collections, 'categories': categories})
 
 
 @login_required
 @user_passes_test(admin_only)
 def product_edit(request, pk):
     product = get_object_or_404(Product, pk=pk)
+    collections = Collection.objects.all()
+    categories = Category.objects.all()
 
     if request.method == 'POST':
-        product.name = request.POST['name']
-        product.description = request.POST['description']
-        product.price = request.POST['price']
+        product.name = request.POST.get('name')
+        product.description = request.POST.get('description')
+        product.price = request.POST.get('price')
+        product.collection_id = request.POST.get('collection') or None
+        product.category_id = request.POST.get('category') or None
         if request.FILES.get('image'):
             product.image = request.FILES.get('image')
+        product.slug = slugify(product.name)
         product.save()
         messages.success(request, "Product updated successfully!")
         return redirect('admin_product_list')
 
-    return render(request, 'product_form.html', {'product': product})
+    return render(request, 'product_form.html', {
+        'product': product,
+        'collections': collections,
+        'categories': categories
+    })
 
 
 @login_required
@@ -82,11 +113,13 @@ def product_delete(request, pk):
     return redirect('admin_product_list')
 
 
-# --- Order Management ---
+# -------------------------------
+# ORDER MANAGEMENT
+# -------------------------------
 @login_required
 @user_passes_test(admin_only)
 def order_list(request):
-    orders = Order.objects.all().select_related('user')
+    orders = Order.objects.select_related('user').all()
     return render(request, 'admin_order_list.html', {'orders': orders})
 
 
@@ -103,40 +136,56 @@ def order_update_status(request, pk):
     return render(request, 'adminpanel/order_update.html', {'order': order})
 
 
-
+# -------------------------------
+# COLLECTION MANAGEMENT
+# -------------------------------
+@login_required
+@user_passes_test(admin_only)
 def collection_list(request):
-    collections = Collection.objects.all().order_by('-created_at')
+    collections = Collection.objects.select_related('category').all().order_by('-created_at')
     return render(request, 'collection_lists.html', {'collections': collections})
 
 
+@login_required
+@user_passes_test(admin_only)
 def collection_add(request):
+    categories = Category.objects.all()
+
     if request.method == 'POST':
         name = request.POST.get('name')
         description = request.POST.get('description')
         image = request.FILES.get('image')
+        category_id = request.POST.get('category')
 
         if not name:
             messages.error(request, "Name is required.")
             return redirect('collection_add')
 
-        collection = Collection.objects.create(
+        category = Category.objects.get(id=category_id) if category_id else None
+
+        Collection.objects.create(
             name=name,
             slug=slugify(name),
             description=description,
-            image=image
+            image=image,
+            category=category
         )
         messages.success(request, f"Collection '{name}' added successfully!")
         return redirect('collection_list')
 
-    return render(request, 'collection_add.html')
+    return render(request, 'collection_add.html', {'categories': categories})
 
 
+@login_required
+@user_passes_test(admin_only)
 def collection_edit(request, pk):
     collection = get_object_or_404(Collection, pk=pk)
+    categories = Category.objects.all()
 
     if request.method == 'POST':
         collection.name = request.POST.get('name')
         collection.description = request.POST.get('description')
+        collection.category_id = request.POST.get('category') or None
         if request.FILES.get('image'):
             collection.image = request.FILES.get('image')
         collection.slug = slugify(collection.name)
@@ -144,15 +193,84 @@ def collection_edit(request, pk):
         messages.success(request, f"Collection '{collection.name}' updated successfully!")
         return redirect('collection_list')
 
-    return render(request, 'admin/collection_add.html', {'collection': collection})
+    return render(request, 'collection_add.html', {'collection': collection, 'categories': categories})
 
 
+@login_required
+@user_passes_test(admin_only)
 def collection_delete(request, pk):
     collection = get_object_or_404(Collection, pk=pk)
     collection.delete()
     messages.success(request, "Collection deleted successfully.")
     return redirect('collection_list')
 
+
+# -------------------------------
+# CATEGORY MANAGEMENT
+# -------------------------------
+@login_required
+@user_passes_test(admin_only)
+def category_list(request):
+    categories = Category.objects.all().order_by('-created_at')
+    return render(request, 'category_list.html', {'categories': categories})
+
+
+@login_required
+@user_passes_test(admin_only)
+def category_add(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        image = request.FILES.get('image')
+
+        if not name:
+            messages.error(request, "Name is required.")
+            return redirect('category_add')
+
+        Category.objects.create(
+            name=name,
+            slug=slugify(name),
+            description=description,
+            image=image
+        )
+        messages.success(request, f"Category '{name}' added successfully!")
+        return redirect('category_list')
+
+    return render(request, 'category_add.html')
+
+
+@login_required
+@user_passes_test(admin_only)
+def category_edit(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+
+    if request.method == 'POST':
+        category.name = request.POST.get('name')
+        category.description = request.POST.get('description')
+        if request.FILES.get('image'):
+            category.image = request.FILES.get('image')
+        category.slug = slugify(category.name)
+        category.save()
+        messages.success(request, f"Category '{category.name}' updated successfully!")
+        return redirect('category_list')
+
+    return render(request, 'category_add.html', {'category': category})
+
+
+@login_required
+@user_passes_test(admin_only)
+def category_delete(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    category.delete()
+    messages.success(request, "Category deleted successfully.")
+    return redirect('category_list')
+
+
+# -------------------------------
+# CUSTOMERS
+# -------------------------------
+@login_required
+@user_passes_test(admin_only)
 def admin_customers(request):
-    customers = User.objects.all().order_by('-date_joined')
+    customers = User.objects.filter(is_superuser=False).order_by('-date_joined')
     return render(request, 'admin_customers.html', {'customers': customers})
