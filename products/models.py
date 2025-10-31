@@ -6,7 +6,7 @@ from django.utils.text import slugify
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(unique=True)
-
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class Collection(models.Model):
     category = models.ForeignKey(

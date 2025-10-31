@@ -220,8 +220,6 @@ def category_list(request):
 def category_add(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        description = request.POST.get('description')
-        image = request.FILES.get('image')
 
         if not name:
             messages.error(request, "Name is required.")
@@ -230,8 +228,6 @@ def category_add(request):
         Category.objects.create(
             name=name,
             slug=slugify(name),
-            description=description,
-            image=image
         )
         messages.success(request, f"Category '{name}' added successfully!")
         return redirect('category_list')
