@@ -119,7 +119,7 @@ def login_action(request):
             if user.is_superuser or user.is_staff:
                  return redirect(reverse('admin_dashboard'))
             else:
-                return redirect('home')  
+                return redirect('all_collections')  
 
         else:
             messages.error(request, "Invalid username or password!")

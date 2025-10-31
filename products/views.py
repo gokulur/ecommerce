@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product, Collection
 
-def collection_list(request):
+def all_collections(request):
     collections = Collection.objects.all()
-    return render(request, 'collection_list.html', {'collections': collections})
+    return render(request, 'all_collections.html', {'collections': collections})
 
 
 
