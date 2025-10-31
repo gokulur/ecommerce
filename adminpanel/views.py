@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-from products.models import Product, Collection, Category
+from products.models import Product, Collection, Category,ProductImage
 from orders.models import Order
 
 # -------------------------------
@@ -55,28 +55,42 @@ def product_add(request):
         name = request.POST.get('name')
         description = request.POST.get('description')
         price = request.POST.get('price')
-        image = request.FILES.get('image')
-        collection_id = request.POST.get('collection')
+        stock = request.POST.get('stock', 0)
+        available = request.POST.get('available') == "True"
         category_id = request.POST.get('category')
+        collection_id = request.POST.get('collection')
 
-        collection = Collection.objects.get(id=collection_id) if collection_id else None
         category = Category.objects.get(id=category_id) if category_id else None
+        collection = Collection.objects.get(id=collection_id) if collection_id else None
 
-        Product.objects.create(
+        # Create product
+        product = Product.objects.create(
             name=name,
             slug=slugify(name),
             description=description,
             price=price,
-            image=image,
+            stock=stock,
+            available=available,
+            category=category,
             collection=collection,
-            category=category
         )
+
+        # Multiple images
+        images = request.FILES.getlist('images')
+        for image in images:
+            ProductImage.objects.create(product=product, image=image)
+
         messages.success(request, "Product added successfully!")
         return redirect('admin_product_list')
 
-    return render(request, 'product_form.html', {'collections': collections, 'categories': categories})
+    return render(request, 'product_form.html', {
+        'collections': collections,
+        'categories': categories
+    })
 
 
+@login_required
+@user_passes_test(admin_only)
 @login_required
 @user_passes_test(admin_only)
 def product_edit(request, pk):
@@ -88,12 +102,18 @@ def product_edit(request, pk):
         product.name = request.POST.get('name')
         product.description = request.POST.get('description')
         product.price = request.POST.get('price')
-        product.collection_id = request.POST.get('collection') or None
+        product.stock = request.POST.get('stock', 0)
+        product.available = request.POST.get('available') == "True"
         product.category_id = request.POST.get('category') or None
-        if request.FILES.get('image'):
-            product.image = request.FILES.get('image')
+        product.collection_id = request.POST.get('collection') or None
         product.slug = slugify(product.name)
         product.save()
+
+        # New images (append to gallery)
+        images = request.FILES.getlist('images')
+        for image in images:
+            ProductImage.objects.create(product=product, image=image)
+
         messages.success(request, "Product updated successfully!")
         return redirect('admin_product_list')
 

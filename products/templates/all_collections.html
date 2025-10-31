@@ -1,91 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-<!-- END sections: header-group -->
 <main class="content-for-layout focus-none" id="xo-main-content" role="main" tabindex="-1">
-    <div class="shopify-section" id="shopify-section-template--19284046151870__main-page-heading">
-        <section class="xo-section xo-section--template--19284046151870__main-page-heading color-background-1" style="--margin: 0;--pt: 60;--pb: 20;
-">
-            <xo-animate class="xo-section-bg" style="
-      
-      
-" xo-disabled="" xo-duration="1000">
-                <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
-                    <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
-              {
-                '0%': { backgroundPositionY: '200px' },
-                '100%': { backgroundPositionY: '-200px' },
-              }
-            "></xo-parallax-scroll>
-                </xo-parallax>
-            </xo-animate>
-            <xo-container>
-                <xo-animate xo-cascade="">
-                    <div class="xo-page-heading xo-page-heading--center">
-                        <h1 class="xo-page-heading__title">
+    <section class="xo-section color-background-1" style="--pt: 60;--pb: 20;">
+        <xo-container>
+            <div class="xo-page-heading xo-page-heading--center">
+                <h1 class="xo-page-heading__title">All Collections</h1>
+                <div class="xo-page-heading__description">
+                    <p>Explore our perfume collections crafted for men and women with premium fragrances.</p>
+                </div>
+            </div>
+        </xo-container>
+    </section>
 
-                            All Collections
-
-                        </h1>
-                        <div class="xo-page-heading__description">
-                            <p>Our new cozy collection is made with environmentally friendly materials and<br />simple
-                                to care for so you can stay cozy wherever.</p>
+    <section class="xo-section color-background-1" style="--pt: 20;--pb: 50;">
+        <xo-container class="xo-container--box">
+            <xo-grid style="--lg: 4; --md: 3; --xs: 1">
+                {% for category in categories %}
+                <xo-animate class="xo-collection-card xo-collection-card--standard" xo-cascade="">
+                    <a class="xo-collection-card__link" href="{% url 'product_by_category' category.slug %}">
+                        <div class="xo-collection-card__image">
+                            {% if category.image %}
+                                <img src="{{ category.image.url }}" alt="{{ category.name }}" class="card-img-top" loading="lazy">
+                            {% else %}
+                                <img src=" " alt="No Image" class="card-img-top">
+                            {% endif %}
                         </div>
-                    </div>
+                        <div class="xo-collection-card__content color-background-1">
+                            <h3 class="xo-collection-card__title">{{ category.name }}</h3>
+                            <div class="xo-collection-card__count">
+                                {{ category.products.count }} Products
+                            </div>
+                        </div>
+                    </a>
                 </xo-animate>
-            </xo-container>
-        </section>
-    </div>
-    <div class="shopify-section" id="shopify-section-template--19284046151870__main">
-        <div class="xo-section xo-section--template--19284046151870__main color-background-1" style="--margin: 0;--pt: 20;--pb: 50;
-">
-            <xo-animate class="xo-section-bg" style="
-      
-      
-" xo-disabled="" xo-duration="1000">
-                <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
-                    <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
-              {
-                '0%': { backgroundPositionY: '200px' },
-                '100%': { backgroundPositionY: '-200px' },
-              }
-            "></xo-parallax-scroll>
-                </xo-parallax>
-            </xo-animate>
-            <xo-container class="xo-container--box"><xo-grid style="--lg: 4; --md: 3; --xs: 1">
-                    {% for category in categories %}
-                    <xo-animate class="xo-collection-card xo-collection-card--standard" xo-cascade="">
-                        <a class="xo-collection-card__link" href="collections/left-sidebar.html">
-                            <div class="xo-collection-card__image">
-                                {% if category.image %}
-                                <div class="xo-image" style="--xo-ratio-percent: 3/4; --x-pos: %; --y-pos: %;"><img
-                                        alt="image" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                                        sizes="100vw" src="{{ category.image.url }}"
-                                        srcset="{{ category.image.url }} 100w" width="1000" xo-intrinsic-height="1000"
-                                        xo-intrinsic-width="1000" />
-                                    <div class="xo-image__overlay xo-lazyload-overlay">
-                                        <div class="xo-image__loading">
-                                            <div class="xo-loader-3"
-                                                style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                {% endfor %}
+            </xo-grid>
+        </xo-container>
+    </section>
+</main>
 
-                                </div>
-                                {% else %}
-                                <img src=" " class="card-img-top" alt="No Image">
-                                {% endif %}
-                            </div>
-                            <div class="xo-collection-card__content color-background-1">
-                                <h3 class="xo-collection-card__title">{{ category.name }}</h3>
-                                <div class="xo-collection-card__count">{{ category.products.count }} Products</div>
-                            </div>
-                        </a>
-                    </xo-animate>
-                    {% endfor %}
-                </xo-grid></xo-container>
-        </div>
-    </div>
-    {% endblock %}
+{% endblock %}
