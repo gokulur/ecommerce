@@ -17,4 +17,7 @@ def product_detail(request, slug):
 def products_by_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(category=category, available=True).order_by('-created_at')
-    return render(request, 'products_by_category.html', {'products': products, 'category': category})
+    return render(request, 'products_by_category.html', {
+        'products': products, 
+        'category': category
+    })
