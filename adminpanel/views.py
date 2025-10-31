@@ -210,6 +210,12 @@ def collection_delete(request, pk):
 # -------------------------------
 @login_required
 @user_passes_test(admin_only)
+def category_list(request):
+    categories = Category.objects.all().order_by('-created_at')
+    return render(request, 'category_list.html', {'categories': categories})
+
+@login_required
+@user_passes_test(admin_only)
 def category_add(request):
     if request.method == 'POST':
         name = request.POST.get('name')

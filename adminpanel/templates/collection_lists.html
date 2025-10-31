@@ -16,7 +16,7 @@
                   <th> Image </th>
                   <th> Name </th>
                   <th> Description </th>
-                  <th> Price </th>
+                  <th> Category </th>
                   <th> Created At </th>
                   <th> Actions </th>
                 </tr>
@@ -35,7 +35,7 @@
 
                   <td>{{ c.name }}</td>
                   <td class="text-truncate" style="max-width: 200px;">{{ c.description }}</td>
-                  <td><strong>${{ c.price }}</strong></td>
+                  <td>{{ c.category.name }}</td>
                   <td>{{ c.created_at|date:"M d, Y" }}</td>
 
                   <td  >

@@ -3,6 +3,9 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 
+# -----------------------------
+# Category Model
+# -----------------------------
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(unique=True, blank=True)
@@ -20,6 +23,10 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category_detail', args=[self.slug])
 
+
+# -----------------------------
+# Collection Model
+# -----------------------------
 class Collection(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='collections', null=True, blank=True
@@ -42,6 +49,9 @@ class Collection(models.Model):
         return reverse('collection_detail', args=[self.slug])
 
 
+# -----------------------------
+# Product Model
+# -----------------------------
 class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, related_name='products', null=True, blank=True
@@ -50,7 +60,7 @@ class Product(models.Model):
         Collection, on_delete=models.CASCADE, related_name='products', null=True, blank=True
     )
     name = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
@@ -59,6 +69,11 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
@@ -66,3 +81,13 @@ class Product(models.Model):
         return reverse('product_detail', args=[self.slug])
 
 
+# -----------------------------
+# ProductImage Model (Gallery)
+# -----------------------------
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='products/gallery/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Image for {self.product.name}"

@@ -12,18 +12,32 @@
                   method="POST" enctype="multipart/form-data">
               {% csrf_token %}
 
+              <!-- Name -->
               <div class="form-group mb-4">
                 <label>Name:</label>
                 <input type="text" class="form-control" name="name" placeholder="Collection Name"
                        value="{{ collection.name|default:'' }}">
               </div>
 
-              <div class="form-group">
+              <!-- Category Dropdown -->
+              <div class="form-group mb-4">
+                <label>Category:</label>
+                <select class="form-control" name="category">
+                  <option value="">-- Select Category --</option>
+                  {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if collection and collection.category.id == cat.id %}selected{% endif %}>{{ cat.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- Description -->
+              <div class="form-group mb-4">
                 <label>Description:</label>
                 <textarea class="form-control" rows="4" name="description"
                           placeholder="Description">{{ collection.description|default:'' }}</textarea>
               </div>
 
+              <!-- Image -->
               <div class="form-group mb-4">
                 <label>Image</label>
                 <input type="file" name="image" class="file-upload-default" style="display:none;">
@@ -44,4 +58,20 @@
     </div>
   </div>
 </div>
+
+<script>
+document.querySelectorAll('.file-upload-browse').forEach(button => {
+  button.addEventListener('click', function () {
+    const fileInput = this.closest('.form-group').querySelector('.file-upload-default');
+    fileInput.click();
+  });
+});
+
+document.querySelectorAll('.file-upload-default').forEach(input => {
+  input.addEventListener('change', function () {
+    const fileName = this.value.split('\\').pop();
+    this.closest('.form-group').querySelector('.file-upload-info').value = fileName;
+  });
+});
+</script>
 {% endblock %}
