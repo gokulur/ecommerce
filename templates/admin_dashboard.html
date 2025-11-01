@@ -22,29 +22,40 @@
   <!-- Layout styles -->
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <!-- End layout styles -->
-  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+ 
 </head>
-
+<style>
+  .white-logo {
+    filter: brightness(0) invert(1);
+    transition: 0.3s ease;
+  }
+  .white-logo:hover {
+    filter: brightness(0) invert(0.9);
+  }
+</style>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href=" "><img src="{% static 'cdn/shop/files/rihazain.logo.png' %}" alt="logo" /></a>
-        <a class="sidebar-brand brand-logo-mini" href=" "><img src="{% static 'cdn/shop/files/rihazain.logo.png' %}"
-            alt="logo" /></a>
+        <a class="sidebar-brand brand-logo" href="#">
+          <img src="{% static 'cdn/shop/files/rihazain.logo.png' %}" alt="logo" class="white-logo" />
+        </a>
+        <a class="sidebar-brand brand-logo-mini" href="#">
+          <img src="{% static 'cdn/shop/files/rihazain.logo.png' %}" alt="logo" class="white-logo" />
+        </a>
       </div>
       <ul class="nav">
         <li class="nav-item profile">
           <div class="profile-desc">
             <div class="profile-pic">
               <div class="count-indicator">
-                <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
+                <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/admin2.jpg' %}" alt="">
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal">gokul</h5>
-                <span>Gold Member</span>
+                <h5 class="mb-0 font-weight-normal">Admin</h5>
+
               </div>
             </div>
             <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -117,21 +128,24 @@
           </div>
         </li>
 
+        <!-- Perfume Collections -->
         <li class="nav-item menu-items">
-          <a class="nav-link" data-toggle="collapse" href="#collection-menu" aria-expanded="false"
-            aria-controls="collection-menu">
+          <a class="nav-link" data-toggle="collapse" href="#perfume-menu" aria-expanded="false"
+            aria-controls="perfume-menu">
             <span class="menu-icon">
-              <i class="mdi mdi-shape-outline"></i>
+              <i class="mdi mdi-flask-outline"></i>
             </span>
-            <span class="menu-title">Collections</span>
+            <span class="menu-title">Perfume Brand</span>
             <i class="menu-arrow"></i>
           </a>
-          <div class="collapse" id="collection-menu">
+          <div class="collapse" id="perfume-menu">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"><a class="nav-link" href="{% url 'collection_add' %}">
-                  <i class="mdi mdi-plus-box-outline"></i> Add Collection</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'collection_list' %}">
-                  <i class="mdi mdi-format-list-bulleted"></i> All Collections</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'collection_add' %}"><i
+                    class="mdi mdi-plus-circle-outline"></i> Add
+                  Brand</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'collection_list' %}"><i
+                    class="mdi mdi-eye-outline"></i> View Brands</a>
+              </li>
             </ul>
           </div>
         </li>
@@ -159,27 +173,7 @@
           </div>
         </li>
 
-        <!-- Perfume Collections -->
-        <li class="nav-item menu-items">
-          <a class="nav-link" data-toggle="collapse" href="#perfume-menu" aria-expanded="false"
-            aria-controls="perfume-menu">
-            <span class="menu-icon">
-              <i class="mdi mdi-flask-outline"></i>
-            </span>
-            <span class="menu-title">Perfume Collections</span>
-            <i class="menu-arrow"></i>
-          </a>
-          <div class="collapse" id="perfume-menu">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"><a class="nav-link" href="{% url 'collection_add' %}"><i
-                    class="mdi mdi-plus-circle-outline"></i> Add
-                  Collection</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'collection_list' %}"><i
-                    class="mdi mdi-eye-outline"></i> View Collections</a>
-              </li>
-            </ul>
-          </div>
-        </li>
+
 
         <!-- Orders -->
         <li class="nav-item menu-items">
@@ -242,8 +236,8 @@
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo-mini" href=" "><img src="{% static 'assets/images/logo-mini.svg' %}"
-              alt="logo" /></a>
+          <!-- <a class="navbar-brand brand-logo-mini" href=" "><img src="{% static 'assets/images/logo-mini.svg' %}"
+              alt="logo" /></a> -->
         </div>
         <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -258,8 +252,8 @@
           </ul>
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown d-none d-lg-block">
-              <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown"
-                aria-expanded="false" href="#">+ Create New Project</a>
+              <!-- <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown"
+                aria-expanded="false" href="#">+ Create New Project</a> -->
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                 aria-labelledby="createbuttonDropdown">
                 <h6 class="p-3 mb-0">Projects</h6>
@@ -403,8 +397,8 @@
             <li class="nav-item dropdown">
               <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                 <div class="navbar-profile">
-                  <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                  <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/admin2.jpg' %}" alt="">
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name">Admin</p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
@@ -456,7 +450,7 @@
                   <div class="row">
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
-                        <h3 class="mb-0">$12.34</h3>
+                        <h3 class="mb-0">₹ 12.34</h3>
                         <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
                       </div>
                     </div>
@@ -466,11 +460,11 @@
                       </div>
                     </div>
                   </div>
-                  <h6 class="text-muted font-weight-normal">Potential growth</h6>
+                  <h6 class="text-muted font-weight-normal">Monthly Income</h6>
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <!-- <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <div class="row">
@@ -489,14 +483,14 @@
                   <h6 class="text-muted font-weight-normal">Revenue current</h6>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
-                        <h3 class="mb-0">$12.34</h3>
+                        <h3 class="mb-0">₹ 12.34</h3>
                         <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
                       </div>
                     </div>
@@ -510,7 +504,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <!-- <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <div class="row">
@@ -529,9 +523,9 @@
                   <h6 class="text-muted font-weight-normal">Expense current</h6>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -557,8 +551,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-8 grid-margin stretch-card">
+            </div> -->
+            <!-- <div class="col-md-8 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-row justify-content-between">
@@ -659,7 +653,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-sm-4 grid-margin">
               <div class="card">
@@ -668,7 +662,7 @@
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
-                        <h2 class="mb-0">$32123</h2>
+                        <h2 class="mb-0">₹ 32123</h2>
                         <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
                       </div>
                       <h6 class="text-muted font-weight-normal">11.38% Since last month</h6>
@@ -687,7 +681,7 @@
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
-                        <h2 class="mb-0">$45850</h2>
+                        <h2 class="mb-0">₹ 45850</h2>
                         <p class="text-success ml-2 mb-0 font-weight-medium">+8.3%</p>
                       </div>
                       <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6>
@@ -699,7 +693,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-4 grid-margin">
+            <!-- <div class="col-sm-4 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <h5>Purchase</h5>
@@ -717,9 +711,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
-          <div class="row ">
+          <!-- <div class="row ">
             <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
@@ -856,8 +850,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
+          </div> -->
+          <!-- <div class="row">
             <div class="col-md-6 col-xl-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -925,8 +919,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+            </div> -->
+            <!-- <div class="col-md-6 col-xl-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Portfolio Slide</h4>
@@ -1018,8 +1012,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
+          </div> -->
+          <!-- <div class="row">
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
@@ -1089,7 +1083,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         {% endblock %}
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

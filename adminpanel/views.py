@@ -89,8 +89,7 @@ def product_add(request):
     })
 
 
-@login_required
-@user_passes_test(admin_only)
+ 
 @login_required
 @user_passes_test(admin_only)
 def product_edit(request, pk):

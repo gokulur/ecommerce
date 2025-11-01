@@ -3,7 +3,13 @@ from .models import Product, Category
 from django.core.paginator import Paginator
 def all_collections(request):
     categories = Category.objects.all()
+
+    # Annotate each category with count of available products only
+    for category in categories:
+        category.available_count = category.products.filter(available=True).count()
+
     return render(request, 'all_collections.html', {'categories': categories})
+
 
 
 

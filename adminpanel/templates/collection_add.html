@@ -6,7 +6,7 @@
       <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">{% if collection %}Edit Collection{% else %}Add Collection{% endif %}</h4>
+            <h4 class="card-title">{% if collection %}Edit Brand{% else %}Add Brand{% endif %}</h4>
             <form class="forms-sample"
                   action="{% if collection %}{% url 'collection_edit' collection.id %}{% else %}{% url 'collection_add' %}{% endif %}"
                   method="POST" enctype="multipart/form-data">
@@ -47,6 +47,9 @@
                     <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                   </span>
                 </div>
+                {% if collection.image %}
+                  <img src="{{ collection.image.url }}" alt="{{ collection.name }}" class="mt-3 rounded" width="100">
+                {% endif %}
               </div>
 
               <button type="submit" class="btn btn-primary mr-2">Submit</button>

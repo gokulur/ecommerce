@@ -20,9 +20,9 @@
             </xo-animate>
             <div class="collection-title">
                 <xo-animate xo-cascade="">
-                    {% for product in products %}
-                    <h2 class="collection-title__title">{{ product.category.name }}</h2>
-                    {% endfor %}
+                    {% if products %}
+                    <h2 class="collection-title__title">{{ products.first.category.name }}</h2>
+                    {% endif %}
                 </xo-animate>
                 <xo-animate xo-cascade="">
                     <nav aria-label="breadcrumb" class="breadcrumb" role="navigation" style="--display-mobile:block">
@@ -38,10 +38,10 @@
                                 </span>
                             </li>
                             <li class="breadcrumb__item breadcrumb__item--current" style="--display:block">
-                                {% for product in products %}
+                                {% if products %}
                                 <a aria-current="page" class="breadcrumb__link breadcrumb--current breadcrumb--"
-                                    href="left-sidebar.html" style="--display:block">{{ product.category.name }}</a>
-                                {% endfor %}
+                                    href="left-sidebar.html" style="--display:block">{{ products.first.category.name }}</a>
+                                 {% endif %}
                             </li>
                         </ol>
                     </nav>
@@ -90,7 +90,7 @@
                                             </a>
                                         </div>
                                         <div class="collection-title-style2__nav-text">
-                                            
+
                                             <a href="left-sidebar.html">
 
                                                 Midnight Glow
@@ -1198,11 +1198,7 @@ z-index:99">
                                                     </label>
                                                 </xo-filters-field>
                                             </div>
-                                            <div class="collection-sidebar__banner">
-                                                <a href="https://shopify.pxf.io/9gPaY0"><img alt="affiliate"
-                                                        height="1024" is="xo-lazyload" loading="lazy"
-                                                        src="../starter/sidebar_banner.jpg" width="768" /></a>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </xo-modal>
