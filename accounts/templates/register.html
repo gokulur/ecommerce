@@ -49,12 +49,27 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
 
-  .imageSection {
-    flex-basis: 50%;
-    position: relative;
-    color: white;
+.imageSection {
+  flex-basis: 50%;
+  position: relative;
+  color: white;
+  display: flex;
+}
 
-  }
+.imageSection .image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.imageSection img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
 
   .overlay {
     position: absolute;
