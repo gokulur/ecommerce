@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% load static %}
+<style>
+    .shopify-payment-button__button {
+        height: clamp(25px, var(--shopify-accelerated-checkout-button-block-size, 44px), 55px);
+        min-height: clamp(25px, var(--shopify-accelerated-checkout-button-block-size, 44px), 55px);
+        border-radius: var(--shopify-accelerated-checkout-button-border-radius, 0px);
+        width: 100%;
+        border: none;
+        box-shadow: 0 0 0 0 transparent;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-size: 1em;
+        font-weight: 500;
+        line-height: 1;
+        text-align: center;
+        transition: background .2s ease-in-out
+    }
+</style>
 <!-- END sections: header-group -->
 <main class="content-for-layout focus-none" id="xo-main-content" role="main" tabindex="-1">
     <section class="shopify-section section" id="shopify-section-template--19284046905534__breadcrumb-v1">
@@ -63,7 +81,7 @@ z-index:99; position: relative">
                 xo-section-id="template--19284046905534__main-product">
                 <xo-container class="xo-container--box">
                     <xo-grid>
-                        <!-- <xo-animate style="--xs: 12; --md: 7" xo-cascade="">
+                        <xo-animate style="--xs: 12; --md: 7" xo-cascade="">
                             <div class="xo-product-info-media-style3" style="position: sticky;">
                                 <xo-gallery aria-label="Gallery Viewer" xo-portal-class="main-product__portal"
                                     xo-sync="false">
@@ -71,23 +89,27 @@ z-index:99; position: relative">
                                         <div class="xo-product-info-media-style3__top">
                                             <xo-carousel-inner>
                                                 <xo-carousel-list aria-label="Slider" role="list">
-                                                    <xo-carousel-slide aria-label="1 of 5" aria-roledescription="Slide"
+                                                    <!-- Main Product Image -->
+                                                    {% if product.image %}
+                                                    <xo-carousel-slide
+                                                        aria-label="1 of {% if product.image %}{{ product.images.count|add:1 }}{% else %}{{ product.images.count }}{% endif %}"
+                                                        aria-roledescription="Slide"
                                                         class="xo-product-info-media-style3__slide"
-                                                        data-media-id="30541794377918">
+                                                        data-media-id="main-image">
                                                         <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg?v=1756443779&amp;width=1200">
+                                                            xo-zoom-src="{{ product.image.url }}">
+                                                            <xo-gallery-item xo-src="{{ product.image.url }}">
                                                                 <div class="xo-product-info-media-style3__image">
                                                                     <div class="xo-media"
                                                                         style="--media-aspect-ratio: 1/1">
                                                                         <div class="xo-image"
                                                                             style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg"
-                                                                                srcset="../cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg 100w"
+                                                                            <img alt="{{ product.name }}"
+                                                                                fetchpriority="auto" height="1000"
+                                                                                is="xo-lazyload" loading="lazy"
+                                                                                sizes="100vw"
+                                                                                src="{{ product.image.url }}"
+                                                                                srcset="{{ product.image.url }} 100w"
                                                                                 width="1000" xo-intrinsic-height="1000"
                                                                                 xo-intrinsic-width="1000" />
                                                                             <div
@@ -105,23 +127,29 @@ z-index:99; position: relative">
                                                             </xo-gallery-item>
                                                         </xo-image-zoom>
                                                     </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="2 of 5" aria-roledescription="Slide"
+                                                    {% endif %}
+
+                                                    <!-- Gallery Images -->
+                                                    {% for image in product.images.all %}
+                                                    <xo-carousel-slide
+                                                        aria-label="{% if product.image %}{{ forloop.counter|add:1 }}{% else %}{{ forloop.counter }}{% endif %} of {% if product.image %}{{ product.images.count|add:1 }}{% else %}{{ product.images.count }}{% endif %}"
+                                                        aria-roledescription="Slide"
                                                         class="xo-product-info-media-style3__slide"
-                                                        data-media-id="30541794410686">
+                                                        data-media-id="{{ image.id }}">
                                                         <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg?v=1756443779&amp;width=1200">
+                                                            xo-zoom-src="{{ image.image.url }}">
+                                                            <xo-gallery-item xo-src="{{ image.image.url }}">
                                                                 <div class="xo-product-info-media-style3__image">
                                                                     <div class="xo-media"
                                                                         style="--media-aspect-ratio: 1/1">
                                                                         <div class="xo-image"
                                                                             style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg"
-                                                                                srcset="../cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg 100w"
+                                                                            <img alt="{{ product.name }}"
+                                                                                fetchpriority="auto" height="1000"
+                                                                                is="xo-lazyload" loading="lazy"
+                                                                                sizes="100vw"
+                                                                                src="{{ image.image.url }}"
+                                                                                srcset="{{ image.image.url }} 100w"
                                                                                 width="1000" xo-intrinsic-height="1000"
                                                                                 xo-intrinsic-width="1000" />
                                                                             <div
@@ -139,144 +167,51 @@ z-index:99; position: relative">
                                                             </xo-gallery-item>
                                                         </xo-image-zoom>
                                                     </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="3 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-style3__slide"
-                                                        data-media-id="30541794476222">
-                                                        <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg?v=1756443779&amp;width=1200">
-                                                                <div class="xo-product-info-media-style3__image">
-                                                                    <div class="xo-media"
-                                                                        style="--media-aspect-ratio: 1/1">
-                                                                        <div class="xo-image"
-                                                                            style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg"
-                                                                                srcset="../cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg 100w"
-                                                                                width="1000" xo-intrinsic-height="1000"
-                                                                                xo-intrinsic-width="1000" />
-                                                                            <div
-                                                                                class="xo-image__overlay xo-lazyload-overlay">
-                                                                                <div class="xo-image__loading">
-                                                                                    <div class="xo-loader-3"
-                                                                                        style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                                        <div></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </xo-gallery-item>
-                                                        </xo-image-zoom>
-                                                    </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="4 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-style3__slide"
-                                                        data-media-id="30541794541758">
-                                                        <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg?v=1756443779&amp;width=1200">
-                                                                <div class="xo-product-info-media-style3__image">
-                                                                    <div class="xo-media"
-                                                                        style="--media-aspect-ratio: 1/1">
-                                                                        <div class="xo-image"
-                                                                            style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg"
-                                                                                srcset="../cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg 100w"
-                                                                                width="1000" xo-intrinsic-height="1000"
-                                                                                xo-intrinsic-width="1000" />
-                                                                            <div
-                                                                                class="xo-image__overlay xo-lazyload-overlay">
-                                                                                <div class="xo-image__loading">
-                                                                                    <div class="xo-loader-3"
-                                                                                        style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                                        <div></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </xo-gallery-item>
-                                                        </xo-image-zoom>
-                                                    </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="5 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-style3__slide"
-                                                        data-media-id="30541794574526">
-                                                        <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg?v=1756443779&amp;width=1200">
-                                                                <div class="xo-product-info-media-style3__image">
-                                                                    <div class="xo-media"
-                                                                        style="--media-aspect-ratio: 1/1">
-                                                                        <div class="xo-image"
-                                                                            style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg"
-                                                                                srcset="../cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg 100w"
-                                                                                width="1000" xo-intrinsic-height="1000"
-                                                                                xo-intrinsic-width="1000" />
-                                                                            <div
-                                                                                class="xo-image__overlay xo-lazyload-overlay">
-                                                                                <div class="xo-image__loading">
-                                                                                    <div class="xo-loader-3"
-                                                                                        style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                                        <div></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </xo-gallery-item>
-                                                        </xo-image-zoom>
-                                                    </xo-carousel-slide>
+                                                    {% endfor %}
                                                 </xo-carousel-list>
                                             </xo-carousel-inner>
                                             <xo-carousel-prev
-                                                class="xo-product-info-media-style3__arrow xo-product-info-media-style3__arrow--left"><button>
+                                                class="xo-product-info-media-style3__arrow xo-product-info-media-style3__arrow--left">
+                                                <button>
                                                     <svg height="12" viewbox="0 0 320 512"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
                                                             fill="currentColor"></path>
                                                     </svg>
-                                                </button></xo-carousel-prev>
+                                                </button>
+                                            </xo-carousel-prev>
                                             <xo-carousel-next
-                                                class="xo-product-info-media-style3__arrow xo-product-info-media-style3__arrow--right"><button>
+                                                class="xo-product-info-media-style3__arrow xo-product-info-media-style3__arrow--right">
+                                                <button>
                                                     <svg height="12" viewbox="0 0 320 512"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
                                                             fill="currentColor"></path>
                                                     </svg>
-                                                </button></xo-carousel-next>
+                                                </button>
+                                            </xo-carousel-next>
                                         </div>
                                         <xo-carousel-thumbnail class="xo-product-info-media-style3__thumbnails"
                                             xo-gap="10" xo-per-view="5">
                                             <xo-carousel-inner style="padding-bottom: 0.1rem; margin-bottom: -0.1rem;">
                                                 <xo-carousel-list aria-label="Slider" role="list"
                                                     style="padding-right: 0.2rem; margin-right: -0.2rem;">
-                                                    <xo-carousel-slide aria-label="1 of 5" aria-roledescription="Slide"
+                                                    <!-- Main Product Thumbnail -->
+                                                    {% if product.image %}
+                                                    <xo-carousel-slide
+                                                        aria-label="1 of {% if product.image %}{{ product.images.count|add:1 }}{% else %}{{ product.images.count }}{% endif %}"
+                                                        aria-roledescription="Slide"
                                                         class="xo-product-info-media-style3__thumb-slide">
                                                         <div class="xo-media" style="--media-aspect-ratio: 1/1">
                                                             <div class="xo-image"
                                                                 style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
                                                                 <img alt="image" fetchpriority="auto" height="1000"
                                                                     is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg"
-                                                                    srcset="../cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
+                                                                    src="{{ product.image.url }}"
+                                                                    srcset="{{ product.image.url }} 100w" width="1000"
+                                                                    xo-intrinsic-height="1000"
                                                                     xo-intrinsic-width="1000" />
                                                                 <div class="xo-image__overlay xo-lazyload-overlay">
                                                                     <div class="xo-image__loading">
@@ -289,16 +224,22 @@ z-index:99; position: relative">
                                                             </div>
                                                         </div>
                                                     </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="2 of 5" aria-roledescription="Slide"
+                                                    {% endif %}
+
+                                                    <!-- Gallery Thumbnails -->
+                                                    {% for image in product.images.all %}
+                                                    <xo-carousel-slide
+                                                        aria-label="{% if product.image %}{{ forloop.counter|add:1 }}{% else %}{{ forloop.counter }}{% endif %} of {% if product.image %}{{ product.images.count|add:1 }}{% else %}{{ product.images.count }}{% endif %}"
+                                                        aria-roledescription="Slide"
                                                         class="xo-product-info-media-style3__thumb-slide">
                                                         <div class="xo-media" style="--media-aspect-ratio: 1/1">
                                                             <div class="xo-image"
                                                                 style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
                                                                 <img alt="image" fetchpriority="auto" height="1000"
                                                                     is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg"
-                                                                    srcset="../cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
+                                                                    src="{{ image.image.url }}"
+                                                                    srcset="{{ image.image.url }} 100w" width="1000"
+                                                                    xo-intrinsic-height="1000"
                                                                     xo-intrinsic-width="1000" />
                                                                 <div class="xo-image__overlay xo-lazyload-overlay">
                                                                     <div class="xo-image__loading">
@@ -311,72 +252,7 @@ z-index:99; position: relative">
                                                             </div>
                                                         </div>
                                                     </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="3 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-style3__thumb-slide">
-                                                        <div class="xo-media" style="--media-aspect-ratio: 1/1">
-                                                            <div class="xo-image"
-                                                                style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
-                                                                <img alt="image" fetchpriority="auto" height="1000"
-                                                                    is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg"
-                                                                    srcset="../cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
-                                                                    xo-intrinsic-width="1000" />
-                                                                <div class="xo-image__overlay xo-lazyload-overlay">
-                                                                    <div class="xo-image__loading">
-                                                                        <div class="xo-loader-3"
-                                                                            style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                            <div></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="4 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-style3__thumb-slide">
-                                                        <div class="xo-media" style="--media-aspect-ratio: 1/1">
-                                                            <div class="xo-image"
-                                                                style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
-                                                                <img alt="image" fetchpriority="auto" height="1000"
-                                                                    is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg"
-                                                                    srcset="../cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
-                                                                    xo-intrinsic-width="1000" />
-                                                                <div class="xo-image__overlay xo-lazyload-overlay">
-                                                                    <div class="xo-image__loading">
-                                                                        <div class="xo-loader-3"
-                                                                            style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                            <div></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="5 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-style3__thumb-slide">
-                                                        <div class="xo-media" style="--media-aspect-ratio: 1/1">
-                                                            <div class="xo-image"
-                                                                style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
-                                                                <img alt="image" fetchpriority="auto" height="1000"
-                                                                    is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg"
-                                                                    srcset="../cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
-                                                                    xo-intrinsic-width="1000" />
-                                                                <div class="xo-image__overlay xo-lazyload-overlay">
-                                                                    <div class="xo-image__loading">
-                                                                        <div class="xo-loader-3"
-                                                                            style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                            <div></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </xo-carousel-slide>
+                                                    {% endfor %}
                                                 </xo-carousel-list>
                                             </xo-carousel-inner>
                                         </xo-carousel-thumbnail>
@@ -392,23 +268,27 @@ z-index:99; position: relative">
                                             <xo-carousel-inner>
                                                 <xo-carousel-list aria-label="Slider" role="list"
                                                     style="height: fit-content">
-                                                    <xo-carousel-slide aria-label="1 of 5" aria-roledescription="Slide"
+                                                    <!-- Main Product Image Mobile -->
+                                                    {% if product.image %}
+                                                    <xo-carousel-slide
+                                                        aria-label="1 of {% if product.image %}{{ product.images.count|add:1 }}{% else %}{{ product.images.count }}{% endif %}"
+                                                        aria-roledescription="Slide"
                                                         class="xo-product-info-media-mobile__slide"
-                                                        data-media-id="30541794377918">
+                                                        data-media-id="main-image-mobile">
                                                         <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg?v=1756443779&amp;width=1200">
+                                                            xo-zoom-src="{{ product.image.url }}">
+                                                            <xo-gallery-item xo-src="{{ product.image.url }}">
                                                                 <div class="xo-product-info-media-mobile__image">
                                                                     <div class="xo-media"
                                                                         style="--media-aspect-ratio: 1/1">
                                                                         <div class="xo-image"
                                                                             style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg"
-                                                                                srcset="../cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg 100w"
+                                                                            <img alt="{{ product.name }}"
+                                                                                fetchpriority="auto" height="1000"
+                                                                                is="xo-lazyload" loading="lazy"
+                                                                                sizes="100vw"
+                                                                                src="{{ product.image.url }}"
+                                                                                srcset="{{ product.image.url }} 100w"
                                                                                 width="1000" xo-intrinsic-height="1000"
                                                                                 xo-intrinsic-width="1000" />
                                                                             <div
@@ -426,23 +306,29 @@ z-index:99; position: relative">
                                                             </xo-gallery-item>
                                                         </xo-image-zoom>
                                                     </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="2 of 5" aria-roledescription="Slide"
+                                                    {% endif %}
+
+                                                    <!-- Gallery Images Mobile -->
+                                                    {% for image in product.images.all %}
+                                                    <xo-carousel-slide
+                                                        aria-label="{% if product.image %}{{ forloop.counter|add:1 }}{% else %}{{ forloop.counter }}{% endif %} of {% if product.image %}{{ product.images.count|add:1 }}{% else %}{{ product.images.count }}{% endif %}"
+                                                        aria-roledescription="Slide"
                                                         class="xo-product-info-media-mobile__slide"
-                                                        data-media-id="30541794410686">
+                                                        data-media-id="{{ image.id }}">
                                                         <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg?v=1756443779&amp;width=1200">
+                                                            xo-zoom-src="{{ image.image.url }}">
+                                                            <xo-gallery-item xo-src="{{ image.image.url }}">
                                                                 <div class="xo-product-info-media-mobile__image">
                                                                     <div class="xo-media"
                                                                         style="--media-aspect-ratio: 1/1">
                                                                         <div class="xo-image"
                                                                             style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg"
-                                                                                srcset="../cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg 100w"
+                                                                            <img alt="{{ product.name }}"
+                                                                                fetchpriority="auto" height="1000"
+                                                                                is="xo-lazyload" loading="lazy"
+                                                                                sizes="100vw"
+                                                                                src="{{ image.image.url }}"
+                                                                                srcset="{{ image.image.url }} 100w"
                                                                                 width="1000" xo-intrinsic-height="1000"
                                                                                 xo-intrinsic-width="1000" />
                                                                             <div
@@ -460,128 +346,31 @@ z-index:99; position: relative">
                                                             </xo-gallery-item>
                                                         </xo-image-zoom>
                                                     </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="3 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-mobile__slide"
-                                                        data-media-id="30541794476222">
-                                                        <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg?v=1756443779&amp;width=1200">
-                                                                <div class="xo-product-info-media-mobile__image">
-                                                                    <div class="xo-media"
-                                                                        style="--media-aspect-ratio: 1/1">
-                                                                        <div class="xo-image"
-                                                                            style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg"
-                                                                                srcset="../cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg 100w"
-                                                                                width="1000" xo-intrinsic-height="1000"
-                                                                                xo-intrinsic-width="1000" />
-                                                                            <div
-                                                                                class="xo-image__overlay xo-lazyload-overlay">
-                                                                                <div class="xo-image__loading">
-                                                                                    <div class="xo-loader-3"
-                                                                                        style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                                        <div></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </xo-gallery-item>
-                                                        </xo-image-zoom>
-                                                    </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="4 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-mobile__slide"
-                                                        data-media-id="30541794541758">
-                                                        <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg?v=1756443779&amp;width=1200">
-                                                                <div class="xo-product-info-media-mobile__image">
-                                                                    <div class="xo-media"
-                                                                        style="--media-aspect-ratio: 1/1">
-                                                                        <div class="xo-image"
-                                                                            style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg"
-                                                                                srcset="../cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg 100w"
-                                                                                width="1000" xo-intrinsic-height="1000"
-                                                                                xo-intrinsic-width="1000" />
-                                                                            <div
-                                                                                class="xo-image__overlay xo-lazyload-overlay">
-                                                                                <div class="xo-image__loading">
-                                                                                    <div class="xo-loader-3"
-                                                                                        style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                                        <div></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </xo-gallery-item>
-                                                        </xo-image-zoom>
-                                                    </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="5 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-mobile__slide"
-                                                        data-media-id="30541794574526">
-                                                        <xo-image-zoom xo-use-wheel="false" xo-zoom="3"
-                                                            xo-zoom-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg?v=1756443779&amp;width=1200">
-                                                            <xo-gallery-item
-                                                                xo-src="//feewcx8vv0ntlyby-71784923326.shopifypreview.com/cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg?v=1756443779&amp;width=1200">
-                                                                <div class="xo-product-info-media-mobile__image">
-                                                                    <div class="xo-media"
-                                                                        style="--media-aspect-ratio: 1/1">
-                                                                        <div class="xo-image"
-                                                                            style="--xo-ratio-percent: 1/1; --x-pos: 50.0%; --y-pos: 50.0%;">
-                                                                            <img alt="Zorvi Mivon" fetchpriority="auto"
-                                                                                height="1000" is="xo-lazyload"
-                                                                                loading="lazy" sizes="100vw"
-                                                                                src="../cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg"
-                                                                                srcset="../cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg 100w"
-                                                                                width="1000" xo-intrinsic-height="1000"
-                                                                                xo-intrinsic-width="1000" />
-                                                                            <div
-                                                                                class="xo-image__overlay xo-lazyload-overlay">
-                                                                                <div class="xo-image__loading">
-                                                                                    <div class="xo-loader-3"
-                                                                                        style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                                        <div></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </xo-gallery-item>
-                                                        </xo-image-zoom>
-                                                    </xo-carousel-slide>
+                                                    {% endfor %}
                                                 </xo-carousel-list>
                                             </xo-carousel-inner>
                                             <xo-carousel-prev
-                                                class="xo-product-info-media-mobile__arrow xo-product-info-media-mobile__arrow--left"><button>
+                                                class="xo-product-info-media-mobile__arrow xo-product-info-media-mobile__arrow--left">
+                                                <button>
                                                     <svg height="12" viewbox="0 0 320 512"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
                                                             fill="currentColor"></path>
                                                     </svg>
-                                                </button></xo-carousel-prev>
+                                                </button>
+                                            </xo-carousel-prev>
                                             <xo-carousel-next
-                                                class="xo-product-info-media-mobile__arrow xo-product-info-media-mobile__arrow--right"><button>
+                                                class="xo-product-info-media-mobile__arrow xo-product-info-media-mobile__arrow--right">
+                                                <button>
                                                     <svg height="12" viewbox="0 0 320 512"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
                                                             fill="currentColor"></path>
                                                     </svg>
-                                                </button></xo-carousel-next>
+                                                </button>
+                                            </xo-carousel-next>
                                         </div>
                                         <xo-carousel-pagination class="xo-product-info-media-mobile__pagination"
                                             style="display:none"></xo-carousel-pagination>
@@ -590,16 +379,20 @@ z-index:99; position: relative">
                                             <xo-carousel-inner style="padding-bottom: 0.1rem; margin-bottom: -0.1rem;">
                                                 <xo-carousel-list aria-label="Slider" role="list"
                                                     style="padding-right: 0.2rem; margin-right: -0.2rem;">
-                                                    <xo-carousel-slide aria-label="1 of 5" aria-roledescription="Slide"
+                                                    <!-- Main Product Thumbnail Mobile -->
+                                                    {% if product.image %}
+                                                    <xo-carousel-slide
+                                                        aria-label="1 of {% if product.image %}{{ product.images.count|add:1 }}{% else %}{{ product.images.count }}{% endif %}"
+                                                        aria-roledescription="Slide"
                                                         class="xo-product-info-media-mobile__thumb-slide">
                                                         <div class="xo-media" style="--media-aspect-ratio: 1/1">
                                                             <div class="xo-image"
                                                                 style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
                                                                 <img alt="image" fetchpriority="auto" height="1000"
                                                                     is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg"
-                                                                    srcset="../cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
+                                                                    src="{{ product.image.url }}"
+                                                                    srcset="{{ product.image.url }} 100w" width="1000"
+                                                                    xo-intrinsic-height="1000"
                                                                     xo-intrinsic-width="1000" />
                                                                 <div class="xo-image__overlay xo-lazyload-overlay">
                                                                     <div class="xo-image__loading">
@@ -612,16 +405,22 @@ z-index:99; position: relative">
                                                             </div>
                                                         </div>
                                                     </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="2 of 5" aria-roledescription="Slide"
+                                                    {% endif %}
+
+                                                    <!-- Gallery Thumbnails Mobile -->
+                                                    {% for image in product.images.all %}
+                                                    <xo-carousel-slide
+                                                        aria-label="{% if product.image %}{{ forloop.counter|add:1 }}{% else %}{{ forloop.counter }}{% endif %} of {% if product.image %}{{ product.images.count|add:1 }}{% else %}{{ product.images.count }}{% endif %}"
+                                                        aria-roledescription="Slide"
                                                         class="xo-product-info-media-mobile__thumb-slide">
                                                         <div class="xo-media" style="--media-aspect-ratio: 1/1">
                                                             <div class="xo-image"
                                                                 style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
                                                                 <img alt="image" fetchpriority="auto" height="1000"
                                                                     is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg"
-                                                                    srcset="../cdn/shop/files/3_dd872b70-e34f-437f-ba94-c656be80e3ce.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
+                                                                    src="{{ image.image.url }}"
+                                                                    srcset="{{ image.image.url }} 100w" width="1000"
+                                                                    xo-intrinsic-height="1000"
                                                                     xo-intrinsic-width="1000" />
                                                                 <div class="xo-image__overlay xo-lazyload-overlay">
                                                                     <div class="xo-image__loading">
@@ -634,79 +433,14 @@ z-index:99; position: relative">
                                                             </div>
                                                         </div>
                                                     </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="3 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-mobile__thumb-slide">
-                                                        <div class="xo-media" style="--media-aspect-ratio: 1/1">
-                                                            <div class="xo-image"
-                                                                style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
-                                                                <img alt="image" fetchpriority="auto" height="1000"
-                                                                    is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg"
-                                                                    srcset="../cdn/shop/files/4_6f05d8b6-8d8c-44cf-af8a-7498fc172451.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
-                                                                    xo-intrinsic-width="1000" />
-                                                                <div class="xo-image__overlay xo-lazyload-overlay">
-                                                                    <div class="xo-image__loading">
-                                                                        <div class="xo-loader-3"
-                                                                            style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                            <div></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="4 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-mobile__thumb-slide">
-                                                        <div class="xo-media" style="--media-aspect-ratio: 1/1">
-                                                            <div class="xo-image"
-                                                                style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
-                                                                <img alt="image" fetchpriority="auto" height="1000"
-                                                                    is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg"
-                                                                    srcset="../cdn/shop/files/5_dc4bd4d5-ac89-481e-9865-b87132b74821.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
-                                                                    xo-intrinsic-width="1000" />
-                                                                <div class="xo-image__overlay xo-lazyload-overlay">
-                                                                    <div class="xo-image__loading">
-                                                                        <div class="xo-loader-3"
-                                                                            style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                            <div></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </xo-carousel-slide>
-                                                    <xo-carousel-slide aria-label="5 of 5" aria-roledescription="Slide"
-                                                        class="xo-product-info-media-mobile__thumb-slide">
-                                                        <div class="xo-media" style="--media-aspect-ratio: 1/1">
-                                                            <div class="xo-image"
-                                                                style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
-                                                                <img alt="image" fetchpriority="auto" height="1000"
-                                                                    is="xo-lazyload" loading="lazy" sizes="100vw"
-                                                                    src="../cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg"
-                                                                    srcset="../cdn/shop/files/1_bc31e347-bd31-4a8b-b0f8-1daa0d33bc62.jpg 100w"
-                                                                    width="1000" xo-intrinsic-height="1000"
-                                                                    xo-intrinsic-width="1000" />
-                                                                <div class="xo-image__overlay xo-lazyload-overlay">
-                                                                    <div class="xo-image__loading">
-                                                                        <div class="xo-loader-3"
-                                                                            style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                            <div></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </xo-carousel-slide>
+                                                    {% endfor %}
                                                 </xo-carousel-list>
                                             </xo-carousel-inner>
                                         </xo-carousel-thumbnail>
                                     </xo-carousel>
                                 </xo-gallery>
                             </div>
-                        </xo-animate> -->
+                        </xo-animate>
                         <xo-animate class="main-product__right" style="--xs: 12; --md: 5" xo-cascade="">
                             <div class="xo-product-info-content" style="position: sticky; top: 9.3rem"
                                 xo-products-count="0">
@@ -764,19 +498,20 @@ z-index:99; position: relative">
                                     <xo-animate xo-cascade="">
                                         <div class="shopify-block shopify-app-block" data-block-handle="preview_badge"
                                             id="shopify-block-ANnpOM1RDUWlqN0U5W__judge_me_reviews_preview_badge_h3WD8N">
-                                            <div class="jdgm-widget jdgm-preview-badge" data-id="8566086271166"
-                                                data-template="manual-installation">
-                                                <div class="jdgm-prev-badge" data-average-rating="0.00"
-                                                    data-number-of-questions="0" data-number-of-reviews="0"
-                                                    style="display:none"> <span aria-label="0.00 stars"
-                                                        class="jdgm-prev-badge__stars" data-score="0.00" role="button"
-                                                        tabindex="0"> <span class="jdgm-star jdgm--off"></span><span
-                                                            class="jdgm-star jdgm--off"></span><span
-                                                            class="jdgm-star jdgm--off"></span><span
-                                                            class="jdgm-star jdgm--off"></span><span
-                                                            class="jdgm-star jdgm--off"></span> </span> <span
-                                                        class="jdgm-prev-badge__text"> No reviews </span> </div>
+                                            <div class='jdgm-widget jdgm-preview-badge' data-id='8566086271166'
+                                                data-template='manual-installation'>
+                                                <div style='display:none' class='jdgm-prev-badge'
+                                                    data-average-rating='0.00' data-number-of-reviews='0'
+                                                    data-number-of-questions='0'> <span class='jdgm-prev-badge__stars'
+                                                        data-score='0.00' tabindex='0' aria-label='0.00 stars'
+                                                        role='button'> <span class='jdgm-star jdgm--off'></span><span
+                                                            class='jdgm-star jdgm--off'></span><span
+                                                            class='jdgm-star jdgm--off'></span><span
+                                                            class='jdgm-star jdgm--off'></span><span
+                                                            class='jdgm-star jdgm--off'></span> </span> <span
+                                                        class='jdgm-prev-badge__text'> No reviews </span> </div>
                                             </div>
+
                                         </div>
                                     </xo-animate>
                                     <xo-animate style="padding-top:0px; padding-bottom:20px" xo-cascade="">
@@ -819,59 +554,85 @@ z-index:99; position: relative">
                                     </xo-animate>
                                     <xo-animate style="padding-top:0px; padding-bottom:30px" xo-cascade="">
                                         <p class="xo-product-info-content__description">
-                                            Cheer on your favorite red and white team in eye-popping style with these
-                                            red &amp; white striped game bib overalls! Each pair is made of 100 percent
-                                            cotton for a comfortable, breathable fit regardless of the weather and
-                                            includ...
+                                            {{ product.description|linebreaksbr }}
                                         </p>
                                     </xo-animate>
                                     <xo-animate style="padding-top:0px; padding-bottom:30px" xo-cascade="">
-                                        <form accept-charset="UTF-8" action="/cart/add" class="shopify-product-form"
-                                            data-type="add-to-cart-form" enctype="multipart/form-data"
-                                            id="product_form_id-template--19284046905534__main-product" method="post"
-                                            novalidate="novalidate"><input name="form_type" type="hidden"
-                                                value="product"><input name="utf8" type="hidden" value="✓"><input
-                                                name="id" type="hidden" value="45346074493118" />
+                                        <form method="post" action=" "
+                                            id="product_form_id_{{ product.id }}" accept-charset="UTF-8"
+                                            class="shopify-product-form" enctype="multipart/form-data"
+                                            novalidate="novalidate" data-type="add-to-cart-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{ product.id }}">
+
                                             <div class="buy-button">
+                                                {% if product.stock > 0 and product.available %}
+                                                <!-- Product In Stock -->
                                                 <div>
-                                                    <xo-cart-quantity
-                                                        aria-labelledby="quantity-template--19284046905534__main-product"
-                                                        class="xo-quantity-style2"
-                                                        style="--width: 13.5rem; --height: 5rem">
+                                                    <xo-cart-quantity class="xo-quantity-style2"
+                                                        style="--width: 13.5rem; --height: 5rem"
+                                                        aria-labelledby="quantity-{{ product.id }}">
                                                         <xo-cart-quantity-minus class="xo-quantity-style2__button">
-                                                            <svg aria-hidden="true" fill="none" focusable="false"
-                                                                viewbox="0 0 10 2" width="12"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path clip-rule="evenodd"
+                                                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                                                focusable="false" fill="none" viewBox="0 0 10 2"
+                                                                width="12">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
                                                                     d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z"
-                                                                    fill="currentColor" fill-rule="evenodd">
+                                                                    fill="currentColor">
                                                                 </path>
                                                             </svg>
                                                         </xo-cart-quantity-minus>
                                                         <input
                                                             class="xo-quantity-style2__number xo-quantity-style2__number--half"
-                                                            form="product_form_id-template--19284046905534__main-product"
-                                                            id="quantity-template--19284046905534__main-product"
-                                                            name="quantity" type="number" value="1" />
+                                                            type="number" name="quantity" value="1"
+                                                            form="product_form_id_{{ product.id }}"
+                                                            id="quantity-{{ product.id }}" min="1"
+                                                            max="{{ product.stock }}">
                                                         <xo-cart-quantity-plus class="xo-quantity-style2__button">
-                                                            <svg aria-hidden="true" fill="none" focusable="false"
-                                                                viewbox="0 0 10 10" width="12"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path clip-rule="evenodd"
+                                                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                                                focusable="false" fill="none" viewBox="0 0 10 10"
+                                                                width="12">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
                                                                     d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z"
-                                                                    fill="currentColor" fill-rule="evenodd">
+                                                                    fill="currentColor">
                                                                 </path>
                                                             </svg>
                                                         </xo-cart-quantity-plus>
                                                     </xo-cart-quantity>
                                                 </div>
                                                 <div class="terms-binding">
-                                                    <xo-product-will-change class="buy-button__add" xo-disabled=""
-                                                        xo-unique-id="product-add-button-8566086271166">
-                                                        <xo-cart-add disabled="">
+                                                    <xo-product-will-change
+                                                        xo-unique-id="product-add-button-{{ product.id }}"
+                                                        class="buy-button__add">
+                                                        <xo-cart-add>
                                                             <button
                                                                 class="xo-btn xo-btn--light xo-btn--primary xo-btn--slide-up xo-btn--block"
                                                                 style="" type="submit">
+                                                                <span class="xo-btn__content">
+                                                                    <span class="xo-btn__text" data-text="Add to Cart">
+                                                                        Add to Cart
+                                                                    </span>
+                                                                </span>
+                                                                <span class="xo-btn__loading">
+                                                                    <div class="xo-loader-3"
+                                                                        style="--size: 8; --color: currentColor; --duration: 1000;">
+                                                                        <div></div>
+                                                                    </div>
+                                                                </span>
+                                                            </button>
+                                                        </xo-cart-add>
+                                                    </xo-product-will-change>
+                                                </div>
+                                                {% else %}
+                                                <!-- Product Out of Stock -->
+                                                <div class="terms-binding" style="width: 100%;">
+                                                    <xo-product-will-change
+                                                        xo-unique-id="product-add-button-{{ product.id }}"
+                                                        class="buy-button__add" xo-disabled="">
+                                                        <xo-cart-add disabled="">
+                                                            <button
+                                                                class="xo-btn xo-btn--light xo-btn--primary xo-btn--slide-up xo-btn--block"
+                                                                style="" type="button" disabled>
                                                                 <span class="xo-btn__content">
                                                                     <span class="xo-btn__text" data-text="Sold out">
                                                                         Sold out
@@ -887,40 +648,25 @@ z-index:99; position: relative">
                                                         </xo-cart-add>
                                                     </xo-product-will-change>
                                                 </div>
+                                                {% endif %}
                                             </div>
+
                                             <div class="xo-space xo-space--vertical" style="--space: 2.5rem"></div>
+
+                                            {% if product.stock > 0 and product.available %}
+                                            <!-- Buy it Now Button (Only show when in stock) -->
                                             <div class="terms-binding">
-                                                <xo-product-will-change class="buy-button__now" xo-disabled=""
-                                                    xo-unique-id="product-buy-now-button-8566086271166">
-                                                    <div class="shopify-payment-button" data-shopify="payment-button">
-                                                        <shopify-accelerated-checkout
-                                                            access-token="afb23f91f8ed940e0353278be484ef77"
-                                                            buyer-country="IN" buyer-currency="USD" buyer-locale="en"
-                                                            disable-compat="" disabled=""
-                                                            fallback='{"name":"buy_it_now","wallet_params":{}}'
-                                                            recommended="null" shop-id="71784923326"
-                                                            variant-params='[{"id":45346074493118,"requiresShipping":true}]'>
-                                                            <div aria-hidden="true"
-                                                                class="shopify-payment-button__button" disabled=""
-                                                                role="button"
-                                                                style="background-color: transparent; border: none">
-                                                                <div class="shopify-payment-button__skeleton"> </div>
-                                                            </div>
-                                                        </shopify-accelerated-checkout> <small aria-hidden="true"
-                                                            class="hidden" data-consent-type="subscription"
-                                                            id="shopify-buyer-consent"> This item is a recurring or
-                                                            deferred purchase. By continuing, I agree to the <span
-                                                                id="shopify-subscription-policy-button">cancellation
-                                                                policy</span> and authorize you to charge my payment
-                                                            method at the prices, frequency and dates listed on this
-                                                            page until my order is fulfilled or I cancel, if permitted.
-                                                        </small> </div>
+                                                <xo-product-will-change class="buy-button__now"
+                                                    xo-unique-id="product-buy-now-button-{{ product.id }}">
+                                                    <button type="submit" name="buy_now" value="1"
+                                                        class="shopify-payment-button__button shopify-payment-button__button--unbranded">
+                                                        Buy it now
+                                                    </button>
                                                 </xo-product-will-change>
                                             </div>
-                                            <input name="product-id" type="hidden" value="8566086271166"><input
-                                                name="section-id" type="hidden"
-                                                value="template--19284046905534__main-product" /></input></input></input>
+                                            {% endif %}
                                         </form>
+
                                     </xo-animate>
                                     <xo-animate style="padding-top:0px; padding-bottom:30px" xo-cascade="">
                                         <div class="shipping">
@@ -967,7 +713,8 @@ z-index:99; position: relative">
                                                     </g>
                                                 </svg>
                                                 <p>Estimate delivery times: <strong>12-26 days</strong> (International),
-                                                    <strong>3-6 days</strong> India.</p>
+                                                    <strong>3-6 days</strong> India.
+                                                </p>
                                             </div>
                                             <div class="shipping_item">
                                                 <svg height="27" id="Layer_1" style="enable-background:new 0 0 150 150;"
@@ -1006,12 +753,7 @@ z-index:99; position: relative">
                                             </div>
                                         </div>
                                     </xo-animate>
-                                    <xo-animate style="padding-top:0px; padding-bottom:0px" xo-cascade="">
-                                        <a class="xo-product-info-content__image"
-                                            href="https://shopify.pxf.io/9gPaY0"><img alt="affiliate" height="628"
-                                                is="xo-lazyload" loading="lazy"
-                                                src="../starter/productdetail_banner.jpg" width="1200" /></a>
-                                    </xo-animate>
+
                                 </xo-collapse-provider>
                             </div>
                         </xo-animate>
@@ -1063,7 +805,7 @@ z-index:99; position: relative">
                                                                     class="xo-visually-hidden xo-visually-hidden--inline">
                                                                     Sale price</div>
                                                                 <span class="xo-price__item xo-price__item--accent">
-                                                                   ₹ {{ product.price  }}
+                                                                    ₹ {{ product.price }}
                                                                 </span>
                                                                 <!-- <div
                                                                     class="xo-visually-hidden xo-visually-hidden--inline">
@@ -1271,7 +1013,7 @@ z-index:99; position: relative">
                                         </div>
                                         <div class="product-description__img-wrap">
                                             <img alt="description" height="1000" is="xo-lazyload" loading="lazy"
-                                                src="../s/files/1/0717/8492/3326/files/des1-1.jpg" width="1000" />
+                                                src="{% static 'cdn/shop/files/des1-1.webp' %}" width="1000" />
                                         </div>
                                     </xo-grid>
                                     <h3>Product Supreme Quality</h3>
@@ -1285,7 +1027,7 @@ z-index:99; position: relative">
                                         <div>
                                             <div class="product-description__img-wrap product-description__img-wrap--2">
                                                 <img alt="description" height="1000" is="xo-lazyload" loading="lazy"
-                                                    src="../s/files/1/0717/8492/3326/files/des1.jpg" width="1000" />
+                                                    src="{% static 'cdn/shop/files/des1.webp' %}" width="1000" />
                                             </div>
                                             <h4>Infomation Product</h4>
                                             <p>IFlexibile consilium: Design res ad usus multos et spatia apta,
@@ -1294,7 +1036,7 @@ z-index:99; position: relative">
                                         <div>
                                             <div class="product-description__img-wrap product-description__img-wrap--2">
                                                 <img alt="description" height="1000" is="xo-lazyload" loading="lazy"
-                                                    src="../s/files/1/0717/8492/3326/files/des2.jpg" width="1000" />
+                                                    src="{% static 'cdn/shop/files/des2.webp' %}" width="1000" />
                                             </div>
                                             <h4>Fabricae Material</h4>
                                             <p>SAlta durabilitas: alta qualitas materiae et processus fabricandi
@@ -1304,7 +1046,7 @@ z-index:99; position: relative">
                                         <div>
                                             <div class="product-description__img-wrap product-description__img-wrap--2">
                                                 <img alt="description" height="1000" is="xo-lazyload" loading="lazy"
-                                                    src="../s/files/1/0717/8492/3326/files/des3.jpg" width="1000" />
+                                                    src="{% static 'cdn/shop/files/des3.webp' %}" width="1000" />
                                             </div>
                                             <h4>Instructiones</h4>
                                             <p>Facilis utendum est: User-amica interface et experientia consilium,
@@ -1367,7 +1109,8 @@ z-index:99; position: relative">
                                                                 class="jdgm-star jdgm--on"></span><span
                                                                 class="jdgm-star jdgm--on"></span><span
                                                                 class="jdgm-star jdgm--on"></span><span
-                                                                class="jdgm-star jdgm--on"></span></div>
+                                                                class="jdgm-star jdgm--on"></span>
+                                                        </div>
                                                         <div class="jdgm-histogram__bar">
                                                             <div class="jdgm-histogram__bar-content" style="width: 0%;">
                                                             </div>
@@ -1383,7 +1126,8 @@ z-index:99; position: relative">
                                                                 class="jdgm-star jdgm--on"></span><span
                                                                 class="jdgm-star jdgm--on"></span><span
                                                                 class="jdgm-star jdgm--on"></span><span
-                                                                class="jdgm-star jdgm--off"></span></div>
+                                                                class="jdgm-star jdgm--off"></span>
+                                                        </div>
                                                         <div class="jdgm-histogram__bar">
                                                             <div class="jdgm-histogram__bar-content" style="width: 0%;">
                                                             </div>
@@ -1399,7 +1143,8 @@ z-index:99; position: relative">
                                                                 class="jdgm-star jdgm--on"></span><span
                                                                 class="jdgm-star jdgm--on"></span><span
                                                                 class="jdgm-star jdgm--off"></span><span
-                                                                class="jdgm-star jdgm--off"></span></div>
+                                                                class="jdgm-star jdgm--off"></span>
+                                                        </div>
                                                         <div class="jdgm-histogram__bar">
                                                             <div class="jdgm-histogram__bar-content" style="width: 0%;">
                                                             </div>
@@ -1415,7 +1160,8 @@ z-index:99; position: relative">
                                                                 class="jdgm-star jdgm--on"></span><span
                                                                 class="jdgm-star jdgm--off"></span><span
                                                                 class="jdgm-star jdgm--off"></span><span
-                                                                class="jdgm-star jdgm--off"></span></div>
+                                                                class="jdgm-star jdgm--off"></span>
+                                                        </div>
                                                         <div class="jdgm-histogram__bar">
                                                             <div class="jdgm-histogram__bar-content" style="width: 0%;">
                                                             </div>
@@ -1431,7 +1177,8 @@ z-index:99; position: relative">
                                                                 class="jdgm-star jdgm--off"></span><span
                                                                 class="jdgm-star jdgm--off"></span><span
                                                                 class="jdgm-star jdgm--off"></span><span
-                                                                class="jdgm-star jdgm--off"></span></div>
+                                                                class="jdgm-star jdgm--off"></span>
+                                                        </div>
                                                         <div class="jdgm-histogram__bar">
                                                             <div class="jdgm-histogram__bar-content" style="width: 0%;">
                                                             </div>
