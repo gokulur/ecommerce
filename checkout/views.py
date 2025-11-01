@@ -11,12 +11,12 @@ from .models import ShippingAddress
 def checkout_page(request):
     """Show checkout form for latest order (or cart summary)"""
     cart = request.session.get('cart', {})
-    if not cart:
-        messages.error(request, "Your cart is empty!")
-        return redirect('product_list')  # or cart page
+    # if not cart:
+    #     messages.error(request, "Your cart is empty!")
+    #     return redirect('product_list')  # or cart page
 
     total = sum(item['price']*item['quantity'] for item in cart.values())
-    return render(request, 'checkout/checkout.html', {'cart': cart, 'total': total})
+    return render(request, 'checkout.html', {'cart': cart, 'total': total})
 
 # -----------------------------
 # CHECKOUT ACTION (POST)

@@ -886,104 +886,122 @@ Scheme 2: Scheme 4`,
                             </xo-collapse>
                           </div>
                         </div>
-                      
-                          <div class="menu-hamburger-drawer-mobile__utilities">
-                             <a class="menu-hamburger-drawer-mobile__utility"
-                              href="{% url 'register_page' %}">
-                              <svg fill="currentColor" height="18" id="svg2" version="1.1" viewbox="0 0 400 400"
-                                width="18" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                                xmlns:svg="http://www.w3.org/2000/svg">
-                                <metadata id="metadata8">
-                                  <rdf>
-                                    <work rdf:about="">
-                                      <format>image/svg+xml</format>
-                                      <type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></type>
-                                    </work>
-                                  </rdf>
-                                </metadata>
-                                <defs id="defs6"></defs>
-                                <g id="g10" transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-                                  <g id="g12" transform="scale(0.1)">
-                                    <path
-                                      d="m 1506.87,2587.11 c -225.04,0 -408.14,-183.08 -408.14,-408.11 0,-225.06 183.1,-408.13 408.14,-408.13 225.02,0 408.13,183.07 408.13,408.13 0,225.03 -183.11,408.11 -408.13,408.11 z m 0,-1038.56 c -347.64,0 -630.432,282.79 -630.432,630.45 0,347.63 282.792,630.43 630.432,630.43 347.63,0 630.42,-282.8 630.42,-630.43 0,-347.66 -282.79,-630.45 -630.42,-630.45 v 0"
-                                      fill="currentColor" id="path14"
-                                      style="fill-opacity:1;fill-rule:nonzero;stroke:none"></path>
-                                    <path
-                                      d="M 399.648,361.789 H 2614.07 c -25.06,261.531 -139.49,503.461 -327.47,689.831 -124.25,123.14 -300.78,193.96 -483.86,193.96 h -591.76 c -183.61,0 -359.601,-70.82 -483.863,-193.96 C 539.148,865.25 424.719,623.32 399.648,361.789 Z M 2730.69,139.461 H 283.035 c -61.558,0 -111.16,49.59 -111.16,111.16 0,363.438 141.68,704 398.32,959.019 165.657,164.55 399.414,258.82 640.785,258.82 h 591.76 c 241.94,0 475.14,-94.27 640.8,-258.82 256.63,-255.019 398.31,-595.581 398.31,-959.019 0,-61.57 -49.59,-111.16 -111.16,-111.16 v 0"
-                                      fill="currentColor" id="path16"
-                                      style="fill-opacity:1;fill-rule:nonzero;stroke:none"></path>
-                                  </g>
+
+                        <div class="menu-hamburger-drawer-mobile__utilities">
+                     
+                          {% if not user.is_authenticated %}
+                          <!-- Register -->
+                          <a class="menu-hamburger-drawer-mobile__utility" href="{% url 'register_page' %}">
+                            <svg fill="currentColor" height="18" version="1.1" viewBox="0 0 400 400" width="18"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                                <g transform="scale(0.1)">
+                                  <path
+                                    d="m 1506.87,2587.11 c -225.04,0 -408.14,-183.08 -408.14,-408.11 0,-225.06 183.1,-408.13 408.14,-408.13 225.02,0 408.13,183.07 408.13,408.13 0,225.03 -183.11,408.11 -408.13,408.11 z m 0,-1038.56 c -347.64,0 -630.432,282.79 -630.432,630.45 0,347.63 282.792,630.43 630.432,630.43 347.63,0 630.42,-282.8 630.42,-630.43 0,-347.66 -282.79,-630.45 -630.42,-630.45 v 0"
+                                    fill="currentColor" />
+                                  <path
+                                    d="M 399.648,361.789 H 2614.07 c -25.06,261.531 -139.49,503.461 -327.47,689.831 -124.25,123.14 -300.78,193.96 -483.86,193.96 h -591.76 c -183.61,0 -359.601,-70.82 -483.863,-193.96 C 539.148,865.25 424.719,623.32 399.648,361.789 Z M 2730.69,139.461 H 283.035 c -61.558,0 -111.16,49.59 -111.16,111.16 0,363.438 141.68,704 398.32,959.019 165.657,164.55 399.414,258.82 640.785,258.82 h 591.76 c 241.94,0 475.14,-94.27 640.8,-258.82 256.63,-255.019 398.31,-595.581 398.31,-959.019 0,-61.57 -49.59,-111.16 -111.16,-111.16 v 0"
+                                    fill="currentColor" />
                                 </g>
-                              </svg>
-                              <span>Register</span>
-                            </a>
-                            <a class="menu-hamburger-drawer-mobile__utility"
-                              href="{% url 'login_page' %}">
-                              <svg fill="currentColor" height="18" id="svg2" version="1.1" viewbox="0 0 400 400"
-                                width="18" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                                xmlns:svg="http://www.w3.org/2000/svg">
-                                <metadata id="metadata8">
-                                  <rdf>
-                                    <work rdf:about="">
-                                      <format>image/svg+xml</format>
-                                      <type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></type>
-                                    </work>
-                                  </rdf>
-                                </metadata>
-                                <defs id="defs6"></defs>
-                                <g id="g10" transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-                                  <g id="g12" transform="scale(0.1)">
-                                    <path
-                                      d="m 1506.87,2587.11 c -225.04,0 -408.14,-183.08 -408.14,-408.11 0,-225.06 183.1,-408.13 408.14,-408.13 225.02,0 408.13,183.07 408.13,408.13 0,225.03 -183.11,408.11 -408.13,408.11 z m 0,-1038.56 c -347.64,0 -630.432,282.79 -630.432,630.45 0,347.63 282.792,630.43 630.432,630.43 347.63,0 630.42,-282.8 630.42,-630.43 0,-347.66 -282.79,-630.45 -630.42,-630.45 v 0"
-                                      fill="currentColor" id="path14"
-                                      style="fill-opacity:1;fill-rule:nonzero;stroke:none"></path>
-                                    <path
-                                      d="M 399.648,361.789 H 2614.07 c -25.06,261.531 -139.49,503.461 -327.47,689.831 -124.25,123.14 -300.78,193.96 -483.86,193.96 h -591.76 c -183.61,0 -359.601,-70.82 -483.863,-193.96 C 539.148,865.25 424.719,623.32 399.648,361.789 Z M 2730.69,139.461 H 283.035 c -61.558,0 -111.16,49.59 -111.16,111.16 0,363.438 141.68,704 398.32,959.019 165.657,164.55 399.414,258.82 640.785,258.82 h 591.76 c 241.94,0 475.14,-94.27 640.8,-258.82 256.63,-255.019 398.31,-595.581 398.31,-959.019 0,-61.57 -49.59,-111.16 -111.16,-111.16 v 0"
-                                      fill="currentColor" id="path16"
-                                      style="fill-opacity:1;fill-rule:nonzero;stroke:none"></path>
-                                  </g>
+                              </g>
+                            </svg>
+                            <span>Register</span>
+                          </a>
+
+                          <!-- Login -->
+                          <a class="menu-hamburger-drawer-mobile__utility" href="{% url 'login_page' %}">
+                            <svg fill="currentColor" height="18" version="1.1" viewBox="0 0 400 400" width="18"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                                <g transform="scale(0.1)">
+                                  <path
+                                    d="m 1506.87,2587.11 c -225.04,0 -408.14,-183.08 -408.14,-408.11 0,-225.06 183.1,-408.13 408.14,-408.13 225.02,0 408.13,183.07 408.13,408.13 0,225.03 -183.11,408.11 -408.13,408.11 z m 0,-1038.56 c -347.64,0 -630.432,282.79 -630.432,630.45 0,347.63 282.792,630.43 630.432,630.43 347.63,0 630.42,-282.8 630.42,-630.43 0,-347.66 -282.79,-630.45 -630.42,-630.45 v 0"
+                                    fill="currentColor" />
+                                  <path
+                                    d="M 399.648,361.789 H 2614.07 c -25.06,261.531 -139.49,503.461 -327.47,689.831 -124.25,123.14 -300.78,193.96 -483.86,193.96 h -591.76 c -183.61,0 -359.601,-70.82 -483.863,-193.96 C 539.148,865.25 424.719,623.32 399.648,361.789 Z M 2730.69,139.461 H 283.035 c -61.558,0 -111.16,49.59 -111.16,111.16 0,363.438 141.68,704 398.32,959.019 165.657,164.55 399.414,258.82 640.785,258.82 h 591.76 c 241.94,0 475.14,-94.27 640.8,-258.82 256.63,-255.019 398.31,-595.581 398.31,-959.019 0,-61.57 -49.59,-111.16 -111.16,-111.16 v 0"
+                                    fill="currentColor" />
                                 </g>
-                              </svg>
-                              <span>Login</span>
-                            </a>
-                            <a class="menu-hamburger-drawer-mobile__utility" href="pages/wishlist.html">
-                              <svg version="1.1" viewbox="0 0 400 400" width="18" xmlns="http://www.w3.org/2000/svg">
-                                <g id="g10" transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-                                  <g id="g12" transform="scale(0.1)">
-                                    <path
-                                      d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6"
-                                      fill="currentColor" id="path14"
-                                      style="fill-opacity:1;fill-rule:nonzero;stroke:none"></path>
-                                  </g>
+                              </g>
+                            </svg>
+                            <span>Login</span>
+                          </a>
+                          {% else %}
+                          <!-- My Profile -->
+                          <a class="menu-hamburger-drawer-mobile__utility" href=" ">
+                            <svg fill="currentColor" height="18" viewBox="0 0 400 400" width="18"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                                <g transform="scale(0.1)">
+                                  <path
+                                    d="m1506 2300c-300 0-540-240-540-540s240-540 540-540 540 240 540 540-240 540-540 540zm0-1260c-396 0-720 324-720 720s324 720 720 720 720-324 720-720-324-720-720-720z"
+                                    fill="currentColor" />
                                 </g>
-                              </svg>
-                              <span style="padding-top:0.3rem">
-                                Wishlist
-                              </span>
-                            </a>
-                          </div>
-                           
-                    
+                              </g>
+                            </svg>
+                            <span>My Profile</span>
+                          </a>
+
+                          <!-- Logout -->
+                          <a class="menu-hamburger-drawer-mobile__utility" href="{% url 'logout_action' %}">
+                            <svg fill="currentColor" height="18" viewBox="0 0 400 400" width="18"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                                <g transform="scale(0.1)">
+                                  <path
+                                    d="M1200 3000h800v-200h-800v-400h800v-200h-800v-400h800v-200h-800v-400h800v-200h-800V0H1000v3000h200zM2800 1600l-400-400v300h-800v200h800v300l400-400z"
+                                    fill="currentColor" />
+                                </g>
+                              </g>
+                            </svg>
+                            <span>Logout</span>
+                          </a>
+                          {% endif %}
+
+                          <!-- Wishlist (Always visible) -->
+                          <a class="menu-hamburger-drawer-mobile__utility" href="pages/wishlist.html">
+                            <svg version="1.1" viewBox="0 0 400 400" width="18" xmlns="http://www.w3.org/2000/svg">
+                              <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                                <g transform="scale(0.1)">
+                                  <path
+                                    d="m903 2424c157 0 306-61 418-173l135-135c20-20 48-32 77-32s56 12 77 32l134 134c112 112 260 173 417 173 157 0 305-61 417-172 111-111 172-259 172-417 0-157-60-305-172-417L1531 373 487 1417c-111 112-173 260-173 418 0 158 61 306 173 417 111 111 259 172 416 172z"
+                                    fill="currentColor" />
+                                </g>
+                              </g>
+                            </svg>
+                            <span style="padding-top:0.3rem">Wishlist</span>
+                          </a>
+
+                        </div>
+
+
                       </div>
                     </xo-modal>
                   </div>
                 </nav>
 
                 <div class="header-v24__utilities-wrap" style="--xs: 4">
-                   
-                   
+
+
                   <!-- Header Utilities -->
                   <div class="header-v24__utilities">
-                    <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="Login">
+                    {% if not user.is_authenticated %}
+                    <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="Register">
                       <a href="{% url 'register_page' %}">Register</a>
                     </xo-tooltip>
+
                     <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="Login">
                       <a href="{% url 'login_page' %}">Login</a>
                     </xo-tooltip>
+                    {% else %}
+                    <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="My Account">
+                      <a href=" ">My Account</a>
+                    </xo-tooltip>
+
+                    <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="Logout">
+                      <a href="{% url 'logout_action' %}">Logout</a>
+                    </xo-tooltip>
+                    {% endif %}
+
 
                     <xo-tooltip class="header-v24__icon-wrap" xo-placement="bottom-center" xo-title="Search">
                       <xo-modal-trigger class="header-v24__icon header-v24__icon--search" xo-name="search">
@@ -1109,7 +1127,7 @@ Scheme 2: Scheme 4`,
                   </div>
 
                 </xo-modal>
- 
+
 
     </div>
     <div class="shopify-section shopify-section-group-header-group section-mega-menu"
@@ -1765,8 +1783,8 @@ Scheme 2: Scheme 4`,
                         <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                             alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
                             src="{% static 'cdn/shop/files/Floral.webp' %}"
-                            srcset="{% static 'cdn/shop/files/Floral.webp' %} 100w" width="400" xo-intrinsic-height="400"
-                            xo-intrinsic-width="400" />
+                            srcset="{% static 'cdn/shop/files/Floral.webp' %} 100w" width="400"
+                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
                           <div class="xo-image__overlay xo-lazyload-overlay">
                             <div class="xo-image__loading">
                               <div class="xo-loader-3"
@@ -2016,8 +2034,9 @@ Scheme 2: Scheme 4`,
                     <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
                       <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
                           alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy" sizes="100vw"
-                          src="{% static 'cdn/shop/files/b9-2.webp' %}" srcset="{% static 'cdn/shop/files/b9-2.webp' %} 100w" width="700"
-                          xo-intrinsic-height="520" xo-intrinsic-width="700" />
+                          src="{% static 'cdn/shop/files/b9-2.webp' %}"
+                          srcset="{% static 'cdn/shop/files/b9-2.webp' %} 100w" width="700" xo-intrinsic-height="520"
+                          xo-intrinsic-width="700" />
                         <div class="xo-image__overlay xo-lazyload-overlay">
                           <div class="xo-image__loading">
                             <div class="xo-loader-3"
@@ -2370,9 +2389,10 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Zorvi Mivon" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg' %}"
-                              srcset="{% static 'cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg' %} 100w" width="1000"
-                              xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                              sizes="100vw"
+                              src="{% static 'cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg' %} 100w"
+                              width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -2668,9 +2688,10 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Kivra Solen" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/4_732ccc5e-228c-4dae-a696-e3111e4b9a28.jpg' %}"
-                              srcset="{% static 'cdn/shop/files/4_732ccc5e-228c-4dae-a696-e3111e4b9a28.jpg' %} 100w" width="1000"
-                              xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                              sizes="100vw"
+                              src="{% static 'cdn/shop/files/4_732ccc5e-228c-4dae-a696-e3111e4b9a28.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/4_732ccc5e-228c-4dae-a696-e3111e4b9a28.jpg' %} 100w"
+                              width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -2966,9 +2987,10 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Zorvi Mivon" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/19_cf616bef-0a00-4a09-9eb7-1cdb5d3b5958.jpg' %}"
-                              srcset="{% static 'cdn/shop/files/19_cf616bef-0a00-4a09-9eb7-1cdb5d3b5958.jpg' %} 100w" width="1000"
-                              xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                              sizes="100vw"
+                              src="{% static 'cdn/shop/files/19_cf616bef-0a00-4a09-9eb7-1cdb5d3b5958.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/19_cf616bef-0a00-4a09-9eb7-1cdb5d3b5958.jpg' %} 100w"
+                              width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -3530,9 +3552,10 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Luvor Elyra" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/8_56771e61-bb4f-4b0a-b259-1e880f28c440.jpg' %}"
-                              srcset="{% static 'cdn/shop/files/8_56771e61-bb4f-4b0a-b259-1e880f28c440.jpg' %} 100w" width="1000"
-                              xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                              sizes="100vw"
+                              src="{% static 'cdn/shop/files/8_56771e61-bb4f-4b0a-b259-1e880f28c440.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/8_56771e61-bb4f-4b0a-b259-1e880f28c440.jpg' %} 100w"
+                              width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -3828,9 +3851,10 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Fynel Joryn" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/9_14257c1b-560e-4012-82cf-00d8c21dad0b.jpg' %}"
-                              srcset="{% static 'cdn/shop/files/9_14257c1b-560e-4012-82cf-00d8c21dad0b.jpg' %} 100w" width="1000"
-                              xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                              sizes="100vw"
+                              src="{% static 'cdn/shop/files/9_14257c1b-560e-4012-82cf-00d8c21dad0b.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/9_14257c1b-560e-4012-82cf-00d8c21dad0b.jpg' %} 100w"
+                              width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -4126,9 +4150,10 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Fynel Joryn" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/13_8f70f9cd-6132-4912-8212-e499705e0c85.jpg' %}"
-                              srcset="{% static 'cdn/shop/files/13_8f70f9cd-6132-4912-8212-e499705e0c85.jpg' %} 100w" width="1000"
-                              xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                              sizes="100vw"
+                              src="{% static 'cdn/shop/files/13_8f70f9cd-6132-4912-8212-e499705e0c85.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/13_8f70f9cd-6132-4912-8212-e499705e0c85.jpg' %} 100w"
+                              width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -4701,8 +4726,9 @@ z-index:98">
                         <div class="xo-product-image">
                           <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                               alt="Norix Velra" fetchpriority="auto" height="1000" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/11.jpg' %}" srcset="{% static 'cdn/shop/files/11.jpg' %} 100w" width="1000"
-                              xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                              sizes="100vw" src="{% static 'cdn/shop/files/11.jpg' %}"
+                              srcset="{% static 'cdn/shop/files/11.jpg' %} 100w" width="1000" xo-intrinsic-height="1000"
+                              xo-intrinsic-width="1000" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -5207,8 +5233,8 @@ z-index:98">
             </ul>
             <div class="footer-v26__copyright">
               © Copyright {% now "Y" %} | <a class="footer-v26__theme-name" href="{% url 'home' %}" rel="nofollow"
-                target="_blank">Riha Zain. All rights reserved.</a>  <a class="footer-v26__shop-name" href="#"
-                rel="nofollow" target="_blank">  </a>
+                target="_blank">Riha Zain. All rights reserved.</a> <a class="footer-v26__shop-name" href="#"
+                rel="nofollow" target="_blank"> </a>
               <!-- <a class="footer-v26__powered-shopify" href="#" rel="nofollow" target="_blank"> Powered by Django.</a> -->
             </div>
           </div>
@@ -5348,9 +5374,10 @@ z-index:98">
                               <a class="collection-product-footer__img" href="products/default-layout.html">
                                 <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                                     alt="Rovek Soryn" fetchpriority="high" height="1000" is="xo-lazyload" loading="lazy"
-                                    sizes="100vw" src="{% static 'cdn/shop/files/9_58fb5bf9-0c39-4f37-85a2-b72322ff49c1.jpg' %}?v=1756444168&amp;width=1000"
-                                    srcset="{% static 'cdn/shop/files/9_58fb5bf9-0c39-4f37-85a2-b72322ff49c1.jpg' %}?v=1756444168&amp;width=1000 100w" width="1000"
-                                    xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                                    sizes="100vw"
+                                    src="{% static 'cdn/shop/files/9_58fb5bf9-0c39-4f37-85a2-b72322ff49c1.jpg' %}?v=1756444168&amp;width=1000"
+                                    srcset="{% static 'cdn/shop/files/9_58fb5bf9-0c39-4f37-85a2-b72322ff49c1.jpg' %}?v=1756444168&amp;width=1000 100w"
+                                    width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                                   <div class="xo-image__overlay xo-lazyload-overlay">
                                     <div class="xo-image__loading">
                                       <div class="xo-loader-3"
@@ -5494,9 +5521,10 @@ z-index:98">
                               <a class="collection-product-footer__img" href="products/tab-accordion-inner.html">
                                 <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                                     alt="Cylor Elvor" fetchpriority="high" height="1000" is="xo-lazyload" loading="lazy"
-                                    sizes="100vw" src="{% static 'cdn/shop/files/3_800b5879-d465-43e7-a78f-e03a3a17fb36.jpg' %}?v=1756444125&amp;width=1000"
-                                    srcset="{% static 'cdn/shop/files/3_800b5879-d465-43e7-a78f-e03a3a17fb36.jpg' %}?v=1756444125&amp;width=1000 100w" width="1000"
-                                    xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
+                                    sizes="100vw"
+                                    src="{% static 'cdn/shop/files/3_800b5879-d465-43e7-a78f-e03a3a17fb36.jpg' %}?v=1756444125&amp;width=1000"
+                                    srcset="{% static 'cdn/shop/files/3_800b5879-d465-43e7-a78f-e03a3a17fb36.jpg' %}?v=1756444125&amp;width=1000 100w"
+                                    width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                                   <div class="xo-image__overlay xo-lazyload-overlay">
                                     <div class="xo-image__loading">
                                       <div class="xo-loader-3"
@@ -5640,7 +5668,8 @@ z-index:98">
                               <a class="collection-product-footer__img" href="products/product-radio-swatch.html">
                                 <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                                     alt="Firae Talor" fetchpriority="high" height="1000" is="xo-lazyload" loading="lazy"
-                                    sizes="100vw" src="{% static 'cdn/shop/files/16_bc354bf6-b5bb-48c1-9571-4be23828b3ce.jpg' %}?v=1756444330&amp;width=1000"
+                                    sizes="100vw"
+                                    src="{% static 'cdn/shop/files/16_bc354bf6-b5bb-48c1-9571-4be23828b3ce.jpg' %}?v=1756444330&amp;width=1000"
                                     srcset="{% static 'cdn/shop/files/16_bc354bf6-b5bb-48c1-9571-4be23828b3ce.jpg' %}?v=1756444330&amp;width=1000 100w"
                                     width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                                   <div class="xo-image__overlay xo-lazyload-overlay">
@@ -5940,7 +5969,8 @@ z-index:98">
                               <a class="collection-product-footer__img" href="products/background-image.html">
                                 <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
                                     alt="Venor Pryne" fetchpriority="high" height="1000" is="xo-lazyload" loading="lazy"
-                                    sizes="100vw" src="{% static 'cdn/shop/files/15_efb01680-3bbb-4c7c-a847-7b18d6e21023.jpg' %}?v=1756444025&amp;width=1000"
+                                    sizes="100vw"
+                                    src="{% static 'cdn/shop/files/15_efb01680-3bbb-4c7c-a847-7b18d6e21023.jpg' %}?v=1756444025&amp;width=1000"
                                     srcset="{% static 'cdn/shop/files/15_efb01680-3bbb-4c7c-a847-7b18d6e21023.jpg' %}?v=1756444025&amp;width=1000 100w"
                                     width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
                                   <div class="xo-image__overlay xo-lazyload-overlay">
