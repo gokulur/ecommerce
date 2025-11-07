@@ -558,10 +558,10 @@ z-index:99; position: relative">
                                         </p>
                                     </xo-animate>
                                     <xo-animate style="padding-top:0px; padding-bottom:30px" xo-cascade="">
-                                        <form method="post" action=" "
-                                            id="product_form_id_{{ product.id }}" accept-charset="UTF-8"
-                                            class="shopify-product-form" enctype="multipart/form-data"
-                                            novalidate="novalidate" data-type="add-to-cart-form">
+                                        <form method="post" action=" {% url 'add_to_cart' product.id %}" id="product_form_id_{{ product.id }}"
+                                            accept-charset="UTF-8" class="shopify-product-form"
+                                            enctype="multipart/form-data" novalidate="novalidate"
+                                            data-type="add-to-cart-form">
                                             {% csrf_token %}
                                             <input type="hidden" name="product_id" value="{{ product.id }}">
 
@@ -600,29 +600,24 @@ z-index:99; position: relative">
                                                         </xo-cart-quantity-plus>
                                                     </xo-cart-quantity>
                                                 </div>
-                                                <div class="terms-binding">
-                                                    <xo-product-will-change
-                                                        xo-unique-id="product-add-button-{{ product.id }}"
-                                                        class="buy-button__add">
-                                                        <xo-cart-add>
-                                                            <button
-                                                                class="xo-btn xo-btn--light xo-btn--primary xo-btn--slide-up xo-btn--block"
-                                                                style="" type="submit">
-                                                                <span class="xo-btn__content">
-                                                                    <span class="xo-btn__text" data-text="Add to Cart">
-                                                                        Add to Cart
-                                                                    </span>
-                                                                </span>
-                                                                <span class="xo-btn__loading">
-                                                                    <div class="xo-loader-3"
-                                                                        style="--size: 8; --color: currentColor; --duration: 1000;">
-                                                                        <div></div>
-                                                                    </div>
-                                                                </span>
-                                                            </button>
-                                                        </xo-cart-add>
-                                                    </xo-product-will-change>
-                                                </div>
+                                                <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <button
+                                                        class="xo-btn xo-btn--light xo-btn--primary xo-btn--slide-up xo-btn--block"
+                                                        type="submit">
+                                                        <span class="xo-btn__content">
+                                                            <span class="xo-btn__text" data-text="Add to Cart">Add to
+                                                                Cart</span>
+                                                        </span>
+                                                        <span class="xo-btn__loading">
+                                                            <div class="xo-loader-3"
+                                                                style="--size: 8; --duration: 1000;">
+                                                                <div></div>
+                                                            </div>
+                                                        </span>
+                                                    </button>
+                                                </form>
+
                                                 {% else %}
                                                 <!-- Product Out of Stock -->
                                                 <div class="terms-binding" style="width: 100%;">
