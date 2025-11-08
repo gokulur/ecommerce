@@ -1,6 +1,267 @@
-
-{% extends 'base.html' %}
-{% block content %}
+{% extends "base.html" %}
 {% load static %}
+{% block content %}
+
+<style>
+/* -------------------------
+   Checkout Layout
+---------------------------- */
+.checkout-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    gap: 40px;
+}
+
+/* LEFT FORM */
+.checkout-left {
+    flex: 1;
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+.checkout-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Form Inputs */
+.checkout-label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.checkout-input {
+    width: 100%;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.checkout-input:focus {
+    border-color: #000;
+    outline: none;
+}
+
+/* RIGHT SUMMARY */
+.checkout-right {
+    width: 380px;
+    background: #fafafa;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.order-item img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.order-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.order-price {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #111;
+}
+
+/* Qty Box */
+.order-qty-box {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    background: #efefef;
+    width: 90px;
+    justify-content: space-between;
+}
+
+.order-qty-btn {
+    background: #ddd;
+    padding: 3px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #222;
+    text-decoration: none;
+}
+
+/* Summary rows */
+.line-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+/* Checkout button */
+.checkout-btn {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* -------------------------
+   ✅ RESPONSIVE STYLES
+---------------------------- */
+@media (max-width: 992px) {
+    .checkout-container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .checkout-right {
+        width: 100%;
+        order: -1;
+    }
+}
+
+@media (max-width: 576px) {
+    .checkout-container {
+        width: 95%;
+        margin: 20px auto;
+        gap: 20px;
+    }
+
+    .checkout-left,
+    .checkout-right {
+        padding: 20px;
+    }
+
+    .order-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .checkout-title {
+        font-size: 22px;
+    }
+
+    .checkout-input {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+
+    .order-name {
+        font-size: 14px;
+    }
+
+    .order-price {
+        font-size: 13px;
+    }
+
+    .order-qty-box {
+        width: 80px;
+        padding: 3px 8px;
+    }
+
+    .checkout-btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+</style>
+
+
+<div class="checkout-container">
+
+    <!-- ✅ LEFT FORM -->
+    <div class="checkout-left">
+        <div class="checkout-title">Checkout</div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label class="checkout-label">Full Name</label>
+            <input class="checkout-input" type="text" name="name" placeholder="Enter your name">
+
+            <label class="checkout-label">Email</label>
+            <input class="checkout-input" type="email" name="email" placeholder="Enter your email">
+
+            <label class="checkout-label">Phone</label>
+            <input class="checkout-input" type="text" name="phone" placeholder="Phone number">
+
+            <label class="checkout-label">Address</label>
+            <input class="checkout-input" type="text" name="address" placeholder="Full address">
+
+            <label class="checkout-label">City</label>
+            <input class="checkout-input" type="text" name="city" placeholder="City">
+
+            <label class="checkout-label">Postal Code</label>
+            <input class="checkout-input" type="text" name="postal" placeholder="Postal code">
+
+            <button class="checkout-btn">Place Order</button>
+        </form>
+    </div>
+
  
+    <div class="checkout-right">
+        <h4 style="margin-bottom: 20px;">Your Order</h4>
+
+        {% for item in items %}
+        <div class="order-item">
+            <img src="{{ item.product.images.first.image.url }}" alt="img">
+
+            <div>
+                <div class="order-name">{{ item.product.name }}</div>
+                <div class="order-price">₹{{ item.product.price }}</div>
+
+                <div class="order-qty-box">
+                    <a href="{% url 'decrease_qty' item.id %}" class="order-qty-btn">-</a>
+                    <span>{{ item.quantity }}</span>
+                    <a href="{% url 'increase_qty' item.id %}" class="order-qty-btn">+</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <hr>
+
+        <div class="line-row">
+            <span>Subtotal</span>
+            <strong>₹{{ subtotal }}</strong>
+        </div>
+
+        <div class="line-row">
+            <span>Shipping</span>
+            <strong>₹{{ shipping }}</strong>
+        </div>
+
+        <hr>
+
+        <div class="line-row">
+            <span><strong>Total</strong></span>
+            <strong>₹{{ total }}</strong>
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

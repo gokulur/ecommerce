@@ -30,7 +30,7 @@ def create_order_page(request):
     """GET: show form to create order (cart review)"""
     cart = request.session.get('cart', {})
     total = sum(item['price']*item['quantity'] for item in cart.values())
-    return render(request, 'orders/create_order.html', {'cart': cart, 'total': total})
+    return render(request, 'create_order.html', {'cart': cart, 'total': total})
 
 @login_required
 def create_order_action(request):

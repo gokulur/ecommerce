@@ -130,7 +130,7 @@
                                                                     </a>
 
                                                                     <div class="xo-cart-item__content"><a
-                                                                            href="https://borcen-store-newdemo.myshopify.com/products/360-product?variant=45346074591422"
+                                                                            href=" "
                                                                             class="xo-cart-item__title">
                                                                             {{ item.product.name }}
                                                                         </a>
@@ -147,56 +147,18 @@
 
 
 
-                                                                                <xo-cart-quantity
-                                                                                    class="xo-quantity-style2"
-                                                                                    style="--width: 10rem; --height: 4rem"
-                                                                                    aria-labelledby="quantity-template--19284044447934__cart-items">
-                                                                                    <xo-cart-quantity-minus
-                                                                                        class="xo-quantity-style2__button">
+                                                                                 <xo-cart-quantity class="xo-quantity-style2"
+                                                                        style="--width: 10rem; --height: 4rem"
+                                                                        aria-labelledby="quantity-template--19284044447934__cart-items">
+                                                                        <a href="{% url 'decrease_qty' item.id %}"
+                                                                            class="xo-quantity-style2__button">–</a>
 
+                                                                        <input type="text" value="{{ item.quantity }}"
+                                                                            readonly class="xo-quantity-style2__number">
+                                                                        <a href="{% url 'increase_qty' item.id %}"
+                                                                            class="xo-quantity-style2__button">+</a>
 
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            aria-hidden="true"
-                                                                                            focusable="false"
-                                                                                            fill="none"
-                                                                                            viewBox="0 0 10 2"
-                                                                                            width="12">
-                                                                                            <path fill-rule="evenodd"
-                                                                                                clip-rule="evenodd"
-                                                                                                d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z"
-                                                                                                fill="currentColor">
-                                                                                            </path>
-                                                                                        </svg>
-
-
-                                                                                    </xo-cart-quantity-minus>
-                                                                                    <input
-                                                                                        class="xo-quantity-style2__number "
-                                                                                        type="number" name="quantity"
-                                                                                        value="1"
-                                                                                        aria-label="Quantity for 360 product"
-                                                                                        id="quantity-template--19284044447934__cart-items"
-                                                                                        min="1">
-                                                                                    <xo-cart-quantity-plus
-                                                                                        class="xo-quantity-style2__button">
-
-
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            aria-hidden="true"
-                                                                                            focusable="false"
-                                                                                            fill="none"
-                                                                                            viewBox="0 0 10 10"
-                                                                                            width="12">
-                                                                                            <path fill-rule="evenodd"
-                                                                                                clip-rule="evenodd"
-                                                                                                d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z"
-                                                                                                fill="currentColor">
-                                                                                            </path>
-                                                                                        </svg>
-
-
-                                                                                    </xo-cart-quantity-plus>
-                                                                                </xo-cart-quantity>
+                                                                    </xo-cart-quantity>
 
                                                                             </div>
                                                                         </xo-product>
@@ -367,41 +329,14 @@
                                         </div>
                                     </xo-cart-free-shipping-custom>
 
-
-
-
-
-
                                     <div class="xo-space xo-space--vertical" style="--space: 2rem"></div>
-
-
 
 
                                     <xo-cart-will-change
                                         xo-unique-id="xo-cart-note-template--19284044447934__cart-items">
 
-
-
-
-
-
-
- 
-
-
                                     </xo-cart-will-change>
-
-
-
-
                                     <div class="xo-space xo-space--vertical" style="--space: 2rem"></div>
-
-
-
-
-
-
-
 
                                     <xo-cart-will-change
                                         xo-unique-id="xo-cart-totals-template--19284044447934__cart-items"
