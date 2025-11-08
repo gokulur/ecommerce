@@ -9,6 +9,7 @@ def get_cart(request):
     if request.user.is_authenticated:
         cart, created = Cart.objects.get_or_create(user=request.user)
     else:
+        # If anonymous user → store cart in session
         cart_id = request.session.get("cart_id")
         if cart_id:
             cart = Cart.objects.get(id=cart_id)
@@ -23,18 +24,14 @@ def get_cart(request):
 # -------------------------------
 
 def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
     cart = get_cart(request)
+    product = get_object_or_404(Product, id=product_id)
 
-    item, created = CartItem.objects.get_or_create(
-        cart=cart,
-        product=product,
-        defaults={"quantity": 1}
-    )
+    item, created = CartItem.objects.get_or_create(cart=cart, product=product)
 
     if not created:
         item.quantity += 1
-        item.save()
+    item.save()
 
     return redirect("cart_page")
 
@@ -52,8 +49,9 @@ def cart_page(request):
     return render(request, "cart.html", {
         "cart": cart,
         "items": items,
-        "total": total
+        "total": total,
     })
+
 
 # -------------------------------
 # INCREASE QUANTITY
