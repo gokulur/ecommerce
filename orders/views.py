@@ -3,25 +3,36 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Order, OrderItem, ShippingAddress
 from products.models import Product
-
+from cart.models import Cart, CartItem
+from cart.views import get_cart
 
 # -----------------------------
 # CHECKOUT PAGE (GET)
 # -----------------------------
+
+
 @login_required
 def checkout_page(request):
-    cart = request.session.get("cart", {})
+    cart = get_cart(request)
+    items = cart.items.all()
 
-    if not cart:
-        messages.error(request, "Your cart is empty!")
+    if not items:
         return redirect("cart_page")
 
-    total = sum(item['price'] * item['quantity'] for item in cart.values())
+    total = sum(i.total_price for i in items)
+
+    # ✅ Pre-fill user data if available
+    profile = getattr(request.user, "profile", None)
 
     return render(request, "checkout.html", {
         "cart": cart,
-        "total": total
+        "items": items,
+        "total": total,
+        "profile": profile,
+        "user": request.user,
     })
+
+
 
 
 # -----------------------------
@@ -29,52 +40,42 @@ def checkout_page(request):
 # -----------------------------
 @login_required
 def checkout_action(request):
-    if request.method != "POST":
-        return redirect("checkout_page")
+    cart = get_cart(request)
+    items = cart.items.all()
 
-    cart = request.session.get("cart", {})
-    if not cart:
-        messages.error(request, "Your cart is empty!")
+    if not items:
         return redirect("cart_page")
 
-    total_price = sum(item['price'] * item['quantity'] for item in cart.values())
+    total_price = sum(i.total_price for i in items)
 
-    # Create order
     order = Order.objects.create(
         user=request.user,
         total_price=total_price
     )
 
-    # Create order items
-    for pid, item in cart.items():
-        product = get_object_or_404(Product, id=int(pid))
-
+    # create order items
+    for item in items:
         OrderItem.objects.create(
             order=order,
-            product=product,
-            quantity=item['quantity'],
-            price=item['price']
+            product=item.product,
+            quantity=item.quantity,
+            price=item.product.price
         )
 
-        # Reduce product stock
-        product.stock -= item['quantity']
-        product.save()
-
-    # Create shipping address
+    # shipping
     ShippingAddress.objects.create(
         order=order,
-        full_name=request.POST.get("full_name"),
-        address_line=request.POST.get("address_line"),
-        city=request.POST.get("city"),
-        postal_code=request.POST.get("postal_code"),
-        country=request.POST.get("country"),
-        phone=request.POST.get("phone")
+        full_name=request.POST.get('full_name'),
+        address_line=request.POST.get('address_line'),
+        city=request.POST.get('city'),
+        postal_code=request.POST.get('postal_code'),
+        country=request.POST.get('country'),
+        phone=request.POST.get('phone'),
     )
 
-    # Clear cart
-    request.session["cart"] = {}
+    # clear cart
+    cart.items.all().delete()
 
-    messages.success(request, f"✅ Order #{order.id} placed successfully!")
     return redirect("order_detail_page", order_id=order.id)
 
 

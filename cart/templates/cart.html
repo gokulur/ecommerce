@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
  <style>
     .disabled {
     opacity: 0.5;
@@ -360,7 +361,7 @@
                                         class="xo-cart-tax-note">
 
                                         Taxes and <a
-                                            href="">shipping</a>
+                                            href="{% url 'checkout_page' %}">shipping</a>
                                         calculated at checkout
 
                                     </xo-cart-will-change>
