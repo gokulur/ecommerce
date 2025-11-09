@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+ <style>
+    .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
 
-
+ </style>
 
 <main id="xo-main-content" class="content-for-layout focus-none" role="main" tabindex="-1">
     <div id="shopify-section-template--19284044447934__main-page-heading" class="shopify-section">
@@ -153,7 +158,7 @@
                                                                                             readonly
                                                                                             class="xo-quantity-style2__number item-quantity-{{ item.id }}">
 
-                                                                                        <a href="{% url 'increase_qty' item.id %}"
+                                                                                        <a  href="{% url 'increase_qty' item.id %}"
                                                                                             class="xo-quantity-style2__button increase-qty"
                                                                                             data-item-id="{{ item.id }}"
                                                                                             data-url="{% url 'increase_qty' item.id %}">+</a>
@@ -222,7 +227,7 @@
                                                                             readonly
                                                                             class="xo-quantity-style2__number item-quantity-{{ item.id }}">
 
-                                                                        <a href="{% url 'increase_qty' item.id %}"
+                                                                        <a   href="{% url 'increase_qty' item.id %}"
                                                                             class="xo-quantity-style2__button increase-qty"
                                                                             data-item-id="{{ item.id }}"
                                                                             data-url="{% url 'increase_qty' item.id %}">+</a>
@@ -355,7 +360,7 @@
                                         class="xo-cart-tax-note">
 
                                         Taxes and <a
-                                            href="https://borcen-store-newdemo.myshopify.com/policies/shipping-policy">shipping</a>
+                                            href="">shipping</a>
                                         calculated at checkout
 
                                     </xo-cart-will-change>
@@ -440,9 +445,9 @@
 
 
 
-                                                <span class="xo-btn__text" data-text="Check Out">
+                                                <a href="{% url 'checkout_page' %}" class="xo-btn__text" data-text="Check Out">
                                                     Check Out
-                                                </span>
+                                                </a>
 
 
                                             </span>
@@ -9804,76 +9809,79 @@
                     </div>
                 </xo-carousel>
             </xo-container>
-<script>
-document.addEventListener("click", function (e) {
+            <script>
+                document.addEventListener("click", function (e) {
 
-    // ✅ INCREASE / DECREASE
-    if (e.target.classList.contains("increase-qty") || e.target.classList.contains("decrease-qty")) {
-        e.preventDefault();
+                 
+                    if (e.target.classList.contains("increase-qty") || e.target.classList.contains("decrease-qty")) {
+                        e.preventDefault();
 
-        let itemID = e.target.dataset.itemId;
-        let url = e.target.dataset.url;
+                        let itemID = e.target.dataset.itemId;
+                        let url = e.target.dataset.url;
 
-        fetch(url, {
-            method: "GET",
-            headers: {
-                "X-Requested-With": "XMLHttpRequest",
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
+                        fetch(url, {
+                            method: "GET",
+                            headers: {
+                                "X-Requested-With": "XMLHttpRequest",
+                            }
+                        })
+                            .then(res => res.json())
+                            .then(data => {
 
-            // ✅ If item deleted (quantity reached 1 → decrease)
-            if (data.deleted) {
-                let row = document.getElementById("cart-row-" + itemID);
-                row.style.opacity = "0";
-                setTimeout(() => row.remove(), 250);
+            
+                                if (data.deleted) {
+                                    document.getElementById("cart-row-" + itemID).remove();
+                                    return;
+                                }
 
-                // ✅ Update total after remove
-                document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
-                return; // ✅ stop here (don’t update qty or totals)
-            }
+      
+                                document.querySelectorAll(".item-quantity-" + itemID).forEach(el => {
+                                    el.value = data.quantity;
+                                });
 
-            // ✅ Update Quantity
-            document.querySelectorAll(".item-quantity-" + itemID).forEach(el => {
-                el.value = data.quantity;
-            });
+                   
+                                document.querySelector(".item-total-" + itemID).innerHTML = "₹" + data.item_total;
+                                document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
 
-            // ✅ Update Item Total
-            document.querySelector(".item-total-" + itemID).innerHTML = "₹" + data.item_total;
+                           
+                                document.querySelectorAll(`.increase-qty[data-item-id="${itemID}"]`).forEach(btn => {
+                                    if (data.quantity >= data.stock) {
+                                        btn.classList.add("disabled");
+                                    } else {
+                                        btn.classList.remove("disabled");  
+                                    }
+                                });
+                            });
+                    }
 
-            // ✅ Update Cart Total
-            document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
-        });
-    }
 
-    // ✅ DELETE ITEM
-    if (e.target.closest(".remove-item-btn")) {
-        e.preventDefault();
+     
+                    if (e.target.closest(".remove-item-btn")) {
+                        e.preventDefault();
 
-        let btn = e.target.closest(".remove-item-btn");
-        let itemID = btn.dataset.itemId;
-        let url = btn.dataset.url;  // ✅ fixed (do NOT read onclick attribute)
+                        let btn = e.target.closest(".remove-item-btn");
+                        let itemID = btn.dataset.itemId;
+                        let url = btn.dataset.url;   
 
-        fetch(url, {
-            method: "GET",
-            headers: {
-                "X-Requested-With": "XMLHttpRequest",
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            let row = document.getElementById("cart-row-" + itemID);
-            row.style.opacity = "0";
-            setTimeout(() => row.remove(), 250);
+                        fetch(url, {
+                            method: "GET",
+                            headers: {
+                                "X-Requested-With": "XMLHttpRequest",
+                            }
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                let row = document.getElementById("cart-row-" + itemID);
+                                row.style.opacity = "0";
+                                setTimeout(() => row.remove(), 250);
 
-            // ✅ Update Total
-            document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
-        });
-    }
+                                // ✅ Update Total
+                                document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
+                            });
+                    }
 
-});
-</script>
+                });
+            </script>
 
 
 

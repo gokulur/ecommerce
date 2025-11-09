@@ -75,25 +75,34 @@ def cart_page(request):
 # -------------------------------
 def increase_qty(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
-    item.quantity += 1
-    item.save()
-    
-    cart = item.cart
-    items = cart.items.all()
-    total = sum(item.total_price for item in items)
+    product = item.product
 
-    
-    # Check if AJAX request
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+  
+    if item.quantity >= product.stock:
         return JsonResponse({
-            'success': True,
+            'success': False,
+            'limit_reached': True,
             'quantity': item.quantity,
-            'item_total': float(item.product.price * item.quantity),
-            'cart_total': float(total),
-            'cart_count': sum(i.quantity for i in items)
+            'item_total': float(item.total_price),
+            'cart_total': float(sum(i.total_price for i in item.cart.items.all()))
         })
     
-    return redirect("cart_page")
+
+  
+    item.quantity += 1
+    item.save()
+
+    cart = item.cart
+    items = cart.items.all()
+    total = sum(i.total_price for i in items)
+
+    return JsonResponse({
+        'success': True,
+        'quantity': item.quantity,
+        'item_total': float(item.total_price),
+        'cart_total': float(total),
+    })
+
 
 
 # -------------------------------
@@ -102,7 +111,8 @@ def increase_qty(request, item_id):
 def decrease_qty(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
     cart = item.cart
-    
+    product = item.product
+
     if item.quantity > 1:
         item.quantity -= 1
         item.save()
@@ -112,24 +122,20 @@ def decrease_qty(request, item_id):
         deleted = True
     
     items = cart.items.all()
-    total = sum(item.total_price for item in items)
-    
-    # Check if AJAX request
+    total = sum(i.total_price for i in items)
+
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        response_data = {
-            'success': True,
-            'deleted': deleted,
-            'cart_total': float(total),
-            'cart_count': sum(i.quantity for i in items)
-        }
-        
-        if not deleted:
-            response_data['quantity'] = item.quantity
-            response_data['item_total'] = float(item.product.price * item.quantity)
-        
-        return JsonResponse(response_data)
-    
+        return JsonResponse({
+            "success": True,
+            "deleted": deleted,
+            "quantity": item.quantity if not deleted else 0,
+            "stock": product.stock,
+            "item_total": float(item.total_price) if not deleted else 0,
+            "cart_total": float(total)
+        })
+
     return redirect("cart_page")
+
 
 
 # -------------------------------
