@@ -1,6 +1,8 @@
-from django.shortcuts import get_object_or_404, redirect,render
-from .models import Cart, CartItem
-from products.models import Product
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from .models import Cart, CartItem, Product
+
 
 # -------------------------------
 # GET CART
@@ -12,7 +14,11 @@ def get_cart(request):
         # If anonymous user → store cart in session
         cart_id = request.session.get("cart_id")
         if cart_id:
-            cart = Cart.objects.get(id=cart_id)
+            try:
+                cart = Cart.objects.get(id=cart_id)
+            except Cart.DoesNotExist:
+                cart = Cart.objects.create()
+                request.session["cart_id"] = cart.id
         else:
             cart = Cart.objects.create()
             request.session["cart_id"] = cart.id
@@ -22,7 +28,6 @@ def get_cart(request):
 # -------------------------------
 # ADD TO CART
 # -------------------------------
-
 def add_to_cart(request, product_id):
     cart = get_cart(request)
     product = get_object_or_404(Product, id=product_id)
@@ -33,9 +38,20 @@ def add_to_cart(request, product_id):
         item.quantity += 1
     item.save()
 
+    # Check if AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        items = cart.items.all()
+        total = sum(item.total_price for item in items)
+
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Product added to cart',
+            'cart_count': sum(item.quantity for item in items),
+            'cart_total': float(total)
+        })
+    
     return redirect("cart_page")
-
-
 
 
 # -------------------------------
@@ -44,7 +60,8 @@ def add_to_cart(request, product_id):
 def cart_page(request):
     cart = get_cart(request)
     items = cart.items.all()
-    total = sum(item.product.price * item.quantity for item in items)
+    total = sum(item.total_price for item in items)
+
 
     return render(request, "cart.html", {
         "cart": cart,
@@ -56,25 +73,62 @@ def cart_page(request):
 # -------------------------------
 # INCREASE QUANTITY
 # -------------------------------
-
 def increase_qty(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
     item.quantity += 1
     item.save()
+    
+    cart = item.cart
+    items = cart.items.all()
+    total = sum(item.total_price for item in items)
+
+    
+    # Check if AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'success': True,
+            'quantity': item.quantity,
+            'item_total': float(item.product.price * item.quantity),
+            'cart_total': float(total),
+            'cart_count': sum(i.quantity for i in items)
+        })
+    
     return redirect("cart_page")
+
 
 # -------------------------------
 # DECREASE QUANTITY
 # -------------------------------
 def decrease_qty(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
-
+    cart = item.cart
+    
     if item.quantity > 1:
         item.quantity -= 1
         item.save()
+        deleted = False
     else:
-        item.delete()  # delete item if reaching 0
-
+        item.delete()
+        deleted = True
+    
+    items = cart.items.all()
+    total = sum(item.total_price for item in items)
+    
+    # Check if AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        response_data = {
+            'success': True,
+            'deleted': deleted,
+            'cart_total': float(total),
+            'cart_count': sum(i.quantity for i in items)
+        }
+        
+        if not deleted:
+            response_data['quantity'] = item.quantity
+            response_data['item_total'] = float(item.product.price * item.quantity)
+        
+        return JsonResponse(response_data)
+    
     return redirect("cart_page")
 
 
@@ -83,15 +137,19 @@ def decrease_qty(request, item_id):
 # -------------------------------
 def remove_item(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
+    cart = item.cart
     item.delete()
+    
+    items = cart.items.all()
+    total = sum(item.total_price for item in items)
+
+    
+    # Check if AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'success': True,
+            'cart_total': float(total),
+            'cart_count': sum(i.quantity for i in items)
+        })
+    
     return redirect("cart_page")
-
-
-# -------------------------------
-#  CLEAR CART
-# -------------------------------
-def clear_cart(request):
-    cart = get_cart(request)
-    cart.items.all().delete()
-    return redirect("cart_page")
-

@@ -93,20 +93,16 @@
                                                 </thead>
                                                 <tbody>
                                                     {% for item in items %}
-                                                    <tr role="row" class="xo-table__body-row">
+                                                    <tr role="row" class="xo-table__body-row"
+                                                        data-item-id="{{ item.id }}" id="cart-row-{{ item.id }}">
                                                         <td role="cell" data-th="Product">
                                                             <xo-product
                                                                 xo-section-id="template--19284044447934__cart-items"
                                                                 xo-product-id="{{ item.product.id }}"
                                                                 xo-line="{{ forloop.index }}">
 
-
                                                                 <div class="xo-cart-item">
-
                                                                     <a href="" class="xo-cart-item__image">
-
-
-
                                                                         {% if item.product.images.first %}
                                                                         <div class="xo-image"
                                                                             style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
@@ -124,55 +120,60 @@
                                                                                 alt="No Image">
                                                                         </div>
                                                                         {% endif %}
-
-
-
                                                                     </a>
 
-                                                                    <div class="xo-cart-item__content"><a
-                                                                            href=" "
-                                                                            class="xo-cart-item__title">
+                                                                    <div class="xo-cart-item__content">
+                                                                        <a href=" " class="xo-cart-item__title">
                                                                             {{ item.product.name }}
                                                                         </a>
                                                                         <div class="xo-cart-item__price">
-
                                                                             <div class="xo-cart-item__original-price">
                                                                                 ₹ {{ item.product.price }}
                                                                             </div>
                                                                         </div>
+
                                                                         <xo-product
                                                                             xo-section-id="template--19284044447934__cart-items"
-                                                                            xo-product-id="45346074591422">
+                                                                            xo-product-id="{{ item.product.id }}">
                                                                             <div class="xo-cart-item__quantity">
+                                                                                <div class="xo-cart-table__quantity">
+                                                                                    <xo-cart-quantity
+                                                                                        class="xo-quantity-style2"
+                                                                                        style="--width: 10rem; --height: 4rem"
+                                                                                        data-item-id="{{ item.id }}"
+                                                                                        aria-labelledby="quantity-template--19284044447934__cart-items">
 
+                                                                                        <a href="{% url 'decrease_qty' item.id %}"
+                                                                                            class="xo-quantity-style2__button decrease-qty"
+                                                                                            data-item-id="{{ item.id }}"
+                                                                                            data-url="{% url 'decrease_qty' item.id %}">–</a>
 
+                                                                                        <input type="text"
+                                                                                            value="{{ item.quantity }}"
+                                                                                            readonly
+                                                                                            class="xo-quantity-style2__number item-quantity-{{ item.id }}">
 
-                                                                                 <xo-cart-quantity class="xo-quantity-style2"
-                                                                        style="--width: 10rem; --height: 4rem"
-                                                                        aria-labelledby="quantity-template--19284044447934__cart-items">
-                                                                        <a href="{% url 'decrease_qty' item.id %}"
-                                                                            class="xo-quantity-style2__button">–</a>
-
-                                                                        <input type="text" value="{{ item.quantity }}"
-                                                                            readonly class="xo-quantity-style2__number">
-                                                                        <a href="{% url 'increase_qty' item.id %}"
-                                                                            class="xo-quantity-style2__button">+</a>
-
-                                                                    </xo-cart-quantity>
-
+                                                                                        <a href="{% url 'increase_qty' item.id %}"
+                                                                                            class="xo-quantity-style2__button increase-qty"
+                                                                                            data-item-id="{{ item.id }}"
+                                                                                            data-url="{% url 'increase_qty' item.id %}">+</a>
+                                                                                    </xo-cart-quantity>
+                                                                                </div>
                                                                             </div>
                                                                         </xo-product>
+
                                                                         <div class="xo-cart-item__options">
                                                                             <div class="xo-cart-item__option">
                                                                                 <span>Title:</span>
                                                                                 <span>{{ item.product.name }}</span>
                                                                             </div>
-                                                                            <p class="xo-cart-item__option"></p>
                                                                         </div>
+
                                                                         <xo-cart-remove>
                                                                             <button
-                                                                                class="xo-btn xo-btn--dark xo-btn--link xo-btn--slide-up"
+                                                                                class="xo-btn xo-btn--dark xo-btn--link xo-btn--slide-up remove-item-btn"
                                                                                 style="cursor: pointer;"
+                                                                                data-item-id="{{ item.id }}"
                                                                                 onclick="window.location.href='{% url 'remove_item' item.id %}'"
                                                                                 aria-label="Remove {{ item.product.name }}">
 
@@ -190,9 +191,7 @@
                                                                             </button>
                                                                         </xo-cart-remove>
 
-
                                                                         <xo-cart-change-fallback>
-
                                                                             <div class="xo-loader-2"
                                                                                 style="--size: 26; --color: currentColor; --duration: 1000; --stroke-width: 2;">
                                                                                 <div></div>
@@ -200,44 +199,47 @@
                                                                         </xo-cart-change-fallback>
                                                                     </div>
                                                                 </div>
-
                                                             </xo-product>
                                                         </td>
+
                                                         <td role="cell" data-th="Quantity">
                                                             <xo-product
                                                                 xo-section-id="template--19284044447934__cart-items"
-                                                                xo-product-id="45346074591422" xo-line="1">
+                                                                xo-product-id="{{ item.product.id }}"
+                                                                xo-line="{{ forloop.index }}">
                                                                 <div class="xo-cart-table__quantity">
-
-
-
                                                                     <xo-cart-quantity class="xo-quantity-style2"
                                                                         style="--width: 10rem; --height: 4rem"
+                                                                        data-item-id="{{ item.id }}"
                                                                         aria-labelledby="quantity-template--19284044447934__cart-items">
+
                                                                         <a href="{% url 'decrease_qty' item.id %}"
-                                                                            class="xo-quantity-style2__button">–</a>
+                                                                            class="xo-quantity-style2__button decrease-qty"
+                                                                            data-item-id="{{ item.id }}"
+                                                                            data-url="{% url 'decrease_qty' item.id %}">–</a>
 
                                                                         <input type="text" value="{{ item.quantity }}"
-                                                                            readonly class="xo-quantity-style2__number">
+                                                                            readonly
+                                                                            class="xo-quantity-style2__number item-quantity-{{ item.id }}">
+
                                                                         <a href="{% url 'increase_qty' item.id %}"
-                                                                            class="xo-quantity-style2__button">+</a>
-
+                                                                            class="xo-quantity-style2__button increase-qty"
+                                                                            data-item-id="{{ item.id }}"
+                                                                            data-url="{% url 'increase_qty' item.id %}">+</a>
                                                                     </xo-cart-quantity>
-
                                                                 </div>
                                                             </xo-product>
                                                         </td>
-                                                        <td role="cell" data-th="Total">
-                                                            <div class="xo-cart-table__price">
-                                                                <div class="xo-cart-table__price">
-                                                                    ₹{{ item.total_price }}
 
-                                                                </div>
+                                                        <td role="cell" data-th="Total">
+                                                            <div class="xo-cart-table__price item-total-{{ item.id }}">
+                                                                ₹{{ total }}
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     {% endfor %}
                                                 </tbody>
+
                                             </table>
                                         </form>
                                     </div>
@@ -338,16 +340,13 @@
                                     </xo-cart-will-change>
                                     <div class="xo-space xo-space--vertical" style="--space: 2rem"></div>
 
-                                    <xo-cart-will-change
-                                        xo-unique-id="xo-cart-totals-template--19284044447934__cart-items"
-                                        class="xo-cart-totals">
-
+                                    <xo-cart-will-change class="xo-cart-totals">
                                         <div class="xo-cart-totals__subtotal">Total</div>
-                                        {% for item in items %}
-                                        <div class="xo-cart-totals__value">₹ {{ item.total_price }}</div>
-                                        {% endfor %}
-
+                                        <div class="xo-cart-table__price" id="cart-total">
+                                            ₹{{ total }}
+                                        </div>
                                     </xo-cart-will-change>
+
 
 
 
@@ -9805,6 +9804,77 @@
                     </div>
                 </xo-carousel>
             </xo-container>
-        </div>
+<script>
+document.addEventListener("click", function (e) {
 
-        {% endblock %}
+    // ✅ INCREASE / DECREASE
+    if (e.target.classList.contains("increase-qty") || e.target.classList.contains("decrease-qty")) {
+        e.preventDefault();
+
+        let itemID = e.target.dataset.itemId;
+        let url = e.target.dataset.url;
+
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            // ✅ If item deleted (quantity reached 1 → decrease)
+            if (data.deleted) {
+                let row = document.getElementById("cart-row-" + itemID);
+                row.style.opacity = "0";
+                setTimeout(() => row.remove(), 250);
+
+                // ✅ Update total after remove
+                document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
+                return; // ✅ stop here (don’t update qty or totals)
+            }
+
+            // ✅ Update Quantity
+            document.querySelectorAll(".item-quantity-" + itemID).forEach(el => {
+                el.value = data.quantity;
+            });
+
+            // ✅ Update Item Total
+            document.querySelector(".item-total-" + itemID).innerHTML = "₹" + data.item_total;
+
+            // ✅ Update Cart Total
+            document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
+        });
+    }
+
+    // ✅ DELETE ITEM
+    if (e.target.closest(".remove-item-btn")) {
+        e.preventDefault();
+
+        let btn = e.target.closest(".remove-item-btn");
+        let itemID = btn.dataset.itemId;
+        let url = btn.dataset.url;  // ✅ fixed (do NOT read onclick attribute)
+
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            let row = document.getElementById("cart-row-" + itemID);
+            row.style.opacity = "0";
+            setTimeout(() => row.remove(), 250);
+
+            // ✅ Update Total
+            document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
+        });
+    }
+
+});
+</script>
+
+
+
+            {% endblock %}
