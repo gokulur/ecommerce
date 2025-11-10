@@ -65,7 +65,7 @@ def checkout_action(request):
     # shipping
     ShippingAddress.objects.create(
         order=order,
-        full_name=request.POST.get('full_name'),
+        full_name=request.POST.get('name'),
         address_line=request.POST.get('address_line'),
         city=request.POST.get('city'),
         postal_code=request.POST.get('postal_code'),
@@ -90,4 +90,31 @@ def order_detail_page(request, order_id):
         "order": order,
         "items": order.items.all(),
         "shipping": order.shippingaddress
+    })
+
+# -----------------------------
+# TRACK ORDER PAGE
+# -----------------------------
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Order
+
+@login_required
+def track_order_page(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+
+    # order_status = order.status.lower()
+
+    steps = {
+        "processed": 1,
+        "shipped": 2,
+        "enroute": 3,
+        "arrived": 4,
+    }
+
+    # active_step = steps.get(order_status, 1)
+
+    return render(request, "track_order.html", {
+        "order": order,
+        # "active_step": active_step
     })

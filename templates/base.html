@@ -60,6 +60,7 @@
     src="{% static 'cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js' %}"></script>
 
   <style data-shopify="">
+    
     :root,
     .color-background-1 {
       --color-background: 255, 255, 255;
@@ -498,7 +499,7 @@ Scheme 2: Scheme 4`,
                       <li class="xo-menu-horizontal__item xo-menu-horizontal__item--hover" style="--padding:3rem">
                         <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="1"
                           xo-name="header-mega-menu"></xo-mega-menu>
-                        <a class="xo-menu-horizontal__link" href=" " title="Shops">
+                        <a class="xo-menu-horizontal__link" href="{% url 'all_collections' %}" title="Shops">
                           <span class="xo-menu-horizontal__label">Shops</span>
                         </a>
                       </li>

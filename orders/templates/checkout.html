@@ -191,7 +191,7 @@
 
 <div class="checkout-container">
 
-  <!-- ✅ LEFT FORM -->
+ 
   <div class="checkout-left">
     <div class="checkout-title">Checkout</div>
 
@@ -210,14 +210,17 @@
         placeholder="Phone number">
 
       <label class="checkout-label">Address</label>
-      <input class="checkout-input" type="text" name="address" value="{{ profile.address|default:'' }}"
+      <input class="checkout-input" type="text" name="address_line" value="{{ profile.address|default:'' }}"
         placeholder="Full address">
 
       <label class="checkout-label">City</label>
       <input class="checkout-input" type="text" name="city" value="{{ profile.city|default:'' }}" placeholder="City">
 
+            <label class="checkout-label">Country</label>
+      <input class="checkout-input" type="text" name="country" value="" placeholder="Country">
+
       <label class="checkout-label">Postal Code</label>
-      <input class="checkout-input" type="text" name="postal" value="{{ profile.postal|default:'' }}"
+      <input class="checkout-input" type="text" name="postal_code" value="{{ profile.postal|default:'' }}"
         placeholder="Postal code">
 
       <button class="checkout-btn">Place Order</button>
