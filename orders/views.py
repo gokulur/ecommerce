@@ -118,3 +118,8 @@ def track_order_page(request, order_id):
         "order": order,
         # "active_step": active_step
     })
+
+
+def order_list_page(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, "order_list.html", {"orders": orders})
