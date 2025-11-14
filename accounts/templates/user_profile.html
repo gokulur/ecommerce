@@ -1,0 +1,667 @@
+{% extends 'base.html' %}
+
+{% block base_css %}
+    <!-- Empty block so NO CSS loads -->
+{% endblock %}
+
+ 
+{% block content %}
+<!-- BOOTSTRAP 4.5.2 CSS -->
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery + Popper + BOOTSTRAP 4.5.2 JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<style>
+    /* Wrapper to isolate all styles */
+    .accsettings-wrapper {
+        background: #ffffff;
+        min-height: 100vh;
+        padding: 40px 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .accsettings-wrapper * {
+        box-sizing: border-box;
+    }
+
+    .accsettings-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .accsettings-title {
+        font-size: 32px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 30px;
+        letter-spacing: -0.5px;
+    }
+
+    .accsettings-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: 1px solid #e8e8e8;
+    }
+
+    .accsettings-sidebar {
+        background: #fafafa;
+        border-right: 1px solid #e8e8e8;
+        padding: 0;
+    }
+
+    .accsettings-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .accsettings-nav-item {
+        display: block;
+        padding: 16px 24px;
+        color: #4a4a4a;
+        text-decoration: none;
+        border-bottom: 1px solid #e8e8e8;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .accsettings-nav-item:hover {
+        background: #f0f0f0;
+        color: #1a1a1a;
+        text-decoration: none;
+    }
+
+    .accsettings-nav-item.active {
+        background: #ffffff;
+        color: #1a1a1a;
+        font-weight: 600;
+        border-left: 3px solid #1a1a1a;
+    }
+
+    .accsettings-content {
+        padding: 0;
+    }
+
+    .accsettings-section {
+        padding: 40px;
+    }
+
+    .accsettings-avatar-section {
+        display: flex;
+        align-items: center;
+        padding: 40px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    .accsettings-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #f0f0f0;
+    }
+
+    .accsettings-avatar-info {
+        margin-left: 24px;
+        flex: 1;
+    }
+
+    .accsettings-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        text-decoration: none;
+    }
+
+    .accsettings-btn-primary {
+        background: #1a1a1a;
+        color: #ffffff;
+        border: 2px solid #1a1a1a;
+    }
+
+    .accsettings-btn-primary:hover {
+        background: #000000;
+        border-color: #000000;
+    }
+
+    .accsettings-btn-outline {
+        background: transparent;
+        color: #1a1a1a;
+        border: 2px solid #1a1a1a;
+    }
+
+    .accsettings-btn-outline:hover {
+        background: #1a1a1a;
+        color: #ffffff;
+    }
+
+    .accsettings-btn-secondary {
+        background: #f5f5f5;
+        color: #4a4a4a;
+        border: 2px solid #e8e8e8;
+    }
+
+    .accsettings-btn-secondary:hover {
+        background: #e8e8e8;
+        border-color: #d0d0d0;
+    }
+
+    .accsettings-file-input {
+        position: absolute;
+        visibility: hidden;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    .accsettings-file-label {
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+
+    .accsettings-text-muted {
+        color: #8a8a8a;
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+    .accsettings-form-group {
+        margin-bottom: 24px;
+    }
+
+    .accsettings-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+    }
+
+    .accsettings-input,
+    .accsettings-textarea,
+    .accsettings-select {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e8e8e8;
+        border-radius: 8px;
+        font-size: 15px;
+        color: #1a1a1a;
+        transition: all 0.2s ease;
+        background: #ffffff;
+    }
+
+    .accsettings-input:focus,
+    .accsettings-textarea:focus,
+    .accsettings-select:focus {
+        outline: none;
+        border-color: #1a1a1a;
+        box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+    }
+
+    .accsettings-textarea {
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+    }
+
+    .accsettings-alert {
+        padding: 16px;
+        border-radius: 8px;
+        margin-top: 12px;
+        font-size: 14px;
+    }
+
+    .accsettings-alert-warning {
+        background: #fff8e6;
+        border: 1px solid #ffd966;
+        color: #7a5a00;
+    }
+
+    .accsettings-alert-link {
+        color: #7a5a00;
+        font-weight: 600;
+        text-decoration: underline;
+    }
+
+    .accsettings-alert-link:hover {
+        color: #5a4200;
+    }
+
+    .accsettings-divider {
+        height: 1px;
+        background: #e8e8e8;
+        margin: 0;
+        border: none;
+    }
+
+    .accsettings-subtitle {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 24px;
+    }
+
+    .accsettings-social-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        color: #ffffff;
+    }
+
+    .accsettings-btn-twitter {
+        background: #1DA1F2;
+    }
+
+    .accsettings-btn-twitter:hover {
+        background: #1a8cd8;
+    }
+
+    .accsettings-btn-facebook {
+        background: #1877F2;
+    }
+
+    .accsettings-btn-facebook:hover {
+        background: #166fe5;
+    }
+
+    .accsettings-btn-instagram {
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+
+    .accsettings-btn-instagram:hover {
+        opacity: 0.9;
+    }
+
+    .accsettings-connection-info {
+        padding: 24px;
+        background: #fafafa;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+
+    .accsettings-connection-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .accsettings-remove-link {
+        color: #d32f2f;
+        font-size: 13px;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .accsettings-remove-link:hover {
+        color: #b71c1c;
+        text-decoration: underline;
+    }
+
+    .accsettings-connection-email {
+        color: #4a4a4a;
+        font-size: 14px;
+    }
+
+    .accsettings-toggle {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .accsettings-toggle-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .accsettings-toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 48px;
+        height: 26px;
+        background: #e8e8e8;
+        border-radius: 13px;
+        transition: all 0.3s ease;
+        margin-right: 12px;
+    }
+
+    .accsettings-toggle-switch::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #ffffff;
+        top: 3px;
+        left: 3px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .accsettings-toggle-input:checked + .accsettings-toggle-switch {
+        background: #1a1a1a;
+    }
+
+    .accsettings-toggle-input:checked + .accsettings-toggle-switch::after {
+        left: 25px;
+    }
+
+    .accsettings-toggle-label {
+        color: #1a1a1a;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .accsettings-actions {
+        text-align: right;
+        margin-top: 32px;
+    }
+
+    .accsettings-actions .accsettings-btn {
+        margin-left: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .accsettings-wrapper {
+            padding: 20px 10px;
+        }
+
+        .accsettings-title {
+            font-size: 24px;
+        }
+
+        .accsettings-section {
+            padding: 24px;
+        }
+
+        .accsettings-avatar-section {
+            padding: 24px;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .accsettings-avatar-info {
+            margin-left: 0;
+            margin-top: 16px;
+        }
+    }
+
+    /* Tab content visibility */
+    .accsettings-tab-pane {
+        display: none;
+    }
+
+    .accsettings-tab-pane.active {
+        display: block;
+    }
+</style>
+
+<div class="accsettings-wrapper">
+    <div class="accsettings-container">
+        <h1 class="accsettings-title">Account Settings</h1>
+
+        <div class="accsettings-card">
+            <div class="row no-gutters">
+                <div class="col-md-3">
+                    <div class="accsettings-sidebar">
+                        <div class="accsettings-nav">
+                            <a class="accsettings-nav-item active" data-toggle="list" href="#account-general">General</a>
+                            <a class="accsettings-nav-item" data-toggle="list" href="#account-change-password">Change Password</a>
+                            <a class="accsettings-nav-item" data-toggle="list" href="#account-info">Profile Info</a>
+                            <a class="accsettings-nav-item" data-toggle="list" href="#account-social-links">Social Links</a>
+                            <a class="accsettings-nav-item" data-toggle="list" href="#account-connections">Connections</a>
+                            <a class="accsettings-nav-item" data-toggle="list" href="#account-notifications">Notifications</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="accsettings-content">
+                        <div class="tab-content">
+                            <!-- General Tab -->
+                            <div class="tab-pane fade active show accsettings-tab-pane" id="account-general">
+                                <div class="accsettings-avatar-section">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile" class="accsettings-avatar">
+                                    <div class="accsettings-avatar-info">
+                                        <label class="accsettings-btn accsettings-btn-outline accsettings-file-label">
+                                            Upload New Photo
+                                            <input type="file" class="accsettings-file-input" accept="image/*">
+                                        </label>
+                                        <button type="button" class="accsettings-btn accsettings-btn-secondary">Reset</button>
+                                        <div class="accsettings-text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                                    </div>
+                                </div>
+
+                                <div class="accsettings-section">
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Username</label>
+                                        <input type="text" class="accsettings-input" value="nmaxwell">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Full Name</label>
+                                        <input type="text" class="accsettings-input" value="Nelle Maxwell">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Email Address</label>
+                                        <input type="email" class="accsettings-input" value="nmaxwell@mail.com">
+                                        <div class="accsettings-alert accsettings-alert-warning">
+                                            Your email is not confirmed. Please check your inbox.<br>
+                                            <a href="javascript:void(0)" class="accsettings-alert-link">Resend confirmation</a>
+                                        </div>
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Company</label>
+                                        <input type="text" class="accsettings-input" value="Company Ltd.">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Change Password Tab -->
+                            <div class="tab-pane fade accsettings-tab-pane" id="account-change-password">
+                                <div class="accsettings-section">
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Current Password</label>
+                                        <input type="password" class="accsettings-input" placeholder="Enter current password">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">New Password</label>
+                                        <input type="password" class="accsettings-input" placeholder="Enter new password">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Confirm New Password</label>
+                                        <input type="password" class="accsettings-input" placeholder="Confirm new password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Profile Info Tab -->
+                            <div class="tab-pane fade accsettings-tab-pane" id="account-info">
+                                <div class="accsettings-section">
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Bio</label>
+                                        <textarea class="accsettings-textarea" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc.</textarea>
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Birthday</label>
+                                        <input type="text" class="accsettings-input" value="May 3, 1995">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Country</label>
+                                        <select class="accsettings-select">
+                                            <option>USA</option>
+                                            <option selected>Canada</option>
+                                            <option>UK</option>
+                                            <option>Germany</option>
+                                            <option>France</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr class="accsettings-divider">
+
+                                <div class="accsettings-section">
+                                    <h6 class="accsettings-subtitle">Contact Information</h6>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Phone Number</label>
+                                        <input type="tel" class="accsettings-input" value="+0 (123) 456 7891">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Website</label>
+                                        <input type="url" class="accsettings-input" placeholder="https://yourwebsite.com">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Social Links Tab -->
+                            <div class="tab-pane fade accsettings-tab-pane" id="account-social-links">
+                                <div class="accsettings-section">
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Twitter</label>
+                                        <input type="url" class="accsettings-input" value="https://twitter.com/user">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Facebook</label>
+                                        <input type="url" class="accsettings-input" value="https://www.facebook.com/user">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">LinkedIn</label>
+                                        <input type="url" class="accsettings-input" placeholder="https://linkedin.com/in/username">
+                                    </div>
+                                    <div class="accsettings-form-group">
+                                        <label class="accsettings-label">Instagram</label>
+                                        <input type="url" class="accsettings-input" value="https://www.instagram.com/user">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Connections Tab -->
+                            <div class="tab-pane fade accsettings-tab-pane" id="account-connections">
+                                <div class="accsettings-section">
+                                    <button type="button" class="accsettings-social-btn accsettings-btn-twitter">
+                                        <strong>Connect to Twitter</strong>
+                                    </button>
+                                </div>
+
+                                <hr class="accsettings-divider">
+
+                                <div class="accsettings-section">
+                                    <div class="accsettings-connection-info">
+                                        <div class="accsettings-connection-title">
+                                            <span>✓ Connected to Google</span>
+                                            <a href="javascript:void(0)" class="accsettings-remove-link">Remove</a>
+                                        </div>
+                                        <div class="accsettings-connection-email">nmaxwell@mail.com</div>
+                                    </div>
+                                </div>
+
+                                <hr class="accsettings-divider">
+
+                                <div class="accsettings-section">
+                                    <button type="button" class="accsettings-social-btn accsettings-btn-facebook">
+                                        <strong>Connect to Facebook</strong>
+                                    </button>
+                                </div>
+
+                                <hr class="accsettings-divider">
+
+                                <div class="accsettings-section">
+                                    <button type="button" class="accsettings-social-btn accsettings-btn-instagram">
+                                        <strong>Connect to Instagram</strong>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Notifications Tab -->
+                            <div class="tab-pane fade accsettings-tab-pane" id="account-notifications">
+                                <div class="accsettings-section">
+                                    <h6 class="accsettings-subtitle">Activity Notifications</h6>
+
+                                    <label class="accsettings-toggle">
+                                        <input type="checkbox" class="accsettings-toggle-input" checked>
+                                        <span class="accsettings-toggle-switch"></span>
+                                        <span class="accsettings-toggle-label">Email me when someone comments on my article</span>
+                                    </label>
+
+                                    <label class="accsettings-toggle">
+                                        <input type="checkbox" class="accsettings-toggle-input" checked>
+                                        <span class="accsettings-toggle-switch"></span>
+                                        <span class="accsettings-toggle-label">Email me when someone answers on my forum thread</span>
+                                    </label>
+
+                                    <label class="accsettings-toggle">
+                                        <input type="checkbox" class="accsettings-toggle-input">
+                                        <span class="accsettings-toggle-switch"></span>
+                                        <span class="accsettings-toggle-label">Email me when someone follows me</span>
+                                    </label>
+                                </div>
+
+                                <hr class="accsettings-divider">
+
+                                <div class="accsettings-section">
+                                    <h6 class="accsettings-subtitle">Application Updates</h6>
+
+                                    <label class="accsettings-toggle">
+                                        <input type="checkbox" class="accsettings-toggle-input" checked>
+                                        <span class="accsettings-toggle-switch"></span>
+                                        <span class="accsettings-toggle-label">News and announcements</span>
+                                    </label>
+
+                                    <label class="accsettings-toggle">
+                                        <input type="checkbox" class="accsettings-toggle-input">
+                                        <span class="accsettings-toggle-switch"></span>
+                                        <span class="accsettings-toggle-label">Weekly product updates</span>
+                                    </label>
+
+                                    <label class="accsettings-toggle">
+                                        <input type="checkbox" class="accsettings-toggle-input" checked>
+                                        <span class="accsettings-toggle-switch"></span>
+                                        <span class="accsettings-toggle-label">Weekly blog digest</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accsettings-actions">
+            <button type="button" class="accsettings-btn accsettings-btn-secondary">Cancel</button>
+            <button type="button" class="accsettings-btn accsettings-btn-primary">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}

@@ -261,6 +261,10 @@ def password_reset_confirm_action(request, token):
     return redirect('password_reset_confirm_page', token=token)
 
 
+#user profile
+def user_profile(request):
+   
 
- 
-
+    return render(request, 'user_profile.html', {
+        
+    })

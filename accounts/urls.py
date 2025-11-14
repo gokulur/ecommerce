@@ -30,7 +30,8 @@ urlpatterns = [
     path('verify-otp/', views.verify_otp_page, name='verify_otp_page'),
     path('verify-otp/action/', views.verify_otp_action, name='verify_otp_action'),
 
-
+    # USER PROFILE
+    path('profile/', views.user_profile, name='user_profile'),
  
 
 ]
