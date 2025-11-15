@@ -1,83 +1,461 @@
 {% extends 'base.html' %}
+
+{% block base_css %}
+    <!-- Empty block so NO CSS loads -->
+{% endblock %}
+
 {% block content %}
+<!-- BOOTSTRAP 4.5.2 CSS -->
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<main id="xo-main-content" class="content-for-layout focus-none" role="main" tabindex="-1">
+<style>
+    /* Wrapper to isolate all styles */
+    .orderlist-wrapper {
+        background: #ffffff;
+        min-height: 100vh;
+        padding: 40px 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
 
-  <section class="xo-section color-background-1" style="--margin: 0;--pt: 50;--pb: 0;">
-    <xo-container>
-      <div class="xo-page-heading xo-page-heading--center">
-        <h1 class="xo-page-heading__title">Your Orders</h1>
-      </div>
-    </xo-container>
-  </section>
+    .orderlist-wrapper * {
+        box-sizing: border-box;
+    }
 
-  <section class="xo-section color-background-1" style="--margin: 0;--pt: 20;--pb: 50;">
-    <xo-container>
-      {% if orders %}
-      {% for order in orders %}
-      <div class="xo-cart-table" style="margin-bottom: 3rem;">
-        <h3 style="margin-bottom: 1rem;">Order #{{ order.id }} — {{ order.status|title }}</h3>
+    .orderlist-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-        <table role="table" class="xo-table">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in order.items.all %}
-            <tr>
-              <td>
-                <div class="xo-cart-item">
-                  <a href="#" class="xo-cart-item__image">
-                    {% if item.product.images.all %}
-                    <div class="xo-image" style="--xo-ratio-percent: 1/1;">
-                      <img src="{{ item.product.images.all.0.image.url }}" alt="{{ item.product.name }}" width="860"
-                        height="860" loading="lazy" is="xo-lazyload" />
-                    </div>
-                    {% else %}
-                    <div class="xo-image">
-                      <img src="/static/no-image.png" alt="No Image">
-                    </div>
-                    {% endif %}
-                  </a>
+    .orderlist-title {
+        font-size: 32px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 40px;
+        text-align: center;
+        letter-spacing: -0.5px;
+    }
 
-                  <div class="xo-cart-item__content">
-                    <div class="xo-cart-item__title">{{ item.product.name }}</div>
-                    <div class="xo-cart-item__price">₹{{ item.price }}</div>
-                  </div>
+    .orderlist-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: 1px solid #e8e8e8;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+    }
+
+    .orderlist-card:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .orderlist-header {
+        padding: 24px 30px;
+        border-bottom: 1px solid #e8e8e8;
+        background: #fafafa;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .orderlist-order-id {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0;
+    }
+
+    .orderlist-status {
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .orderlist-status-pending {
+        background: #fff8e6;
+        color: #7a5a00;
+    }
+
+    .orderlist-status-processing {
+        background: #e3f2fd;
+        color: #1565c0;
+    }
+
+    .orderlist-status-shipped {
+        background: #f3e5f5;
+        color: #6a1b9a;
+    }
+
+    .orderlist-status-delivered {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .orderlist-status-cancelled {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+    .orderlist-body {
+        padding: 0;
+    }
+
+    .orderlist-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .orderlist-table thead {
+        background: #fafafa;
+    }
+
+    .orderlist-table th {
+        padding: 16px 30px;
+        text-align: left;
+        font-size: 13px;
+        font-weight: 600;
+        color: #4a4a4a;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    .orderlist-table td {
+        padding: 20px 30px;
+        border-bottom: 1px solid #f5f5f5;
+        vertical-align: middle;
+    }
+
+    .orderlist-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .orderlist-product {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .orderlist-product-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+        border: 1px solid #e8e8e8;
+    }
+
+    .orderlist-product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .orderlist-product-info {
+        flex: 1;
+    }
+
+    .orderlist-product-name {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 6px;
+        line-height: 1.4;
+    }
+
+    .orderlist-product-price {
+        font-size: 14px;
+        color: #6a6a6a;
+    }
+
+    .orderlist-quantity {
+        font-size: 15px;
+        color: #1a1a1a;
+        font-weight: 500;
+    }
+
+    .orderlist-total {
+        font-size: 15px;
+        color: #1a1a1a;
+        font-weight: 600;
+    }
+
+    .orderlist-footer {
+        padding: 24px 30px;
+        background: #fafafa;
+        border-top: 1px solid #e8e8e8;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .orderlist-grand-total {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    .orderlist-grand-total span {
+        color: #1a1a1a;
+        margin-left: 8px;
+    }
+
+    .orderlist-btn {
+        display: inline-block;
+        padding: 12px 28px;
+        background: #1a1a1a;
+        color: #ffffff;
+        border: 2px solid #1a1a1a;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+
+    .orderlist-btn:hover {
+        background: #000000;
+        border-color: #000000;
+        color: #ffffff;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+
+    .orderlist-empty {
+        text-align: center;
+        padding: 80px 20px;
+    }
+
+    .orderlist-empty-icon {
+        font-size: 64px;
+        color: #d0d0d0;
+        margin-bottom: 20px;
+    }
+
+    .orderlist-empty-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 12px;
+    }
+
+    .orderlist-empty-text {
+        font-size: 15px;
+        color: #6a6a6a;
+        margin-bottom: 30px;
+    }
+
+    .orderlist-empty-btn {
+        display: inline-block;
+        padding: 14px 32px;
+        background: #1a1a1a;
+        color: #ffffff;
+        border: 2px solid #1a1a1a;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .orderlist-empty-btn:hover {
+        background: #000000;
+        border-color: #000000;
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .orderlist-wrapper {
+            padding: 20px 10px;
+        }
+
+        .orderlist-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .orderlist-header {
+            padding: 20px;
+        }
+
+        .orderlist-order-id {
+            font-size: 16px;
+        }
+
+        .orderlist-table {
+            display: block;
+            overflow-x: auto;
+        }
+
+        .orderlist-table th,
+        .orderlist-table td {
+            padding: 12px 15px;
+        }
+
+        .orderlist-product {
+            gap: 12px;
+        }
+
+        .orderlist-product-image {
+            width: 60px;
+            height: 60px;
+        }
+
+        .orderlist-product-name {
+            font-size: 14px;
+        }
+
+        .orderlist-footer {
+            padding: 20px;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .orderlist-btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    /* Table responsive for mobile */
+    @media (max-width: 576px) {
+        .orderlist-table thead {
+            display: none;
+        }
+
+        .orderlist-table,
+        .orderlist-table tbody,
+        .orderlist-table tr,
+        .orderlist-table td {
+            display: block;
+        }
+
+        .orderlist-table tr {
+            margin-bottom: 20px;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .orderlist-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .orderlist-table td:last-child {
+            border-bottom: none;
+        }
+
+        .orderlist-table td::before {
+            content: attr(data-label);
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a4a4a;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .orderlist-product {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .orderlist-product-image {
+            width: 100%;
+            height: 200px;
+        }
+    }
+</style>
+
+<div class="orderlist-wrapper">
+    <div class="orderlist-container">
+        <h1 class="orderlist-title">Your Orders</h1>
+
+        {% if orders %}
+            {% for order in orders %}
+            <div class="orderlist-card">
+                <div class="orderlist-header">
+                    <h3 class="orderlist-order-id">Order #{{ order.id }}</h3>
+                    <span class="orderlist-status orderlist-status-{{ order.status|lower }}">
+                        {{ order.status }}
+                    </span>
                 </div>
-              </td>
-              <td>{{ item.quantity }}</td>
-              <td>₹{{ item.total_price }}</td>
-            </tr>
+
+                <div class="orderlist-body">
+                    <table class="orderlist-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order.items.all %}
+                            <tr>
+                                <td data-label="Product">
+                                    <div class="orderlist-product">
+                                        <div class="orderlist-product-image">
+                                            {% if item.product.images.all %}
+                                                <img src="{{ item.product.images.all.0.image.url }}" alt="{{ item.product.name }}" loading="lazy">
+                                            {% else %}
+                                                <img src="/static/no-image.png" alt="No Image">
+                                            {% endif %}
+                                        </div>
+                                        <div class="orderlist-product-info">
+                                            <div class="orderlist-product-name">{{ item.product.name }}</div>
+                                            <div class="orderlist-product-price">₹{{ item.price }} per item</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Quantity">
+                                    <span class="orderlist-quantity">{{ item.quantity }}</span>
+                                </td>
+                                <td data-label="Total">
+                                    <span class="orderlist-total">₹{{ item.total_price }}</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="orderlist-footer">
+                    <div class="orderlist-grand-total">
+                        Total Amount: <span>₹{{ order.total_amount }}</span>
+                    </div>
+                    <a href="{% url 'order_detail_page' order.id %}" class="orderlist-btn">
+                        View Order Details
+                    </a>
+                </div>
+            </div>
             {% endfor %}
-          </tbody>
-        </table>
-
-        <div class="xo-cart-table__price" style="text-align:right;margin-top:1rem;font-weight:600;">
-          Total Amount: ₹{{ order.total_amount }}
-        </div>
-
-        <div class="xo-space xo-space--vertical" style="--space: 1rem"></div>
-
-        <a href="{% url 'order_detail_page' order.id %}">
-          <button class="xo-btn xo-btn--dark xo-btn--link xo-btn--slide-up">
-            <span class="xo-btn__content">
-              <span class="xo-btn__text" data-text="View Details">View Details</span>
-            </span>
-          </button>
-        </a>
-      </div>
-      {% endfor %}
-      {% else %}
-      <p style="text-align:center;">No orders yet.</p>
-      {% endif %}
-    </xo-container>
-  </section>
-
-</main>
+        {% else %}
+            <div class="orderlist-card">
+                <div class="orderlist-empty">
+                    <div class="orderlist-empty-icon">📦</div>
+                    <h2 class="orderlist-empty-title">No Orders Yet</h2>
+                    <p class="orderlist-empty-text">You haven't placed any orders yet. Start shopping to see your orders here!</p>
+                    <a href="{% url 'all_collections' %}" class="orderlist-empty-btn">Start Shopping</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}

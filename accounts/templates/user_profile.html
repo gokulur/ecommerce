@@ -434,11 +434,10 @@
                     <div class="accsettings-sidebar">
                         <div class="accsettings-nav">
                             <a class="accsettings-nav-item active" data-toggle="list" href="#account-general">General</a>
+                            <a class="accsettings-nav-item"   href="{% url 'order_list_page' %}">Orders</a>
                             <a class="accsettings-nav-item" data-toggle="list" href="#account-change-password">Change Password</a>
-                            <a class="accsettings-nav-item" data-toggle="list" href="#account-info">Profile Info</a>
-                            <a class="accsettings-nav-item" data-toggle="list" href="#account-social-links">Social Links</a>
-                            <a class="accsettings-nav-item" data-toggle="list" href="#account-connections">Connections</a>
-                            <a class="accsettings-nav-item" data-toggle="list" href="#account-notifications">Notifications</a>
+
+                           
                         </div>
                     </div>
                 </div>
@@ -448,220 +447,81 @@
                         <div class="tab-content">
                             <!-- General Tab -->
                             <div class="tab-pane fade active show accsettings-tab-pane" id="account-general">
-                                <div class="accsettings-avatar-section">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile" class="accsettings-avatar">
-                                    <div class="accsettings-avatar-info">
-                                        <label class="accsettings-btn accsettings-btn-outline accsettings-file-label">
-                                            Upload New Photo
-                                            <input type="file" class="accsettings-file-input" accept="image/*">
-                                        </label>
-                                        <button type="button" class="accsettings-btn accsettings-btn-secondary">Reset</button>
-                                        <div class="accsettings-text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
-                                    </div>
-                                </div>
-
-                                <div class="accsettings-section">
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Username</label>
-                                        <input type="text" class="accsettings-input" value="nmaxwell">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Full Name</label>
-                                        <input type="text" class="accsettings-input" value="Nelle Maxwell">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Email Address</label>
-                                        <input type="email" class="accsettings-input" value="nmaxwell@mail.com">
-                                        <div class="accsettings-alert accsettings-alert-warning">
-                                            Your email is not confirmed. Please check your inbox.<br>
-                                            <a href="javascript:void(0)" class="accsettings-alert-link">Resend confirmation</a>
+                                <form method="POST" action=" " enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="accsettings-avatar-section">
+                                        <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}https://bootdey.com/img/Content/avatar/avatar1.png{% endif %}" alt="Profile" class="accsettings-avatar" id="profilePreview">
+                                        <div class="accsettings-avatar-info">
+                                            <label class="accsettings-btn accsettings-btn-outline accsettings-file-label">
+                                                Upload New Photo
+                                                <input type="file" name="profile_picture" class="accsettings-file-input" accept="image/*" onchange="previewImage(event)">
+                                            </label>
+                                            <button type="button" class="accsettings-btn accsettings-btn-secondary" onclick="resetImage()">Reset</button>
+                                            <div class="accsettings-text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
                                         </div>
                                     </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Company</label>
-                                        <input type="text" class="accsettings-input" value="Company Ltd.">
+
+                                    <div class="accsettings-section">
+                                        <div class="accsettings-form-group">
+                                            <label class="accsettings-label">Username</label>
+                                            <input type="text" name="username" class="accsettings-input" value="{{ user.username }}" >
+                                        </div>
+                                        <div class="accsettings-form-group">
+                                            <label class="accsettings-label">Full Name</label>
+                                            <input type="text" name="full_name" class="accsettings-input" value="{{ user.get_full_name }}" placeholder="Enter your full name">
+                                        </div>
+                                        <div class="accsettings-form-group">
+                                            <label class="accsettings-label">Email Address</label>
+                                            <input type="email" name="email" class="accsettings-input" value="{{ user.email }}" >
+                                            {% if not user.is_active %}
+                                            <div class="accsettings-alert accsettings-alert-warning">
+                                                Your email is not confirmed. Please check your inbox.<br>
+                                                <a href="{% url 'resend_verification' %}" class="accsettings-alert-link">Resend confirmation</a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <button type="submit" class="accsettings-btn accsettings-btn-primary">Save Changes</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
 
                             <!-- Change Password Tab -->
                             <div class="tab-pane fade accsettings-tab-pane" id="account-change-password">
-                                <div class="accsettings-section">
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Current Password</label>
-                                        <input type="password" class="accsettings-input" placeholder="Enter current password">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">New Password</label>
-                                        <input type="password" class="accsettings-input" placeholder="Enter new password">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Confirm New Password</label>
-                                        <input type="password" class="accsettings-input" placeholder="Confirm new password">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Profile Info Tab -->
-                            <div class="tab-pane fade accsettings-tab-pane" id="account-info">
-                                <div class="accsettings-section">
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Bio</label>
-                                        <textarea class="accsettings-textarea" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc.</textarea>
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Birthday</label>
-                                        <input type="text" class="accsettings-input" value="May 3, 1995">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Country</label>
-                                        <select class="accsettings-select">
-                                            <option>USA</option>
-                                            <option selected>Canada</option>
-                                            <option>UK</option>
-                                            <option>Germany</option>
-                                            <option>France</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <hr class="accsettings-divider">
-
-                                <div class="accsettings-section">
-                                    <h6 class="accsettings-subtitle">Contact Information</h6>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Phone Number</label>
-                                        <input type="tel" class="accsettings-input" value="+0 (123) 456 7891">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Website</label>
-                                        <input type="url" class="accsettings-input" placeholder="https://yourwebsite.com">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Social Links Tab -->
-                            <div class="tab-pane fade accsettings-tab-pane" id="account-social-links">
-                                <div class="accsettings-section">
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Twitter</label>
-                                        <input type="url" class="accsettings-input" value="https://twitter.com/user">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Facebook</label>
-                                        <input type="url" class="accsettings-input" value="https://www.facebook.com/user">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">LinkedIn</label>
-                                        <input type="url" class="accsettings-input" placeholder="https://linkedin.com/in/username">
-                                    </div>
-                                    <div class="accsettings-form-group">
-                                        <label class="accsettings-label">Instagram</label>
-                                        <input type="url" class="accsettings-input" value="https://www.instagram.com/user">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Connections Tab -->
-                            <div class="tab-pane fade accsettings-tab-pane" id="account-connections">
-                                <div class="accsettings-section">
-                                    <button type="button" class="accsettings-social-btn accsettings-btn-twitter">
-                                        <strong>Connect to Twitter</strong>
-                                    </button>
-                                </div>
-
-                                <hr class="accsettings-divider">
-
-                                <div class="accsettings-section">
-                                    <div class="accsettings-connection-info">
-                                        <div class="accsettings-connection-title">
-                                            <span>✓ Connected to Google</span>
-                                            <a href="javascript:void(0)" class="accsettings-remove-link">Remove</a>
+                                <form method="POST" action="{% url 'password_change_action' %}">
+                                    {% csrf_token %}
+                                    <div class="accsettings-section">
+                                        <div class="accsettings-form-group">
+                                            <label class="accsettings-label">Current Password</label>
+                                            <input type="password" name="old_password" class="accsettings-input" placeholder="Enter current password" required>
                                         </div>
-                                        <div class="accsettings-connection-email">nmaxwell@mail.com</div>
+                                        <div class="accsettings-form-group">
+                                            <label class="accsettings-label">New Password</label>
+                                            <input type="password" name="new_password" class="accsettings-input" placeholder="Enter new password" required>
+                                        </div>
+                                        <div class="accsettings-form-group">
+                                            <label class="accsettings-label">Confirm New Password</label>
+                                            <input type="password" name="confirm_password" class="accsettings-input" placeholder="Confirm new password" required>
+                                        </div>
+                                        <button type="submit" class="accsettings-btn accsettings-btn-primary">Change Password</button>
                                     </div>
-                                </div>
-
-                                <hr class="accsettings-divider">
-
-                                <div class="accsettings-section">
-                                    <button type="button" class="accsettings-social-btn accsettings-btn-facebook">
-                                        <strong>Connect to Facebook</strong>
-                                    </button>
-                                </div>
-
-                                <hr class="accsettings-divider">
-
-                                <div class="accsettings-section">
-                                    <button type="button" class="accsettings-social-btn accsettings-btn-instagram">
-                                        <strong>Connect to Instagram</strong>
-                                    </button>
-                                </div>
+                                </form>
                             </div>
-
-                            <!-- Notifications Tab -->
-                            <div class="tab-pane fade accsettings-tab-pane" id="account-notifications">
-                                <div class="accsettings-section">
-                                    <h6 class="accsettings-subtitle">Activity Notifications</h6>
-
-                                    <label class="accsettings-toggle">
-                                        <input type="checkbox" class="accsettings-toggle-input" checked>
-                                        <span class="accsettings-toggle-switch"></span>
-                                        <span class="accsettings-toggle-label">Email me when someone comments on my article</span>
-                                    </label>
-
-                                    <label class="accsettings-toggle">
-                                        <input type="checkbox" class="accsettings-toggle-input" checked>
-                                        <span class="accsettings-toggle-switch"></span>
-                                        <span class="accsettings-toggle-label">Email me when someone answers on my forum thread</span>
-                                    </label>
-
-                                    <label class="accsettings-toggle">
-                                        <input type="checkbox" class="accsettings-toggle-input">
-                                        <span class="accsettings-toggle-switch"></span>
-                                        <span class="accsettings-toggle-label">Email me when someone follows me</span>
-                                    </label>
-                                </div>
-
-                                <hr class="accsettings-divider">
-
-                                <div class="accsettings-section">
-                                    <h6 class="accsettings-subtitle">Application Updates</h6>
-
-                                    <label class="accsettings-toggle">
-                                        <input type="checkbox" class="accsettings-toggle-input" checked>
-                                        <span class="accsettings-toggle-switch"></span>
-                                        <span class="accsettings-toggle-label">News and announcements</span>
-                                    </label>
-
-                                    <label class="accsettings-toggle">
-                                        <input type="checkbox" class="accsettings-toggle-input">
-                                        <span class="accsettings-toggle-switch"></span>
-                                        <span class="accsettings-toggle-label">Weekly product updates</span>
-                                    </label>
-
-                                    <label class="accsettings-toggle">
-                                        <input type="checkbox" class="accsettings-toggle-input" checked>
-                                        <span class="accsettings-toggle-switch"></span>
-                                        <span class="accsettings-toggle-label">Weekly blog digest</span>
-                                    </label>
-                                </div>
-                            </div>
+ 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="accsettings-actions">
-            <button type="button" class="accsettings-btn accsettings-btn-secondary">Cancel</button>
-            <button type="button" class="accsettings-btn accsettings-btn-primary">Save Changes</button>
-        </div>
     </div>
 </div>
+
+ 
 
 {% endblock %}
 
 {% for message in messages %}
-<p>{{ message }}</p>
+<div class="accsettings-alert accsettings-alert-warning" style="margin: 20px;">
+    {{ message }}
+</div>
 {% endfor %}
