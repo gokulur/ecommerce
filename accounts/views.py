@@ -7,7 +7,7 @@ import secrets
 import random
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import EmailOTP
+from .models import EmailOTP,Profile
 from django.utils import timezone
 from datetime import timedelta 
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -43,19 +43,16 @@ def register_action(request):
             messages.error(request, "Email already exists!")
             return redirect('register_page')
 
-       
+        # Create user
         user = User.objects.create_user(username=username, email=email, password=password)
         user.is_active = False
         user.save()
 
-      
-        if hasattr(user, 'profile'):
-            user.profile.phone = phone
-            user.profile.save()
+        # Create profile manually
+        Profile.objects.create(user=user, phone=phone)
 
- 
+        # Generate and send OTP
         otp = str(random.randint(100000, 999999))
-
         EmailOTP.objects.update_or_create(user=user, defaults={'otp': otp})
 
         subject = "Your Account Verification OTP"
@@ -264,7 +261,6 @@ def password_reset_confirm_action(request, token):
 #user profile
 def user_profile(request):
    
-
     return render(request, 'user_profile.html', {
         
     })
