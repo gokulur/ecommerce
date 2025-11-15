@@ -195,7 +195,7 @@ def password_reset_action(request):
                 "expires_at": timezone.now() + timedelta(minutes=15)   
             }
 
-            reset_link = f"http://127.0.0.1:8000/accounts/reset/{token}/"
+            reset_link = f"http://127.0.0.1:8000/reset/{token}/"
 
             # Send email
             subject = "Password Reset Request"

@@ -160,4 +160,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 #Setting Email
- 
+
+
+
+
+LOGIN_URL = '/login/'
