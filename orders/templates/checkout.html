@@ -1,275 +1,569 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block base_css %}
+    <!-- Empty block so NO CSS loads -->
+{% endblock %}
+
 {% block content %}
 
+<!-- BOOTSTRAP 4.5.2 CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <style>
-  /* -------------------------
-   Checkout Layout
----------------------------- */
-  .checkout-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    display: flex;
-    gap: 40px;
-  }
-
-  /* LEFT FORM */
-  .checkout-left {
-    flex: 1;
-    background: #fff;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  }
-
-  .checkout-title {
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
-  /* Form Inputs */
-  .checkout-label {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-
-  .checkout-input {
-    width: 100%;
-    border: 1px solid #dcdcdc;
-    border-radius: 12px;
-    padding: 12px 14px;
-    margin-bottom: 18px;
-    background: #fff;
-    font-size: 14px;
-  }
-
-  .checkout-input:focus {
-    border-color: #000;
-    outline: none;
-  }
-
-  /* RIGHT SUMMARY */
-  .checkout-right {
-    width: 380px;
-    background: #fafafa;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  }
-
-  .order-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 18px;
-  }
-
-  .order-item img {
-    width: 75px;
-    height: 75px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-
-  .order-name {
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  .order-price {
-    font-size: 14px;
-    margin-top: 5px;
-    color: #111;
-  }
-
-  /* Qty Box */
-  .order-qty-box {
-    display: flex;
-    align-items: center;
-    margin-top: 8px;
-    padding: 4px 10px;
-    border-radius: 10px;
-    background: #efefef;
-    width: 90px;
-    justify-content: space-between;
-  }
-
-  .order-qty-btn {
-    background: #ddd;
-    padding: 3px 7px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 700;
-    color: #222;
-    text-decoration: none;
-  }
-
-  /* Summary rows */
-  .line-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-  }
-
-  /* Checkout button */
-  .checkout-btn {
-    width: 100%;
-    background: #000;
-    color: #fff;
-    padding: 14px;
-    border-radius: 12px;
-    font-weight: 600;
-    text-align: center;
-    border: none;
-    margin-top: 20px;
-    cursor: pointer;
-  }
-
-  /* -------------------------
-   ✅ RESPONSIVE STYLES
----------------------------- */
-  @media (max-width: 992px) {
-    .checkout-container {
-      flex-direction: column;
-      width: 90%;
+    /* Wrapper to isolate all styles */
+    .checkout-wrapper {
+        background: #f8f8f8;
+        min-height: 100vh;
+        padding: 40px 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
-    .checkout-right {
-      width: 100%;
-      order: -1;
-    }
-  }
-
-  @media (max-width: 576px) {
-    .checkout-container {
-      width: 95%;
-      margin: 20px auto;
-      gap: 20px;
+    .checkout-wrapper * {
+        box-sizing: border-box;
     }
 
-    .checkout-left,
-    .checkout-right {
-      padding: 20px;
+    .checkout-container-custom {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 30px;
     }
 
-    .order-item img {
-      width: 60px;
-      height: 60px;
+    /* Page Title */
+    .checkout-page-title {
+        text-align: center;
+        margin-bottom: 40px;
     }
 
-    .checkout-title {
-      font-size: 22px;
+    .checkout-page-title h1 {
+        font-size: 32px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+
+    .checkout-page-title p {
+        font-size: 15px;
+        color: #6a6a6a;
+    }
+
+    /* LEFT SECTION - Form */
+    .checkout-form-section {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8e8e8;
+    }
+
+    .checkout-section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+    }
+
+    .checkout-section-subtitle {
+        font-size: 14px;
+        color: #6a6a6a;
+        margin-bottom: 30px;
+    }
+
+    .checkout-form-group {
+        margin-bottom: 24px;
+    }
+
+    .checkout-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .checkout-input {
-      font-size: 13px;
-      padding: 10px 12px;
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e8e8e8;
+        border-radius: 8px;
+        font-size: 15px;
+        color: #1a1a1a;
+        transition: all 0.2s ease;
+        background: #ffffff;
     }
 
-    .order-name {
-      font-size: 14px;
+    .checkout-input:focus {
+        outline: none;
+        border-color: #1a1a1a;
+        box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
     }
 
-    .order-price {
-      font-size: 13px;
+    .checkout-input::placeholder {
+        color: #b0b0b0;
     }
 
-    .order-qty-box {
-      width: 80px;
-      padding: 3px 8px;
+    .checkout-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
     }
 
-    .checkout-btn {
-      padding: 12px;
-      font-size: 14px;
+    .checkout-divider {
+        height: 1px;
+        background: #e8e8e8;
+        margin: 30px 0;
     }
-  }
+
+    /* RIGHT SECTION - Order Summary */
+    .checkout-summary-section {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8e8e8;
+        height: fit-content;
+        position: sticky;
+        top: 20px;
+    }
+
+    .checkout-summary-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #e8e8e8;
+    }
+
+    .checkout-order-item {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .checkout-order-item:last-of-type {
+        margin-bottom: 24px;
+    }
+
+    .checkout-item-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #e8e8e8;
+        flex-shrink: 0;
+    }
+
+    .checkout-item-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .checkout-item-name {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1a1a1a;
+        line-height: 1.4;
+        margin-bottom: 6px;
+    }
+
+    .checkout-item-price {
+        font-size: 14px;
+        color: #6a6a6a;
+        font-weight: 500;
+    }
+
+    .checkout-qty-controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 10px;
+    }
+
+    .checkout-qty-btn {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5f5;
+        border: 1px solid #e8e8e8;
+        border-radius: 6px;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.2s ease;
+    }
+
+    .checkout-qty-btn:hover {
+        background: #1a1a1a;
+        color: #ffffff;
+        border-color: #1a1a1a;
+        text-decoration: none;
+    }
+
+    .checkout-qty-number {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+        min-width: 20px;
+        text-align: center;
+    }
+
+    .checkout-summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        font-size: 15px;
+    }
+
+    .checkout-summary-row span:first-child {
+        color: #6a6a6a;
+    }
+
+    .checkout-summary-row span:last-child {
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    .checkout-summary-total {
+        border-top: 2px solid #1a1a1a;
+        margin-top: 16px;
+        padding-top: 16px;
+    }
+
+    .checkout-summary-total span {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+
+    .checkout-submit-btn {
+        width: 100%;
+        padding: 16px;
+        background: #1a1a1a;
+        color: #ffffff;
+        border: 2px solid #1a1a1a;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 24px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .checkout-submit-btn:hover {
+        background: #000000;
+        border-color: #000000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .checkout-secure-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+        font-size: 13px;
+        color: #6a6a6a;
+    }
+
+    .checkout-secure-icon {
+        font-size: 16px;
+    }
+
+    /* Progress Steps */
+    .checkout-progress {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 40px;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8e8e8;
+    }
+
+    .checkout-progress-step {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .checkout-progress-circle {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #e8e8e8;
+        color: #999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .checkout-progress-step.active .checkout-progress-circle {
+        background: #1a1a1a;
+        color: #ffffff;
+    }
+
+    .checkout-progress-step.completed .checkout-progress-circle {
+        background: #1a1a1a;
+        color: #ffffff;
+    }
+
+    .checkout-progress-text {
+        font-size: 14px;
+        color: #999;
+        font-weight: 500;
+    }
+
+    .checkout-progress-step.active .checkout-progress-text {
+        color: #1a1a1a;
+        font-weight: 600;
+    }
+
+    .checkout-progress-arrow {
+        color: #d0d0d0;
+        font-size: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .checkout-container-custom {
+            grid-template-columns: 1fr;
+        }
+
+        .checkout-summary-section {
+            position: relative;
+            top: 0;
+        }
+
+        .checkout-row {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .checkout-wrapper {
+            padding: 20px 10px;
+        }
+
+        .checkout-page-title h1 {
+            font-size: 24px;
+        }
+
+        .checkout-form-section,
+        .checkout-summary-section {
+            padding: 24px;
+        }
+
+        .checkout-progress {
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .checkout-progress-arrow {
+            transform: rotate(90deg);
+        }
+
+        .checkout-item-image {
+            width: 70px;
+            height: 70px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .checkout-form-section,
+        .checkout-summary-section {
+            padding: 20px;
+        }
+
+        .checkout-section-title {
+            font-size: 18px;
+        }
+
+        .checkout-input {
+            padding: 12px 14px;
+            font-size: 14px;
+        }
+
+        .checkout-item-name {
+            font-size: 14px;
+        }
+
+        .checkout-item-image {
+            width: 60px;
+            height: 60px;
+        }
+    }
 </style>
 
-
-<div class="checkout-container">
-
- 
-  <div class="checkout-left">
-    <div class="checkout-title">Checkout</div>
-
-    <form method="POST" action="{% url 'checkout_action' %}">
-      {% csrf_token %}
-
-      <label class="checkout-label">Full Name</label>
-      <input class="checkout-input" type="text" name="name" value="{{ user.first_name }} {{ user.last_name }}"
-        placeholder="Enter your name">
-
-      <label class="checkout-label">Email</label>
-      <input class="checkout-input" type="email" name="email" value="{{ user.email }}" placeholder="Enter your email">
-
-      <label class="checkout-label">Phone</label>
-      <input class="checkout-input" type="text" name="phone" value="{{ profile.phone|default:'' }}"
-        placeholder="Phone number">
-
-      <label class="checkout-label">Address</label>
-      <input class="checkout-input" type="text" name="address_line" value="{{ profile.address|default:'' }}"
-        placeholder="Full address">
-
-      <label class="checkout-label">City</label>
-      <input class="checkout-input" type="text" name="city" value="{{ profile.city|default:'' }}" placeholder="City">
-
-            <label class="checkout-label">Country</label>
-      <input class="checkout-input" type="text" name="country" value="" placeholder="Country">
-
-      <label class="checkout-label">Postal Code</label>
-      <input class="checkout-input" type="text" name="postal_code" value="{{ profile.postal|default:'' }}"
-        placeholder="Postal code">
-
-      <button class="checkout-btn">Place Order</button>
-    </form>
-  </div>
-
-
-
-  <div class="checkout-right">
-    <h4 style="margin-bottom: 20px;">Your Order</h4>
-
-    {% for item in items %}
-    <div class="order-item">
-      <img src="{{ item.product.images.first.image.url }}" alt="img">
-
-      <div>
-        <div class="order-name">{{ item.product.name }}</div>
-        <div class="order-price">₹{{ item.product.price }}</div>
-
-        <div class="order-qty-box">
-          <a href="{% url 'decrease_qty' item.id %}" class="order-qty-btn">-</a>
-          <span>{{ item.quantity }}</span>
-          <a href="{% url 'increase_qty' item.id %}" class="order-qty-btn">+</a>
+<div class="checkout-wrapper">
+    <div class="checkout-container-custom" style="max-width: 1200px; margin: 0 auto;">
+        
+        <!-- Page Title -->
+        <div class="checkout-page-title" style="grid-column: 1 / -1;">
+            <h1>Secure Checkout</h1>
+            <p>Complete your order safely and securely</p>
         </div>
-      </div>
+
+        <!-- Progress Steps -->
+        <div class="checkout-progress" style="grid-column: 1 / -1;">
+            <div class="checkout-progress-step completed">
+                <div class="checkout-progress-circle">✓</div>
+                <span class="checkout-progress-text">Cart</span>
+            </div>
+            <div class="checkout-progress-arrow">→</div>
+            <div class="checkout-progress-step active">
+                <div class="checkout-progress-circle">2</div>
+                <span class="checkout-progress-text">Checkout</span>
+            </div>
+            <div class="checkout-progress-arrow">→</div>
+            <div class="checkout-progress-step">
+                <div class="checkout-progress-circle">3</div>
+                <span class="checkout-progress-text">Confirmation</span>
+            </div>
+        </div>
+
+        <!-- LEFT SECTION - Checkout Form -->
+        <div class="checkout-form-section">
+            <div class="checkout-section-title">Shipping Information</div>
+            <div class="checkout-section-subtitle">Please enter your delivery details</div>
+
+            <form method="POST" action="{% url 'checkout_action' %}">
+                {% csrf_token %}
+
+                <div class="checkout-row">
+                    <div class="checkout-form-group">
+                        <label class="checkout-label">Full Name</label>
+                        <input class="checkout-input" type="text" name="name" 
+                               value="{{ user.first_name }} {{ user.last_name }}" 
+                               placeholder="John Doe" required>
+                    </div>
+
+                    <div class="checkout-form-group">
+                        <label class="checkout-label">Phone Number</label>
+                        <input class="checkout-input" type="tel" name="phone" 
+                               value="{{ profile.phone|default:'' }}" 
+                               placeholder="+91 98765 43210" required>
+                    </div>
+                </div>
+
+                <div class="checkout-form-group">
+                    <label class="checkout-label">Email Address</label>
+                    <input class="checkout-input" type="email" name="email" 
+                           value="{{ user.email }}" 
+                           placeholder="john@example.com" required>
+                </div>
+
+                <div class="checkout-divider"></div>
+
+                <div class="checkout-form-group">
+                    <label class="checkout-label">Street Address</label>
+                    <input class="checkout-input" type="text" name="address_line" 
+                           value="{{ profile.address|default:'' }}" 
+                           placeholder="123 Main Street, Apartment 4B" required>
+                </div>
+
+                <div class="checkout-row">
+                    <div class="checkout-form-group">
+                        <label class="checkout-label">City</label>
+                        <input class="checkout-input" type="text" name="city" 
+                               value="{{ profile.city|default:'' }}" 
+                               placeholder="Kochi" required>
+                    </div>
+
+                    <div class="checkout-form-group">
+                        <label class="checkout-label">Postal Code</label>
+                        <input class="checkout-input" type="text" name="postal_code" 
+                               value="{{ profile.postal|default:'' }}" 
+                               placeholder="682001" required>
+                    </div>
+                </div>
+
+                <div class="checkout-form-group">
+                    <label class="checkout-label">Country</label>
+                    <input class="checkout-input" type="text" name="country" 
+                           value="{{ profile.country|default:'' }}" 
+                           placeholder="India" required>
+                </div>
+
+                <button type="submit" class="checkout-submit-btn">
+                    Place Order (Cash on Delivery)
+                </button>
+
+                <div class="checkout-secure-badge">
+                    <span class="checkout-secure-icon">📦</span>
+                    <span>Pay Cash When You Receive Your Order</span>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT SECTION - Order Summary -->
+        <div class="checkout-summary-section">
+            <h3 class="checkout-summary-title">Order Summary</h3>
+
+            {% for item in items %}
+            <div class="checkout-order-item">
+                <img src="{{ item.product.images.first.image.url }}" 
+                     alt="{{ item.product.name }}" 
+                     class="checkout-item-image">
+                
+                <div class="checkout-item-details">
+                    <div>
+                        <div class="checkout-item-name">{{ item.product.name }}</div>
+                        <div class="checkout-item-price">₹{{ item.product.price }} each</div>
+                    </div>
+                    
+                    <div class="checkout-qty-controls">
+                        <a href="{% url 'decrease_qty' item.id %}" class="checkout-qty-btn">−</a>
+                        <span class="checkout-qty-number">{{ item.quantity }}</span>
+                        <a href="{% url 'increase_qty' item.id %}" class="checkout-qty-btn">+</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="checkout-summary-row">
+                <span>Subtotal</span>
+                <span>₹{{ subtotal }}</span>
+            </div>
+
+            <div class="checkout-summary-row">
+                <span>Shipping</span>
+                <span>₹{{ shipping }}</span>
+            </div>
+
+            <div class="checkout-summary-row">
+                <span>Tax (Estimated)</span>
+                <span>₹{{ tax|default:"0" }}</span>
+            </div>
+
+            <div class="checkout-summary-row checkout-summary-total">
+                <span>Total</span>
+                <span>₹{{ total }}</span>
+            </div>
+        </div>
+
     </div>
-    {% endfor %}
-
-    <hr>
-
-    <div class="line-row">
-      <span>Subtotal</span>
-      <strong>₹{{ subtotal }}</strong>
-    </div>
-
-    <div class="line-row">
-      <span>Shipping</span>
-      <strong>₹{{ shipping }}</strong>
-    </div>
-
-    <hr>
-
-    <div class="line-row">
-      <span><strong>Total</strong></span>
-      <strong>₹{{ total }}</strong>
-    </div>
-
-  </div>
-
 </div>
 
 {% endblock %}

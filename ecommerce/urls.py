@@ -22,12 +22,25 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', include('accounts.urls')),    
-    path('', include('cart.urls')),
-    path('', include('orders.urls')),
-    path('', include('products.urls')),
-    path('', include('adminpanel.urls')),
+    # Authentication / Accounts
+    path('', include('accounts.urls')),
 
-    path('', include('core.urls')),       
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Cart
+    path('cart/', include('cart.urls')),
+
+    # Orders
+    path('orders/', include('orders.urls')),
+
+    # Admin Panel (prefix added to avoid clash)
+    path('adminpanel/', include('adminpanel.urls')),
+
+    # Products
+    path('', include('products.urls')),
+
+    # Core (homepage etc)
+    path('', include('core.urls')),
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 

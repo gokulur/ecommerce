@@ -29,4 +29,5 @@ urlpatterns = [
 
     # Customers
     path('customers/', views.admin_customers, name='admin_customers'),
+
 ]
