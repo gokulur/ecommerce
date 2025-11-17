@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product, Category 
+from .models import Product, Category , Collection
 from django.core.paginator import Paginator
 def all_collections(request):
     categories = Category.objects.all()
@@ -26,8 +26,10 @@ def product_detail(request, slug):
 
 def products_by_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
+    collections = Collection.objects.filter(category=category)
     products = Product.objects.filter(category=category, available=True).order_by('-created_at')
     return render(request, 'products_by_category.html', {
         'products': products, 
-        'category': category
+        'category': category,
+        'collections': collections
     })
