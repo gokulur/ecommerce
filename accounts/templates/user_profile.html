@@ -450,12 +450,7 @@
                                     <div class="accsettings-avatar-section">
                                         <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}https://bootdey.com/img/Content/avatar/avatar1.png{% endif %}" alt="Profile" class="accsettings-avatar" id="profilePreview">
                                         <div class="accsettings-avatar-info">
-                                            <label class="accsettings-btn accsettings-btn-outline accsettings-file-label">
-                                                Upload New Photo
-                                                <input type="file" name="profile_picture" class="accsettings-file-input" accept="image/*" onchange="previewImage(event)">
-                                            </label>
-                                            <button type="button" class="accsettings-btn accsettings-btn-secondary" onclick="resetImage()">Reset</button>
-                                            <div class="accsettings-text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                                             
                                         </div>
                                     </div>
 
