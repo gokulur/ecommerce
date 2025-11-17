@@ -1906,501 +1906,330 @@ Scheme 2: Scheme 4`,
           </xo-animate>
           <xo-container class="xo-container--wide">
             <xo-animate xo-cascade="">
-              <h2 class="collection-v6__title">Shop By Category</h2>
+              <h2 class="collection-v6__title">Shop By Brand</h2>
             </xo-animate>
-            <xo-carousel xo-breakpoints="
-    {
-      1200: {
-        perView: 5,
-      },
-      992: {
-        perView: 4,
-      },
-      768: {
-        perView: 2,
-      },
-      576: {
-        perView: 1,
-      },
-    }
-    " xo-gap="30" xo-per-view="6" xo-render-bullet="&lt;span&gt;&lt;/span&gt;" xo-speed="400">
+
+            <xo-carousel xo-breakpoints='{
+      "1200": { "perView": 5 },
+      "992": { "perView": 4 },
+      "768": { "perView": 2 },
+      "576": { "perView": 1 }
+    }' xo-gap="30" xo-per-view="6" xo-render-bullet="<span></span>" xo-speed="400">
               <xo-carousel-inner>
                 <xo-carousel-list aria-label="Slider" role="list">
-                  <xo-carousel-slide aria-label="1 of 6" aria-roledescription="Slide" class="collection-v1">
+
+                  {% for c in collections %}
+                  <xo-carousel-slide class="collection-v1">
                     <xo-animate class="collection-v6__item" xo-cascade="">
-                      <a class="hover-style--scale-up" href="collections/floral.html">
-                        <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                            alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Floral.webp' %}"
-                            srcset="{% static 'cdn/shop/files/Floral.webp' %} 100w" width="400"
-                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
-                          <div class="xo-image__overlay xo-lazyload-overlay">
-                            <div class="xo-image__loading">
-                              <div class="xo-loader-3"
-                                style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </div>
-                          </div>
+                      <a class="hover-style--scale-up" href=" ">
+                        <div class="xo-image" style="--xo-ratio-percent: 4/4;">
+                          <img src="{{ c.image.url }}" alt="{{ c.name }}" width="400" height="400" loading="lazy" />
                         </div>
                       </a>
-                      <a class="collection-v6__item-label" href="collections/floral.html">
-                        <h3 class="collection-v6__item-title">
-                          Floral
-                        </h3>
+
+                      <a class="collection-v6__item-label" href=" ">
+                        <h3 class="collection-v6__item-title">{{ c.name }}</h3>
                       </a>
                     </xo-animate>
                   </xo-carousel-slide>
-                  <xo-carousel-slide aria-label="2 of 6" aria-roledescription="Slide" class="collection-v1">
-                    <xo-animate class="collection-v6__item" xo-cascade="">
-                      <a class="hover-style--scale-up" href="collections/vanilla.html">
-                        <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                            alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Vanilla.webp' %}"
-                            srcset="{% static 'cdn/shop/files/Vanilla.webp' %} 100w" width="400"
-                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
-                          <div class="xo-image__overlay xo-lazyload-overlay">
-                            <div class="xo-image__loading">
-                              <div class="xo-loader-3"
-                                style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <a class="collection-v6__item-label" href="collections/vanilla.html">
-                        <h3 class="collection-v6__item-title">
-                          Vanilla
-                        </h3>
-                      </a>
-                    </xo-animate>
-                  </xo-carousel-slide>
-                  <xo-carousel-slide aria-label="3 of 6" aria-roledescription="Slide" class="collection-v1">
-                    <xo-animate class="collection-v6__item" xo-cascade="">
-                      <a class="hover-style--scale-up" href="collections/warm-spicy.html">
-                        <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                            alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Warm-_-Spicy.webp' %}"
-                            srcset="{% static 'cdn/shop/files/Warm-_-Spicy.webp' %} 100w" width="400"
-                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
-                          <div class="xo-image__overlay xo-lazyload-overlay">
-                            <div class="xo-image__loading">
-                              <div class="xo-loader-3"
-                                style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <a class="collection-v6__item-label" href="collections/warm-spicy.html">
-                        <h3 class="collection-v6__item-title">
-                          Warm &amp; Spicy
-                        </h3>
-                      </a>
-                    </xo-animate>
-                  </xo-carousel-slide>
-                  <xo-carousel-slide aria-label="4 of 6" aria-roledescription="Slide" class="collection-v1">
-                    <xo-animate class="collection-v6__item" xo-cascade="">
-                      <a class="hover-style--scale-up" href="collections/woody-earthy.html">
-                        <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                            alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Woody-_-Earthy.webp' %}"
-                            srcset="{% static 'cdn/shop/files/Woody-_-Earthy.webp' %} 100w" width="400"
-                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
-                          <div class="xo-image__overlay xo-lazyload-overlay">
-                            <div class="xo-image__loading">
-                              <div class="xo-loader-3"
-                                style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <a class="collection-v6__item-label" href="collections/woody-earthy.html">
-                        <h3 class="collection-v6__item-title">
-                          Woody &amp; Earthy
-                        </h3>
-                      </a>
-                    </xo-animate>
-                  </xo-carousel-slide>
-                  <xo-carousel-slide aria-label="5 of 6" aria-roledescription="Slide" class="collection-v1">
-                    <xo-animate class="collection-v6__item" xo-cascade="">
-                      <a class="hover-style--scale-up" href="collections/lavender.html">
-                        <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                            alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Lavender.webp' %}"
-                            srcset="{% static 'cdn/shop/files/Lavender.webp' %} 100w" width="400"
-                            xo-intrinsic-height="400" xo-intrinsic-width="400" />
-                          <div class="xo-image__overlay xo-lazyload-overlay">
-                            <div class="xo-image__loading">
-                              <div class="xo-loader-3"
-                                style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <a class="collection-v6__item-label" href="collections/lavender.html">
-                        <h3 class="collection-v6__item-title">
-                          Lavender
-                        </h3>
-                      </a>
-                    </xo-animate>
-                  </xo-carousel-slide>
-                  <xo-carousel-slide aria-label="6 of 6" aria-roledescription="Slide" class="collection-v1">
-                    <xo-animate class="collection-v6__item" xo-cascade="">
-                      <a class="hover-style--scale-up" href="collections/fresh.html">
-                        <div class="xo-image" style="--xo-ratio-percent: 4/4; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                            alt="image" fetchpriority="auto" height="400" is="xo-lazyload" loading="lazy" sizes="100vw"
-                            src="{% static 'cdn/shop/files/Fresh.webp' %}"
-                            srcset="{% static 'cdn/shop/files/Fresh.webp' %} 100w" width="400" xo-intrinsic-height="400"
-                            xo-intrinsic-width="400" />
-                          <div class="xo-image__overlay xo-lazyload-overlay">
-                            <div class="xo-image__loading">
-                              <div class="xo-loader-3"
-                                style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <a class="collection-v6__item-label" href="collections/fresh.html">
-                        <h3 class="collection-v6__item-title">
-                          Fresh
-                        </h3>
-                      </a>
-                    </xo-animate>
-                  </xo-carousel-slide>
+                  {% endfor %}
+
                 </xo-carousel-list>
               </xo-carousel-inner>
-              <div class="collection-v6__arrows">
-                <xo-carousel-prev aria-label="Slide left" class="carousel-navigation-style3">
-                  <div class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--left">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-                      <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                  </div>
-                  <div class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--left">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-                      <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                  </div>
-                </xo-carousel-prev>
-                <xo-carousel-next aria-label="Slide right" class="carousel-navigation-style3">
-                  <div class="carousel-navigation-style3__icon-before carousel-navigation-style3__icon-before--right">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-                      <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                  </div>
-                  <div class="carousel-navigation-style3__icon-after carousel-navigation-style3__icon-after--right">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-                      <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                  </div>
-                </xo-carousel-next>
-              </div>
             </xo-carousel>
           </xo-container>
-        </section>
-      </section>
-      <div class="shopify-section" id="shopify-section-template--19284046119102__banner-v9">
-        <div class="banner-v270" style="--bg_custom : #33543d; --height-bg : 50% ">
-          <div class="xo-section xo-section--template--19284046119102__banner-v9 color-background-1" style="--margin: 0;--pt: 100;--pb: 50;
-">
-            <xo-animate class="xo-section-bg" style="
-      
-      
-" xo-disabled="" xo-duration="1000">
-              <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
-                <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
-              {
-                '0%': { backgroundPositionY: '200px' },
-                '100%': { backgroundPositionY: '-200px' },
-              }
-            "></xo-parallax-scroll>
-              </xo-parallax>
-            </xo-animate>
-            <xo-container class="xo-container--wide">
-              <div class="banner-v270__heading">
-                <xo-animate xo-duration="700" xo-order="1" xo-strength="3" xo-type="fade-up">
-                  <h2 class="banner-v270__title">Our product</h2>
-                </xo-animate>
-                <xo-animate xo-duration="700" xo-order="3" xo-strength="3" xo-type="fade-up">
-                  <div class="banner-v270__description">Dive into the world of golf with exclusive events, community
-                    vibes, and beginner-friendly resources.</div>
-                </xo-animate>
-              </div>
-              <div class="banner-v270__gallery">
-                <xo-grid style="--xs: 1;--lg:3;gap:0">
-                  <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="rotate-left-up">
-                    <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
-                      <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                          alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy" sizes="100vw"
-                          src="{% static 'cdn/shop/files/b9-1.webp' %}"
-                          srcset="{% static 'cdn/shop/files/b9-1.webp' %} 100w" width="700" xo-intrinsic-height="520"
-                          xo-intrinsic-width="700" />
-                        <div class="xo-image__overlay xo-lazyload-overlay">
-                          <div class="xo-image__loading">
-                            <div class="xo-loader-3"
-                              style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                              <div></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <h4 class="banner-v270__title-item">Sandalwood</h4>
-                    </a>
-                  </xo-animate>
-                  <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="fade-up">
-                    <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
-                      <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                          alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy" sizes="100vw"
-                          src="{% static 'cdn/shop/files/b9-3.webp' %}"
-                          srcset="{% static 'cdn/shop/files/b9-3.webp' %} 100w" width="700" xo-intrinsic-height="520"
-                          xo-intrinsic-width="700" />
-                        <div class="xo-image__overlay xo-lazyload-overlay">
-                          <div class="xo-image__loading">
-                            <div class="xo-loader-3"
-                              style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                              <div></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <h4 class="banner-v270__title-item">Lavender</h4>
-                    </a>
-                  </xo-animate>
-                  <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="rotate-left-up">
-                    <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
-                      <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                          alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy" sizes="100vw"
-                          src="{% static 'cdn/shop/files/b9-2.webp' %}"
-                          srcset="{% static 'cdn/shop/files/b9-2.webp' %} 100w" width="700" xo-intrinsic-height="520"
-                          xo-intrinsic-width="700" />
-                        <div class="xo-image__overlay xo-lazyload-overlay">
-                          <div class="xo-image__loading">
-                            <div class="xo-loader-3"
-                              style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                              <div></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <h4 class="banner-v270__title-item">Jasmine</h4>
-                    </a>
-                  </xo-animate>
-                </xo-grid>
-              </div>
-            </xo-container>
-          </div>
-        </div>
-      </div>
-      <section class="shopify-section section" id="shopify-section-template--19284046119102__product-v1">
-        <div class="xo-section xo-section--template--19284046119102__product-v1 color-background-1" style="--margin: 0;--pt: 50;--pb: 50;
-z-index:98">
-          <xo-animate class="xo-section-bg" style="
-      
-      
-" xo-disabled="" xo-duration="1000">
-            <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
-              <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
-              {
-                '0%': { backgroundPositionY: '200px' },
-                '100%': { backgroundPositionY: '-200px' },
-              }
-            "></xo-parallax-scroll>
-            </xo-parallax>
-          </xo-animate>
-          <xo-container class="xo-container--wide">
-            <xo-animate class="product-v1__heading" xo-cascade="">
-              <h3 class="product-v1__subtitle"></h3>
-              <div class="product-v1__title-wrap">
-                <h2 class="product-v1__title">Featured Products</h2>
-              </div>
-            </xo-animate>
-            <xo-grid style="--xs:1;--sm:2;--xl:4">
 
-              {% for product in products %}
-              <xo-product xo-product-id="{{ product.id }}" xo-section-id="template--main-collection">
-                <xo-animate class="xo-product-card xo-product-card--style9 color-background-1" xo-cascade="">
-                  <div class="xo-product-card__header xo-product-card__header--style9">
-                    <a href="{{ product.get_absolute_url }}">
-                      <xo-product-media style="--xo-auto-play: 1500ms" xo-binding="img" xo-carousel-active-index="0"
-                        xo-carousel-autoplay="1500"
-                        xo-carousel-bullet-content="&lt;span class='xo-product-card__bullet'&gt;&lt;/span&gt;"
-                        xo-carousel-pagination-enabled="" xo-type="auto">
-                        <div class="xo-product-image">
-                          <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
-                            {% if product.images.all %}
-                            {% with first_image=product.images.first %}
-                            {% if first_image %}
-                            <img alt="{{ product.name }}" src="{{ first_image.image.url }}" width="1000" height="1000"
-                              loading="lazy" />
-                            {% endif %}
-                            {% endwith %}
-                            {% elif product.image %}
-                            <img alt="{{ product.name }}" src="{{ product.image.url }}" width="1000" height="1000"
-                              loading="lazy" />
-                            {% else %}
-                            <img alt="No Image" src="/static/img/no-image.jpg" width="1000" height="1000"
-                              loading="lazy" />
-                            {% endif %}
-                          </div>
-                        </div>
-                      </xo-product-media>
-                    </a>
-                    <div class="xo-product-card__badge">
-                      {% if product.stock == 0 or not product.available %}
-                      <div class="xo-badge-sold-out">
-                        <span class="xo-badge-sold-out__title" id="Badge-{{ product.id }}">Sold out</span>
-                      </div>
-                      {% else %}
-                      <div class="xo-badge-sale" id="Badge-{{ product.id }}">Sale
-                      </div>
-                      {% endif %}
-                    </div>
-                    <div class="xo-product-card__actions xo-product-card__actions--style9">
-                      <xo-tooltip class="xo-product-card__icon" xo-title="Add to Cart">
-                        <xo-cart-add>
-                          <button aria-labelledby="quick-add-{{ product.id }}-submit title-{{ product.id }}"
-                            class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
-                            id="quick-add-{{ product.id }}-submit" style="" type="submit">
-                            <span class="xo-btn__content">
-                              <span class="xo-btn__icon">
-                                <svg height="20" id="Layer_1" style="enable-background:new 0 0 24 24;" version="1.1"
-                                  viewbox="0 0 24 24" width="20" x="0px" xml:space="preserve"
-                                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
-                                  <path
-                                    d="M12,0C9.1,0,6.7,2.4,6.7,5.3v1h10.5v-1C17.2,2.4,14.9,0,12,0z M12,1.8c1.6,0,3,1.1,3.4,2.7H8.6C9,2.9,10.4,1.8,12,1.8"
-                                    fill="currentColor"></path>
-                                  <g>
-                                    <path
-                                      d="M17.6,6.2c0.9,0,1.6,0.7,1.6,1.6v12.9c0,0.9-0.7,1.6-1.6,1.6H6.4c-0.9,0-1.6-0.7-1.6-1.6V7.8c0-0.9,0.7-1.6,1.6-1.6H17.6 M17.6,4.5H6.4C4.5,4.5,3,6,3,7.8v12.9C3,22.5,4.5,24,6.4,24h11.3c1.8,0,3.3-1.5,3.3-3.3V7.8C21,6,19.5,4.5,17.6,4.5L17.6,4.5z"
-                                      fill="currentColor"></path>
-                                  </g>
-                                  <path
-                                    d="M14.8,8.8H9.2c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h5.7c0.4,0,0.7,0.3,0.7,0.7v0C15.5,8.5,15.2,8.8,14.8,8.8z"
-                                    fill="currentColor"></path>
-                                </svg>
-                              </span>
-                            </span>
-                            <span class="xo-btn__loading">
-                              <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </span>
-                          </button>
-                        </xo-cart-add>
-                      </xo-tooltip>
-                      <xo-tooltip class="xo-product-card__icon" xo-title="Quickview">
-                        <xo-product-quick-view-trigger xo-modal-name="quick-view"
-                          xo-product-url="{{ product.get_absolute_url }}">
-                          <button
-                            class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
-                            style="">
-                            <span class="xo-btn__content">
-                              <span class="xo-btn__icon">
-                                <svg id="svg2" version="1.1" viewbox="0 0 400 400" width="20" xml:space="preserve"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <g id="g10" transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-                                    <g id="g12" transform="scale(0.1)">
-                                      <path
-                                        d="m 1312.7,795.5 c -472.7,0 -857.204,384.3 -857.204,856.7 0,472.7 384.504,857.2 857.204,857.2 472.7,0 857.3,-384.5 857.3,-857.2 0,-472.4 -384.6,-856.7 -857.3,-856.7 z M 2783.9,352.699 2172.7,963.898 c 155.8,194.702 241.5,438.602 241.5,688.302 0,607.3 -494.1,1101.4 -1101.5,1101.4 -607.302,0 -1101.399,-494.1 -1101.399,-1101.4 0,-607.4 494.097,-1101.501 1101.399,-1101.501 249.8,0 493.5,85.5 687.7,241 L 2611.7,181 c 23,-23 53.6,-35.699 86.1,-35.699 32.4,0 63,12.699 86,35.699 23.1,22.801 35.8,53.301 35.8,85.898 0,32.602 -12.7,63 -35.7,85.801"
-                                        fill="currentColor" id="path14"
-                                        style="fill-opacity:1;fill-rule:nonzero;stroke:none">
-                                      </path>
-                                    </g>
-                                  </g>
-                                </svg>
-                              </span>
-                            </span>
-                            <span class="xo-btn__loading">
-                              <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </span>
-                          </button>
-                        </xo-product-quick-view-trigger>
-                      </xo-tooltip>
-                      <div>
-                        <xo-products-fetcher-add class="xo-product-card__wishlist" xo-type="wishlist">
-                          <xo-tooltip class="xo-product-card__icon xo-product-card__icon-wishlist" xo-added=""
-                            xo-title="Add to Wishlist">
-                            <button
-                              class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
-                              style="">
-                              <span class="xo-btn__content">
-                                <span class="xo-btn__icon">
-                                  <svg version="1.1" viewbox="0 0 400 400" width="20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g id="g10" transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-                                      <g id="g12" transform="scale(0.1)">
-                                        <path
-                                          d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6"
-                                          fill="currentColor" id="path14"
-                                          style="fill-opacity:1;fill-rule:nonzero;stroke:none">
-                                        </path>
-                                      </g>
-                                    </g>
-                                  </svg>
-                                </span>
-                              </span>
-                              <span class="xo-btn__loading">
-                                <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
+          <div class="shopify-section" id="shopify-section-template--19284046119102__banner-v9">
+            <div class="banner-v270" style="--bg_custom : #33543d; --height-bg : 50% ">
+              <div class="xo-section xo-section--template--19284046119102__banner-v9 color-background-1" style="--margin: 0;--pt: 100;--pb: 50;
+">
+                <xo-animate class="xo-section-bg" style="
+      
+      
+" xo-disabled="" xo-duration="1000">
+                  <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
+                    <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
+              {
+                '0%': { backgroundPositionY: '200px' },
+                '100%': { backgroundPositionY: '-200px' },
+              }
+            "></xo-parallax-scroll>
+                  </xo-parallax>
+                </xo-animate>
+                <xo-container class="xo-container--wide">
+                  <div class="banner-v270__heading">
+                    <xo-animate xo-duration="700" xo-order="1" xo-strength="3" xo-type="fade-up">
+                      <h2 class="banner-v270__title">Best Sellers</h2>
+                    </xo-animate>
+                    <xo-animate xo-duration="700" xo-order="3" xo-strength="3" xo-type="fade-up">
+                      <div class="banner-v270__description">Dive into the world of golf with exclusive events, community
+                        vibes, and beginner-friendly resources.</div>
+                    </xo-animate>
+                  </div>
+                  <div class="banner-v270__gallery">
+                    <xo-grid style="--xs: 1;--lg:3;gap:0">
+                      <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="rotate-left-up">
+                        <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
+                          <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
+                              alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy"
+                              sizes="100vw" src="{% static 'cdn/shop/files/b9-1.webp' %}"
+                              srcset="{% static 'cdn/shop/files/b9-1.webp' %} 100w" width="700"
+                              xo-intrinsic-height="520" xo-intrinsic-width="700" />
+                            <div class="xo-image__overlay xo-lazyload-overlay">
+                              <div class="xo-image__loading">
+                                <div class="xo-loader-3"
+                                  style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
                                   <div></div>
                                 </div>
-                              </span>
-                            </button>
-                          </xo-tooltip>
-                        </xo-products-fetcher-add>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="xo-product-card__information">
-                    <h2 class="xo-product-card__title" id="title-{{ product.id }}">
-                      <a aria-labelledby="CardLink-{{ product.id }}" href="{{ product.get_absolute_url }}"
-                        id="CardLink-{{ product.id }}">
-                        {{ product.name }}
-                      </a>
-                    </h2>
-                    <div class="xo-product-card__price">
-                      <div class="xo-product-card__price-inner" xo-binding="price">
-                        <div class="xo-price" role="status">
-                          <div class="xo-price__container">
-                            <div class="xo-price__sale xo-price__sale--column">
-                              <div class="xo-visually-hidden xo-visually-hidden--inline">
-                                Sale price</div>
-                              <span class="xo-price__item xo-price__item--accent">
-                                ₹{{ product.price }}</span>
-
+                              </div>
                             </div>
-                            <small class="xo-unit-price xo-unit-price--hidden">
-                              <span class="xo-visually-hidden">Unit
-                                price</span>
-                              <span>
-                                <span></span>
-                                <span aria-hidden="true">/</span>
-                                <div class="xo-visually-hidden xo-visually-hidden--inline">
-                                  per</div>
-                                <span></span>
-                              </span>
-                            </small>
+                          </div>
+                          <h4 class="banner-v270__title-item">Sandalwood</h4>
+                        </a>
+                      </xo-animate>
+                      <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="fade-up">
+                        <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
+                          <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
+                              alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy"
+                              sizes="100vw" src="{% static 'cdn/shop/files/b9-3.webp' %}"
+                              srcset="{% static 'cdn/shop/files/b9-3.webp' %} 100w" width="700"
+                              xo-intrinsic-height="520" xo-intrinsic-width="700" />
+                            <div class="xo-image__overlay xo-lazyload-overlay">
+                              <div class="xo-image__loading">
+                                <div class="xo-loader-3"
+                                  style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
+                                  <div></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <h4 class="banner-v270__title-item">Lavender</h4>
+                        </a>
+                      </xo-animate>
+                      <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="rotate-left-up">
+                        <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
+                          <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
+                              alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy"
+                              sizes="100vw" src="{% static 'cdn/shop/files/b9-2.webp' %}"
+                              srcset="{% static 'cdn/shop/files/b9-2.webp' %} 100w" width="700"
+                              xo-intrinsic-height="520" xo-intrinsic-width="700" />
+                            <div class="xo-image__overlay xo-lazyload-overlay">
+                              <div class="xo-image__loading">
+                                <div class="xo-loader-3"
+                                  style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
+                                  <div></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <h4 class="banner-v270__title-item">Jasmine</h4>
+                        </a>
+                      </xo-animate>
+                    </xo-grid>
+                  </div>
+                </xo-container>
+              </div>
+            </div>
+          </div>
+          <section class="shopify-section section" id="shopify-section-template--19284046119102__product-v1">
+            <div class="xo-section xo-section--template--19284046119102__product-v1 color-background-1" style="--margin: 0;--pt: 50;--pb: 50;
+z-index:98">
+              <xo-animate class="xo-section-bg" style="
+      
+      
+" xo-disabled="" xo-duration="1000">
+                <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
+                  <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
+              {
+                '0%': { backgroundPositionY: '200px' },
+                '100%': { backgroundPositionY: '-200px' },
+              }
+            "></xo-parallax-scroll>
+                </xo-parallax>
+              </xo-animate>
+              <xo-container class="xo-container--wide">
+                <xo-animate class="product-v1__heading" xo-cascade="">
+                  <h3 class="product-v1__subtitle"></h3>
+                  <div class="product-v1__title-wrap">
+                    <h2 class="product-v1__title">Featured Products</h2>
+                  </div>
+                </xo-animate>
+                <xo-grid style="--xs:1;--sm:2;--xl:4">
+
+                  {% for product in products %}
+                  <xo-product xo-product-id="{{ product.id }}" xo-section-id="template--main-collection">
+                    <xo-animate class="xo-product-card xo-product-card--style9 color-background-1" xo-cascade="">
+                      <div class="xo-product-card__header xo-product-card__header--style9">
+                        <a href="{{ product.get_absolute_url }}">
+                          <xo-product-media style="--xo-auto-play: 1500ms" xo-binding="img" xo-carousel-active-index="0"
+                            xo-carousel-autoplay="1500"
+                            xo-carousel-bullet-content="&lt;span class='xo-product-card__bullet'&gt;&lt;/span&gt;"
+                            xo-carousel-pagination-enabled="" xo-type="auto">
+                            <div class="xo-product-image">
+                              <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
+                                {% if product.images.all %}
+                                {% with first_image=product.images.first %}
+                                {% if first_image %}
+                                <img alt="{{ product.name }}" src="{{ first_image.image.url }}" width="1000"
+                                  height="1000" loading="lazy" />
+                                {% endif %}
+                                {% endwith %}
+                                {% elif product.image %}
+                                <img alt="{{ product.name }}" src="{{ product.image.url }}" width="1000" height="1000"
+                                  loading="lazy" />
+                                {% else %}
+                                <img alt="No Image" src="/static/img/no-image.jpg" width="1000" height="1000"
+                                  loading="lazy" />
+                                {% endif %}
+                              </div>
+                            </div>
+                          </xo-product-media>
+                        </a>
+                        <div class="xo-product-card__badge">
+                          {% if product.stock == 0 or not product.available %}
+                          <div class="xo-badge-sold-out">
+                            <span class="xo-badge-sold-out__title" id="Badge-{{ product.id }}">Sold out</span>
+                          </div>
+                          {% else %}
+                          <div class="xo-badge-sale" id="Badge-{{ product.id }}">Sale
+                          </div>
+                          {% endif %}
+                        </div>
+                        <div class="xo-product-card__actions xo-product-card__actions--style9">
+                          <xo-tooltip class="xo-product-card__icon" xo-title="Add to Cart">
+                            <xo-cart-add>
+                              <button aria-labelledby="quick-add-{{ product.id }}-submit title-{{ product.id }}"
+                                class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
+                                id="quick-add-{{ product.id }}-submit" style="" type="submit">
+                                <span class="xo-btn__content">
+                                  <span class="xo-btn__icon">
+                                    <svg height="20" id="Layer_1" style="enable-background:new 0 0 24 24;" version="1.1"
+                                      viewbox="0 0 24 24" width="20" x="0px" xml:space="preserve"
+                                      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      y="0px">
+                                      <path
+                                        d="M12,0C9.1,0,6.7,2.4,6.7,5.3v1h10.5v-1C17.2,2.4,14.9,0,12,0z M12,1.8c1.6,0,3,1.1,3.4,2.7H8.6C9,2.9,10.4,1.8,12,1.8"
+                                        fill="currentColor"></path>
+                                      <g>
+                                        <path
+                                          d="M17.6,6.2c0.9,0,1.6,0.7,1.6,1.6v12.9c0,0.9-0.7,1.6-1.6,1.6H6.4c-0.9,0-1.6-0.7-1.6-1.6V7.8c0-0.9,0.7-1.6,1.6-1.6H17.6 M17.6,4.5H6.4C4.5,4.5,3,6,3,7.8v12.9C3,22.5,4.5,24,6.4,24h11.3c1.8,0,3.3-1.5,3.3-3.3V7.8C21,6,19.5,4.5,17.6,4.5L17.6,4.5z"
+                                          fill="currentColor"></path>
+                                      </g>
+                                      <path
+                                        d="M14.8,8.8H9.2c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h5.7c0.4,0,0.7,0.3,0.7,0.7v0C15.5,8.5,15.2,8.8,14.8,8.8z"
+                                        fill="currentColor"></path>
+                                    </svg>
+                                  </span>
+                                </span>
+                                <span class="xo-btn__loading">
+                                  <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
+                                    <div></div>
+                                  </div>
+                                </span>
+                              </button>
+                            </xo-cart-add>
+                          </xo-tooltip>
+                          <xo-tooltip class="xo-product-card__icon" xo-title="Quickview">
+                            <xo-product-quick-view-trigger xo-modal-name="quick-view"
+                              xo-product-url="{{ product.get_absolute_url }}">
+                              <button
+                                class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
+                                style="">
+                                <span class="xo-btn__content">
+                                  <span class="xo-btn__icon">
+                                    <svg id="svg2" version="1.1" viewbox="0 0 400 400" width="20" xml:space="preserve"
+                                      xmlns="http://www.w3.org/2000/svg">
+                                      <g id="g10" transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                                        <g id="g12" transform="scale(0.1)">
+                                          <path
+                                            d="m 1312.7,795.5 c -472.7,0 -857.204,384.3 -857.204,856.7 0,472.7 384.504,857.2 857.204,857.2 472.7,0 857.3,-384.5 857.3,-857.2 0,-472.4 -384.6,-856.7 -857.3,-856.7 z M 2783.9,352.699 2172.7,963.898 c 155.8,194.702 241.5,438.602 241.5,688.302 0,607.3 -494.1,1101.4 -1101.5,1101.4 -607.302,0 -1101.399,-494.1 -1101.399,-1101.4 0,-607.4 494.097,-1101.501 1101.399,-1101.501 249.8,0 493.5,85.5 687.7,241 L 2611.7,181 c 23,-23 53.6,-35.699 86.1,-35.699 32.4,0 63,12.699 86,35.699 23.1,22.801 35.8,53.301 35.8,85.898 0,32.602 -12.7,63 -35.7,85.801"
+                                            fill="currentColor" id="path14"
+                                            style="fill-opacity:1;fill-rule:nonzero;stroke:none">
+                                          </path>
+                                        </g>
+                                      </g>
+                                    </svg>
+                                  </span>
+                                </span>
+                                <span class="xo-btn__loading">
+                                  <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
+                                    <div></div>
+                                  </div>
+                                </span>
+                              </button>
+                            </xo-product-quick-view-trigger>
+                          </xo-tooltip>
+                          <div>
+                            <xo-products-fetcher-add class="xo-product-card__wishlist" xo-type="wishlist">
+                              <xo-tooltip class="xo-product-card__icon xo-product-card__icon-wishlist" xo-added=""
+                                xo-title="Add to Wishlist">
+                                <button
+                                  class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
+                                  style="">
+                                  <span class="xo-btn__content">
+                                    <span class="xo-btn__icon">
+                                      <svg version="1.1" viewbox="0 0 400 400" width="20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="g10" transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                                          <g id="g12" transform="scale(0.1)">
+                                            <path
+                                              d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6"
+                                              fill="currentColor" id="path14"
+                                              style="fill-opacity:1;fill-rule:nonzero;stroke:none">
+                                            </path>
+                                          </g>
+                                        </g>
+                                      </svg>
+                                    </span>
+                                  </span>
+                                  <span class="xo-btn__loading">
+                                    <div class="xo-loader-3"
+                                      style="--size: 8; --color: currentColor; --duration: 1000;">
+                                      <div></div>
+                                    </div>
+                                  </span>
+                                </button>
+                              </xo-tooltip>
+                            </xo-products-fetcher-add>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <xo-product-data>
-                    <script type="application/json">
+                      <div class="xo-product-card__information">
+                        <h2 class="xo-product-card__title" id="title-{{ product.id }}">
+                          <a aria-labelledby="CardLink-{{ product.id }}" href="{{ product.get_absolute_url }}"
+                            id="CardLink-{{ product.id }}">
+                            {{ product.name }}
+                          </a>
+                        </h2>
+                        <div class="xo-product-card__price">
+                          <div class="xo-product-card__price-inner" xo-binding="price">
+                            <div class="xo-price" role="status">
+                              <div class="xo-price__container">
+                                <div class="xo-price__sale xo-price__sale--column">
+                                  <div class="xo-visually-hidden xo-visually-hidden--inline">
+                                    Sale price</div>
+                                  <span class="xo-price__item xo-price__item--accent">
+                                    ₹{{ product.price }}</span>
+
+                                </div>
+                                <small class="xo-unit-price xo-unit-price--hidden">
+                                  <span class="xo-visually-hidden">Unit
+                                    price</span>
+                                  <span>
+                                    <span></span>
+                                    <span aria-hidden="true">/</span>
+                                    <div class="xo-visually-hidden xo-visually-hidden--inline">
+                                      per</div>
+                                    <span></span>
+                                  </span>
+                                </small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <xo-product-data>
+                        <script type="application/json">
             {
                 "id": {{ product.id }},
                 "handle": "{{ product.slug }}",
@@ -2469,109 +2298,109 @@ z-index:98">
                 "available": {% if product.available and product.stock > 0 %}true{% else %}false{% endif %}
             }
             </script>
-                  </xo-product-data>
-                </xo-animate>
-              </xo-product>
-              {% endfor %}
+                      </xo-product-data>
+                    </xo-animate>
+                  </xo-product>
+                  {% endfor %}
 
-            </xo-grid>
-          </xo-container>
-        </div>
-      </section>
-      <section class="shopify-section section" id="shopify-section-template--19284046119102__banner-v3">
-        <div class="xo-section xo-section--template--19284046119102__banner-v3 color-background-1" style="--bg-color: #f3ede6;--margin: 0;--pt: 100;--pb: 100;
+                </xo-grid>
+              </xo-container>
+            </div>
+          </section>
+          <section class="shopify-section section" id="shopify-section-template--19284046119102__banner-v3">
+            <div class="xo-section xo-section--template--19284046119102__banner-v3 color-background-1" style="--bg-color: #f3ede6;--margin: 0;--pt: 100;--pb: 100;
 ">
-          <xo-animate class="xo-section-bg" style="
+              <xo-animate class="xo-section-bg" style="
       
       
 " xo-disabled="" xo-duration="1000">
-            <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
-              <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
+                <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
+                  <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
               {
                 '0%': { backgroundPositionY: '200px' },
                 '100%': { backgroundPositionY: '-200px' },
               }
             "></xo-parallax-scroll>
-            </xo-parallax>
-          </xo-animate>
-          <xo-container class="xo-container--fullwidth" style="--padding: 30">
-            <xo-grid class="banner-v124" style="--xs: 1; --md: 2; --xo-grid-col-gap: 30px; --xo-grid-row-gap: 30px">
-              <xo-animate class="banner-v124__item" xo-cascade="">
-                <a class="banner-v124__img hover-style--scale-up" href="collections/all.html">
-                  <div class="xo-image" style="--xo-ratio-percent: 1.0; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                      alt="image" fetchpriority="auto" height="1080" is="xo-lazyload" loading="lazy" sizes="100vw"
-                      src="{% static 'cdn/shop/files/b124-1.webp' %}"
-                      srcset="{% static 'cdn/shop/files/b124-1.webp' %} 100w" width="1080" xo-intrinsic-height="1080"
-                      xo-intrinsic-width="1080" />
-                    <div class="xo-image__overlay xo-lazyload-overlay">
-                      <div class="xo-image__loading">
-                        <div class="xo-loader-3"
-                          style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                          <div></div>
+                </xo-parallax>
+              </xo-animate>
+              <xo-container class="xo-container--fullwidth" style="--padding: 30">
+                <xo-grid class="banner-v124" style="--xs: 1; --md: 2; --xo-grid-col-gap: 30px; --xo-grid-row-gap: 30px">
+                  <xo-animate class="banner-v124__item" xo-cascade="">
+                    <a class="banner-v124__img hover-style--scale-up" href="collections/all.html">
+                      <div class="xo-image" style="--xo-ratio-percent: 1.0; --x-pos: 50.0%; --y-pos: 50.0%;"><img
+                          alt="image" fetchpriority="auto" height="1080" is="xo-lazyload" loading="lazy" sizes="100vw"
+                          src="{% static 'cdn/shop/files/b124-1.webp' %}"
+                          srcset="{% static 'cdn/shop/files/b124-1.webp' %} 100w" width="1080"
+                          xo-intrinsic-height="1080" xo-intrinsic-width="1080" />
+                        <div class="xo-image__overlay xo-lazyload-overlay">
+                          <div class="xo-image__loading">
+                            <div class="xo-loader-3"
+                              style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
+                              <div></div>
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    </a>
+                    <div class="banner-v124__content">
+                      <h3 class="banner-v124__title">Start your journey</h3>
+                      <div class="banner-v124__subtitle">As the seasons start to shift, add something richer to your
+                        fragrance wardrobe with warming notes of amber and spice.</div>
+                      <a class="xo-btn xo-btn--dark xo-btn--link xo-btn--sm xo-btn--slide-up"
+                        href="collections/all.html" style="border-radius: 0.8rem;">
+                        <span class="xo-btn__content">
+                          <span class="xo-btn__text" data-text="SHOP NOW">
+                            SHOP NOW
+                          </span>
+                        </span>
+                        <span class="xo-btn__loading">
+                          <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
+                            <div></div>
+                          </div>
+                        </span>
+                      </a>
                     </div>
-                  </div>
-                </a>
-                <div class="banner-v124__content">
-                  <h3 class="banner-v124__title">Start your journey</h3>
-                  <div class="banner-v124__subtitle">As the seasons start to shift, add something richer to your
-                    fragrance wardrobe with warming notes of amber and spice.</div>
-                  <a class="xo-btn xo-btn--dark xo-btn--link xo-btn--sm xo-btn--slide-up" href="collections/all.html"
-                    style="border-radius: 0.8rem;">
-                    <span class="xo-btn__content">
-                      <span class="xo-btn__text" data-text="SHOP NOW">
-                        SHOP NOW
-                      </span>
-                    </span>
-                    <span class="xo-btn__loading">
-                      <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-                        <div></div>
-                      </div>
-                    </span>
-                  </a>
-                </div>
-              </xo-animate>
-              <xo-animate class="banner-v124__item" xo-cascade="">
-                <a class="banner-v124__img hover-style--scale-up" href="collections/all.html">
-                  <div class="xo-image" style="--xo-ratio-percent: 1.0; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                      alt="image" fetchpriority="auto" height="1080" is="xo-lazyload" loading="lazy" sizes="100vw"
-                      src="{% static 'cdn/shop/files/b124-2.jpg' %}"
-                      srcset="{% static 'cdn/shop/files/b124-2.jpg' %} 100w" width="1080" xo-intrinsic-height="1080"
-                      xo-intrinsic-width="1080" />
-                    <div class="xo-image__overlay xo-lazyload-overlay">
-                      <div class="xo-image__loading">
-                        <div class="xo-loader-3"
-                          style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                          <div></div>
+                  </xo-animate>
+                  <xo-animate class="banner-v124__item" xo-cascade="">
+                    <a class="banner-v124__img hover-style--scale-up" href="collections/all.html">
+                      <div class="xo-image" style="--xo-ratio-percent: 1.0; --x-pos: 50.0%; --y-pos: 50.0%;"><img
+                          alt="image" fetchpriority="auto" height="1080" is="xo-lazyload" loading="lazy" sizes="100vw"
+                          src="{% static 'cdn/shop/files/b124-2.jpg' %}"
+                          srcset="{% static 'cdn/shop/files/b124-2.jpg' %} 100w" width="1080" xo-intrinsic-height="1080"
+                          xo-intrinsic-width="1080" />
+                        <div class="xo-image__overlay xo-lazyload-overlay">
+                          <div class="xo-image__loading">
+                            <div class="xo-loader-3"
+                              style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
+                              <div></div>
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    </a>
+                    <div class="banner-v124__content">
+                      <h3 class="banner-v124__title">Autumn Scents</h3>
+                      <div class="banner-v124__subtitle">As the seasons start to shift, add something richer to your
+                        fragrance wardrobe with warming notes of amber and spice.</div>
+                      <a class="xo-btn xo-btn--dark xo-btn--link xo-btn--sm xo-btn--slide-up"
+                        href="collections/all.html" style="border-radius: 0.8rem;">
+                        <span class="xo-btn__content">
+                          <span class="xo-btn__text" data-text="SHOP NOW">
+                            SHOP NOW
+                          </span>
+                        </span>
+                        <span class="xo-btn__loading">
+                          <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
+                            <div></div>
+                          </div>
+                        </span>
+                      </a>
                     </div>
-                  </div>
-                </a>
-                <div class="banner-v124__content">
-                  <h3 class="banner-v124__title">Autumn Scents</h3>
-                  <div class="banner-v124__subtitle">As the seasons start to shift, add something richer to your
-                    fragrance wardrobe with warming notes of amber and spice.</div>
-                  <a class="xo-btn xo-btn--dark xo-btn--link xo-btn--sm xo-btn--slide-up" href="collections/all.html"
-                    style="border-radius: 0.8rem;">
-                    <span class="xo-btn__content">
-                      <span class="xo-btn__text" data-text="SHOP NOW">
-                        SHOP NOW
-                      </span>
-                    </span>
-                    <span class="xo-btn__loading">
-                      <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-                        <div></div>
-                      </div>
-                    </span>
-                  </a>
-                </div>
-              </xo-animate>
-            </xo-grid>
-          </xo-container>
-        </div>
-      </section>
+                  </xo-animate>
+                </xo-grid>
+              </xo-container>
+            </div>
+          </section>
     </main>
 
 
