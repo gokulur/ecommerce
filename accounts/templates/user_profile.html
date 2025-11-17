@@ -480,7 +480,7 @@
                                         </div>
                                         <div class="accsettings-form-group">
                                             <label class="accsettings-label">Phone Number</label>
-                                            <input type="text" name="phone_number" class="accsettings-input" value="{{ user.profile.phone_number }}" placeholder="Enter your phone number">
+                                            <input type="text" name="phone_number" class="accsettings-input" value="{{ user.profile.phone|default:'' }}" placeholder="Enter your phone number">
                                         </div>
                                         <button type="submit" class="accsettings-btn accsettings-btn-primary">Save Changes</button>
                                     </div>
