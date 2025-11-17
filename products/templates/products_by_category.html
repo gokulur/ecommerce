@@ -40,7 +40,8 @@
                             <li class="breadcrumb__item breadcrumb__item--current" style="--display:block">
                                 {% if products %}
                                 <a aria-current="page" class="breadcrumb__link breadcrumb--current breadcrumb--"
-                                    href="left-sidebar.html" style="--display:block">{{ products.first.category.name}}</a>
+                                    href="left-sidebar.html" style="--display:block">
+                                    {{products.first.category.name}}</a>
                                 {% endif %}
                             </li>
                         </ol>
@@ -66,25 +67,28 @@
       " xo-loop="" xo-per-view="6">
                             <xo-carousel-inner>
                                 <xo-carousel-list aria-label="Slider" role="list">
+                                    {% for product in products %}
                                     <xo-carousel-slide aria-label="1 of 10" aria-roledescription="Slide"
                                         class="collection-title-style2__nav">
                                         <div class="collection-title-style2__nav-img">
                                             <a href="left-sidebar.html">
-                                                <div class="xo-image"
-                                                    style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
-                                                        alt="image" fetchpriority="high" height="1000" is="xo-lazyload"
-                                                        loading="lazy" sizes="100vw"
-                                                        src="{% static 'cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg' %}"
-                                                        srcset="{% static 'cdn/shop/files/2_9036b71c-b87d-4364-970b-9fa7873e544f.jpg' %} 100w"
-                                                        width="1000" xo-intrinsic-height="1000"
-                                                        xo-intrinsic-width="1000" />
-                                                    <div class="xo-image__overlay xo-lazyload-overlay">
-                                                        <div class="xo-image__loading">
-                                                            <div class="xo-loader-3"
-                                                                style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                                                <div></div>
-                                                            </div>
-                                                        </div>
+                                                <div class="xo-product-image">
+                                                    <div class="xo-image"
+                                                        style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
+                                                        {% if product.images.all %}
+                                                        {% with first_image=product.images.first %}
+                                                        {% if first_image %}
+                                                        <img alt="{{ product.name }}" src="{{ first_image.image.url }}"
+                                                            width="1000" height="1000" loading="lazy" />
+                                                        {% endif %}
+                                                        {% endwith %}
+                                                        {% elif product.image %}
+                                                        <img alt="{{ product.name }}" src="{{ product.image.url }}"
+                                                            width="1000" height="1000" loading="lazy" />
+                                                        {% else %}
+                                                        <img alt="No Image" src="/static/img/no-image.jpg" width="1000"
+                                                            height="1000" loading="lazy" />
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </a>
@@ -93,10 +97,11 @@
 
                                             <a href="left-sidebar.html">
 
-                                                Midnight Glow
+                                                {{ product.name }}
                                             </a>
                                         </div>
                                     </xo-carousel-slide>
+                                    {% endfor %}
                                 </xo-carousel-list>
                             </xo-carousel-inner>
                             <xo-carousel-prev class="collection-title-style2__arrow-left"><button>

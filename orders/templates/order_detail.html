@@ -1,15 +1,9 @@
 {% extends "base.html" %}
-{% load static %}
 
-{% block base_css %}
-    <!-- Empty block so NO CSS loads -->
-{% endblock %}
-
-{% block content %}
 
 <!-- BOOTSTRAP 4.5.2 CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+{% block content %}
 <style>
     /* Wrapper to isolate all styles */
     .orderdetail-wrapper {
@@ -282,8 +276,15 @@
     }
 
     @keyframes orderdetail-pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.08); }
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.08);
+        }
     }
 
     .orderdetail-stage-name {
@@ -499,10 +500,12 @@
         .orderdetail-meta-item {
             text-align: left;
         }
+        
     }
 </style>
 
 <div class="orderdetail-wrapper">
+
     <div class="orderdetail-container">
         <div class="orderdetail-page-title">
             <h1>Order Details</h1>
@@ -529,9 +532,8 @@
                 <div class="orderdetail-product-section">
                     {% for item in items %}
                     <div class="orderdetail-product-card">
-                        <img src="{% if item.product.images.first %}{{ item.product.images.first.image.url }}{% else %}/static/no-image.png{% endif %}" 
-                             alt="{{ item.product.name }}" 
-                             class="orderdetail-product-image">
+                        <img src="{% if item.product.images.first %}{{ item.product.images.first.image.url }}{% else %}/static/no-image.png{% endif %}"
+                            alt="{{ item.product.name }}" class="orderdetail-product-image">
                         <div class="orderdetail-product-info">
                             <div>
                                 <div class="orderdetail-product-name">{{ item.product.name }}</div>
@@ -548,7 +550,7 @@
                             </div>
                             <div class="orderdetail-product-footer">
                                 <div></div>
-                                <div class="orderdetail-product-price">₹{{ item.total_price }}</div>
+                                <div class="orderdetail-product-price">₹{{ item.get_total }}</div>
                             </div>
                         </div>
                     </div>
@@ -610,7 +612,8 @@
                             </div>
                             <div class="orderdetail-shipping-item">
                                 <div class="orderdetail-shipping-label">City & Postal Code</div>
-                                <div class="orderdetail-shipping-value">{{ shipping.city }} - {{ shipping.postal_code }}</div>
+                                <div class="orderdetail-shipping-value">{{ shipping.city }} - {{ shipping.postal_code }}
+                                </div>
                             </div>
                             <div class="orderdetail-shipping-item">
                                 <div class="orderdetail-shipping-label">Country</div>
@@ -641,7 +644,8 @@
 
                     <!-- Action Buttons -->
                     <div class="orderdetail-actions">
-                        <a href="{% url 'track_order_page' order.id %}" class="orderdetail-btn orderdetail-btn-primary">Track Order</a>
+                        <a href="{% url 'track_order_page' order.id %}"
+                            class="orderdetail-btn orderdetail-btn-primary">Track Order</a>
                         <a href="#" class="orderdetail-btn orderdetail-btn-secondary">Update Order</a>
                         <a href="#" class="orderdetail-btn orderdetail-btn-danger">Cancel Order</a>
                     </div>
@@ -650,5 +654,6 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
+
+

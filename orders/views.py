@@ -21,7 +21,7 @@ def checkout_page(request):
 
     total = sum(i.total_price for i in items)
 
-    # ✅ Pre-fill user data if available
+   
     profile = getattr(request.user, "profile", None)
 
     return render(request, "checkout.html", {
@@ -75,7 +75,7 @@ def checkout_action(request):
 
     # clear cart
     cart.items.all().delete()
-
+    messages.success(request, "🎉 Order placed successfully!")
     return redirect("order_detail_page", order_id=order.id)
 
 
