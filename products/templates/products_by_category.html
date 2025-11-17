@@ -189,6 +189,7 @@ z-index:99">
                                 </h2>
                             </div>
                             <div class="fieldset-block__content fieldset-block__content--column">
+                                {% for category in categories %}
                                 <xo-filters-field>
                                     <label class="field-checkbox-text">
                                         <input class="field-checkbox-text__input" name="filter.p.vendor" type="checkbox"
@@ -202,10 +203,11 @@ z-index:99">
                                                         fill="rgba(var(--color-foreground))"></path>
                                                 </svg>
                                             </span>
-                                            <span class="field-checkbox-text__content">EcoSphere</span>
+                                            <span class="field-checkbox-text__content">{{ category.name }}</span>
                                         </div>
                                     </label>
                                 </xo-filters-field>
+                                {% endfor %}
                             </div>
 
                         </div>

@@ -26,10 +26,12 @@ def products_by_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     collections = Collection.objects.filter(category=category)
     products = Product.objects.filter(category=category, available=True).order_by('-created_at')
+    cat=Category.objects.all()
     return render(request, 'products_by_category.html', {
         'products': products, 
         'category': category,
-        'collections': collections
+        'collections': collections,
+        'categories': cat
     })
 
 
