@@ -11,8 +11,6 @@ def all_collections(request):
     return render(request, 'all_collections.html', {'categories': categories})
 
 
-
-
 def product_list(request):
     products = Product.objects.all()
     paginator = Paginator(products, 12)   
@@ -32,4 +30,11 @@ def products_by_category(request, slug):
         'products': products, 
         'category': category,
         'collections': collections
+    })
+
+
+def products_by_collection(request, slug):
+    collection = get_object_or_404(Collection, slug=slug)
+    return render(request, 'products_by_collection.html', {
+        'collection': collection
     })
