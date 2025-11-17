@@ -639,13 +639,7 @@ Scheme 2: Scheme 4`,
                           <span class="xo-menu-horizontal__label">Shops</span>
                         </a>
                       </li>
-                      <li class="xo-menu-horizontal__item xo-menu-horizontal__item--hover" style="--padding:3rem">
-                        <xo-mega-menu class="xo-menu-horizontal__mega-menu" xo-index="2"
-                          xo-name="header-mega-menu"></xo-mega-menu>
-                        <a class="xo-menu-horizontal__link" href=" " title="Products">
-                          <span class="xo-menu-horizontal__label">Products</span>
-                        </a>
-                      </li>
+                   
 
                     </ul>
                   </div>
@@ -909,6 +903,9 @@ Scheme 2: Scheme 4`,
                       <a href="{% url 'login_page' %}">Login</a>
                     </xo-tooltip>
                     {% else %}
+                    <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="My Account">
+                      <a href="{% url 'order_list_page' %}">Order</a>
+                    </xo-tooltip>
                     <xo-tooltip class="header-v24__account-text" xo-placement="bottom-center" xo-title="My Account">
                       <a href="{% url 'user_profile' %}">My Account</a>
                     </xo-tooltip>

@@ -123,3 +123,22 @@ def track_order_page(request, order_id):
 def order_list_page(request):
     orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, "order_list.html", {"orders": orders})
+
+@login_required
+def buy_now(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart = get_cart(request)
+
+    # check if item already exists
+    item, created = CartItem.objects.get_or_create(
+        cart=cart,
+        product=product,
+        defaults={"quantity": 1}
+    )
+
+    # if already in cart, set quantity = 1 (not increase)
+    if not created:
+        item.quantity = 1
+        item.save()
+
+    return redirect("checkout_page")

@@ -427,7 +427,7 @@
                                     <span class="orderlist-quantity">{{ item.quantity }}</span>
                                 </td>
                                 <td data-label="Total">
-                                    <span class="orderlist-total">₹{{ item.total_price }}</span>
+                                    <span class="orderlist-total">₹{{ item.get_total }}</span>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -437,7 +437,7 @@
 
                 <div class="orderlist-footer">
                     <div class="orderlist-grand-total">
-                        Total Amount: <span>₹{{ order.total_amount }}</span>
+                        Total Amount: <span>₹{{ order.get_total }}</span>
                     </div>
                     <a href="{% url 'order_detail_page' order.id %}" class="orderlist-btn">
                         View Order Details

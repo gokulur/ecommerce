@@ -10,6 +10,10 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order #{self.id}"
+    
+    def get_total(self):
+        # Prefer calculated amount from OrderItem
+        return sum(item.get_total() for item in self.items.all())
 
 
 class OrderItem(models.Model):

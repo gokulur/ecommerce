@@ -648,18 +648,18 @@ z-index:99; position: relative">
 
                                             <div class="xo-space xo-space--vertical" style="--space: 2.5rem"></div>
 
-                                            {% if product.stock > 0 and product.available %}
-                                            <!-- Buy it Now Button (Only show when in stock) -->
-                                            <div class="terms-binding">
-                                                <xo-product-will-change class="buy-button__now"
-                                                    xo-unique-id="product-buy-now-button-{{ product.id }}">
-                                                    <button type="submit" name="buy_now" value="1"
-                                                        class="shopify-payment-button__button shopify-payment-button__button--unbranded">
-                                                        Buy it now
-                                                    </button>
-                                                </xo-product-will-change>
-                                            </div>
-                                            {% endif %}
+                                        {% if product.stock > 0 and product.available %}
+                                        <div class="terms-binding">
+                                            <xo-product-will-change class="buy-button__now" xo-unique-id="product-buy-now-button-{{ product.id }}">
+                                                <a href="{% url 'buy_now' product.id %}"
+                                                class="shopify-payment-button__button shopify-payment-button__button--unbranded"
+                                                style="display:block; text-align:center;">
+                                                    Buy it now
+                                                </a>
+                                            </xo-product-will-change>
+                                        </div>
+                                        {% endif %}
+
                                         </form>
 
                                     </xo-animate>
