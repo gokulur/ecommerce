@@ -111,30 +111,30 @@ def increase_qty(request, item_id):
 def decrease_qty(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
     cart = item.cart
-    product = item.product
-
-    if item.quantity > 1:
-        item.quantity -= 1
-        item.save()
-        deleted = False
-    else:
-        item.delete()
-        deleted = True
-    
-    items = cart.items.all()
-    total = sum(i.total_price for i in items)
-
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+ 
+    if item.quantity == 1:
         return JsonResponse({
-            "success": True,
-            "deleted": deleted,
-            "quantity": item.quantity if not deleted else 0,
-            "stock": product.stock,
-            "item_total": float(item.total_price) if not deleted else 0,
-            "cart_total": float(total)
+            "success": False,
+            "block": True,
+            "quantity": item.quantity,
+            "item_total": float(item.total_price),
+            "cart_total": float(sum(i.total_price for i in cart.items.all()))
         })
 
-    return redirect("cart_page")
+    # Normal decrease
+    item.quantity -= 1
+    item.save()
+
+    total = sum(i.total_price for i in cart.items.all())
+
+    return JsonResponse({
+        "success": True,
+        "block": False,
+        "quantity": item.quantity,
+        "item_total": float(item.total_price),
+        "cart_total": float(total)
+    })
+
 
 
 
