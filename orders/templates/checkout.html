@@ -534,9 +534,9 @@
                     </div>
                     
                     <div class="checkout-qty-controls">
-                        <a href="{% url 'decrease_qty' item.id %}" class="checkout-qty-btn">−</a>
+                        <a href="{% url 'decrease_qty' item.id %}?checkout=1" class="checkout-qty-btn">−</a>
                         <span class="checkout-qty-number">{{ item.quantity }}</span>
-                        <a href="{% url 'increase_qty' item.id %}" class="checkout-qty-btn">+</a>
+                        <a href="{% url 'increase_qty' item.id %}?checkout=1" class="checkout-qty-btn">+</a>
                     </div>
                 </div>
             </div>
@@ -565,5 +565,49 @@
 
     </div>
 </div>
+         <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Increase quantity
+    document.querySelectorAll(".increase-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            let id = this.dataset.id;
+
+            fetch(`/increase-qty/${id}/`, {
+                headers: { "X-Requested-With": "XMLHttpRequest" }
+            })
+            .then(res => res.json())
+            .then(data => updateCheckout(id, data));
+        });
+    });
+
+    // Decrease quantity
+    document.querySelectorAll(".decrease-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            let id = this.dataset.id;
+
+            fetch(`/decrease-qty/${id}/`, {
+                headers: { "X-Requested-With": "XMLHttpRequest" }
+            })
+            .then(res => res.json())
+            .then(data => updateCheckout(id, data));
+        });
+    });
+
+    function updateCheckout(id, data) {
+        if (!data.success) return;
+
+        // Update quantity number
+        document.getElementById(`qty-${id}`).innerText = data.quantity;
+
+        // Update totals
+        document.getElementById("subtotal_value").innerText = "₹" + data.subtotal;
+        document.getElementById("shipping_value").innerText = "₹" + data.shipping;
+        document.getElementById("tax_value").innerText = "₹" + data.tax;
+        document.getElementById("total_value").innerText = "₹" + data.total;
+    }
+
+});
+</script>
 
 {% endblock %}

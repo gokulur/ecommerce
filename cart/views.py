@@ -96,6 +96,9 @@ def increase_qty(request, item_id):
     items = cart.items.all()
     total = sum(i.total_price for i in items)
 
+    if "checkout" in request.GET:
+        return redirect("checkout_page")
+
     return JsonResponse({
         'success': True,
         'quantity': item.quantity,
@@ -126,6 +129,9 @@ def decrease_qty(request, item_id):
     item.save()
 
     total = sum(i.total_price for i in cart.items.all())
+
+    if "checkout" in request.GET:
+        return redirect("checkout_page")
 
     return JsonResponse({
         "success": True,
