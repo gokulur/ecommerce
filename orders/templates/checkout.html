@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block base_css %}
-    <!-- Empty block so NO CSS loads -->
+<!-- Empty block so NO CSS loads -->
 {% endblock %}
 
 {% block content %}
@@ -391,6 +391,7 @@
     }
 
     @media (max-width: 576px) {
+
         .checkout-form-section,
         .checkout-summary-section {
             padding: 20px;
@@ -418,7 +419,7 @@
 
 <div class="checkout-wrapper">
     <div class="checkout-container-custom" style="max-width: 1200px; margin: 0 auto;">
-        
+
         <!-- Page Title -->
         <div class="checkout-page-title" style="grid-column: 1 / -1;">
             <h1>Secure Checkout</h1>
@@ -454,56 +455,49 @@
                 <div class="checkout-row">
                     <div class="checkout-form-group">
                         <label class="checkout-label">Full Name</label>
-                        <input class="checkout-input" type="text" name="name" 
-                               value="{{ user.first_name }} {{ user.last_name }}" 
-                               placeholder="John Doe" required>
+                        <input class="checkout-input" type="text" name="name"
+                            value="{{ user.first_name }} {{ user.last_name }}" placeholder="John Doe" required>
                     </div>
 
                     <div class="checkout-form-group">
                         <label class="checkout-label">Phone Number</label>
-                        <input class="checkout-input" type="tel" name="phone" 
-                               value="{{ profile.phone|default:'' }}" 
-                               placeholder="+91 98765 43210" required>
+                        <input class="checkout-input" type="tel" name="phone" value="{{ profile.phone|default:'' }}"
+                            placeholder="+91 98765 43210" required>
                     </div>
                 </div>
 
                 <div class="checkout-form-group">
                     <label class="checkout-label">Email Address</label>
-                    <input class="checkout-input" type="email" name="email" 
-                           value="{{ user.email }}" 
-                           placeholder="john@example.com" required>
+                    <input class="checkout-input" type="email" name="email" value="{{ user.email }}"
+                        placeholder="john@example.com" required>
                 </div>
 
                 <div class="checkout-divider"></div>
 
                 <div class="checkout-form-group">
                     <label class="checkout-label">Street Address</label>
-                    <input class="checkout-input" type="text" name="address_line" 
-                           value="{{ profile.address|default:'' }}" 
-                           placeholder="123 Main Street, Apartment 4B" required>
+                    <input class="checkout-input" type="text" name="address_line"
+                        value="{{ profile.address|default:'' }}" placeholder="123 Main Street, Apartment 4B" required>
                 </div>
 
                 <div class="checkout-row">
                     <div class="checkout-form-group">
                         <label class="checkout-label">City</label>
-                        <input class="checkout-input" type="text" name="city" 
-                               value="{{ profile.city|default:'' }}" 
-                               placeholder="Kochi" required>
+                        <input class="checkout-input" type="text" name="city" value="{{ profile.city|default:'' }}"
+                            placeholder="Kochi" required>
                     </div>
 
                     <div class="checkout-form-group">
                         <label class="checkout-label">Postal Code</label>
-                        <input class="checkout-input" type="text" name="postal_code" 
-                               value="{{ profile.postal|default:'' }}" 
-                               placeholder="682001" required>
+                        <input class="checkout-input" type="text" name="postal_code"
+                            value="{{ profile.postal|default:'' }}" placeholder="682001" required>
                     </div>
                 </div>
 
                 <div class="checkout-form-group">
                     <label class="checkout-label">Country</label>
-                    <input class="checkout-input" type="text" name="country" 
-                           value="{{ profile.country|default:'' }}" 
-                           placeholder="India" required>
+                    <input class="checkout-input" type="text" name="country" value="{{ profile.country|default:'' }}"
+                        placeholder="India" required>
                 </div>
 
                 <button type="submit" class="checkout-submit-btn">
@@ -523,16 +517,15 @@
 
             {% for item in items %}
             <div class="checkout-order-item">
-                <img src="{{ item.product.images.first.image.url }}" 
-                     alt="{{ item.product.name }}" 
-                     class="checkout-item-image">
-                
+                <img src="{{ item.product.images.first.image.url }}" alt="{{ item.product.name }}"
+                    class="checkout-item-image">
+
                 <div class="checkout-item-details">
                     <div>
                         <div class="checkout-item-name">{{ item.product.name }}</div>
                         <div class="checkout-item-price">₹{{ item.product.price }} each</div>
                     </div>
-                    
+
                     <div class="checkout-qty-controls">
                         <a href="{% url 'decrease_qty' item.id %}?checkout=1" class="checkout-qty-btn">−</a>
                         <span class="checkout-qty-number">{{ item.quantity }}</span>
@@ -565,49 +558,145 @@
 
     </div>
 </div>
-         <script>
-document.addEventListener("DOMContentLoaded", function () {
+ <!-- <script>
+document.addEventListener("click", function(e) {
+    let btn = e.target.closest(".checkout-qty-btn");
+    if (!btn) return;
 
-    // Increase quantity
-    document.querySelectorAll(".increase-btn").forEach(btn => {
-        btn.addEventListener("click", function () {
-            let id = this.dataset.id;
+    e.preventDefault();
 
-            fetch(`/increase-qty/${id}/`, {
-                headers: { "X-Requested-With": "XMLHttpRequest" }
-            })
-            .then(res => res.json())
-            .then(data => updateCheckout(id, data));
-        });
-    });
+    let row = btn.closest(".checkout-order-item");
+    let qtySpan = row.querySelector(".checkout-qty-number");
+    let price = parseFloat(row.querySelector(".checkout-item-price").innerText.replace("₹", "").replace(" each", ""));
 
-    // Decrease quantity
-    document.querySelectorAll(".decrease-btn").forEach(btn => {
-        btn.addEventListener("click", function () {
-            let id = this.dataset.id;
-
-            fetch(`/decrease-qty/${id}/`, {
-                headers: { "X-Requested-With": "XMLHttpRequest" }
-            })
-            .then(res => res.json())
-            .then(data => updateCheckout(id, data));
-        });
-    });
-
-    function updateCheckout(id, data) {
-        if (!data.success) return;
-
-        // Update quantity number
-        document.getElementById(`qty-${id}`).innerText = data.quantity;
-
-        // Update totals
-        document.getElementById("subtotal_value").innerText = "₹" + data.subtotal;
-        document.getElementById("shipping_value").innerText = "₹" + data.shipping;
-        document.getElementById("tax_value").innerText = "₹" + data.tax;
-        document.getElementById("total_value").innerText = "₹" + data.total;
+    // 1️⃣ Update quantity immediately (Optimistic UI)
+    let currentQty = parseInt(qtySpan.innerText);
+    if (btn.innerText === "+") {
+        currentQty += 1;
+    } else if (btn.innerText === "−") {
+        currentQty = Math.max(1, currentQty - 1); // prevent going below 1
     }
+    qtySpan.innerText = currentQty;
 
+    // 2️⃣ Update subtotal and total immediately
+    let subtotal = 0;
+    document.querySelectorAll(".checkout-order-item").forEach(item => {
+        let q = parseInt(item.querySelector(".checkout-qty-number").innerText);
+        let p = parseFloat(item.querySelector(".checkout-item-price").innerText.replace("₹", "").replace(" each", ""));
+        subtotal += q * p;
+    });
+
+    // Read shipping and tax from DOM
+    let shipping = parseFloat(document.querySelectorAll(".checkout-summary-row span:last-child")[1].innerText.replace("₹", "")) || 0;
+    let tax = parseFloat(document.querySelectorAll(".checkout-summary-row span:last-child")[2].innerText.replace("₹", "")) || 0;
+
+    // Update DOM
+    document.querySelectorAll(".checkout-summary-row span:last-child")[0].innerText = "₹" + subtotal.toFixed(2);
+    document.querySelector(".checkout-summary-total span:last-child").innerText = "₹" + (subtotal + shipping + tax).toFixed(2);
+
+    // 3️⃣ Send request to server to sync quantity in DB (optional)
+    let url = btn.getAttribute("href");
+    if (!url) return;
+
+    fetch(url, {
+        method: "GET",
+        headers: {"X-Requested-With": "XMLHttpRequest"},
+        credentials: "same-origin"
+    })
+    .then(res => res.json())
+    .then(data => {
+        // Sync quantity from server (e.g., if limit reached)
+        if (data.quantity !== undefined) {
+            qtySpan.innerText = data.quantity;
+
+            // Recalculate totals again if server changed quantity
+            let subtotal2 = 0;
+            document.querySelectorAll(".checkout-order-item").forEach(item => {
+                let q = parseInt(item.querySelector(".checkout-qty-number").innerText);
+                let p = parseFloat(item.querySelector(".checkout-item-price").innerText.replace("₹", "").replace(" each", ""));
+                subtotal2 += q * p;
+            });
+            document.querySelectorAll(".checkout-summary-row span:last-child")[0].innerText = "₹" + subtotal2.toFixed(2);
+            document.querySelector(".checkout-summary-total span:last-child").innerText = "₹" + (subtotal2 + shipping + tax).toFixed(2);
+        }
+
+        // Remove item if deleted
+        if (data.deleted) {
+            row.remove();
+        }
+    })
+    .catch(err => console.log("Checkout JS Error:", err));
+});
+</script> -->
+<script>
+document.addEventListener("click", function(e) {
+    let btn = e.target.closest(".checkout-qty-btn");
+    if (!btn) return;
+
+    e.preventDefault();
+
+    let row = btn.closest(".checkout-order-item");
+    let qtySpan = row.querySelector(".checkout-qty-number");
+    let price = parseFloat(row.querySelector(".checkout-item-price").innerText.replace("₹", "").replace(" each", ""));
+
+    // 1️⃣ Update quantity immediately (Optimistic UI)
+    let currentQty = parseInt(qtySpan.innerText);
+    if (btn.innerText === "+") {
+        currentQty += 1;
+    } else if (btn.innerText === "−") {
+        currentQty = Math.max(1, currentQty - 1); // prevent going below 1
+    }
+    qtySpan.innerText = currentQty;
+
+    // 2️⃣ Recalculate GRAND TOTAL only
+    let total = 0;
+    document.querySelectorAll(".checkout-order-item").forEach(item => {
+        let q = parseInt(item.querySelector(".checkout-qty-number").innerText);
+        let p = parseFloat(item.querySelector(".checkout-item-price").innerText.replace("₹", "").replace(" each", ""));
+        total += q * p;
+    });
+
+    // Read shipping and tax from DOM
+    let shipping = parseFloat(document.querySelectorAll(".checkout-summary-row span:last-child")[1].innerText.replace("₹", "")) || 0;
+    let tax = parseFloat(document.querySelectorAll(".checkout-summary-row span:last-child")[2].innerText.replace("₹", "")) || 0;
+
+    document.querySelector(".checkout-summary-total span:last-child").innerText = "₹" + (total + shipping + tax).toFixed(2);
+
+    // 3️⃣ Send request to server to sync quantity in DB
+    let url = btn.getAttribute("href");
+    if (!url) return;
+
+    fetch(url, {
+        method: "GET",
+        headers: {"X-Requested-With": "XMLHttpRequest"},
+        credentials: "same-origin"
+    })
+    .then(res => res.json())
+    .then(data => {
+        // Sync quantity from server (e.g., if stock limit reached)
+        if (data.quantity !== undefined) {
+            qtySpan.innerText = data.quantity;
+
+            // Recalculate GRAND TOTAL again if server changed quantity
+            let total2 = 0;
+            document.querySelectorAll(".checkout-order-item").forEach(item => {
+                let q = parseInt(item.querySelector(".checkout-qty-number").innerText);
+                let p = parseFloat(item.querySelector(".checkout-item-price").innerText.replace("₹", "").replace(" each", ""));
+                total2 += q * p;
+            });
+            document.querySelector(".checkout-summary-total span:last-child").innerText = "₹" + (total2 + shipping + tax).toFixed(2);
+        }
+
+        // Remove item if deleted
+        if (data.deleted) {
+            row.remove();
+        }
+    })
+    .catch(err => console.log("Checkout JS Error:", err));
 });
 </script>
+
+
+
 
 {% endblock %}
