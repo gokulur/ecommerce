@@ -129,16 +129,17 @@ def buy_now(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart = get_cart(request)
 
-    # check if item already exists
+    qty = int(request.POST.get("quantity", 1))
+
     item, created = CartItem.objects.get_or_create(
         cart=cart,
         product=product,
-        defaults={"quantity": 1}
+        defaults={"quantity": qty}
     )
 
-    # if already in cart, set quantity = 1 (not increase)
     if not created:
-        item.quantity = 1
+        item.quantity = qty  # overwrite user selected qty
         item.save()
 
     return redirect("checkout_page")
+
