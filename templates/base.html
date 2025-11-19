@@ -1687,7 +1687,7 @@ Scheme 2: Scheme 4`,
 
                       {% for product in products|slice:":3" %}
                       <xo-animate xo-duration="700" xo-order="{{ forloop.counter }}" xo-strength="3" xo-type="fade-up">
-                        <a class="banner-v270__item hover-style--scale-up" href="{% url 'product_detail' product.id %}">
+                        <a class="banner-v270__item hover-style--scale-up" href="{% url 'product_detail' product.slug %}">
 
                           <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50%; --y-pos: 50%;">
                             <img alt="{{ product.name }}" fetchpriority="auto" height="520" is="xo-lazyload"
