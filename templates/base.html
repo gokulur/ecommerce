@@ -1683,14 +1683,17 @@ Scheme 2: Scheme 4`,
                     </xo-animate>
                   </div>
                   <div class="banner-v270__gallery">
-                    <xo-grid style="--xs: 1;--lg:3;gap:0">
-                      <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="rotate-left-up">
-                        <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
-                          <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                              alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/b9-1.webp' %}"
-                              srcset="{% static 'cdn/shop/files/b9-1.webp' %} 100w" width="700"
-                              xo-intrinsic-height="520" xo-intrinsic-width="700" />
+                    <xo-grid style="--xs: 1; --lg:3; gap:0">
+
+                      {% for product in products|slice:":3" %}
+                      <xo-animate xo-duration="700" xo-order="{{ forloop.counter }}" xo-strength="3" xo-type="fade-up">
+                        <a class="banner-v270__item hover-style--scale-up" href="{% url 'product_detail' product.id %}">
+
+                          <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50%; --y-pos: 50%;">
+                            <img alt="{{ product.name }}" fetchpriority="auto" height="520" is="xo-lazyload"
+                              loading="lazy" sizes="100vw" src="{{ product.images.first.image.url }}"
+                              srcset="{{ product.images.first.image.url }} 100w" width="700" xo-intrinsic-height="520"
+                              xo-intrinsic-width="700" />
                             <div class="xo-image__overlay xo-lazyload-overlay">
                               <div class="xo-image__loading">
                                 <div class="xo-loader-3"
@@ -1700,47 +1703,13 @@ Scheme 2: Scheme 4`,
                               </div>
                             </div>
                           </div>
-                          <h4 class="banner-v270__title-item">Sandalwood</h4>
+
+                          <h4 class="banner-v270__title-item">{{ product.name }}</h4>
+
                         </a>
                       </xo-animate>
-                      <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="fade-up">
-                        <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
-                          <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                              alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/b9-3.webp' %}"
-                              srcset="{% static 'cdn/shop/files/b9-3.webp' %} 100w" width="700"
-                              xo-intrinsic-height="520" xo-intrinsic-width="700" />
-                            <div class="xo-image__overlay xo-lazyload-overlay">
-                              <div class="xo-image__loading">
-                                <div class="xo-loader-3"
-                                  style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                  <div></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <h4 class="banner-v270__title-item">Lavender</h4>
-                        </a>
-                      </xo-animate>
-                      <xo-animate xo-duration="700" xo-order="6" xo-strength="3" xo-type="rotate-left-up">
-                        <a class="banner-v270__item hover-style--scale-up" href="collections/all.html">
-                          <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50.0%; --y-pos: 50.0%;"><img
-                              alt="image" fetchpriority="auto" height="520" is="xo-lazyload" loading="lazy"
-                              sizes="100vw" src="{% static 'cdn/shop/files/b9-2.webp' %}"
-                              srcset="{% static 'cdn/shop/files/b9-2.webp' %} 100w" width="700"
-                              xo-intrinsic-height="520" xo-intrinsic-width="700" />
-                            <div class="xo-image__overlay xo-lazyload-overlay">
-                              <div class="xo-image__loading">
-                                <div class="xo-loader-3"
-                                  style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                  <div></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <h4 class="banner-v270__title-item">Jasmine</h4>
-                        </a>
-                      </xo-animate>
+                      {% endfor %}
+
                     </xo-grid>
                   </div>
                 </xo-container>
