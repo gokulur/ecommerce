@@ -583,7 +583,7 @@ Scheme 2: Scheme 4`,
 
 <body class="gradient">
   <div id="xo-root">
-  
+
     <div class="toast-container">
       {% if messages %}
       <script>
@@ -639,7 +639,7 @@ Scheme 2: Scheme 4`,
                           <span class="xo-menu-horizontal__label">Shops</span>
                         </a>
                       </li>
-                   
+
 
                     </ul>
                   </div>
@@ -1997,7 +1997,7 @@ z-index:98">
                   </li>
                 </ul>
               </xo-animate>
-           
+
             </xo-grid>
           </xo-container>
         </div>
@@ -2060,7 +2060,6 @@ z-index:98">
       </footer>
     </div>
     <!-- END sections: footer-group -->
-    <!-- BEGIN sections: overlay-group -->
     <div class="shopify-section shopify-section-group-overlay-group section-xo-cart-mini"
       id="shopify-section-sections--19284033667262__cart">
       <xo-modal class="color-" style="z-index: 9999;" xo-animate="slide-left" xo-duration="1000" xo-for-cart-mini=""
@@ -2083,29 +2082,35 @@ z-index:98">
                 </div>
                 <div class="xo-modal-content-style1__separator"></div>
               </xo-animate>
+
               <xo-cart-scroll class="xo-modal-content-style1__body xo-scrollbar">
                 <div class="xo-modal-content-style1__content">
                   <xo-animate xo-cascade="">
+                    <!-- Free Shipping Progress Bar -->
+                    {% if cart.items.exists %}
                     <xo-cart-free-shipping-custom xo-free-shipping-notice="Congrats! You are eligible for FREE Shipping"
                       xo-free-shipping-progress="Buy {{ money }} more to enjoy FREE shipping">
                       <div class="xo-cart-free-shipping">
-                        <xo-cart-will-change class="xo-cart-free-shipping-checking-inner xo-visually-hidden"
-                          xo-total-price="0" xo-unique-id="xo-cart-free-shipping-checking-inner">0</xo-cart-will-change>
-                        <xo-cart-will-change class="xo-cart-free-shipping__checking"
-                          xo-unique-id="xo-cart-free-shipping-checking"></xo-cart-will-change>
                         <div class="xo-cart-free-shipping__position">
-                          <xo-cart-will-change class="xo-cart-free-shipping__text"
-                            xo-unique-id="xo-cart-free-shipping-text">
+                          <div class="xo-cart-free-shipping__text">
+                            {% if cart.get_total >= 500 %}
                             Congrats! You are eligible for FREE Shipping
-                          </xo-cart-will-change>
+                            {% else %}
+                            Buy ₹{{ cart.get_shipping_threshold|floatformat:2 }} more to enjoy FREE shipping
+                            {% endif %}
+                          </div>
                           <div class="xo-cart-free-shipping__progress">
-                            0.0
+                            <div class="progress-bar" style="width: {{ cart.get_shipping_progress }}%"></div>
                           </div>
                         </div>
                       </div>
                     </xo-cart-free-shipping-custom>
+                    {% endif %}
                   </xo-animate>
-                  <div aria-label="Item added to your cart" class="xo-notify-cart" id="xo-notify" role="dialog">
+
+                  <!-- Success Notification -->
+                  <div aria-label="Item added to your cart" class="xo-notify-cart" id="xo-notify" role="dialog"
+                    style="display: none;">
                     <svg class="m-svg-icon--large" fill="none" stroke="#5fd321" viewbox="0 0 24 24" width="20"
                       xmlns="http://www.w3.org/2000/svg">
                       <path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
@@ -2113,55 +2118,113 @@ z-index:98">
                     </svg>
                     <span>Product added to cart successfully</span>
                   </div>
-                  <xo-cart-will-change class="xo-cart-mini-content__successfully" xo-unique-id="xo-cart-mini-content">
-                    <xo-animate class="xo-cart-empty" xo-cascade="">
-                      <div class="xo-empty" style="--align: center">
-                        <div class="xo-empty__icon">
-                          <svg viewbox="0 0 32 32" width="8rem" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M31.71,15.29c-4.09-4.08-4-4.07-4.28-4.19l-7-3.19a1,1,0,1,0-.82,1.82l5,2.27L16,15.9,7.42,12l5-2.27a1,1,0,0,0-.82-1.82c-4.87,2.21-7.13,3.25-7,3.19-.24.12-.13.05-4.28,4.19a1,1,0,0,0,.3,1.62l11,5a1,1,0,0,0,1.12-.2L15,19.41v10L6,25.36V22a1,1,0,0,0-2,0c0,4.42,0,4.2.18,4.54a.6.6,0,0,0,.3.29c.1.07,0,.05.13.09C16.59,32.36,15.69,32,16,32s-.5.32,11.41-5.09A1,1,0,0,0,28,26V18.46l3.41-1.55A1,1,0,0,0,31.71,15.29ZM11.78,19.8l-9-4.11L5.22,13.2l9.05,4.11ZM26,25.36l-9,4.09v-10C19.46,21.87,19.45,22,20,22c.33,0,.07.07,6-2.63ZM20.22,19.8l-2.49-2.49,9.05-4.11,2.49,2.49Z"
-                              fill="currentColor"></path>
-                            <path
-                              d="M15,8.91a3.61,3.61,0,0,1,2-3.16,2,2,0,0,0,1-2.12,2,2,0,1,0-3.86,1,1,1,0,0,1-.6,1.27,1,1,0,0,1-1.28-.61,4,4,0,1,1,5.7,2.17A1.67,1.67,0,0,0,17,8.91,1,1,0,1,1,15,8.91Z"
-                              fill="currentColor"></path>
-                            <path d="M16,13a1,1,0,1,1,1-1A1,1,0,0,1,16,13Z" fill="currentColor"></path>
-                          </svg>
-                        </div>
-                        <h2 class="xo-empty__title">
-                          Your cart is empty
-                        </h2>
-                        <p class="xo-empty__subtitle">You may check out all the available products and buy some in the
-                          shop.</p>
-                        <div class="xo-empty__content">
-                          <a class="xo-btn xo-btn--dark xo-btn--secondary xo-btn--md xo-btn--slide-up"
-                            href="collections/all.html" style="">
-                            <span class="xo-btn__content">
-                              <span class="xo-btn__text" data-text="Continue shopping">
-                                Continue shopping
-                              </span>
-                            </span>
-                            <span class="xo-btn__loading">
-                              <div class="xo-loader-3" style="--size: 8; --color: currentColor; --duration: 1000;">
-                                <div></div>
-                              </div>
-                            </span>
-                          </a>
+
+                  <!-- Empty Cart -->
+                  {% if not cart.items.exists %}
+                  <xo-animate class="xo-cart-empty" xo-cascade="">
+                    <div class="xo-empty" style="--align: center">
+                      <div class="xo-empty__icon">
+                        <svg viewbox="0 0 32 32" width="8rem" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M31.71,15.29c-4.09-4.08-4-4.07-4.28-4.19l-7-3.19a1,1,0,1,0-.82,1.82l5,2.27L16,15.9,7.42,12l5-2.27a1,1,0,0,0-.82-1.82c-4.87,2.21-7.13,3.25-7,3.19-.24.12-.13.05-4.28,4.19a1,1,0,0,0,.30,1.62l11,5a1,1,0,0,0,1.12-.2L15,19.41v10L6,25.36V22a1,1,0,0,0-2,0c0,4.42,0,4.2.18,4.54a.6.6,0,0,0,.3.29c.1.07,0,.05.13.09C16.59,32.36,15.69,32,16,32s-.5.32,11.41-5.09A1,1,0,0,0,28,26V18.46l3.41-1.55A1,1,0,0,0,31.71,15.29ZM11.78,19.8l-9-4.11L5.22,13.2l9.05,4.11ZM26,25.36l-9,4.09v-10C19.46,21.87,19.45,22,20,22c.33,0,.07.07,6-2.63ZM20.22,19.8l-2.49-2.49,9.05-4.11,2.49,2.49Z"
+                            fill="currentColor"></path>
+                          <path
+                            d="M15,8.91a3.61,3.61,0,0,1,2-3.16,2,2,0,0,0,1-2.12,2,2,0,1,0-3.86,1,1,1,0,0,1-.6,1.27,1,1,0,0,1-1.28-.61,4,4,0,1,1,5.7,2.17A1.67,1.67,0,0,0,17,8.91,1,1,0,1,1,15,8.91Z"
+                            fill="currentColor"></path>
+                          <path d="M16,13a1,1,0,1,1,1-1A1,1,0,0,1,16,13Z" fill="currentColor"></path>
+                        </svg>
+                      </div>
+                      <h2 class="xo-empty__title">Your cart is empty</h2>
+                      <p class="xo-empty__subtitle">You may check out all the available products and buy some in the
+                        shop.</p>
+                      <div class="xo-empty__content">
+                        <a class="xo-btn xo-btn--dark xo-btn--secondary xo-btn--md xo-btn--slide-up"
+                          href="{% url 'home' %}" style="">
+                          <span class="xo-btn__content">
+                            <span class="xo-btn__text" data-text="Continue shopping">Continue shopping</span>
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </xo-animate>
+                  {% else %}
+
+                  <!-- Cart Items -->
+                  <div class="cart-items-list">
+                    {% for item in cart.items.all %}
+                    <div class="cart-item" data-item-id="{{ item.id }}">
+                      <div class="cart-item__image">
+                        <a href="{{ item.product.get_absolute_url }}">
+                          {% if item.product.images.all %}
+                          {% with first_image=item.product.images.first %}
+                          {% if first_image %}
+                          <img alt="{{ item.product.name }}" src="{{ first_image.image.url }}" width="1000"
+                            height="1000" loading="lazy" />
+                          {% endif %}
+                          {% endwith %}
+                          {% elif item.product.image %}
+                          <img alt="{{ item.product.name }}" src="{{ item.product.image.url }}" width="1000"
+                            height="1000" loading="lazy" />
+                          {% else %}
+                          <img alt="No Image" src="/static/img/no-image.jpg" width="1000" height="1000"
+                            loading="lazy" />
+                          {% endif %}
+
+                        </a>
+                      </div>
+                      <div class="cart-item__details">
+                        <h3 class="cart-item__title">
+                          <a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>
+                        </h3>
+                        <div class="cart-item__price">₹{{ item.product.price }}</div>
+                        <div class="cart-item__quantity">
+                          <button class="qty-btn qty-minus" data-item-id="{{ item.id }}">-</button>
+                          <input type="number" class="qty-input" value="{{ item.quantity }}" min="1" readonly>
+                          <button class="qty-btn qty-plus" data-item-id="{{ item.id }}">+</button>
                         </div>
                       </div>
-                    </xo-animate>
-                  </xo-cart-will-change>
+                      <div class="cart-item__remove">
+                        <button class="remove-item" data-item-id="{{ item.id }}">
+                          <svg width="16" height="16" viewBox="0 0 320 512" fill="currentColor">
+                            <path
+                              d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
+                            </path>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="cart-item__total">₹{{ item.total_price }}</div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
                 </div>
               </xo-cart-scroll>
+
               <div class="xo-modal-content-style1__separator"></div>
+
+              <!-- Footer -->
               <div class="xo-modal-content-style1__footer flex-v">
+                {% if cart.items.exists %}
+                <div class="cart-summary">
+                  <div class="cart-summary__row">
+                    <span>Subtotal:</span>
+                    <span class="cart-subtotal">₹{{ cart.get_subtotal|floatformat:2 }}</span>
+                  </div>
+                  <div class="cart-summary__row cart-summary__total">
+                    <span>Total:</span>
+                    <span class="cart-total">₹{{ cart.get_total|floatformat:2 }}</span>
+                  </div>
+                  <a href=" " class="xo-btn xo-btn--dark xo-btn--primary xo-btn--md xo-btn--slide-up checkout-btn">
+                    <span class="xo-btn__content">
+                      <span class="xo-btn__text" data-text="Proceed to Checkout">Proceed to Checkout</span>
+                    </span>
+                  </a>
+                </div>
+                {% endif %}
+
+                <!-- Recommended Products -->
                 <h5 class="title-collection-cart">You may also like</h5>
-                <xo-carousel xo-breakpoints="
-              {
-                375: {
-                  perView: 1.2,
-                }
-              }
-            " xo-per-view="1.53">
+                <xo-carousel xo-breakpoints='{"375": {"perView": 1.2}}' xo-per-view="1.53">
                   <div class="cart-carousel-btn__wrap">
                     <xo-carousel-prev class="cart-carousel-btn">
                       <button class="button-trans">
@@ -2184,108 +2247,354 @@ z-index:98">
                   </div>
                   <xo-carousel-inner>
                     <xo-carousel-list aria-label="Slider" role="list">
-                      <xo-carousel-slide aria-label="1 of 4" aria-roledescription="Slide">
-                        <xo-product class="collection-product-footer" xo-line="1" xo-product-id="8566084403390"
-                          xo-section-id="sections--19284033667262__cart">
+                      {% for product in recommended_products %}
+                      <xo-carousel-slide aria-label="{{ forloop.counter }} of {{ recommended_products|length }}"
+                        aria-roledescription="Slide">
+                        <xo-product class="collection-product-footer">
                           <div class="collection-product-footer__header">
-                            <div style="overflow: hidden;" xo-binding="img">
-                              <a class="collection-product-footer__img" href="products/default-layout.html">
-                                <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;"><img
-                                    alt="Rovek Soryn" fetchpriority="high" height="1000" is="xo-lazyload" loading="lazy"
-                                    sizes="100vw"
-                                    src="{% static 'cdn/shop/files/9_58fb5bf9-0c39-4f37-85a2-b72322ff49c1.jpg' %}?v=1756444168&amp;width=1000"
-                                    srcset="{% static 'cdn/shop/files/9_58fb5bf9-0c39-4f37-85a2-b72322ff49c1.jpg' %}?v=1756444168&amp;width=1000 100w"
-                                    width="1000" xo-intrinsic-height="1000" xo-intrinsic-width="1000" />
-                                  <div class="xo-image__overlay xo-lazyload-overlay">
-                                    <div class="xo-image__loading">
-                                      <div class="xo-loader-3"
-                                        style="--size: 10; --color: rgb(var(--color-foreground)); --duration: 1000;">
-                                        <div></div>
-                                      </div>
-                                    </div>
-                                  </div>
+                            <div style="overflow: hidden;">
+                              <a class="collection-product-footer__img" href="{{ product.get_absolute_url }}">
+                                <div class="xo-image" style="--xo-ratio-percent: 1/1;">
+                                  {% if product.images.all %}
+                                  {% with first_image=product.images.first %}
+                                  {% if first_image %}
+                                  <img alt="{{ product.name }}" src="{{ first_image.image.url }}" width="1000"
+                                    height="1000" loading="lazy" />
+                                  {% endif %}
+                                  {% endwith %}
+                                  {% elif product.image %}
+                                  <img alt="{{ product.name }}" src="{{ product.image.url }}" width="1000"
+                                    height="1000" loading="lazy" />
+                                  {% else %}
+                                  <img alt="No Image" src="/static/img/no-image.jpg" width="1000" height="1000"
+                                    loading="lazy" />
+                                  {% endif %}
                                 </div>
                               </a>
                             </div>
                           </div>
                           <div class="collection-product-footer__content">
                             <h2 class="collection-product-footer__name-product">
-                              <a href="products/default-layout.html">
-                                Rovek Soryn
-                              </a>
+                              <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
                             </h2>
                             <div class="collection-product-footer__price">
-                              <div class="collection-product-footer__price-inner" xo-binding="price">
-                                <div class="xo-price" role="status">
-                                  <div class="xo-price__container">
-                                    <div class="xo-price__sale">
-                                      <div class="xo-visually-hidden xo-visually-hidden--inline">Sale price</div>
-                                      <span class="xo-price__item xo-price__item--accent">
-                                        ₹80.00
-                                      </span>
-                                      <div class="xo-visually-hidden xo-visually-hidden--inline">Regular price</div>
-                                      <span class="xo-price__item xo-price__item--del">
-
-                                        ₹90.00
-
-                                      </span>
-                                    </div>
-                                    <small class="xo-unit-price xo-unit-price--hidden">
-                                      <span class="xo-visually-hidden">Unit price</span>
-                                      <span>
-                                        <span></span>
-                                        <span aria-hidden="true">/</span>
-                                        <div class="xo-visually-hidden xo-visually-hidden--inline">per</div>
-                                        <span>
-                                        </span>
-                                      </span>
-                                    </small>
-                                  </div>
-                                </div>
-                              </div>
+                              <span class="xo-price__item">₹{{ product.price }}</span>
                             </div>
-                            <xo-cart-add class="xo-product-card__add" xo-disabled="">
-                              <span> + Add to Cart</span>
-                            </xo-cart-add>
+                            <button class="xo-cart-add add-to-cart-btn" data-product-id="{{ product.id }}">
+                              <span>+ Add to Cart</span>
+                            </button>
                           </div>
                         </xo-product>
                       </xo-carousel-slide>
+                      {% endfor %}
                     </xo-carousel-list>
                   </xo-carousel-inner>
                 </xo-carousel>
-                <div class="xo-modal-content-style__box-footer">
-                  <xo-cart-will-change xo-unique-id="xo-cart-mini-drawer-footer">
-                  </xo-cart-will-change>
-                </div>
               </div>
             </div>
           </div>
+
           <script>
             const elementToChange = document.querySelector('.xo-modal-content-style1__body');
             const addClass = document.querySelector('.xo-modal-content-style1__header');
-            elementToChange.addEventListener('scroll', function () {
-              if (elementToChange.scrollTop > 0) {
-                addClass.classList.add('xo-modal-content-style1__header--scroll');
-              } else {
-                addClass.classList.remove('xo-modal-content-style1__header--scroll');
-              }
+
+            if (elementToChange && addClass) {
+              elementToChange.addEventListener('scroll', function () {
+                if (elementToChange.scrollTop > 0) {
+                  addClass.classList.add('xo-modal-content-style1__header--scroll');
+                } else {
+                  addClass.classList.remove('xo-modal-content-style1__header--scroll');
+                }
+              });
+            }
+
+            // Cart functionality
+            document.addEventListener('DOMContentLoaded', function () {
+              // Update quantity
+              document.querySelectorAll('.qty-plus, .qty-minus').forEach(btn => {
+                btn.addEventListener('click', function () {
+                  const itemId = this.dataset.itemId;
+                  const action = this.classList.contains('qty-plus') ? 'increase' : 'decrease';
+                  updateCartItem(itemId, action);
+                });
+              });
+
+              // Remove item
+              document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function () {
+                  const itemId = this.dataset.itemId;
+                  removeCartItem(itemId);
+                });
+              });
+
+              // Add to cart from recommendations
+              document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                  const productId = this.dataset.productId;
+                  addToCart(productId);
+                });
+              });
             });
+
+            function updateCartItem(itemId, action) {
+              fetch(`/cart/update/${itemId}/`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ action: action })
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    location.reload();
+                  }
+                });
+            }
+
+            function removeCartItem(itemId) {
+              fetch(`/cart/remove/${itemId}/`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': getCookie('csrftoken')
+                }
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    location.reload();
+                  }
+                });
+            }
+
+            function addToCart(productId) {
+              fetch('/cart/add/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ product_id: productId, quantity: 1 })
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    showNotification();
+                    setTimeout(() => location.reload(), 1000);
+                  }
+                });
+            }
+
+            function showNotification() {
+              const notify = document.getElementById('xo-notify');
+              if (notify) {
+                notify.style.display = 'flex';
+                setTimeout(() => {
+                  notify.style.display = 'none';
+                }, 3000);
+              }
+            }
+
+            function getCookie(name) {
+              let cookieValue = null;
+              if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                  }
+                }
+              }
+              return cookieValue;
+            }
           </script>
         </xo-cart-mini>
       </xo-modal>
     </div>
-     
 
-  <script>
-    const timeout = 5000;
+    <style>
+      /* Cart Modal Styles */
+      .cart-items-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem 0;
+      }
 
-    function showToast(message, type = "success") {
-      const toastContainer = document.querySelector(".toast-container");
+      .cart-item {
+        display: grid;
+        grid-template-columns: 80px 1fr auto auto;
+        gap: 1rem;
+        align-items: center;
+        padding: 1rem;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+      }
 
-      const toast = document.createElement("div");
-      toast.classList.add("toast", type);
+      .cart-item__image img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
 
-      toast.innerHTML = `
+      .cart-item__details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .cart-item__title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .cart-item__title a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .cart-item__price {
+        font-weight: 500;
+        color: #666;
+      }
+
+      .cart-item__quantity {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .qty-btn {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        background: white;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .qty-btn:hover {
+        background: #f5f5f5;
+      }
+
+      .qty-input {
+        width: 50px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 0.25rem;
+      }
+
+      .cart-item__remove button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: #999;
+      }
+
+      .cart-item__remove button:hover {
+        color: #e74c3c;
+      }
+
+      .cart-item__total {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .cart-summary {
+        padding: 1rem;
+        background: #f9f9f9;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .cart-summary__row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+      }
+
+      .cart-summary__total {
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-top: 2px solid #ddd;
+        padding-top: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        margin-top: 1rem;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .xo-notify-cart {
+        display: none;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .collection-product-footer {
+        padding: 1rem;
+      }
+
+      .collection-product-footer__img img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .collection-product-footer__name-product {
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+      }
+
+      .collection-product-footer__price {
+        font-weight: 600;
+        margin: 0.5rem 0;
+      }
+
+      .add-to-cart-btn {
+        width: 100%;
+        padding: 0.5rem;
+        background: #000;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .add-to-cart-btn:hover {
+        background: #333;
+      }
+    </style>
+    <script>
+      const timeout = 5000;
+
+      function showToast(message, type = "success") {
+        const toastContainer = document.querySelector(".toast-container");
+
+        const toast = document.createElement("div");
+        toast.classList.add("toast", type);
+
+        toast.innerHTML = `
     <div class="toast-content">
       <i class="bi icon bi-${getIcon(type)}"></i>
       <div class="message">
@@ -2297,44 +2606,44 @@ z-index:98">
     <div class="progress active"></div>
   `;
 
-      toastContainer.appendChild(toast);
+        toastContainer.appendChild(toast);
 
-      setTimeout(() => {
-        void toast.offsetHeight;
-        toast.classList.add("active");
-      }, 10);
+        setTimeout(() => {
+          void toast.offsetHeight;
+          toast.classList.add("active");
+        }, 10);
 
-      const progress = toast.querySelector(".progress");
-      const closeIcon = toast.querySelector(".close");
+        const progress = toast.querySelector(".progress");
+        const closeIcon = toast.querySelector(".close");
 
-      const timer1 = setTimeout(() => toast.classList.remove("active"), timeout);
-      const timer2 = setTimeout(() => {
-        progress.classList.remove("active");
-        setTimeout(() => toast.remove(), 400);
-      }, timeout + 300);
+        const timer1 = setTimeout(() => toast.classList.remove("active"), timeout);
+        const timer2 = setTimeout(() => {
+          progress.classList.remove("active");
+          setTimeout(() => toast.remove(), 400);
+        }, timeout + 300);
 
-      closeIcon.addEventListener("click", () => {
-        toast.classList.remove("active");
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-        setTimeout(() => toast.remove(), 400);
-      });
-    }
-
-    function getIcon(type) {
-      switch (type) {
-        case "success": return "check-circle-fill";
-        case "error": return "x-circle-fill";
-        case "warning": return "exclamation-triangle-fill";
-        case "info": return "info-circle-fill";
-        default: return "check-circle-fill";
+        closeIcon.addEventListener("click", () => {
+          toast.classList.remove("active");
+          clearTimeout(timer1);
+          clearTimeout(timer2);
+          setTimeout(() => toast.remove(), 400);
+        });
       }
-    }
 
-    function capitalize(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-  </script>
+      function getIcon(type) {
+        switch (type) {
+          case "success": return "check-circle-fill";
+          case "error": return "x-circle-fill";
+          case "warning": return "exclamation-triangle-fill";
+          case "info": return "info-circle-fill";
+          default: return "check-circle-fill";
+        }
+      }
+
+      function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+    </script>
 
 </body>
 
