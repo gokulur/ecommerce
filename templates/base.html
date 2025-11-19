@@ -368,7 +368,175 @@ Scheme 2: Scheme 4`,
       cart_free_shipping_min_amount: 600,
     }
   </script>
+  <style>
+    /* Cart Modal Styles */
+    .cart-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
 
+    .cart-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+    }
+
+    .cart-item__image img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .cart-item__details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .cart-item__title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .cart-item__title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .cart-item__price {
+      font-weight: 500;
+      color: #666;
+    }
+
+    .cart-item__quantity {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-btn:hover {
+      background: #f5f5f5;
+    }
+
+    .qty-input {
+      width: 50px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.25rem;
+    }
+
+    .cart-item__remove button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: #999;
+    }
+
+    .cart-item__remove button:hover {
+      color: #e74c3c;
+    }
+
+    .cart-item__total {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .cart-summary {
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .cart-summary__row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+    }
+
+    .cart-summary__total {
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-top: 2px solid #ddd;
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .xo-notify-cart {
+      display: none;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .collection-product-footer {
+      padding: 1rem;
+    }
+
+    .collection-product-footer__img img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .collection-product-footer__name-product {
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .collection-product-footer__price {
+      font-weight: 600;
+      margin: 0.5rem 0;
+    }
+
+    .add-to-cart-btn {
+      width: 100%;
+      padding: 0.5rem;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #333;
+    }
+  </style>
   <link href="{% static 'cdn/shop/t/6/assets/xo-webcomponents.min.css' %}" media="all" rel="stylesheet" type="text/css">
 
   <link href="{% static 'cdn/shop/t/6/assets/main.css' %}" media="all" rel="stylesheet" type="text/css">
@@ -2177,11 +2345,24 @@ z-index:98">
                           <a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>
                         </h3>
                         <div class="cart-item__price">₹{{ item.product.price }}</div>
-                        <div class="cart-item__quantity">
-                          <button class="qty-btn qty-minus" data-item-id="{{ item.id }}">-</button>
-                          <input type="number" class="qty-input" value="{{ item.quantity }}" min="1" readonly>
-                          <button class="qty-btn qty-plus" data-item-id="{{ item.id }}">+</button>
-                        </div>
+                        <xo-product xo-section-id="template--19284044447934__cart-items"
+                          xo-product-id="{{ item.product.id }}" xo-line="{{ forloop.index }}">
+                          <div class="xo-cart-table__quantity">
+                            <xo-cart-quantity class="xo-quantity-style2" style="--width: 10rem; --height: 4rem"
+                              data-item-id="{{ item.id }}"
+                              aria-labelledby="quantity-template--19284044447934__cart-items">
+
+                              <a href="{% url 'decrease_qty' item.id %}" class="xo-quantity-style2__button decrease-qty"
+                                data-item-id="{{ item.id }}" data-url="{% url 'decrease_qty' item.id %}">–</a>
+
+                              <input type="text" value="{{ item.quantity }}" readonly
+                                class="xo-quantity-style2__number item-quantity-{{ item.id }}">
+
+                              <a href="{% url 'increase_qty' item.id %}" class="xo-quantity-style2__button increase-qty"
+                                data-item-id="{{ item.id }}" data-url="{% url 'increase_qty' item.id %}">+</a>
+                            </xo-cart-quantity>
+                          </div>
+                        </xo-product>
                       </div>
                       <div class="cart-item__remove">
                         <button class="remove-item" data-item-id="{{ item.id }}">
@@ -2214,7 +2395,7 @@ z-index:98">
                     <span>Total:</span>
                     <span class="cart-total">₹{{ cart.get_total|floatformat:2 }}</span>
                   </div>
-                  <a href=" " class="xo-btn xo-btn--dark xo-btn--primary xo-btn--md xo-btn--slide-up checkout-btn">
+                  <a href="{% url 'checkout_page' %}" class="xo-btn xo-btn--dark xo-btn--primary xo-btn--md xo-btn--slide-up checkout-btn">
                     <span class="xo-btn__content">
                       <span class="xo-btn__text" data-text="Proceed to Checkout">Proceed to Checkout</span>
                     </span>
@@ -2263,8 +2444,8 @@ z-index:98">
                                   {% endif %}
                                   {% endwith %}
                                   {% elif product.image %}
-                                  <img alt="{{ product.name }}" src="{{ product.image.url }}" width="1000"
-                                    height="1000" loading="lazy" />
+                                  <img alt="{{ product.name }}" src="{{ product.image.url }}" width="1000" height="1000"
+                                    loading="lazy" />
                                   {% else %}
                                   <img alt="No Image" src="/static/img/no-image.jpg" width="1000" height="1000"
                                     loading="lazy" />
@@ -2280,9 +2461,9 @@ z-index:98">
                             <div class="collection-product-footer__price">
                               <span class="xo-price__item">₹{{ product.price }}</span>
                             </div>
-                            <button class="xo-cart-add add-to-cart-btn" data-product-id="{{ product.id }}">
+                            <!-- <button class="xo-cart-add add-to-cart-btn" data-product-id="{{ product.id }}">
                               <span>+ Add to Cart</span>
-                            </button>
+                            </button> -->
                           </div>
                         </xo-product>
                       </xo-carousel-slide>
@@ -2294,307 +2475,19 @@ z-index:98">
             </div>
           </div>
 
+
+
+
           <script>
-            const elementToChange = document.querySelector('.xo-modal-content-style1__body');
-            const addClass = document.querySelector('.xo-modal-content-style1__header');
+            const timeout = 5000;
 
-            if (elementToChange && addClass) {
-              elementToChange.addEventListener('scroll', function () {
-                if (elementToChange.scrollTop > 0) {
-                  addClass.classList.add('xo-modal-content-style1__header--scroll');
-                } else {
-                  addClass.classList.remove('xo-modal-content-style1__header--scroll');
-                }
-              });
-            }
+            function showToast(message, type = "success") {
+              const toastContainer = document.querySelector(".toast-container");
 
-            // Cart functionality
-            document.addEventListener('DOMContentLoaded', function () {
-              // Update quantity
-              document.querySelectorAll('.qty-plus, .qty-minus').forEach(btn => {
-                btn.addEventListener('click', function () {
-                  const itemId = this.dataset.itemId;
-                  const action = this.classList.contains('qty-plus') ? 'increase' : 'decrease';
-                  updateCartItem(itemId, action);
-                });
-              });
+              const toast = document.createElement("div");
+              toast.classList.add("toast", type);
 
-              // Remove item
-              document.querySelectorAll('.remove-item').forEach(btn => {
-                btn.addEventListener('click', function () {
-                  const itemId = this.dataset.itemId;
-                  removeCartItem(itemId);
-                });
-              });
-
-              // Add to cart from recommendations
-              document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                  const productId = this.dataset.productId;
-                  addToCart(productId);
-                });
-              });
-            });
-
-            function updateCartItem(itemId, action) {
-              fetch(`/cart/update/${itemId}/`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: JSON.stringify({ action: action })
-              })
-                .then(response => response.json())
-                .then(data => {
-                  if (data.success) {
-                    location.reload();
-                  }
-                });
-            }
-
-            function removeCartItem(itemId) {
-              fetch(`/cart/remove/${itemId}/`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': getCookie('csrftoken')
-                }
-              })
-                .then(response => response.json())
-                .then(data => {
-                  if (data.success) {
-                    location.reload();
-                  }
-                });
-            }
-
-            function addToCart(productId) {
-              fetch('/cart/add/', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: JSON.stringify({ product_id: productId, quantity: 1 })
-              })
-                .then(response => response.json())
-                .then(data => {
-                  if (data.success) {
-                    showNotification();
-                    setTimeout(() => location.reload(), 1000);
-                  }
-                });
-            }
-
-            function showNotification() {
-              const notify = document.getElementById('xo-notify');
-              if (notify) {
-                notify.style.display = 'flex';
-                setTimeout(() => {
-                  notify.style.display = 'none';
-                }, 3000);
-              }
-            }
-
-            function getCookie(name) {
-              let cookieValue = null;
-              if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                  const cookie = cookies[i].trim();
-                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                  }
-                }
-              }
-              return cookieValue;
-            }
-          </script>
-        </xo-cart-mini>
-      </xo-modal>
-    </div>
-
-    <style>
-      /* Cart Modal Styles */
-      .cart-items-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1rem 0;
-      }
-
-      .cart-item {
-        display: grid;
-        grid-template-columns: 80px 1fr auto auto;
-        gap: 1rem;
-        align-items: center;
-        padding: 1rem;
-        border: 1px solid #e5e5e5;
-        border-radius: 8px;
-      }
-
-      .cart-item__image img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 4px;
-      }
-
-      .cart-item__details {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .cart-item__title {
-        font-size: 1rem;
-        font-weight: 600;
-        margin: 0;
-      }
-
-      .cart-item__title a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .cart-item__price {
-        font-weight: 500;
-        color: #666;
-      }
-
-      .cart-item__quantity {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .qty-btn {
-        width: 30px;
-        height: 30px;
-        border: 1px solid #ddd;
-        background: white;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .qty-btn:hover {
-        background: #f5f5f5;
-      }
-
-      .qty-input {
-        width: 50px;
-        text-align: center;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 0.25rem;
-      }
-
-      .cart-item__remove button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0.5rem;
-        color: #999;
-      }
-
-      .cart-item__remove button:hover {
-        color: #e74c3c;
-      }
-
-      .cart-item__total {
-        font-weight: 600;
-        font-size: 1.1rem;
-      }
-
-      .cart-summary {
-        padding: 1rem;
-        background: #f9f9f9;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-      }
-
-      .cart-summary__row {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 0;
-      }
-
-      .cart-summary__total {
-        font-size: 1.2rem;
-        font-weight: 700;
-        border-top: 2px solid #ddd;
-        padding-top: 1rem;
-        margin-top: 0.5rem;
-      }
-
-      .checkout-btn {
-        width: 100%;
-        margin-top: 1rem;
-        padding: 1rem;
-        text-align: center;
-      }
-
-      .xo-notify-cart {
-        display: none;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        background: #d4edda;
-        border: 1px solid #c3e6cb;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-      }
-
-      .collection-product-footer {
-        padding: 1rem;
-      }
-
-      .collection-product-footer__img img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-      }
-
-      .collection-product-footer__name-product {
-        margin: 0.5rem 0;
-        font-size: 0.95rem;
-      }
-
-      .collection-product-footer__price {
-        font-weight: 600;
-        margin: 0.5rem 0;
-      }
-
-      .add-to-cart-btn {
-        width: 100%;
-        padding: 0.5rem;
-        background: #000;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      .add-to-cart-btn:hover {
-        background: #333;
-      }
-    </style>
-    <script>
-      const timeout = 5000;
-
-      function showToast(message, type = "success") {
-        const toastContainer = document.querySelector(".toast-container");
-
-        const toast = document.createElement("div");
-        toast.classList.add("toast", type);
-
-        toast.innerHTML = `
+              toast.innerHTML = `
     <div class="toast-content">
       <i class="bi icon bi-${getIcon(type)}"></i>
       <div class="message">
@@ -2606,45 +2499,117 @@ z-index:98">
     <div class="progress active"></div>
   `;
 
-        toastContainer.appendChild(toast);
+              toastContainer.appendChild(toast);
 
-        setTimeout(() => {
-          void toast.offsetHeight;
-          toast.classList.add("active");
-        }, 10);
+              setTimeout(() => {
+                void toast.offsetHeight;
+                toast.classList.add("active");
+              }, 10);
 
-        const progress = toast.querySelector(".progress");
-        const closeIcon = toast.querySelector(".close");
+              const progress = toast.querySelector(".progress");
+              const closeIcon = toast.querySelector(".close");
 
-        const timer1 = setTimeout(() => toast.classList.remove("active"), timeout);
-        const timer2 = setTimeout(() => {
-          progress.classList.remove("active");
-          setTimeout(() => toast.remove(), 400);
-        }, timeout + 300);
+              const timer1 = setTimeout(() => toast.classList.remove("active"), timeout);
+              const timer2 = setTimeout(() => {
+                progress.classList.remove("active");
+                setTimeout(() => toast.remove(), 400);
+              }, timeout + 300);
 
-        closeIcon.addEventListener("click", () => {
-          toast.classList.remove("active");
-          clearTimeout(timer1);
-          clearTimeout(timer2);
-          setTimeout(() => toast.remove(), 400);
-        });
-      }
+              closeIcon.addEventListener("click", () => {
+                toast.classList.remove("active");
+                clearTimeout(timer1);
+                clearTimeout(timer2);
+                setTimeout(() => toast.remove(), 400);
+              });
+            }
 
-      function getIcon(type) {
-        switch (type) {
-          case "success": return "check-circle-fill";
-          case "error": return "x-circle-fill";
-          case "warning": return "exclamation-triangle-fill";
-          case "info": return "info-circle-fill";
-          default: return "check-circle-fill";
-        }
-      }
+            function getIcon(type) {
+              switch (type) {
+                case "success": return "check-circle-fill";
+                case "error": return "x-circle-fill";
+                case "warning": return "exclamation-triangle-fill";
+                case "info": return "info-circle-fill";
+                default: return "check-circle-fill";
+              }
+            }
 
-      function capitalize(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      }
-    </script>
+            function capitalize(str) {
+              return str.charAt(0).toUpperCase() + str.slice(1);
+            }
+          </script>
+          <script>
+            document.addEventListener("click", function (e) {
 
+
+              if (e.target.classList.contains("increase-qty") || e.target.classList.contains("decrease-qty")) {
+                e.preventDefault();
+
+                let itemID = e.target.dataset.itemId;
+                let url = e.target.dataset.url;
+
+                fetch(url, {
+                  method: "GET",
+                  headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                  }
+                })
+                  .then(res => res.json())
+                  .then(data => {
+
+
+                    if (data.deleted) {
+                      document.getElementById("cart-row-" + itemID).remove();
+                      return;
+                    }
+
+
+                    document.querySelectorAll(".item-quantity-" + itemID).forEach(el => {
+                      el.value = data.quantity;
+                    });
+
+
+                    document.querySelector(".item-total-" + itemID).innerHTML = "₹" + data.item_total;
+                    document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
+
+
+                    document.querySelectorAll(`.increase-qty[data-item-id="${itemID}"]`).forEach(btn => {
+                      if (data.quantity >= data.stock) {
+                        btn.classList.add("disabled");
+                      } else {
+                        btn.classList.remove("disabled");
+                      }
+                    });
+                  });
+              }
+
+
+
+              if (e.target.closest(".remove-item-btn")) {
+                e.preventDefault();
+
+                let btn = e.target.closest(".remove-item-btn");
+                let itemID = btn.dataset.itemId;
+                let url = btn.dataset.url;
+
+                fetch(url, {
+                  method: "GET",
+                  headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                  }
+                })
+                  .then(res => res.json())
+                  .then(data => {
+                    let row = document.getElementById("cart-row-" + itemID);
+                    row.style.opacity = "0";
+                    setTimeout(() => row.remove(), 250);
+
+
+                    document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
+                  });
+              }
+
+            });
+          </script>
 </body>
 
 </html>
