@@ -34,6 +34,10 @@ def add_to_cart(request, product_id):
 
     item, created = CartItem.objects.get_or_create(cart=cart, product=product)
 
+    qty = int(request.POST.get("quantity", 1))
+    item.quantity += qty
+    item.save()
+
 
     if not created:
         item.quantity += 1
