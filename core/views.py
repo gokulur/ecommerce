@@ -32,3 +32,6 @@ def home(request):
         'cart': cart,
         'recommended_products': recommended_products
     })
+
+def about(request):
+    return render(request, 'about.html')

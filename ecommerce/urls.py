@@ -25,21 +25,22 @@ urlpatterns = [
     # Authentication / Accounts
     path('', include('accounts.urls')),
 
+    # Core 
+    path('', include('core.urls')),
+
+    # Products
+    path('', include('products.urls')),
+
     # Cart
     path('cart/', include('cart.urls')),
 
     # Orders
     path('orders/', include('orders.urls')),
 
-    # Admin Panel (prefix added to avoid clash)
+    # Admin Panel
     path('adminpanel/', include('adminpanel.urls')),
-
-    # Products
-    path('', include('products.urls')),
-
-    # Core (homepage etc)
-    path('', include('core.urls')),
 ]
+
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
