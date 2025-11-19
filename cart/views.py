@@ -40,7 +40,7 @@ def add_to_cart(request, product_id):
 
 
     if not created:
-        item.quantity += 1
+        item.quantity  
     item.save()
 
     # Check if AJAX request
