@@ -1236,4 +1236,24 @@ z-index:99; position: relative">
     </section>
 </main>
 
+
+<script>
+document.querySelectorAll(".qty-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+        let wrapper = btn.closest(".quantity-wrapper");
+        let input = wrapper.querySelector("input[name='quantity']");
+        let current = parseInt(input.value);
+        let max = parseInt(input.max);
+        let min = parseInt(input.min);
+
+        if (btn.dataset.action === "increase" && current < max) {
+            input.value = current + 1;
+        } else if (btn.dataset.action === "decrease" && current > min) {
+            input.value = current - 1;
+        }
+    });
+});
+</script>
+
+
 {% endblock %}
