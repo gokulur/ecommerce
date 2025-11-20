@@ -1113,4 +1113,192 @@ z-index:99">
             });
         </script>
     </section>
+    <style>
+.price-range-slider {
+    position: relative;
+    height: 40px;
+    margin: 20px 0;
+}
+.price-range-slider input[type="range"] {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    pointer-events: none;
+    -webkit-appearance: none;
+}
+.price-range-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #000;
+    cursor: pointer;
+    border-radius: 50%;
+    pointer-events: auto;
+    position: relative;
+    z-index: 2;
+}
+.price-range-slider input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #000;
+    cursor: pointer;
+    border-radius: 50%;
+    pointer-events: auto;
+    position: relative;
+    z-index: 2;
+    border: none;
+}
+.price-range-slider input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+}
+.price-range-slider input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+}
+.xo-field-select-custom-filter__popover.xo-active {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+.collection-filter-checkbox {
+    margin-right: 10px;
+}
+.field-checkbox-text__input:checked ~ .field-checkbox-text__item {
+    font-weight: 600;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const priceRangeEl = document.querySelector('xo-range[xo-component-name="range-price"]');
+    
+    if (priceRangeEl) {
+        const min = parseFloat(priceRangeEl.getAttribute('xo-min') || 0);
+        const max = parseFloat(priceRangeEl.getAttribute('xo-max') || 1000);
+        let currentMin = parseFloat('{{ price_min }}') || min;
+        let currentMax = parseFloat('{{ price_max }}') || max;
+        
+        priceRangeEl.innerHTML = `
+            <div class="price-range-slider">
+                <input type="range" class="price-min" min="${min}" max="${max}" value="${currentMin}" step="1">
+                <input type="range" class="price-max" min="${min}" max="${max}" value="${currentMax}" step="1">
+            </div>
+        `;
+        
+        const minSlider = priceRangeEl.querySelector('.price-min');
+        const maxSlider = priceRangeEl.querySelector('.price-max');
+        const minText = document.querySelector('xo-range-price[xo-type="min"]');
+        const maxText = document.querySelector('xo-range-price[xo-type="max"]');
+        
+        function updatePriceDisplay() {
+            if (minText) minText.textContent = `₹${Math.round(currentMin)}`;
+            if (maxText) maxText.textContent = `₹${Math.round(currentMax)}`;
+        }
+        
+        minSlider.addEventListener('input', function() {
+            currentMin = parseFloat(this.value);
+            if (currentMin > currentMax) {
+                currentMin = currentMax;
+                this.value = currentMin;
+            }
+            updatePriceDisplay();
+        });
+        
+        maxSlider.addEventListener('input', function() {
+            currentMax = parseFloat(this.value);
+            if (currentMax < currentMin) {
+                currentMax = currentMin;
+                this.value = currentMax;
+            }
+            updatePriceDisplay();
+        });
+        
+        minSlider.addEventListener('change', applyFilters);
+        maxSlider.addEventListener('change', applyFilters);
+        
+        updatePriceDisplay();
+    }
+    
+    const collectionCheckboxes = document.querySelectorAll('.collection-filter-checkbox');
+    collectionCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilters);
+    });
+    
+    const sortRadios = document.querySelectorAll('.sort-radio');
+    const sortTrigger = document.querySelector('.xo-field-select-custom-filter__trigger');
+    const sortPopover = document.querySelector('.xo-field-select-custom-filter__popover');
+    
+    if (sortTrigger && sortPopover) {
+        sortTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sortPopover.classList.toggle('xo-active');
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!sortTrigger.contains(e.target) && !sortPopover.contains(e.target)) {
+                sortPopover.classList.remove('xo-active');
+            }
+        });
+    }
+    
+    sortRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            const selectedText = this.parentElement.querySelector('.xo-field-select-custom-filter__label').textContent;
+            const sortDisplay = document.querySelector('xo-filters-sort-by-selected');
+            if (sortDisplay) {
+                sortDisplay.textContent = selectedText;
+            }
+            if (sortPopover) {
+                sortPopover.classList.remove('xo-active');
+            }
+            applyFilters();
+        });
+    });
+    
+    const clearAllBtn = document.getElementById('clear-all-btn');
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', function() {
+            const url = new URL(window.location.href);
+            window.location.href = url.pathname;
+        });
+    }
+    
+    function applyFilters() {
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams();
+        
+        const minSlider = document.querySelector('.price-min');
+        const maxSlider = document.querySelector('.price-max');
+        
+        if (minSlider && maxSlider) {
+            params.append('price_min', Math.round(minSlider.value));
+            params.append('price_max', Math.round(maxSlider.value));
+        }
+        
+        const selectedCollections = Array.from(collectionCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+        
+        selectedCollections.forEach(id => {
+            params.append('collection', id);
+        });
+        
+        const selectedSort = document.querySelector('.sort-radio:checked');
+        if (selectedSort) {
+            params.append('sort_by', selectedSort.value);
+        }
+        
+        params.append('page', '1');
+        
+        window.location.href = `${url.pathname}?${params.toString()}`;
+    }
+});
+</script>
     {% endblock %}
