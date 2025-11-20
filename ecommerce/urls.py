@@ -23,13 +23,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Authentication / Accounts
-    path('', include('accounts.urls')),
+    path('accounts/', include('accounts.urls')),
 
-    # Core 
-    path('', include('core.urls')),
+    # Core (homepage, about, etc)
+    path('', include('core.urls')),  # homepage
 
     # Products
-    path('', include('products.urls')),
+    path('products/', include('products.urls')),
 
     # Cart
     path('cart/', include('cart.urls')),
@@ -37,11 +37,12 @@ urlpatterns = [
     # Orders
     path('orders/', include('orders.urls')),
 
+    # Wishlist
+    path('wishlist/', include('wishlist.urls')),
+
     # Admin Panel
     path('adminpanel/', include('adminpanel.urls')),
-]
-
-
+] 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
