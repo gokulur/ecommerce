@@ -3,46 +3,33 @@
 {% block content %}
 <main class="content-for-layout focus-none" id="xo-main-content" role="main" tabindex="-1">
     <div class="shopify-section" id="shopify-section-template--19284045103294__collection-title">
-        <section class="xo-section xo-section--template--19284045103294__collection-title color-inverse" style="--bg-color: #f3f3f3;--margin: 0;--pt: 110;--pb: 110;
---pt-mobile:50px; --pb-mobile:50px;">
-            <xo-animate class="xo-section-bg" style="
-      --img-desktop: url({% static 'cdn/shop/files/eau-de-toilette-6399434.jpg' %});
-      --img-mobile: url({% static 'cdn/shop/files/eau-de-toilette-6399434.jpg' %});
-" xo-disabled="" xo-duration="1000">
+        <section class="xo-section xo-section--template--19284045103294__collection-title color-inverse" style="--bg-color: #f3f3f3;--margin: 0;--pt: 110;--pb: 110;--pt-mobile:50px; --pb-mobile:50px;">
+            <xo-animate class="xo-section-bg" style="--img-desktop: url({% static 'cdn/shop/files/eau-de-toilette-6399434.jpg' %});--img-mobile: url({% static 'cdn/shop/files/eau-de-toilette-6399434.jpg' %});" xo-disabled="" xo-duration="1000">
                 <xo-parallax class="xo-section-bg-image__item" xo-lerp-ease="0.4">
-                    <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="
-              {
-                '0%': { backgroundPositionY: '200px' },
-                '100%': { backgroundPositionY: '-200px' },
-              }
-            "></xo-parallax-scroll>
+                    <xo-parallax-scroll class="xo-section-bg-image__url xo-background-lazyload" xo-keyframes="{'0%': { backgroundPositionY: '200px' },'100%': { backgroundPositionY: '-200px' },}"></xo-parallax-scroll>
                 </xo-parallax>
             </xo-animate>
             <div class="collection-title">
                 <xo-animate xo-cascade="">
-                    {% if products %}
-                    <h2 class="collection-title__title">{{ products.first.category.name }}</h2>
-                    {% endif %}
+                    <h2 class="collection-title__title">
+                        {% if collection %}{{ collection.name }}{% else %}{{ category.name }}{% endif %}
+                    </h2>
                 </xo-animate>
                 <xo-animate xo-cascade="">
                     <nav aria-label="breadcrumb" class="breadcrumb" role="navigation" style="--display-mobile:block">
                         <ol class="breadcrumb__list" style="--justify:center">
                             <li class="breadcrumb__item">
-                                <a class="breadcrumb__link" href="../index.html">Home</a>
+                                <a class="breadcrumb__link" href="{% url 'home' %}">Home</a>
                                 <span class="breadcrumb__separator">
                                     <svg height="8" viewbox="0 0 320 512" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                            fill="currentColor"></path>
+                                        <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" fill="currentColor"></path>
                                     </svg>
                                 </span>
                             </li>
                             <li class="breadcrumb__item breadcrumb__item--current" style="--display:block">
-                                {% if products %}
-                                <a aria-current="page" class="breadcrumb__link breadcrumb--current breadcrumb--"
-                                    href="left-sidebar.html" style="--display:block">
-                                    {{products.first.category.name}}</a>
-                                {% endif %}
+                                <a aria-current="page" class="breadcrumb__link breadcrumb--current" href="#" style="--display:block">
+                                    {% if collection %}{{ collection.name }}{% else %}{{ category.name }}{% endif %}
+                                </a>
                             </li>
                         </ol>
                     </nav>
@@ -124,129 +111,98 @@
             </div>
         </section>
     </div>
-    <section class="shopify-section section-collection-products"
-        id="shopify-section-template--19284045103294__main-collection">
-        <div class="xo-section xo-section--template--19284045103294__main-collection color-background-1" style="--margin: 0;--pt: 50;--pb: 50;
-z-index:99">
+    <section class="shopify-section section-collection-products" id="shopify-section-template--19284045103294__main-collection">
+        <div class="xo-section xo-section--template--19284045103294__main-collection color-background-1" style="--margin: 0;--pt: 50;--pb: 50;z-index:99">
             <xo-filters-top></xo-filters-top>
-            <xo-filters xo-money-format="$1.00" xo-section-id="template--19284045103294__main-collection">
+            <xo-filters xo-money-format="₹1.00" xo-section-id="template--19284045103294__main-collection">
                 <xo-container class="xo-container--box">
                     <xo-filters-refine class="xo-filters-refine">
-                        <xo-filters-clear xo-clear-all="">Clear all</xo-filters-clear>
+                        <xo-filters-clear xo-clear-all="" id="clear-all-btn" style="cursor: pointer;">Clear all</xo-filters-clear>
                         <xo-filters-refine-clear-icon aria-label="Close">
-                            <svg aria-hidden="true" fill="none" focusable="false" viewbox="0 0 12 13" width="20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.48627 9.32917L2.82849 3.67098" stroke="currentColor" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                                <path d="M2.88539 9.38504L8.42932 3.61524" stroke="currentColor" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
+                            <svg aria-hidden="true" fill="none" focusable="false" viewbox="0 0 12 13" width="20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.48627 9.32917L2.82849 3.67098" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M2.88539 9.38504L8.42932 3.61524" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </xo-filters-refine-clear-icon>
                     </xo-filters-refine>
                     <xo-grid>
-                        <div aria-labelledby="verticalTitle" class="main-collection-style1__sidebar"
-                            style="--xs: 12; --sm: 12; --md: 4; --lg: 3; overflow:hidden">
+                        <div aria-labelledby="verticalTitle" class="main-collection-style1__sidebar" style="--xs: 12; --sm: 12; --md: 4; --lg: 3; overflow:hidden">
                             <div class="collection-sidebar__header">
-                                <h2 class="collection-sidebar__title" id="verticalTitle">
-                                    BRAND
-                                </h2>
+                                <h2 class="collection-sidebar__title" id="verticalTitle">COLLECTIONS</h2>
                             </div>
-                            <div class="collection-sidebar__menu">
-                                {% for collections in collections %}
-                                <div class="collection-sidebar__item">
-                                    <span class="collection-sidebar__icon">
-                                        <svg height="11" viewbox="0 0 320 512" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                fill="rgba(var(--color-foreground))"></path>
-                                        </svg>
-                                    </span>
-                                    <a href="../index.html" title="{{ collections.name }}">{{ collections.name }}</a>
-                                </div>
+                             <div class="collection-sidebar__menu">
+                                {% for coll in collections %}
+                                <label class="field-checkbox-text" style="width: 100%; cursor: pointer; display: block;">
+                                        <input class="field-checkbox-text__input collection-filter-checkbox" name="collection" type="checkbox" value="{{ coll.id }}" {% if coll.id|stringformat:"s" in selected_collections %}checked{% endif %} />
+                                        <div class="field-checkbox-text__item" style="width: 100%; display: flex; align-items: center;">
+                                            <span class="collection-sidebar__icon">
+                                                <svg height="11" viewbox="0 0 320 512" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" fill="rgba(var(--color-foreground))"></path>
+                                                </svg>
+                                            </span>
+                                            <span class="field-checkbox-text__content">{{ coll.name }}</span>
+                                        </div>
+                                    </label>
+
                                 {% endfor %}
                             </div>
                             <div class="fieldset-block__header">
-                                <h2 class="fieldset-block__title" id="verticalTitle">
-                                    PRICE
-                                </h2>
+                                <h2 class="fieldset-block__title" id="verticalTitle">PRICE</h2>
                             </div>
                             <div class="fieldset-block__content">
                                 <xo-filters-field style="width:100%; padding: 0 0.1rem">
                                     <div class="xo-field-price">
-                                        <xo-range class="xo-field-price__range" xo-component-name="range-price"
-                                            xo-max="100.00" xo-min="0"
-                                            xo-name="['filter.v.price.gte', 'filter.v.price.lte']" xo-step="0.1"
-                                            xo-value="[0, 100.00]"></xo-range>
+                                        <xo-range class="xo-field-price__range" xo-component-name="range-price" xo-max="{{ max_price_range }}" xo-min="{{ min_price_range }}" xo-name="['filter.v.price.gte', 'filter.v.price.lte']" xo-step="1" xo-value="[{{ price_min }}, {{ price_max }}]"></xo-range>
                                         <div class="xo-field-price__input-group">
                                             <div class="xo-field-price__label">Price:</div>
-                                            <xo-range-price class="xo-field-price__text" xo-component-name="range-price"
-                                                xo-money-format="${ money }" xo-type="min"></xo-range-price>
+                                            <xo-range-price class="xo-field-price__text" xo-component-name="range-price" xo-money-format="₹{ money }" xo-type="min">₹{{ price_min }}</xo-range-price>
                                             <span>-</span>
-                                            <xo-range-price class="xo-field-price__text" xo-component-name="range-price"
-                                                xo-money-format="${ money }" xo-type="max"></xo-range-price>
+                                            <xo-range-price class="xo-field-price__text" xo-component-name="range-price" xo-money-format="₹{ money }" xo-type="max">₹{{ price_max }}</xo-range-price>
                                         </div>
                                     </div>
                                 </xo-filters-field>
                             </div>
                             <div class="fieldset-block__header">
-                                <h2 class="fieldset-block__title" id="verticalTitle">
-                                    CATEGORY
-                                </h2>
+                                <h2 class="fieldset-block__title" id="verticalTitle">CATEGORY</h2>
                             </div>
                             <div class="fieldset-block__content fieldset-block__content--column">
-                                {% for category in categories %}
+                                {% for cat in categories %}
                                 <xo-filters-field>
                                     <label class="field-checkbox-text">
-                                        <input class="field-checkbox-text__input" name="filter.p.vendor" type="checkbox"
-                                            value="EcoSphere" xo-label="EcoSphere" />
-                                        <div class="field-checkbox-text__item">
+                                        <a href="{% url 'product_by_category' cat.slug %}" class="field-checkbox-text__item" style="text-decoration: none; color: inherit; display: flex; align-items: center; width: 100%;">
                                             <span class="field-checkbox-text__icon">
-                                                <svg height="12" viewbox="0 0 320 512"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                        fill="rgba(var(--color-foreground))"></path>
+                                                <svg height="12" viewbox="0 0 320 512" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" fill="rgba(var(--color-foreground))"></path>
                                                 </svg>
                                             </span>
-                                            <span class="field-checkbox-text__content">{{ category.name }}</span>
-                                        </div>
+                                            <span class="field-checkbox-text__content">{{ cat.name }}</span>
+                                        </a>
                                     </label>
                                 </xo-filters-field>
                                 {% endfor %}
                             </div>
-
                         </div>
                         <div style="--xs: 12; --sm: 12; --md: 8; --lg: 9;--order-md:0">
                             <div class="main-collection-style1__header">
-                                <xo-modal-trigger class="main-collection-mobile__trigger"
-                                    xo-name="collection-modal-mobile">
-                                    <svg id="Layer_1" style="enable-background:new 0 0 320.42 225;" version="1.1"
-                                        viewbox="0 0 320.42 225" width="18" x="0px" xml:space="preserve"
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        y="0px">
-                                        <path d="M303.92,33H16.5C7.39,33,0,25.61,0,16.5v0C0,7.39,7.39,0,16.5,0h287.42c9.11,0,16.5,7.39,16.5,16.5v0
-   C320.42,25.61,313.04,33,303.92,33z" fill="currentColor"></path>
-                                        <path d="M256.55,129H63.87c-9.11,0-16.5-7.39-16.5-16.5v0c0-9.11,7.39-16.5,16.5-16.5h192.68c9.11,0,16.5,7.39,16.5,16.5v0
-   C273.05,121.61,265.66,129,256.55,129z" fill="currentColor"></path>
-                                        <path d="M208.05,225h-95.67c-9.11,0-16.5-7.39-16.5-16.5v0c0-9.11,7.39-16.5,16.5-16.5h95.67c9.11,0,16.5,7.39,16.5,16.5v0
-   C224.55,217.61,217.16,225,208.05,225z" fill="currentColor"></path>
+                                <xo-modal-trigger class="main-collection-mobile__trigger" xo-name="collection-modal-mobile">
+                                    <svg id="Layer_1" style="enable-background:new 0 0 320.42 225;" version="1.1" viewbox="0 0 320.42 225" width="18" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+                                        <path d="M303.92,33H16.5C7.39,33,0,25.61,0,16.5v0C0,7.39,7.39,0,16.5,0h287.42c9.11,0,16.5,7.39,16.5,16.5v0 C320.42,25.61,313.04,33,303.92,33z" fill="currentColor"></path>
+                                        <path d="M256.55,129H63.87c-9.11,0-16.5-7.39-16.5-16.5v0c0-9.11,7.39-16.5,16.5-16.5h192.68c9.11,0,16.5,7.39,16.5,16.5v0 C273.05,121.61,265.66,129,256.55,129z" fill="currentColor"></path>
+                                        <path d="M208.05,225h-95.67c-9.11,0-16.5-7.39-16.5-16.5v0c0-9.11,7.39-16.5,16.5-16.5h95.67c9.11,0,16.5,7.39,16.5,16.5v0 C224.55,217.61,217.16,225,208.05,225z" fill="currentColor"></path>
                                     </svg>
                                     <div class="main-collection-mobile__trigger-text">Filter</div>
                                 </xo-modal-trigger>
-                                <xo-modal style="z-index:999" xo-animate="slide-right" xo-name="collection-modal-mobile"
-                                    xo-placement="top-left" xo-portal="">
+                                <xo-modal style="z-index:999" xo-animate="slide-right" xo-name="collection-modal-mobile" xo-placement="top-left" xo-portal="">
                                     <div class="main-collection-mobile__modal-wrap">
                                         <xo-modal-trigger class="main-collection-style2__modal-close">
                                             <button aria-label="Close">
-                                                <svg class="m-svg-icon--large" fill="currentColor" stroke="currentColor"
-                                                    viewbox="0 0 320 512" width="15" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
-                                                    </path>
+                                                <svg class="m-svg-icon--large" fill="currentColor" stroke="currentColor" viewbox="0 0 320 512" width="15" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
                                                 </svg>
                                             </button>
                                         </xo-modal-trigger>
                                         <div class="main-collection-mobile__modal">
+                                            
                                             <div class="collection-sidebar__header">
                                                 <h2 class="collection-sidebar__title" id="verticalTitle">
                                                     CATEGORIES
@@ -645,22 +601,15 @@ z-index:99">
                                             </div>
 
                                         </div>
+                                    
                                     </div>
                                 </xo-modal>
                                 <div class="xo-facets">
                                     <div class="xo-facets__toggle">
                                         <xo-toggle-trigger xo-name="group-button">
                                             <button>
-                                                <svg data-name="Layer 1" id="Layer_1" viewbox="0 0 10 10" width="12"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <defs>
-                                                        <style>
-                                                            .cls-1 {
-                                                                fill: #231f20;
-                                                                stroke-width: 0px;
-                                                            }
-                                                        </style>
-                                                    </defs>
+                                                <svg data-name="Layer 1" id="Layer_1" viewbox="0 0 10 10" width="12" xmlns="http://www.w3.org/2000/svg">
+                                                    <defs><style>.cls-1 {fill: #231f20;stroke-width: 0px;}</style></defs>
                                                     <rect class="cls-1" height="4.5" width="4.5"></rect>
                                                     <rect class="cls-1" height="4.5" width="4.5" x="5.5"></rect>
                                                     <rect class="cls-1" height="4.5" width="4.5" y="5.5"></rect>
@@ -669,135 +618,65 @@ z-index:99">
                                             </button>
                                         </xo-toggle-trigger>
                                         <xo-toggle class="xo-facets__toggle-content" xo-name="group-button">
-                                            <xo-group class="xo-facets__group-button"><xo-group-button
-                                                    class="xo-facets__button-item">2</xo-group-button><xo-group-button
-                                                    class="xo-facets__button-item"
-                                                    xo-active="">3</xo-group-button><xo-group-button
-                                                    class="xo-facets__button-item">4</xo-group-button><xo-group-button
-                                                    class="xo-facets__button-item">5</xo-group-button><xo-group-button
-                                                    class="xo-facets__button-item">6</xo-group-button></xo-group>
+                                            <xo-group class="xo-facets__group-button">
+                                                <xo-group-button class="xo-facets__button-item">2</xo-group-button>
+                                                <xo-group-button class="xo-facets__button-item" xo-active="">3</xo-group-button>
+                                                <xo-group-button class="xo-facets__button-item">4</xo-group-button>
+                                                <xo-group-button class="xo-facets__button-item">5</xo-group-button>
+                                                <xo-group-button class="xo-facets__button-item">6</xo-group-button>
+                                            </xo-group>
                                         </xo-toggle>
                                     </div>
                                     <div class="xo-facets__item">
                                         <div class="xo-field-select-custom-filter">
-                                            <xo-popover-trigger class="xo-field-select-custom-filter__trigger"
-                                                xo-name="filter-select-custom-field-sort-by-horizontal-template--19284045103294__main-collection">
-                                                <xo-filters-sort-by-selected
-                                                    class="xo-field-select-custom-filter__name">
-                                                    Featured
+                                            <xo-popover-trigger class="xo-field-select-custom-filter__trigger" xo-name="filter-select-sort">
+                                                <xo-filters-sort-by-selected class="xo-field-select-custom-filter__name">
+                                                    {% if sort_by == 'best-selling' %}Best selling
+                                                    {% elif sort_by == 'title-ascending' %}Alphabetically, A-Z
+                                                    {% elif sort_by == 'title-descending' %}Alphabetically, Z-A
+                                                    {% elif sort_by == 'price-ascending' %}Price, low to high
+                                                    {% elif sort_by == 'price-descending' %}Price, high to low
+                                                    {% elif sort_by == 'created-ascending' %}Date, old to new
+                                                    {% elif sort_by == 'created-descending' %}Date, new to old
+                                                    {% else %}Featured{% endif %}
                                                 </xo-filters-sort-by-selected>
-                                                <svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 22"
-                                                    width="20" xmlns="http://www.w3.org/2000/svg">
+                                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 22" width="20" xmlns="http://www.w3.org/2000/svg">
                                                     <polyline points="6 9 12 15 18 9"></polyline>
                                                 </svg>
                                             </xo-popover-trigger>
-                                            <xo-popover class="xo-field-select-custom-filter__popover xo-scrollbar"
-                                                xo-modal-scroll-selector=".xo-scrollbar"
-                                                xo-name="filter-select-custom-field-sort-by-horizontal-template--19284045103294__main-collection"
-                                                xo-placement="bottom-right">
-                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"
-                                                        id="variants-size-button">
-                                                        <input checked="" class="xo-field-select-custom-filter__input"
-                                                            name="sort_by" type="radio" value="manual"
-                                                            xo-label="Featured" />
-                                                        <span class="xo-field-select-custom-filter__label"
-                                                            id="variants-size-value">Featured</span>
-                                                    </label></xo-filters-field>
-                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"
-                                                        id="variants-size-button">
-                                                        <input class="xo-field-select-custom-filter__input"
-                                                            name="sort_by" type="radio" value="best-selling"
-                                                            xo-label="Best selling" />
-                                                        <span class="xo-field-select-custom-filter__label"
-                                                            id="variants-size-value">Best selling</span>
-                                                    </label></xo-filters-field>
-                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"
-                                                        id="variants-size-button">
-                                                        <input class="xo-field-select-custom-filter__input"
-                                                            name="sort_by" type="radio" value="title-ascending"
-                                                            xo-label="Alphabetically, A-Z" />
-                                                        <span class="xo-field-select-custom-filter__label"
-                                                            id="variants-size-value">Alphabetically, A-Z</span>
-                                                    </label></xo-filters-field>
-                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"
-                                                        id="variants-size-button">
-                                                        <input class="xo-field-select-custom-filter__input"
-                                                            name="sort_by" type="radio" value="title-descending"
-                                                            xo-label="Alphabetically, Z-A" />
-                                                        <span class="xo-field-select-custom-filter__label"
-                                                            id="variants-size-value">Alphabetically, Z-A</span>
-                                                    </label></xo-filters-field>
-                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"
-                                                        id="variants-size-button">
-                                                        <input class="xo-field-select-custom-filter__input"
-                                                            name="sort_by" type="radio" value="price-ascending"
-                                                            xo-label="Price, low to high" />
-                                                        <span class="xo-field-select-custom-filter__label"
-                                                            id="variants-size-value">Price, low to high</span>
-                                                    </label></xo-filters-field>
-                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"
-                                                        id="variants-size-button">
-                                                        <input class="xo-field-select-custom-filter__input"
-                                                            name="sort_by" type="radio" value="price-descending"
-                                                            xo-label="Price, high to low" />
-                                                        <span class="xo-field-select-custom-filter__label"
-                                                            id="variants-size-value">Price, high to low</span>
-                                                    </label></xo-filters-field>
-                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"
-                                                        id="variants-size-button">
-                                                        <input class="xo-field-select-custom-filter__input"
-                                                            name="sort_by" type="radio" value="created-ascending"
-                                                            xo-label="Date, old to new" />
-                                                        <span class="xo-field-select-custom-filter__label"
-                                                            id="variants-size-value">Date, old to new</span>
-                                                    </label></xo-filters-field>
-                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"
-                                                        id="variants-size-button">
-                                                        <input class="xo-field-select-custom-filter__input"
-                                                            name="sort_by" type="radio" value="created-descending"
-                                                            xo-label="Date, new to old" />
-                                                        <span class="xo-field-select-custom-filter__label"
-                                                            id="variants-size-value">Date, new to old</span>
-                                                    </label></xo-filters-field>
+                                            <xo-popover class="xo-field-select-custom-filter__popover xo-scrollbar" xo-modal-scroll-selector=".xo-scrollbar" xo-name="filter-select-sort" xo-placement="bottom-right">
+                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"><input {% if sort_by == 'manual' or not sort_by %}checked{% endif %} class="xo-field-select-custom-filter__input sort-radio" name="sort_by" type="radio" value="manual" xo-label="Featured" /><span class="xo-field-select-custom-filter__label">Featured</span></label></xo-filters-field>
+                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"><input {% if sort_by == 'best-selling' %}checked{% endif %} class="xo-field-select-custom-filter__input sort-radio" name="sort_by" type="radio" value="best-selling" xo-label="Best selling" /><span class="xo-field-select-custom-filter__label">Best selling</span></label></xo-filters-field>
+                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"><input {% if sort_by == 'title-ascending' %}checked{% endif %} class="xo-field-select-custom-filter__input sort-radio" name="sort_by" type="radio" value="title-ascending" xo-label="Alphabetically, A-Z" /><span class="xo-field-select-custom-filter__label">Alphabetically, A-Z</span></label></xo-filters-field>
+                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"><input {% if sort_by == 'title-descending' %}checked{% endif %} class="xo-field-select-custom-filter__input sort-radio" name="sort_by" type="radio" value="title-descending" xo-label="Alphabetically, Z-A" /><span class="xo-field-select-custom-filter__label">Alphabetically, Z-A</span></label></xo-filters-field>
+                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"><input {% if sort_by == 'price-ascending' %}checked{% endif %} class="xo-field-select-custom-filter__input sort-radio" name="sort_by" type="radio" value="price-ascending" xo-label="Price, low to high" /><span class="xo-field-select-custom-filter__label">Price, low to high</span></label></xo-filters-field>
+                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"><input {% if sort_by == 'price-descending' %}checked{% endif %} class="xo-field-select-custom-filter__input sort-radio" name="sort_by" type="radio" value="price-descending" xo-label="Price, high to low" /><span class="xo-field-select-custom-filter__label">Price, high to low</span></label></xo-filters-field>
+                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"><input {% if sort_by == 'created-ascending' %}checked{% endif %} class="xo-field-select-custom-filter__input sort-radio" name="sort_by" type="radio" value="created-ascending" xo-label="Date, old to new" /><span class="xo-field-select-custom-filter__label">Date, old to new</span></label></xo-filters-field>
+                                                <xo-filters-field><label class="xo-field-select-custom-filter__check"><input {% if sort_by == 'created-descending' %}checked{% endif %} class="xo-field-select-custom-filter__input sort-radio" name="sort_by" type="radio" value="created-descending" xo-label="Date, new to old" /><span class="xo-field-select-custom-filter__label">Date, new to old</span></label></xo-filters-field>
                                             </xo-popover>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <xo-filters-content>
-                                <div><xo-grid class="filters-content__grid" style="--xs: 2; --sm: 2; --md: 2; --lg: 3">
-                                        {% for product in products %}
-                                        <xo-product xo-product-id="{{ product.id }}"
-                                            xo-section-id="template--main-collection">
-                                            <xo-animate
-                                                class="xo-product-card xo-product-card--style9 color-background-1"
-                                                xo-cascade="">
+                                <div>
+                                    <xo-grid class="filters-content__grid" style="--xs: 2; --sm: 2; --md: 2; --lg: 3">
+                                        {% for product in page_obj %}
+                                        <xo-product xo-product-id="{{ product.id }}" xo-section-id="template--main-collection">
+                                            <xo-animate class="xo-product-card xo-product-card--style9 color-background-1" xo-cascade="">
                                                 <div class="xo-product-card__header xo-product-card__header--style9">
                                                     <a href="{{ product.get_absolute_url }}">
-                                                        <xo-product-media style="--xo-auto-play: 1500ms"
-                                                            xo-binding="img" xo-carousel-active-index="0"
-                                                            xo-carousel-autoplay="1500"
-                                                            xo-carousel-bullet-content="&lt;span class='xo-product-card__bullet'&gt;&lt;/span&gt;"
-                                                            xo-carousel-pagination-enabled="" xo-type="auto">
+                                                        <xo-product-media style="--xo-auto-play: 1500ms" xo-binding="img" xo-carousel-active-index="0" xo-carousel-autoplay="1500" xo-carousel-bullet-content="&lt;span class='xo-product-card__bullet'&gt;&lt;/span&gt;" xo-carousel-pagination-enabled="" xo-type="auto">
                                                             <div class="xo-product-image">
-                                                                <div class="xo-image"
-                                                                    style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
+                                                                <div class="xo-image" style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
                                                                     {% if product.images.all %}
                                                                     {% with first_image=product.images.first %}
-                                                                    {% if first_image %}
-                                                                    <img alt="{{ product.name }}"
-                                                                        src="{{ first_image.image.url }}" width="1000"
-                                                                        height="1000" loading="lazy" />
-                                                                    {% endif %}
+                                                                    <img alt="{{ product.name }}" src="{{ first_image.image.url }}" width="1000" height="1000" loading="lazy" />
                                                                     {% endwith %}
                                                                     {% elif product.image %}
-                                                                    <img alt="{{ product.name }}"
-                                                                        src="{{ product.image.url }}" width="1000"
-                                                                        height="1000" loading="lazy" />
+                                                                    <img alt="{{ product.name }}" src="{{ product.image.url }}" width="1000" height="1000" loading="lazy" />
                                                                     {% else %}
-                                                                    <img alt="No Image" src="/static/img/no-image.jpg"
-                                                                        width="1000" height="1000" loading="lazy" />
+                                                                    <img alt="No Image" src="/static/img/no-image.jpg" width="1000" height="1000" loading="lazy" />
                                                                     {% endif %}
                                                                 </div>
                                                             </div>
@@ -806,288 +685,61 @@ z-index:99">
                                                     <div class="xo-product-card__badge">
                                                         {% if product.stock == 0 or not product.available %}
                                                         <div class="xo-badge-sold-out">
-                                                            <span class="xo-badge-sold-out__title"
-                                                                id="Badge-{{ product.id }}">Sold out</span>
+                                                            <span class="xo-badge-sold-out__title" id="Badge-{{ product.id }}">Sold out</span>
                                                         </div>
                                                         {% else %}
-                                                        <div class="xo-badge-sale" id="Badge-{{ product.id }}">Sale
-                                                        </div>
+                                                        <div class="xo-badge-sale" id="Badge-{{ product.id }}">Sale</div>
                                                         {% endif %}
-                                                    </div>
-                                                    <div
-                                                        class="xo-product-card__actions xo-product-card__actions--style9">
-                                                        <xo-tooltip class="xo-product-card__icon"
-                                                            xo-title="Add to Cart">
-                                                            <xo-cart-add>
-                                                                <button
-                                                                    aria-labelledby="quick-add-{{ product.id }}-submit title-{{ product.id }}"
-                                                                    class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
-                                                                    id="quick-add-{{ product.id }}-submit" style=""
-                                                                    type="submit">
-                                                                    <span class="xo-btn__content">
-                                                                        <span class="xo-btn__icon">
-                                                                            <svg height="20" id="Layer_1"
-                                                                                style="enable-background:new 0 0 24 24;"
-                                                                                version="1.1" viewbox="0 0 24 24"
-                                                                                width="20" x="0px" xml:space="preserve"
-                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                y="0px">
-                                                                                <path
-                                                                                    d="M12,0C9.1,0,6.7,2.4,6.7,5.3v1h10.5v-1C17.2,2.4,14.9,0,12,0z M12,1.8c1.6,0,3,1.1,3.4,2.7H8.6C9,2.9,10.4,1.8,12,1.8"
-                                                                                    fill="currentColor"></path>
-                                                                                <g>
-                                                                                    <path
-                                                                                        d="M17.6,6.2c0.9,0,1.6,0.7,1.6,1.6v12.9c0,0.9-0.7,1.6-1.6,1.6H6.4c-0.9,0-1.6-0.7-1.6-1.6V7.8c0-0.9,0.7-1.6,1.6-1.6H17.6 M17.6,4.5H6.4C4.5,4.5,3,6,3,7.8v12.9C3,22.5,4.5,24,6.4,24h11.3c1.8,0,3.3-1.5,3.3-3.3V7.8C21,6,19.5,4.5,17.6,4.5L17.6,4.5z"
-                                                                                        fill="currentColor"></path>
-                                                                                </g>
-                                                                                <path
-                                                                                    d="M14.8,8.8H9.2c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h5.7c0.4,0,0.7,0.3,0.7,0.7v0C15.5,8.5,15.2,8.8,14.8,8.8z"
-                                                                                    fill="currentColor"></path>
-                                                                            </svg>
-                                                                        </span>
-                                                                    </span>
-                                                                    <span class="xo-btn__loading">
-                                                                        <div class="xo-loader-3"
-                                                                            style="--size: 8; --color: currentColor; --duration: 1000;">
-                                                                            <div></div>
-                                                                        </div>
-                                                                    </span>
-                                                                </button>
-                                                            </xo-cart-add>
-                                                        </xo-tooltip>
-                                                        <xo-tooltip class="xo-product-card__icon" xo-title="Quickview">
-                                                            <xo-product-quick-view-trigger xo-modal-name="quick-view"
-                                                                xo-product-url="{{ product.get_absolute_url }}">
-                                                                <button
-                                                                    class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
-                                                                    style="">
-                                                                    <span class="xo-btn__content">
-                                                                        <span class="xo-btn__icon">
-                                                                            <svg id="svg2" version="1.1"
-                                                                                viewbox="0 0 400 400" width="20"
-                                                                                xml:space="preserve"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <g id="g10"
-                                                                                    transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-                                                                                    <g id="g12" transform="scale(0.1)">
-                                                                                        <path
-                                                                                            d="m 1312.7,795.5 c -472.7,0 -857.204,384.3 -857.204,856.7 0,472.7 384.504,857.2 857.204,857.2 472.7,0 857.3,-384.5 857.3,-857.2 0,-472.4 -384.6,-856.7 -857.3,-856.7 z M 2783.9,352.699 2172.7,963.898 c 155.8,194.702 241.5,438.602 241.5,688.302 0,607.3 -494.1,1101.4 -1101.5,1101.4 -607.302,0 -1101.399,-494.1 -1101.399,-1101.4 0,-607.4 494.097,-1101.501 1101.399,-1101.501 249.8,0 493.5,85.5 687.7,241 L 2611.7,181 c 23,-23 53.6,-35.699 86.1,-35.699 32.4,0 63,12.699 86,35.699 23.1,22.801 35.8,53.301 35.8,85.898 0,32.602 -12.7,63 -35.7,85.801"
-                                                                                            fill="currentColor"
-                                                                                            id="path14"
-                                                                                            style="fill-opacity:1;fill-rule:nonzero;stroke:none">
-                                                                                        </path>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </svg>
-                                                                        </span>
-                                                                    </span>
-                                                                    <span class="xo-btn__loading">
-                                                                        <div class="xo-loader-3"
-                                                                            style="--size: 8; --color: currentColor; --duration: 1000;">
-                                                                            <div></div>
-                                                                        </div>
-                                                                    </span>
-                                                                </button>
-                                                            </xo-product-quick-view-trigger>
-                                                        </xo-tooltip>
-                                                        <div>
-                                                            <xo-products-fetcher-add class="xo-product-card__wishlist"
-                                                                xo-type="wishlist">
-                                                                <xo-tooltip
-                                                                    class="xo-product-card__icon xo-product-card__icon-wishlist"
-                                                                    xo-added="" xo-title="Add to Wishlist">
-                                                                    <button
-                                                                        class="xo-btn xo-btn--light xo-btn--primary xo-btn--circle xo-btn--sm xo-btn--slide-up circle"
-                                                                        style="">
-                                                                        <span class="xo-btn__content">
-                                                                            <span class="xo-btn__icon">
-                                                                                <svg version="1.1" viewbox="0 0 400 400"
-                                                                                    width="20"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <g id="g10"
-                                                                                        transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
-                                                                                        <g id="g12"
-                                                                                            transform="scale(0.1)">
-                                                                                            <path
-                                                                                                d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6"
-                                                                                                fill="currentColor"
-                                                                                                id="path14"
-                                                                                                style="fill-opacity:1;fill-rule:nonzero;stroke:none">
-                                                                                            </path>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </svg>
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="xo-btn__loading">
-                                                                            <div class="xo-loader-3"
-                                                                                style="--size: 8; --color: currentColor; --duration: 1000;">
-                                                                                <div></div>
-                                                                            </div>
-                                                                        </span>
-                                                                    </button>
-                                                                </xo-tooltip>
-                                                            </xo-products-fetcher-add>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="xo-product-card__information">
                                                     <h2 class="xo-product-card__title" id="title-{{ product.id }}">
-                                                        <a aria-labelledby="CardLink-{{ product.id }}"
-                                                            href="{{ product.get_absolute_url }}"
-                                                            id="CardLink-{{ product.id }}">
-                                                            {{ product.name }}
-                                                        </a>
+                                                        <a aria-labelledby="CardLink-{{ product.id }}" href="{{ product.get_absolute_url }}" id="CardLink-{{ product.id }}">{{ product.name }}</a>
                                                     </h2>
                                                     <div class="xo-product-card__price">
                                                         <div class="xo-product-card__price-inner" xo-binding="price">
                                                             <div class="xo-price" role="status">
                                                                 <div class="xo-price__container">
                                                                     <div class="xo-price__sale xo-price__sale--column">
-                                                                        <div
-                                                                            class="xo-visually-hidden xo-visually-hidden--inline">
-                                                                            Sale price</div>
-                                                                        <span
-                                                                            class="xo-price__item xo-price__item--accent">
-                                                                            ₹{{ product.price }}</span>
-
+                                                                        <span class="xo-price__item xo-price__item--accent">₹{{ product.price }}</span>
                                                                     </div>
-                                                                    <small class="xo-unit-price xo-unit-price--hidden">
-                                                                        <span class="xo-visually-hidden">Unit
-                                                                            price</span>
-                                                                        <span>
-                                                                            <span></span>
-                                                                            <span aria-hidden="true">/</span>
-                                                                            <div
-                                                                                class="xo-visually-hidden xo-visually-hidden--inline">
-                                                                                per</div>
-                                                                            <span></span>
-                                                                        </span>
-                                                                    </small>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <xo-product-data>
-                                                    <script type="application/json">
-            {
-                "id": {{ product.id }},
-                "handle": "{{ product.slug }}",
-                "variants": [{
-                    "id": {{ product.id }},
-                    "title": "Default Title",
-                    "option1": "Default Title",
-                    "option2": null,
-                    "option3": null,
-                    "sku": null,
-                    "requires_shipping": true,
-                    "taxable": true,
-                    "featured_image": null,
-                    "available": {% if product.available and product.stock > 0 %}true{% else %}false{% endif %},
-                    "name": "{{ product.name|escapejs }}",
-                    "public_title": null,
-                    "options": ["Default Title"],
-                    "price": {{ product.price|floatformat:2 }},
-                    "weight": 0,
-                    "compare_at_price": null,
-                    "inventory_management": "shopify",
-                    "barcode": null,
-                    "requires_selling_plan": false,
-                    "selling_plan_allocations": [],
-                    "quantity_rule": {"min": 1, "max": null, "increment": 1}
-                }],
-                "media": [
-                    {% if product.image %}
-                    {
-                        "alt": "{{ product.name|escapejs }}",
-                        "id": {{ product.id }},
-                        "position": 1,
-                        "preview_image": {
-                            "aspect_ratio": 1.0,
-                            "height": 1000,
-                            "width": 1000,
-                            "src": "{{ product.image.url }}"
-                        },
-                        "aspect_ratio": 1.0,
-                        "height": 1000,
-                        "media_type": "image",
-                        "src": "{{ product.image.url }}",
-                        "width": 1000
-                    }{% if product.images.all %},{% endif %}
-                    {% endif %}
-                    {% for img in product.images.all %}
-                    {
-                        "alt": "{{ product.name|escapejs }}",
-                        "id": {{ img.id }},
-                        "position": {{ forloop.counter|add:1 }},
-                        "preview_image": {
-                            "aspect_ratio": 1.0,
-                            "height": 1000,
-                            "width": 1000,
-                            "src": "{{ img.image.url }}"
-                        },
-                        "aspect_ratio": 1.0,
-                        "height": 1000,
-                        "media_type": "image",
-                        "src": "{{ img.image.url }}",
-                        "width": 1000
-                    }{% if not forloop.last %},{% endif %}
-                    {% endfor %}
-                ],
-                "options": ["Title"],
-                "available": {% if product.available and product.stock > 0 %}true{% else %}false{% endif %}
-            }
-            </script>
-                                                </xo-product-data>
                                             </xo-animate>
                                         </xo-product>
+                                        {% empty %}
+                                        <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                                            <h3>No products found</h3>
+                                            <p>Try adjusting your filters</p>
+                                        </div>
                                         {% endfor %}
                                     </xo-grid>
                                     <xo-filters-paginate>
                                         <nav aria-label="Pagination" class="xo-pagination">
                                             <ul class="xo-pagination__list" role="list">
-
-                                                {# Previous button #}
                                                 {% if page_obj.has_previous %}
                                                 <li>
-                                                    <a aria-label="Previous page"
-                                                        class="xo-pagination__page xo-pagination__page--prev"
-                                                        href="?page={{ page_obj.previous_page_number }}">
-                                                        <svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                                            width="20" xmlns="http://www.w3.org/2000/svg">
+                                                    <a aria-label="Previous page" class="xo-pagination__page xo-pagination__page--prev" href="?page={{ page_obj.previous_page_number }}{% for key, values in request.GET.lists %}{% if key != 'page' %}{% for value in values %}&{{ key }}={{ value }}{% endfor %}{% endif %}{% endfor %}">
+                                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
                                                             <polyline points="15 18 9 12 15 6"></polyline>
                                                         </svg>
                                                     </a>
                                                 </li>
                                                 {% endif %}
-
-                                                {# Page numbers #}
                                                 {% for page in page_obj.paginator.page_range %}
                                                 {% if page == page_obj.number %}
-                                                <li><span aria-current="page" aria-label="Page {{ page }}"
-                                                        class="xo-pagination__page xo-pagination__page--current">{{ page
-                                                        }}</span>
-                                                </li>
+                                                <li><span aria-current="page" aria-label="Page {{ page }}" class="xo-pagination__page xo-pagination__page--current">{{ page }}</span></li>
                                                 {% else %}
-                                                <li>
-                                                    <a aria-label="Page {{ page }}" class="xo-pagination__page"
-                                                        href="?page={{ page }}">{{ page }}</a>
-                                                </li>
+                                                <li><a aria-label="Page {{ page }}" class="xo-pagination__page" href="?page={{ page }}{% for key, values in request.GET.lists %}{% if key != 'page' %}{% for value in values %}&{{ key }}={{ value }}{% endfor %}{% endif %}{% endfor %}">{{ page }}</a></li>
                                                 {% endif %}
                                                 {% endfor %}
-
-                                                {# Next button #}
                                                 {% if page_obj.has_next %}
                                                 <li>
-                                                    <a aria-label="Next page"
-                                                        class="xo-pagination__page xo-pagination__page--next"
-                                                        href="?page={{ page_obj.next_page_number }}">
-                                                        <svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                                            width="20" xmlns="http://www.w3.org/2000/svg">
+                                                    <a aria-label="Next page" class="xo-pagination__page xo-pagination__page--next" href="?page={{ page_obj.next_page_number }}{% for key, values in request.GET.lists %}{% if key != 'page' %}{% for value in values %}&{{ key }}={{ value }}{% endfor %}{% endif %}{% endfor %}">
+                                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
                                                             <polyline points="9 18 15 12 9 6"></polyline>
                                                         </svg>
                                                     </a>
@@ -1103,17 +755,10 @@ z-index:99">
                 </xo-container>
             </xo-filters>
         </div>
-        <script>
-            //toggle sidebar
-            const triggerToggle = document.querySelector('#main-collection-style2__trigger-toggle');
-            const contentToggle = document.querySelector('#main-collection-style2__toggle');
-            triggerToggle?.addEventListener('click', function (e) {
-                contentToggle?.classList.toggle('xo-active');
-                triggerToggle?.classList.toggle('xo-active');
-            });
-        </script>
     </section>
-    <style>
+</main>
+
+<style>
 .price-range-slider {
     position: relative;
     height: 40px;
@@ -1301,4 +946,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-    {% endblock %}
+{% endblock %}
