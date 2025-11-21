@@ -2,10 +2,17 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("checkout/", views.checkout_page, name="checkout_page"),
-    path("checkout/submit/", views.checkout_action, name="checkout_action"),
-    path("order/<int:order_id>/", views.order_detail_page, name="order_detail_page"),
-    path("track/<int:order_id>/", views.track_order_page, name="track_order_page"),
-    path("orders/", views.order_list_page, name="order_list_page"),
-    path("buy-now/<int:product_id>/", views.buy_now, name="buy_now"),
+    # Checkout
+    path('checkout/', views.checkout_page, name='checkout_page'),
+    path('checkout/action/', views.checkout_action, name='checkout_action'),
+    
+    # Buy Now
+    path('buy-now/<int:product_id>/', views.buy_now, name='buy_now'),
+    path('update-buy-now/<str:action>/', views.update_buy_now_quantity, name='update_buy_now_qty'),
+    path('cancel-buy-now/', views.cancel_buy_now, name='cancel_buy_now'),
+    
+    # Orders
+    path('orders/', views.order_list_page, name='order_list_page'),
+    path('order/<int:order_id>/', views.order_detail_page, name='order_detail_page'),
+    path('order/<int:order_id>/track/', views.track_order_page, name='track_order_page'),
 ]
