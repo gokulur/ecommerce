@@ -452,41 +452,21 @@ z-index:99; position: relative">
                                             </h1>
                                             <div>
 
-                                                {% if product in request.user.wishlist.products.all %}
-                                                    <!-- REMOVE from wishlist -->
-                                                    <a href="{% url 'wishlist:toggle' product.id %}">
-                                                        <xo-products-fetcher-add class="xo-product-info-content__wishlist" xo-type="wishlist">
-                                                            <xo-tooltip class="xo-product-info-content__icon-wishlist"
-                                                                xo-animate="fade-right" xo-easing="spring"
-                                                                xo-placement="left-center" xo-title="Remove from Wishlist">
-
-                                                                <!-- REMOVE (filled) heart SVG -->
-                                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="red">
-                                                                    <path d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z"/>
-                                                                </svg>
-
-                                                            </xo-tooltip>
-                                                        </xo-products-fetcher-add>
-                                                    </a>
-
-                                                {% else %}
-                                                    <!-- ADD to wishlist -->
-                                                    <a href="{% url 'wishlist:toggle' product.id %}">
-                                                        <xo-products-fetcher-add class="xo-product-info-content__wishlist" xo-type="wishlist">
-                                                            <xo-tooltip class="xo-product-info-content__icon-wishlist"
-                                                                xo-animate="fade-right" xo-easing="spring"
-                                                                xo-placement="left-center" xo-title="Add to Wishlist">
-
-                                                                <!-- ADD (outline) heart SVG -->
-                                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
-                                                                    <path d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z"/>
-                                                                </svg>
-
-                                                            </xo-tooltip>
-                                                        </xo-products-fetcher-add>
-                                                    </a>
-
-                                                {% endif %}
+                                                 <button class="wishlist-btn circle-btn" data-product-id="{{ product.id }}">
+                                                    {% if product in request.user.wishlist.products.all %}
+                                                    <!-- Filled heart -->
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="red">
+                                                    <path
+                                                        d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z" />
+                                                    </svg>
+                                                    {% else %}
+                                                    <!-- Outline heart -->
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                                                    <path
+                                                        d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z" />
+                                                    </svg>
+                                                    {% endif %}
+                                                </button>
 
                                             </div>
 
@@ -1203,6 +1183,48 @@ z-index:99; position: relative">
         });
     });
 </script>
+          <script>
+            function updateWishlistUI(added, btn, newCount) {
+              // change button icon
+              if (added) {
+                btn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="red">
+                <path d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z" />
+            </svg>
+        `;
+              } else {
+                btn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                <path d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z"/>
+            </svg>
+        `;
+              }
 
+              // update header count instantly
+              const headerCount = document.getElementById("wishlist-count");
+              if (headerCount) {
+                headerCount.textContent = newCount;
+                headerCount.classList.add("wishlist-count-bump");
+                setTimeout(() => headerCount.classList.remove("wishlist-count-bump"), 300);
+              }
+            }
+
+
+            // wishlist button click
+            document.querySelectorAll(".wishlist-btn").forEach(btn => {
+              btn.addEventListener("click", function () {
+                const productId = this.dataset.productId;
+
+                fetch(`/wishlist/toggle/${productId}/`, {
+                  method: "POST",
+                  headers: { "X-CSRFToken": "{{ csrf_token }}" }
+                })
+                  .then(res => res.json())
+                  .then(data => {
+                    updateWishlistUI(data.added, this, data.wishlist_count);
+                  });
+              });
+            });
+          </script>
 
 {% endblock %}
