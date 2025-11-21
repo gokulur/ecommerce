@@ -7,7 +7,7 @@ def home(request):
     product_ids = list(Product.objects.values_list('id', flat=True))
     random.shuffle(product_ids)
     selected_ids = product_ids[:8]
-
+     
     # preserve order
     products = list(Product.objects.filter(id__in=selected_ids))
     products.sort(key=lambda p: selected_ids.index(p.id))
@@ -23,7 +23,7 @@ def home(request):
         recommended_products = list(Product.objects.exclude(id__in=cart_product_ids).filter(available=True)[:8])
         random.shuffle(recommended_products)
         recommended_products = recommended_products[:4]
-    
+        
     collections = Collection.objects.all()[:6]
 
     return render(request, 'base.html', {

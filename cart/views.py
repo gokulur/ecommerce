@@ -170,3 +170,5 @@ def remove_item(request, item_id):
         })
     
     return redirect("cart_page")
+
+ 

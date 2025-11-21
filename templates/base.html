@@ -1110,8 +1110,8 @@ Scheme 2: Scheme 4`,
                             </g>
                           </g>
                         </svg>
-                        <xo-products-fetcher-size class="header-v24__wishlist-count"
-                          xo-type="wishlist"></xo-products-fetcher-size>
+                        <span class="header-v24__wishlist-count">{{ wishlist_count }}</span>
+
                       </a>
                     </xo-tooltip>
 
@@ -1131,7 +1131,8 @@ Scheme 2: Scheme 4`,
                             fill="rgba(var(--color-foreground))"></path>
                         </svg>
                         <span class="header-v24__cart-count">
-                          <xo-cart-size>0</xo-cart-size>
+                       {{ cart_count }}
+
                         </span>
                       </xo-modal-trigger>
                     </xo-tooltip>
