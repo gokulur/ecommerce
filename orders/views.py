@@ -143,3 +143,7 @@ def buy_now(request, product_id):
 
     return redirect("checkout_page")
 
+
+def get_buy_now_cart(request):
+    buy_now = request.session.get("buy_now_cart", {})
+    return buy_now

@@ -2345,7 +2345,8 @@ z-index:98">
                           </svg>
                         </button>
                       </div>
-                      <div class="cart-item__total">₹{{ item.total_price }}</div>
+                      <div class="cart-item__total item-total-{{ item.id }}">₹{{ item.total_price }}</div>
+
                     </div>
                     {% endfor %}
                   </div>
@@ -2363,10 +2364,11 @@ z-index:98">
                     <span>Subtotal:</span>
                     <span class="cart-subtotal">₹{{ cart.get_subtotal|floatformat:2 }}</span>
                   </div>
-                  <div class="cart-summary__row cart-summary__total">
-                    <span>Total:</span>
-                    <span class="cart-total">₹{{ cart.get_total|floatformat:2 }}</span>
-                  </div>
+                  <div class="cart-summary">
+                  <span>Total:</span>
+                  <span id="cart-total">₹{{ cart.get_total }}</span>
+                </div>
+
                   <a href="{% url 'checkout_page' %}"
                     class="xo-btn xo-btn--dark xo-btn--primary xo-btn--md xo-btn--slide-up checkout-btn">
                     <span class="xo-btn__content">
@@ -2577,7 +2579,9 @@ z-index:98">
                     setTimeout(() => row.remove(), 250);
 
 
+                    document.querySelector(".item-total-" + itemID).innerHTML = "₹" + data.item_total;
                     document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
+
                   });
               }
 
