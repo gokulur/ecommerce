@@ -40,9 +40,9 @@ def toggle_wishlist(request, product_id):
         added = True
 
     return JsonResponse({
-        "success": True,
         "added": added,
-        "product_id": product_id
+        "wishlist_count": request.user.wishlist.products.count()
     })
+
 
 
