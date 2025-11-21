@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Product, Category, Collection
 from django.core.paginator import Paginator
 from decimal import Decimal
+from django.http import JsonResponse
 
 def all_collections(request):
     categories = Category.objects.all()
@@ -21,7 +22,7 @@ def product_detail(request, slug):
     return render(request, 'product_detail.html', {'product': product})
 
 def products_by_category(request, slug):
-    """Category page with ALL FILTERS - WORKING VERSION"""
+    """Category page with ALL FILTERS - AJAX VERSION"""
     category = get_object_or_404(Category, slug=slug)
     
     # Get all collections under this category
@@ -106,10 +107,15 @@ def products_by_category(request, slug):
         'selected_collections': selected_collection_ids,
     }
     
+    # Check if it's an AJAX request
+    if request.GET.get('ajax'):
+        # Return only the template without base
+        return render(request, 'products_by_category.html', context)
+    
     return render(request, 'products_by_category.html', context)
 
 def products_by_collection(request, slug):
-    """Collection page with filters - WORKING VERSION"""
+    """Collection page with filters - AJAX VERSION"""
     collection = get_object_or_404(Collection, slug=slug)
     
     # Get products in this collection that are available
@@ -189,5 +195,9 @@ def products_by_collection(request, slug):
         'min_price_range': min_price_product.price if min_price_product else 0,
         'max_price_range': max_price_product.price if max_price_product else 1000,
     }
+    
+    # Check if it's an AJAX request
+    if request.GET.get('ajax'):
+        return render(request, 'products_by_category.html', context)
     
     return render(request, 'products_by_category.html', context)

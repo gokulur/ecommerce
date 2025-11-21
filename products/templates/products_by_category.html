@@ -58,7 +58,7 @@
                                     <xo-carousel-slide aria-label="1 of 10" aria-roledescription="Slide"
                                         class="collection-title-style2__nav">
                                         <div class="collection-title-style2__nav-img">
-                                            <a href="left-sidebar.html">
+                                            <a href="{{ product.get_absolute_url }}">
                                                 <div class="xo-product-image">
                                                     <div class="xo-image"
                                                         style="--xo-ratio-percent: 1/1; --x-pos: %; --y-pos: %;">
@@ -81,9 +81,7 @@
                                             </a>
                                         </div>
                                         <div class="collection-title-style2__nav-text">
-
-                                            <a href="left-sidebar.html">
-
+                                            <a href="{{ product.get_absolute_url }}">
                                                 {{ product.name }}
                                             </a>
                                         </div>
@@ -202,236 +200,8 @@
                                             </button>
                                         </xo-modal-trigger>
                                         <div class="main-collection-mobile__modal">
-                                            
-                                            <div class="collection-sidebar__header">
-                                                <h2 class="collection-sidebar__title" id="verticalTitle">
-                                                    CATEGORIES
-                                                </h2>
-                                            </div>
-                                            <div class="collection-sidebar__menu">
-                                                <div class="collection-sidebar__item">
-                                                    <span class="collection-sidebar__icon">
-                                                        <svg height="11" viewbox="0 0 320 512"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                                fill="rgba(var(--color-foreground))"></path>
-                                                        </svg>
-                                                    </span>
-                                                    <a href="../index.html" title="">Mystic Aura</a>
-                                                </div>
-                                                 
-                                            </div>
-
-                                            
-                                            <div class="fieldset-block__header">
-                                                <h2 class="fieldset-block__title" id="verticalTitle">
-                                                    PRICE
-                                                </h2>
-                                            </div>
-                                            <div class="fieldset-block__content">
-                                                <xo-filters-field style="width:100%; padding: 0 0.1rem">
-                                                    <div class="xo-field-price">
-                                                        <xo-range class="xo-field-price__range"
-                                                            xo-component-name="range-price" xo-max="100.00" xo-min="0"
-                                                            xo-name="['filter.v.price.gte', 'filter.v.price.lte']"
-                                                            xo-step="0.1" xo-value="[0, 100.00]"></xo-range>
-                                                        <div class="xo-field-price__input-group">
-                                                            <div class="xo-field-price__label">Price:</div>
-                                                            <xo-range-price class="xo-field-price__text"
-                                                                xo-component-name="range-price"
-                                                                xo-money-format="${ money }"
-                                                                xo-type="min"></xo-range-price>
-                                                            <span>-</span>
-                                                            <xo-range-price class="xo-field-price__text"
-                                                                xo-component-name="range-price"
-                                                                xo-money-format="${ money }"
-                                                                xo-type="max"></xo-range-price>
-                                                        </div>
-                                                    </div>
-                                                </xo-filters-field>
-                                            </div>
-                                             
-                                             
-                                            <div class="fieldset-block__content">
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-block">
-                                                        <input class="field-checkbox-block__input" name="filter.p.tag"
-                                                            type="checkbox" value="Hot" xo-label="Hot" />
-                                                        <div
-                                                            class="field-checkbox-block__item field-checkbox-block__item--tag">
-                                                            <span class="field-checkbox-block__content">Hot</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-block">
-                                                        <input class="field-checkbox-block__input" name="filter.p.tag"
-                                                            type="checkbox" value="Innovation" xo-label="Innovation" />
-                                                        <div
-                                                            class="field-checkbox-block__item field-checkbox-block__item--tag">
-                                                            <span
-                                                                class="field-checkbox-block__content">Innovation</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-block">
-                                                        <input class="field-checkbox-block__input" name="filter.p.tag"
-                                                            type="checkbox" value="Lifestyle" xo-label="Lifestyle" />
-                                                        <div
-                                                            class="field-checkbox-block__item field-checkbox-block__item--tag">
-                                                            <span class="field-checkbox-block__content">Lifestyle</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-block">
-                                                        <input class="field-checkbox-block__input" name="filter.p.tag"
-                                                            type="checkbox" value="Quality" xo-label="Quality" />
-                                                        <div
-                                                            class="field-checkbox-block__item field-checkbox-block__item--tag">
-                                                            <span class="field-checkbox-block__content">Quality</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-block">
-                                                        <input class="field-checkbox-block__input" name="filter.p.tag"
-                                                            type="checkbox" value="Solutions" xo-label="Solutions" />
-                                                        <div
-                                                            class="field-checkbox-block__item field-checkbox-block__item--tag">
-                                                            <span class="field-checkbox-block__content">Solutions</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-block">
-                                                        <input class="field-checkbox-block__input" name="filter.p.tag"
-                                                            type="checkbox" value="Sustainability"
-                                                            xo-label="Sustainability" />
-                                                        <div
-                                                            class="field-checkbox-block__item field-checkbox-block__item--tag">
-                                                            <span
-                                                                class="field-checkbox-block__content">Sustainability</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                            </div>
-                                            <div class="fieldset-block__header">
-                                                <h2 class="fieldset-block__title" id="verticalTitle">
-                                                    BRAND
-                                                </h2>
-                                            </div>
-                                            <div class="fieldset-block__content fieldset-block__content--column">
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-text">
-                                                        <input class="field-checkbox-text__input" name="filter.p.vendor"
-                                                            type="checkbox" value="EcoSphere" xo-label="EcoSphere" />
-                                                        <div class="field-checkbox-text__item">
-                                                            <span class="field-checkbox-text__icon">
-                                                                <svg height="12" viewbox="0 0 320 512"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                                        fill="rgba(var(--color-foreground))"></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="field-checkbox-text__content">EcoSphere</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-text">
-                                                        <input class="field-checkbox-text__input" name="filter.p.vendor"
-                                                            type="checkbox" value="HorizonEdge"
-                                                            xo-label="HorizonEdge" />
-                                                        <div class="field-checkbox-text__item">
-                                                            <span class="field-checkbox-text__icon">
-                                                                <svg height="12" viewbox="0 0 320 512"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                                        fill="rgba(var(--color-foreground))"></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span
-                                                                class="field-checkbox-text__content">HorizonEdge</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-text">
-                                                        <input class="field-checkbox-text__input" name="filter.p.vendor"
-                                                            type="checkbox" value="LuxeVibe" xo-label="LuxeVibe" />
-                                                        <div class="field-checkbox-text__item">
-                                                            <span class="field-checkbox-text__icon">
-                                                                <svg height="12" viewbox="0 0 320 512"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                                        fill="rgba(var(--color-foreground))"></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="field-checkbox-text__content">LuxeVibe</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-text">
-                                                        <input class="field-checkbox-text__input" name="filter.p.vendor"
-                                                            type="checkbox" value="NovaCrest" xo-label="NovaCrest" />
-                                                        <div class="field-checkbox-text__item">
-                                                            <span class="field-checkbox-text__icon">
-                                                                <svg height="12" viewbox="0 0 320 512"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                                        fill="rgba(var(--color-foreground))"></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="field-checkbox-text__content">NovaCrest</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-text">
-                                                        <input class="field-checkbox-text__input" name="filter.p.vendor"
-                                                            type="checkbox" value="TrueHaven" xo-label="TrueHaven" />
-                                                        <div class="field-checkbox-text__item">
-                                                            <span class="field-checkbox-text__icon">
-                                                                <svg height="12" viewbox="0 0 320 512"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                                        fill="rgba(var(--color-foreground))"></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="field-checkbox-text__content">TrueHaven</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                                <xo-filters-field>
-                                                    <label class="field-checkbox-text">
-                                                        <input class="field-checkbox-text__input" name="filter.p.vendor"
-                                                            type="checkbox" value="VertexCore" xo-label="VertexCore" />
-                                                        <div class="field-checkbox-text__item">
-                                                            <span class="field-checkbox-text__icon">
-                                                                <svg height="12" viewbox="0 0 320 512"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
-                                                                        fill="rgba(var(--color-foreground))"></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="field-checkbox-text__content">VertexCore</span>
-                                                        </div>
-                                                    </label>
-                                                </xo-filters-field>
-                                            </div>
-
+                                            <!-- Mobile filters content here -->
                                         </div>
-                                    
                                     </div>
                                 </xo-modal>
                                 <div class="xo-facets">
@@ -488,7 +258,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <xo-filters-content>
+                            
+                            <!-- Loading Indicator -->
+                            <div id="loading-indicator" style="display: none; text-align: center; padding: 40px;">
+                                <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #000; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                            </div>
+
+                            <!-- Products Container -->
+                            <xo-filters-content id="products-container">
                                 <div>
                                     <xo-grid class="filters-content__grid" style="--xs: 2; --sm: 2; --md: 2; --lg: 3">
                                         {% for product in page_obj %}
@@ -552,7 +329,7 @@
                                             <ul class="xo-pagination__list" role="list">
                                                 {% if page_obj.has_previous %}
                                                 <li>
-                                                    <a aria-label="Previous page" class="xo-pagination__page xo-pagination__page--prev" href="?page={{ page_obj.previous_page_number }}{% for key, values in request.GET.lists %}{% if key != 'page' %}{% for value in values %}&{{ key }}={{ value }}{% endfor %}{% endif %}{% endfor %}">
+                                                    <a aria-label="Previous page" class="xo-pagination__page xo-pagination__page--prev pagination-link" href="#" data-page="{{ page_obj.previous_page_number }}">
                                                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
                                                             <polyline points="15 18 9 12 15 6"></polyline>
                                                         </svg>
@@ -563,12 +340,12 @@
                                                 {% if page == page_obj.number %}
                                                 <li><span aria-current="page" aria-label="Page {{ page }}" class="xo-pagination__page xo-pagination__page--current">{{ page }}</span></li>
                                                 {% else %}
-                                                <li><a aria-label="Page {{ page }}" class="xo-pagination__page" href="?page={{ page }}{% for key, values in request.GET.lists %}{% if key != 'page' %}{% for value in values %}&{{ key }}={{ value }}{% endfor %}{% endif %}{% endfor %}">{{ page }}</a></li>
+                                                <li><a aria-label="Page {{ page }}" class="xo-pagination__page pagination-link" href="#" data-page="{{ page }}">{{ page }}</a></li>
                                                 {% endif %}
                                                 {% endfor %}
                                                 {% if page_obj.has_next %}
                                                 <li>
-                                                    <a aria-label="Next page" class="xo-pagination__page xo-pagination__page--next" href="?page={{ page_obj.next_page_number }}{% for key, values in request.GET.lists %}{% if key != 'page' %}{% for value in values %}&{{ key }}={{ value }}{% endfor %}{% endif %}{% endfor %}">
+                                                    <a aria-label="Next page" class="xo-pagination__page xo-pagination__page--next pagination-link" href="#" data-page="{{ page_obj.next_page_number }}">
                                                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
                                                             <polyline points="9 18 15 12 9 6"></polyline>
                                                         </svg>
@@ -589,6 +366,11 @@
 </main>
 
 <style>
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .price-range-slider {
     position: relative;
     height: 40px;
@@ -652,6 +434,28 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    let debounceTimer;
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const productsContainer = document.getElementById('products-container');
+    
+    // Get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+    
+    // Initialize price range slider
     const priceRangeEl = document.querySelector('xo-range[xo-component-name="range-price"]');
     
     if (priceRangeEl) {
@@ -695,17 +499,29 @@ document.addEventListener('DOMContentLoaded', function() {
             updatePriceDisplay();
         });
         
-        minSlider.addEventListener('change', applyFilters);
-        maxSlider.addEventListener('change', applyFilters);
+        minSlider.addEventListener('change', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(applyFilters, 500);
+        });
+        
+        maxSlider.addEventListener('change', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(applyFilters, 500);
+        });
         
         updatePriceDisplay();
     }
     
+    // Collection checkboxes
     const collectionCheckboxes = document.querySelectorAll('.collection-filter-checkbox');
     collectionCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', applyFilters);
+        checkbox.addEventListener('change', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(applyFilters, 300);
+        });
     });
     
+    // Sort dropdown
     const sortRadios = document.querySelectorAll('.sort-radio');
     const sortTrigger = document.querySelector('.xo-field-select-custom-filter__trigger');
     const sortPopover = document.querySelector('.xo-field-select-custom-filter__popover');
@@ -737,6 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Clear all button
     const clearAllBtn = document.getElementById('clear-all-btn');
     if (clearAllBtn) {
         clearAllBtn.addEventListener('click', function() {
@@ -745,10 +562,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    function applyFilters() {
-        const url = new URL(window.location.href);
+    // Pagination links
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.pagination-link')) {
+            e.preventDefault();
+            const page = e.target.closest('.pagination-link').getAttribute('data-page');
+            applyFilters(page);
+        }
+    });
+    
+    // AJAX Filter Function
+    function applyFilters(page = 1) {
         const params = new URLSearchParams();
         
+        // Get price values
         const minSlider = document.querySelector('.price-min');
         const maxSlider = document.querySelector('.price-max');
         
@@ -757,6 +584,7 @@ document.addEventListener('DOMContentLoaded', function() {
             params.append('price_max', Math.round(maxSlider.value));
         }
         
+        // Get selected collections
         const selectedCollections = Array.from(collectionCheckboxes)
             .filter(cb => cb.checked)
             .map(cb => cb.value);
@@ -765,14 +593,60 @@ document.addEventListener('DOMContentLoaded', function() {
             params.append('collection', id);
         });
         
+        // Get selected sort
         const selectedSort = document.querySelector('.sort-radio:checked');
         if (selectedSort) {
             params.append('sort_by', selectedSort.value);
         }
         
-        params.append('page', '1');
+        // Add page number
+        params.append('page', page);
+        params.append('ajax', '1');
         
-        window.location.href = `${url.pathname}?${params.toString()}`;
+        // Show loading
+        if (loadingIndicator) loadingIndicator.style.display = 'block';
+        if (productsContainer) productsContainer.style.opacity = '0.5';
+        
+        // Make AJAX request
+        fetch(`${window.location.pathname}?${params.toString()}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            // Parse the HTML response
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Get the new products container
+            const newProductsContainer = doc.querySelector('#products-container');
+            
+            if (newProductsContainer && productsContainer) {
+                productsContainer.innerHTML = newProductsContainer.innerHTML;
+            }
+            
+            // Update URL without reload
+            const newUrl = `${window.location.pathname}?${params.toString().replace('&ajax=1', '')}`;
+            window.history.pushState({}, '', newUrl);
+            
+            // Hide loading
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
+            if (productsContainer) productsContainer.style.opacity = '1';
+            
+            // Scroll to products
+            const productsSection = document.querySelector('.section-collection-products');
+            if (productsSection) {
+                productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
+            if (productsContainer) productsContainer.style.opacity = '1';
+        });
     }
 });
 </script>
