@@ -83,9 +83,8 @@
                         <xo-cart-will-change xo-unique-id="cart-table-template--19284044447934__cart-items">
 
                             <xo-grid>
-                                <div style="--md: 12; --lg: 8">
-
-
+                                <div style="--xs: 12; --sm: 12; --md: 12; --lg: 8;" class="xo-cart__left">
+  
                                     <div class="xo-cart-table">
                                         <form action=" " method="post" id="cart">
                                             <table role="table" class="xo-table">
@@ -1155,7 +1154,7 @@
                                 row.style.opacity = "0";
                                 setTimeout(() => row.remove(), 250);
 
-                          
+
                                 document.getElementById("cart-total").innerHTML = "₹" + data.cart_total;
                             });
                     }
