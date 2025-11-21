@@ -105,7 +105,7 @@
                                                         </span>
                                                     </button>
                                                 </form>
-                                                <form method="post" action="" style="display: inline;">
+                                                <form method="post" action="{% url 'wishlist:toggle' product.id %}" style="display: inline;">
                                                     {% csrf_token %}
                                                     <button class="xo-btn xo-btn--dark xo-btn--secondary xo-btn--xs xo-btn--slide-up" style="border-radius: 100rem;">
                                                         <span class="xo-btn__content">
@@ -146,7 +146,7 @@
                                     <!-- Action Column -->
                                     <td role="cell" data-th="Action">
                                         <div class="wishlist-table__action">
-                                            <form method="post" action=" " style="display: inline;">
+                                            <form method="post" action="{% url 'add_to_cart' product.id %}" style="display: inline;">
                                                 {% csrf_token %}
                                                 <button class="xo-btn xo-btn--light xo-btn--primary xo-btn--xs xo-btn--slide-up" style="border-radius: 100rem;">
                                                     <span class="xo-btn__content">
@@ -154,7 +154,7 @@
                                                     </span>
                                                 </button>
                                             </form>
-                                            <form method="post" action=" " style="display: inline;">
+                                            <form method="post" action="{% url 'wishlist:toggle' product.id %}" style="display: inline;">
                                                 {% csrf_token %}
                                                 <button class="xo-btn xo-btn--dark xo-btn--secondary xo-btn--xs xo-btn--slide-up" style="border-radius: 100rem;">
                                                     <span class="xo-btn__content">
@@ -173,7 +173,7 @@
 
                 {% else %}
                 <!-- Empty Wishlist State -->
-                <div class="main-wishlist__empty">
+                <div class=" ">
                     <div class="xo-empty" style="--align: center">
                         <div class="xo-empty__icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="14rem">
@@ -185,7 +185,7 @@
                         <h2 class="xo-empty__title">Your wishlist is empty</h2>
                         <p class="xo-empty__subtitle"></p>
                         <div class="xo-empty__content">
-                            <a href="{% url 'product_list' %}">
+                            <a href="{% url 'all_collections' %}">
                                 <button class="xo-btn xo-btn--dark xo-btn--link xo-btn--slide-up">
                                     <span class="xo-btn__content">
                                         <span class="xo-btn__text" data-text="Continue shopping">Continue shopping</span>
