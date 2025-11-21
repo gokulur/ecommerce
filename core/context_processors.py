@@ -24,3 +24,5 @@ def wishlist_count(request):
             return {"wishlist_count": 0}
     return {"wishlist_count": 0}
 
+
+
