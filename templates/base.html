@@ -1036,7 +1036,7 @@ Scheme 2: Scheme 4`,
                           {% endif %}
 
                           <!-- Wishlist (Always visible) -->
-                          <a class="menu-hamburger-drawer-mobile__utility" href="pages/wishlist.html">
+                          <a class="menu-hamburger-drawer-mobile__utility" href="{% url 'wishlist:wishlist_page' %}">
                             <svg version="1.1" viewBox="0 0 400 400" width="18" xmlns="http://www.w3.org/2000/svg">
                               <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
                                 <g transform="scale(0.1)">
@@ -1100,7 +1100,7 @@ Scheme 2: Scheme 4`,
 
                     <xo-tooltip class="header-v24__icon-wrap header-v24__icon-wrap--desktop"
                       xo-placement="bottom-center" xo-title="Wishlist">
-                      <a aria-label="Wishlist" class="header-v24__icon" href=" " title="Wishlist">
+                      <a aria-label="Wishlist" class="header-v24__icon" href="{% url 'wishlist:wishlist_page' %}" title="Wishlist">
                         <svg version="1.1" viewBox="0 0 400 400" width="24" xmlns="http://www.w3.org/2000/svg">
                           <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
                             <g transform="scale(0.1)">
@@ -1184,7 +1184,7 @@ Scheme 2: Scheme 4`,
                                         </xo-tooltip>
                                         <xo-tooltip class="xo-predictive-search__icon-wrap" xo-placement="bottom-center"
                                           xo-title="Wishlist">
-                                          <a aria-label="Wishlist" class="xo-predictive-search__search-icon" href=" "
+                                          <a aria-label="Wishlist" class="xo-predictive-search__search-icon" href="{% url 'wishlist:wishlist_page' %}"
                                             title="Wishlist">
                                             <!-- SVG icon -->
                                           </a>
