@@ -13,9 +13,14 @@ def cart_count(request):
     return {"cart_count": 0}
 
 
+ 
+
 def wishlist_count(request):
     if request.user.is_authenticated:
-        return {
-            "wishlist_count": Wishlist.objects.filter(user=request.user).count()
-        }
+        try:
+            wishlist = Wishlist.objects.get(user=request.user)
+            return {"wishlist_count": wishlist.products.count()}
+        except Wishlist.DoesNotExist:
+            return {"wishlist_count": 0}
     return {"wishlist_count": 0}
+
