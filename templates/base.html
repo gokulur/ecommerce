@@ -737,6 +737,30 @@ Scheme 2: Scheme 4`,
     .toast.info .progress:before {
       background: rgb(13 202 240);
     }
+
+
+    .circle-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease;
+    }
+
+    .circle-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    }
+
+    .circle-btn svg {
+      pointer-events: none;
+    }
   </style>
 
   <script async="async" id="scb4127" src="{% static 'cdn/shopifycloud/privacy-banner/storefront-banner.js' %}"
@@ -1100,7 +1124,8 @@ Scheme 2: Scheme 4`,
 
                     <xo-tooltip class="header-v24__icon-wrap header-v24__icon-wrap--desktop"
                       xo-placement="bottom-center" xo-title="Wishlist">
-                      <a aria-label="Wishlist" class="header-v24__icon" href="{% url 'wishlist:wishlist_page' %}" title="Wishlist">
+                      <a aria-label="Wishlist" class="header-v24__icon" href="{% url 'wishlist:wishlist_page' %}"
+                        title="Wishlist">
                         <svg version="1.1" viewBox="0 0 400 400" width="24" xmlns="http://www.w3.org/2000/svg">
                           <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
                             <g transform="scale(0.1)">
@@ -1131,7 +1156,7 @@ Scheme 2: Scheme 4`,
                             fill="rgba(var(--color-foreground))"></path>
                         </svg>
                         <span class="header-v24__cart-count">
-                       {{ cart_count }}
+                          {{ cart_count }}
 
                         </span>
                       </xo-modal-trigger>
@@ -1185,8 +1210,8 @@ Scheme 2: Scheme 4`,
                                         </xo-tooltip>
                                         <xo-tooltip class="xo-predictive-search__icon-wrap" xo-placement="bottom-center"
                                           xo-title="Wishlist">
-                                          <a aria-label="Wishlist" class="xo-predictive-search__search-icon" href="{% url 'wishlist:wishlist_page' %}"
-                                            title="Wishlist">
+                                          <a aria-label="Wishlist" class="xo-predictive-search__search-icon"
+                                            href="{% url 'wishlist:wishlist_page' %}" title="Wishlist">
                                             <!-- SVG icon -->
                                           </a>
                                         </xo-tooltip>
@@ -1688,7 +1713,8 @@ Scheme 2: Scheme 4`,
 
                       {% for product in products|slice:":3" %}
                       <xo-animate xo-duration="700" xo-order="{{ forloop.counter }}" xo-strength="3" xo-type="fade-up">
-                        <a class="banner-v270__item hover-style--scale-up" href="{% url 'product_detail' product.slug %}">
+                        <a class="banner-v270__item hover-style--scale-up"
+                          href="{% url 'product_detail' product.slug %}">
 
                           <div class="xo-image" style="--xo-ratio-percent: 4/3; --x-pos: 50%; --y-pos: 50%;">
                             <img alt="{{ product.name }}" fetchpriority="auto" height="520" is="xo-lazyload"
@@ -1845,41 +1871,22 @@ z-index:98">
                               </button>
                             </xo-product-quick-view-trigger>
                           </xo-tooltip>
-                          {% if product in request.user.wishlist.products.all %}
-                          <!-- REMOVE from wishlist -->
-                          <a href="{% url 'wishlist:toggle' product.id %}">
-                            <xo-products-fetcher-add class="xo-product-info-content__wishlist" xo-type="wishlist">
-                              <xo-tooltip class="xo-product-info-content__icon-wishlist" xo-animate="fade-right" xo-easing="spring"
-                                xo-placement="left-center" xo-title="Remove from Wishlist">
-                          
-                                <!-- REMOVE (filled) heart SVG -->
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="red">
-                                  <path
-                                    d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z" />
-                                </svg>
-                          
-                              </xo-tooltip>
-                            </xo-products-fetcher-add>
-                          </a>
-                          
-                          {% else %}
-                          <!-- ADD to wishlist -->
-                          <a href="{% url 'wishlist:toggle' product.id %}">
-                            <xo-products-fetcher-add class="xo-product-info-content__wishlist" xo-type="wishlist">
-                              <xo-tooltip class="xo-product-info-content__icon-wishlist" xo-animate="fade-right" xo-easing="spring"
-                                xo-placement="left-center" xo-title="Add to Wishlist">
-                          
-                                <!-- ADD (outline) heart SVG -->
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
-                                  <path
-                                    d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z" />
-                                </svg>
-                          
-                              </xo-tooltip>
-                            </xo-products-fetcher-add>
-                          </a>
-                          
-                          {% endif %}
+                          <button class="wishlist-btn circle-btn" data-product-id="{{ product.id }}">
+                            {% if product in request.user.wishlist.products.all %}
+                            <!-- Filled heart -->
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="red">
+                              <path
+                                d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z" />
+                            </svg>
+                            {% else %}
+                            <!-- Outline heart -->
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                              <path
+                                d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z" />
+                            </svg>
+                            {% endif %}
+                          </button>
+
 
                         </div>
                       </div>
@@ -2218,8 +2225,8 @@ z-index:98">
 
               <xo-cart-scroll class="xo-modal-content-style1__body xo-scrollbar">
                 <div class="xo-modal-content-style1__content">
-                  <xo-animate xo-cascade="">
-                    <!-- Free Shipping Progress Bar -->
+                  <!-- <xo-animate xo-cascade="">
+                     Free Shipping Progress Bar  
                     {% if cart.items.exists %}
                     <xo-cart-free-shipping-custom xo-free-shipping-notice="Congrats! You are eligible for FREE Shipping"
                       xo-free-shipping-progress="Buy {{ money }} more to enjoy FREE shipping">
@@ -2239,7 +2246,7 @@ z-index:98">
                       </div>
                     </xo-cart-free-shipping-custom>
                     {% endif %}
-                  </xo-animate>
+                  </xo-animate> -->
 
                   <!-- Success Notification -->
                   <div aria-label="Item added to your cart" class="xo-notify-cart" id="xo-notify" role="dialog"
@@ -2576,6 +2583,38 @@ z-index:98">
 
             });
           </script>
+          <script>
+            document.querySelectorAll(".wishlist-btn").forEach(btn => {
+              btn.addEventListener("click", function () {
+                let productId = this.dataset.productId;
+
+                fetch(`/wishlist/toggle/${productId}/`, {
+                  method: "POST",
+                  headers: {
+                    "X-CSRFToken": "{{ csrf_token }}"
+                  }
+                })
+                  .then(res => res.json())
+                  .then(data => {
+                    // update icon instantly
+                    if (data.added) {
+                      this.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="red">
+                        <path d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z" />
+                    </svg>
+                `;
+                    } else {
+                      this.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                        <path d="M12 21s-6.7-4.4-10-9c-3.3-4.6.2-11 6-9 2 .6 4 2.4 4 2.4s2-1.8 4-2.4c5.8-2 9.3 4.4 6 9-3.3 4.6-10 9-10 9z"/>
+                    </svg>
+                `;
+                    }
+                  });
+              });
+            });
+          </script>
+
 </body>
 
 </html>
