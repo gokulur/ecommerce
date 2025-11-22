@@ -35,19 +35,18 @@ def add_to_cart(request, product_id):
     item, created = CartItem.objects.get_or_create(cart=cart, product=product)
 
     qty = int(request.POST.get("quantity", 1))
-    item.quantity += qty
-    item.save()
-
-
+    
     if not created:
-        item.quantity  
-    item.save()
+        item.quantity += qty  # Add to existing quantity
+    else:
+        item.quantity = qty  # Set initial quantity
+    
+    item.save()  # Save ONLY ONCE
 
     # Check if AJAX request
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         items = cart.items.all()
         total = sum(item.total_price for item in items)
-
         
         return JsonResponse({
             'success': True,
@@ -67,7 +66,6 @@ def cart_page(request):
     items = cart.items.all()
     total = sum(item.total_price for item in items)
 
-
     return render(request, "cart.html", {
         "cart": cart,
         "items": items,
@@ -82,7 +80,7 @@ def increase_qty(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
     product = item.product
 
-  
+    # Check stock limit
     if item.quantity >= product.stock:
         return JsonResponse({
             'success': False,
@@ -92,8 +90,7 @@ def increase_qty(request, item_id):
             'cart_total': float(sum(i.total_price for i in item.cart.items.all()))
         })
     
-
-  
+    # Increase by 1
     item.quantity += 1
     item.save()
 
@@ -101,6 +98,7 @@ def increase_qty(request, item_id):
     items = cart.items.all()
     total = sum(i.total_price for i in items)
 
+    # If from checkout page, redirect
     if "checkout" in request.GET:
         return redirect("checkout_page")
 
@@ -112,7 +110,6 @@ def increase_qty(request, item_id):
     })
 
 
-
 # -------------------------------
 # DECREASE QUANTITY
 # -------------------------------
@@ -120,6 +117,7 @@ def decrease_qty(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
     cart = item.cart
  
+    # Block if quantity is 1
     if item.quantity == 1:
         return JsonResponse({
             "success": False,
@@ -129,12 +127,13 @@ def decrease_qty(request, item_id):
             "cart_total": float(sum(i.total_price for i in cart.items.all()))
         })
 
-    # Normal decrease
+    # Decrease by 1
     item.quantity -= 1
     item.save()
 
     total = sum(i.total_price for i in cart.items.all())
 
+    # If from checkout page, redirect
     if "checkout" in request.GET:
         return redirect("checkout_page")
 
@@ -147,8 +146,6 @@ def decrease_qty(request, item_id):
     })
 
 
-
-
 # -------------------------------
 # REMOVE ITEM
 # -------------------------------
@@ -159,7 +156,6 @@ def remove_item(request, item_id):
     
     items = cart.items.all()
     total = sum(item.total_price for item in items)
-
     
     # Check if AJAX request
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -170,5 +166,3 @@ def remove_item(request, item_id):
         })
     
     return redirect("cart_page")
-
- 
