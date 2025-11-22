@@ -285,13 +285,13 @@
                                             <xo-cart-will-change xo-unique-id="xo-cart-free-shipping-checking"
                                                 class="xo-cart-free-shipping__checking">70.0</xo-cart-will-change>
                                             <div class="xo-cart-free-shipping__position">
-                                                <xo-cart-will-change xo-unique-id="xo-cart-free-shipping-text"
+                                                <!-- <xo-cart-will-change xo-unique-id="xo-cart-free-shipping-text"
                                                     class="xo-cart-free-shipping__text">Buy $530 USD more to enjoy FREE
-                                                    shipping</xo-cart-will-change>
-                                                <div class="xo-cart-free-shipping__progress xo-cart-free-shipping__progress--level-1"
+                                                    shipping</xo-cart-will-change> -->
+                                                <!-- <div class="xo-cart-free-shipping__progress xo-cart-free-shipping__progress--level-1"
                                                     style="--progress: 11.666666666666666%;">
                                                     70.0
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </xo-cart-free-shipping-custom>
@@ -479,8 +479,7 @@ document.addEventListener("click", function (e) {
     const removeBtn = e.target.closest(".remove-item-btn");
     if (removeBtn) {
         e.preventDefault();
-        e.stopImmediatePropagation(); // 🔥 FIX DOUBLE CLICK
-
+        e.stopImmediatePropagation();  
         let itemID = removeBtn.dataset.itemId;
         let url = removeBtn.dataset.url;
 
