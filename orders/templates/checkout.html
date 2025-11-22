@@ -69,7 +69,7 @@
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.05); }
     }
-
+/* 
     .cancel-buy-now-btn {
         display: inline-block;
         margin: 15px 0;
@@ -87,7 +87,7 @@
         background: #e8e8e8;
         text-decoration: none;
         transform: translateX(-4px);
-    }
+    } */
 
     /* LEFT SECTION - Form */
     .checkout-form-section {
@@ -569,9 +569,9 @@
 
             {% if is_buy_now %}
                 <!-- BUY NOW MODE -->
-                <a href="{% url 'cancel_buy_now' %}" class="cancel-buy-now-btn">
+                <!-- <a href="{% url 'cancel_buy_now' %}" class="cancel-buy-now-btn">
                     ← Continue Shopping
-                </a>
+                </a> -->
 
                 {% for item in items %}
                 <div class="checkout-order-item">

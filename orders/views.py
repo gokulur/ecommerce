@@ -82,11 +82,21 @@ def cancel_buy_now(request):
 
 
 # -----------------------------
-# CHECKOUT PAGE (GET)
+# CHECKOUT PAGE (GET) - FIXED
 # -----------------------------
 @login_required
 def checkout_page(request):
     cart = get_cart(request)
+    
+    # Check if user came from cart (has ?from=cart or has cart items)
+    from_cart = request.GET.get('from') == 'cart'
+    has_cart_items = cart.items.exists()
+    
+    # If coming from cart and has items, clear any old buy_now session
+    if from_cart and has_cart_items:
+        if 'buy_now_item' in request.session:
+            del request.session['buy_now_item']
+            request.session.modified = True
     
     # Check if this is a "Buy Now" checkout
     buy_now_item = request.session.get('buy_now_item')
@@ -112,12 +122,13 @@ def checkout_page(request):
         is_buy_now = False
         
         if not items:
+            messages.info(request, "Your cart is empty. Add some products first!")
             return redirect("cart_page")
     
-    # Calculate totals - FIX: Convert to Decimal
+    # Calculate totals
     subtotal = sum(item.total_price for item in items)
-    shipping = Decimal('50.00')  # Convert to Decimal
-    tax = round(subtotal * Decimal('0.18'), 2)  # Use Decimal instead of float
+    shipping = Decimal('50.00')
+    tax = round(subtotal * Decimal('0.18'), 2)
     total = subtotal + shipping + tax
     
     profile = getattr(request.user, "profile", None)
@@ -167,7 +178,7 @@ def checkout_action(request):
             price=product.price
         )
         
-        # Clear buy_now session
+        # Clear buy_now session after successful order
         del request.session['buy_now_item']
         request.session.modified = True
         
