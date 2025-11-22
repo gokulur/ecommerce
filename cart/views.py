@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
+from django.contrib import messages
 from .models import Cart, CartItem, Product
 
 
@@ -29,32 +30,59 @@ def get_cart(request):
 # ADD TO CART
 # -------------------------------
 def add_to_cart(request, product_id):
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "POST required"}, status=400)
+    
     cart = get_cart(request)
     product = get_object_or_404(Product, id=product_id)
 
+    # Get or create cart item
     item, created = CartItem.objects.get_or_create(cart=cart, product=product)
 
+    # Get quantity from form
     qty = int(request.POST.get("quantity", 1))
-    
+
+    # Check stock limit
+    if item.quantity + qty > product.stock:
+        # Set to max stock
+        item.quantity = product.stock
+        item.save()
+
+        # Check if AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            items = cart.items.all()
+            return JsonResponse({
+                "success": False,
+                "limit": True,
+                "message": f"Only {product.stock} items available in stock!",
+                "cart_count": items.count(),  # COUNT OF UNIQUE PRODUCTS
+                "cart_total": float(sum(i.total_price for i in items))
+            })
+        
+        messages.warning(request, f"Only {product.stock} items available!")
+        return redirect("cart_page")
+
+ 
     if not created:
-        item.quantity += qty  # Add to existing quantity
+        item.quantity += qty
     else:
-        item.quantity = qty  # Set initial quantity
+        item.quantity = qty
     
-    item.save()  # Save ONLY ONCE
+    item.save()
 
     # Check if AJAX request
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         items = cart.items.all()
-        total = sum(item.total_price for item in items)
-        
         return JsonResponse({
-            'success': True,
-            'message': 'Product added to cart',
-            'cart_count': sum(item.quantity for item in items),
-            'cart_total': float(total)
+            "success": True,
+            "limit": False,
+            "message": "Product added to cart successfully!",
+            "cart_count": items.count(),  # COUNT OF UNIQUE PRODUCTS
+            "cart_total": float(sum(i.total_price for i in items)),
+            "product_name": product.name
         })
     
+    messages.success(request, f"{product.name} added to cart!")
     return redirect("cart_page")
 
 
@@ -86,8 +114,10 @@ def increase_qty(request, item_id):
             'success': False,
             'limit_reached': True,
             'quantity': item.quantity,
+            'message': 'Maximum stock reached!',
             'item_total': float(item.total_price),
-            'cart_total': float(sum(i.total_price for i in item.cart.items.all()))
+            'cart_total': float(sum(i.total_price for i in item.cart.items.all())),
+            'cart_count': item.cart.items.count()  # COUNT OF UNIQUE PRODUCTS
         })
     
     # Increase by 1
@@ -107,6 +137,7 @@ def increase_qty(request, item_id):
         'quantity': item.quantity,
         'item_total': float(item.total_price),
         'cart_total': float(total),
+        'cart_count': items.count()  # COUNT OF UNIQUE PRODUCTS
     })
 
 
@@ -123,15 +154,18 @@ def decrease_qty(request, item_id):
             "success": False,
             "block": True,
             "quantity": item.quantity,
+            "message": "Minimum quantity is 1",
             "item_total": float(item.total_price),
-            "cart_total": float(sum(i.total_price for i in cart.items.all()))
+            "cart_total": float(sum(i.total_price for i in cart.items.all())),
+            "cart_count": cart.items.count()  # COUNT OF UNIQUE PRODUCTS
         })
 
     # Decrease by 1
     item.quantity -= 1
     item.save()
 
-    total = sum(i.total_price for i in cart.items.all())
+    items = cart.items.all()
+    total = sum(i.total_price for i in items)
 
     # If from checkout page, redirect
     if "checkout" in request.GET:
@@ -142,7 +176,8 @@ def decrease_qty(request, item_id):
         "block": False,
         "quantity": item.quantity,
         "item_total": float(item.total_price),
-        "cart_total": float(total)
+        "cart_total": float(total),
+        "cart_count": items.count()  # COUNT OF UNIQUE PRODUCTS
     })
 
 
@@ -152,6 +187,7 @@ def decrease_qty(request, item_id):
 def remove_item(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
     cart = item.cart
+    product_name = item.product.name
     item.delete()
     
     items = cart.items.all()
@@ -161,8 +197,10 @@ def remove_item(request, item_id):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return JsonResponse({
             'success': True,
+            'message': f'{product_name} removed from cart',
             'cart_total': float(total),
-            'cart_count': sum(i.quantity for i in items)
+            'cart_count': items.count()  # COUNT OF UNIQUE PRODUCTS
         })
     
+    messages.success(request, f'{product_name} removed from cart')
     return redirect("cart_page")
