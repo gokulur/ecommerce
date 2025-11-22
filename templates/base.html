@@ -2361,12 +2361,29 @@ z-index:98">
                   <span id="cart-total">₹{{ cart.get_total }}</span>
                 </div>
 
-                  <a href="{% url 'checkout_page' %}"
-                    class="xo-btn xo-btn--dark xo-btn--primary xo-btn--md xo-btn--slide-up checkout-btn">
-                    <span class="xo-btn__content">
-                      <span class="xo-btn__text" data-text="Proceed to Checkout">Proceed to Checkout</span>
-                    </span>
-                  </a>
+<div class="checkout-row" style="display:flex; gap:1rem; margin-top:1rem;">
+        
+        <a href="{% url 'checkout_page' %}"
+           class="xo-btn xo-btn--dark xo-btn--primary xo-btn--md xo-btn--slide-up"
+           style="flex:1; text-align:center;">
+            <span class="xo-btn__content">
+                <span class="xo-btn__text" data-text="Proceed to Checkout">
+                    Proceed to Checkout
+                </span>
+            </span>
+        </a>
+
+        <a href="{% url 'cart_page' %}"
+           class="xo-btn xo-btn--light xo-btn--primary xo-btn--md xo-btn--slide-up"
+           style="flex:1; text-align:center;">
+            <span class="xo-btn__content">
+                <span class="xo-btn__text" data-text="View Cart">
+                    View Cart
+                </span>
+            </span>
+        </a>
+
+    </div>
                 </div>
                 {% endif %}
 
